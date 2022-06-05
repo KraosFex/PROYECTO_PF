@@ -1,0 +1,24 @@
+OBJETIVOS DE LA API:
+--Buscar paises
+--Filtrarlos / Ordenarlos
+--Crear actividades turísticas
+
+ENDPOINTS QUE PODEMOS UTILIZAR:
+--GET https://restcountries.com/v3/all
+--GET https://restcountries.com/v3/name/{name}
+--GET https://restcountries.com/v3/alpha/{code}
+
+DATOS PARA ESTILOS: 
+--Aside Activities: 18 caracteres max. 21 actividades max.
+
+
+PROBLEMAS:
+--(RESUELTO)Tratar de combinar filtro countries con activity
+--(RESUELTO)Cambiar color de error form
+--(RESUELTO)Fijarse porque desaparecen paginados cuando hay un pagina simi-completa de paises
+--El test para el componenet de Details no funciona
+--(RESUELTO)Cambiar todos los iconos por css puro
+
+
+PREGUNTAS PARA EL CORRECTOR:
+--
