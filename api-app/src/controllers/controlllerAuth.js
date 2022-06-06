@@ -10,8 +10,7 @@ const authUser = async (req, res) => {
         if (!user) return res.send({ info: 'Datos invalidos user o pass not found' })
         const validPass = await bcrypt.compareSync(password, user.password)
         if (!validPass) return res.send({ info: 'Datos invalidos user o pass not found' })
-        const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' })
-
+        const token = jwt.sign({ id: user._id, name: user.name }, process.env.SECRET_KEY, { expiresIn: '1h' })
         res.send({ info: 'Usuario autenticado', token })
     } catch (err) {
         res.send({ info: 'Error al autenticar el usuario', err })
