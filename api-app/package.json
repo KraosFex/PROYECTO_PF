@@ -19,9 +19,15 @@
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.5",
-    "npm": "^8.12.1"
+    "npm": "^8.12.1",
+    "nodemon": "^2.0.16"
   },
   "devDependencies": {
-    "nodemon": "^2.0.16"
+    "standard": "17.0.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "./node_modules/standard/eslintrc.json"
+    ]
   }
 }
