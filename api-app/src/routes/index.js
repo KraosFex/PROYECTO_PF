@@ -8,7 +8,7 @@ const auth = require('./auth.js')
 
 router.use('/users', users)
 router.use('/cursos', cursos)
-router.use('/', auth)
+router.use('/auth', auth)
 
 
 
