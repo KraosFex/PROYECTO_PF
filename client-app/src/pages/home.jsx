@@ -1,6 +1,6 @@
 import React from "react";
-import NavBar from "../components/navbar/navBar";
-import NavBarUser from "../components/navbar/navBarUser";
+import NavBar from "../Components/navbar/navBar";
+import NavBarUser from "../Components/navbar/navBarUser";
 import style from "../styles/Pages/home.module.css";
 
 function Home() {
