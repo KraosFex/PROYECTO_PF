@@ -1,8 +1,11 @@
 import React from "react";
+import NavBar from "../components/navbar/navBar";
+import NavBarUser from "../components/navbar/navBarUser";
 import style from "../styles/Pages/home.module.css";
 
 function Home() {
   return (
+    <div className="App">
     <div className={style.flexContainer}>
       <div className={style.container}></div>
       <div className={style.flexContainer2}>
@@ -10,6 +13,8 @@ function Home() {
         <div className={style.container2}></div>
       </div>
     </div>
+    <NavBar />
+    <NavBarUser /></div>
   );
 }
 
