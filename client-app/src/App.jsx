@@ -1,9 +1,18 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+
+import exampleComponent from './components/exampleComponent'
+
 import './index.css'
+
 
 function App() {
   return (
     <div className="App">
-        <h1> Heo world!!!! </h1>      
+      <Router>
+        <Routes>
+          <Route path="/example" element={<exampleComponent />} />
+        </Routes>
+      </Router>  
     </div>
   )
 }
