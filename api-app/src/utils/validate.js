@@ -31,8 +31,11 @@ const validateAuth = (req, res, next) => {
     res.send({ info: 'Aunteticado Correcto', token })
 }
 
+
+
 module.exports = {
     userSchema,
     validateAuth,
+    validateAuthAndAutorization,
     courseSchema,
 }
