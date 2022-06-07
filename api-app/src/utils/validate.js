@@ -7,6 +7,15 @@ const userSchema = Joi.object({
     password: Joi.string().required(),
 })
 
+const courseSchema = Joi.object({
+    titulo: Joi.string().min(1).max(50).required(),
+    descripcion: Joi.string().required(),
+    calificacion: Joi.number(),
+    imagen: Joi.string(),
+    userInscript: Joi.number(),
+    clases: Joi.array()
+})
+
 const validateAuth = (req, res, next) => {
     let token = req.get('pass')
     if (token) {
@@ -25,4 +34,5 @@ const validateAuth = (req, res, next) => {
 module.exports = {
     userSchema,
     validateAuth,
+    courseSchema,
 }
