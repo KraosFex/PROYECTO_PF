@@ -1,0 +1,81 @@
+body{
+    background-color: rgb(49, 49, 49);
+  }
+  
+  .navbar{
+    background-color: rgb(160, 20, 13);
+    position: fixed;
+    height: 100%;
+    width: 7em;
+    margin-left: 0;
+    transition: width 1.6s;
+    box-shadow: 10px 0px 18px -9px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 10px 0px 18px -9px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 0px 18px -9px rgba(0,0,0,0.75);
+  }
+  .navbar:hover{
+    width:14em;
+  }
+  
+  .logo{
+    padding-top: 1em;
+    margin-left: 1.5em;
+    width:9em;
+    height: 3em;
+    background-size: 4em 4em;
+    background-repeat: no-repeat;
+    transition: margin-left 1.9s;
+  }
+  
+  .icon{
+    display: flex;
+    margin-left: 2.4em;
+    padding-top: 5em;
+  }
+  
+  
+  .navbar a{
+    text-decoration: none;
+    color: white;
+  }
+  
+  .navbar a:hover{
+    color: rgb(192, 192, 192);
+  }
+  
+  
+  
+  .icon svg{
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    color: rgb(184, 184, 184);
+  }
+  
+  .hide{
+    display: inline-block;
+    opacity: 0%;
+    font-size: 1em;
+    margin-left: 0em;
+    color: white;
+  }
+  
+  .navbar:hover .hide{
+    margin-left: 3.5em;
+    opacity: 100%;
+    color: white;
+    transition: margin-left 1.5s, opacity 2.5s;
+  }
+  
+  .navbar:hover > .logo{
+    /* background-image: url("https://i.imgur.com/3PgliiZ.gif"); */
+    background-size: 10em 4em;
+    margin-left: 2.5em;
+    transition: margin-left 1.6s;
+  }
+  
+  .flex{
+    display:flex;
+    flex-direction: row;
+    position: relative;
+  }
