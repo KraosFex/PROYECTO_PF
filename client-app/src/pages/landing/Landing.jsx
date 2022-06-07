@@ -1,8 +1,9 @@
+import Particles from 'react-tsparticles';
+
 const Landing = () => {
     return(
         <div>
 
-            <h1>Conectado ...</h1>
 
         </div>
     )
