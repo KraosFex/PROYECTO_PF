@@ -1,20 +1,19 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
-import exampleComponent from './components/exampleComponent'
+import "./index.css";
+import Home from "./pages/home";
+import NavBar from "./Components/navbar/navBar";
+import NavBarUser from "./Components/navbar/navBarUser";
 
-import './index.css'
 
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Routes>
-          <Route path="/example" element={<exampleComponent />} />
-        </Routes>
-      </Router>  
+      <Home />
+      <NavBar />
+      <NavBarUser />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
