@@ -30,3 +30,20 @@ const courseSchema = new Schema({
 
 
 module.exports = model('Course', courseSchema)
+=======
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    classes: {
+        type: Array,
+        required: true,
+        validate: c => c.length > 0
+    }
+})
+
+module.exports = model('Course', courseSchema)
