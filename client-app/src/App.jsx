@@ -1,16 +1,11 @@
-import "./index.css";
-import NavBar from "./Components/navbar/navBar";
-import Home from "./pages/home";
-import NavBarUser from "./Components/navbar/navBarUser";
+import './index.css'
 
 function App() {
   return (
     <div className="App">
-      <Home />
-      <NavBar />
-      <NavBarUser />
+        <h1> Hello world!!!! </h1>      
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
