@@ -8,9 +8,9 @@ import CursoIcon from "../icons/libro";
 function NavBar() {
   let navBar = useRef(null);
   let logo = useRef(null);
-  const gif1 = "../icons/Codelearn3.gif";
-  const gif2 = "../icons/Codelearn4.gif";
-  const png = "../icons/logoframe.png";
+  const gif1 = "https://i.imgur.com/3PgliiZ.gif";
+  const gif2 = "https://i.imgur.com/TUv0sba.gif";
+  const png = "https://i.imgur.com/v4fa986.png";
 
   const handleMouseEnter = () => {
     logo.current.setAttribute("src", gif1);
