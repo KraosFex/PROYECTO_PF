@@ -1,11 +1,14 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import style from "../../styles/Navbar/navbar.module.css";
+import darkTheme from "../../styles/Navbar/navbarBlack.module.css";
+import lightTheme from "../../styles/Navbar/navbarLight.module.css";
 import CodeIcon from "../icons/code";
 import Discord from "../icons/Discord";
 import CursoIcon from "../icons/libro";
+import { ThemeProvider } from "styled-components";
 
-function NavBar() {
+function NavBar(props) {
+  let style = darkTheme;
   let navBar = useRef(null);
   let logo = useRef(null);
   const gif1 = "https://i.imgur.com/3PgliiZ.gif";
@@ -20,32 +23,38 @@ function NavBar() {
   };
 
   return (
-    <div
-      ref={navBar}
-      className={style.navbar}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+    <ThemeProvider
+      theme={
+        props.theme === "light" ? (style = lightTheme) : (style = darkTheme)
+      }
     >
-      <img ref={logo} src={png} alt="logo" className={style.logo} />
-      <div className={style.icon}>
-        <CursoIcon />
-        <Link to="#" className={style.hide}>
-          Cursos
-        </Link>
+      <div
+        ref={navBar}
+        className={style.navbar}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <img ref={logo} src={png} alt="logo" className={style.logo} />
+        <div className={style.icon}>
+          <CursoIcon />
+          <Link to="#" className={style.hide}>
+            Cursos
+          </Link>
+        </div>
+        <div className={style.icon}>
+          <CodeIcon />
+          <Link to="#" className={style.hide}>
+            Ejercicios
+          </Link>
+        </div>
+        <div className={style.icon}>
+          <Discord />
+          <Link to="#" className={style.hide}>
+            Unete a Discord!
+          </Link>
+        </div>
       </div>
-      <div className={style.icon}>
-        <CodeIcon />
-        <Link to="#" className={style.hide}>
-          Ejercicios
-        </Link>
-      </div>
-      <div className={style.icon}>
-        <Discord />
-        <Link to="#" className={style.hide}>
-          Unete a Discord!
-        </Link>
-      </div>
-    </div>
+    </ThemeProvider>
   );
 }
 
