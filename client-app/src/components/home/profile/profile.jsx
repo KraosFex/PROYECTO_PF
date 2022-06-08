@@ -1,15 +1,15 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import darkTheme from "../../styles/Navbar/navbarUserBlack.module.css";
-import lightTheme from "../../styles/Navbar/navbarUserLight.module.css";
-import FavoriteIcon from "../icons/Favorite";
-import Moon from "../icons/moon";
-import Notification from "../icons/notification";
+import darkTheme from "./profileBlack.module.css";
+import lightTheme from "./profileLight.module.css";
+import FavoriteIcon from "../../../icons/Favorite";
+import Moon from "../../../icons/moon";
+import Notification from "../../../icons/notification";
 import { ThemeProvider } from "styled-components";
-import Sun from "../icons/sun";
+import Sun from "../../../icons/sun";
 import { useDispatch } from "react-redux";
 
-function NavBarUser() {
+function Profile() {
   const dispatch = useDispatch();
   const MoonIcon = <Moon />;
   const SunIcon = <Sun />;
@@ -72,4 +72,4 @@ function NavBarUser() {
   );
 }
 
-export default NavBarUser;
+export default Profile;

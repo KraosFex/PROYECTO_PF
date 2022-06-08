@@ -1,6 +1,6 @@
 
-import NavBar from "../navbar/navBar";
-import NavBarUser from "../navbar/navBarUser.jsx";
+import Aside from "../home/aside/aside";
+import Profile from "../home/profile/profile";
 import style from "./register.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState } from "react";
@@ -93,8 +93,8 @@ function Register() {
 
         </form>
       </div>
-      <NavBar />
-      <NavBarUser />
+      <Aside />
+      <Profile />
     </div>
   );
 }

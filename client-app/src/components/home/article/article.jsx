@@ -1,14 +1,16 @@
 import React from "react";
 
-import darkTheme from "../styles/Pages/homeDark.module.css";
-import lightTheme from "../styles/Pages/homeLight.module.css";
+import darkTheme from "./articleDark.module.css";
+import lightTheme from "./articleLight.module.css";
 import { ThemeProvider } from "styled-components";
-import codeLearnGold from "../Components/icons/codelearngold.png";
+import codeLearnGold from "../../../icons/codelearngold.png";
 import { Link } from "react-router-dom";
 
 
-function Home(props) {
+function Article(props) {
+
   let style = darkTheme;
+
   return (
 
     <ThemeProvider
@@ -43,4 +45,4 @@ function Home(props) {
   );
 }
 
-export default Home;
+export default Article;

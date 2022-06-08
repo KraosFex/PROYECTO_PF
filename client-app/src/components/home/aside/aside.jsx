@@ -1,13 +1,13 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import darkTheme from "../../styles/Navbar/navbarBlack.module.css";
-import lightTheme from "../../styles/Navbar/navbarLight.module.css";
-import CodeIcon from "../icons/code";
-import Discord from "../icons/Discord";
-import CursoIcon from "../icons/libro";
+import darkTheme from "./asideBlack.module.css";
+import lightTheme from "./asideLight.module.css";
+import CodeIcon from "../../../icons/code";
+import Discord from "../../../icons/Discord";
+import CursoIcon from "../../../icons/libro";
 import { ThemeProvider } from "styled-components";
 
-function NavBar(props) {
+function Aside(props) {
   let style = darkTheme;
   let navBar = useRef(null);
   let logo = useRef(null);
@@ -58,4 +58,4 @@ function NavBar(props) {
   );
 }
 
-export default NavBar;
+export default Aside;
