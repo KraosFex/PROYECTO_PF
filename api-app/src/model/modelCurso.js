@@ -1,19 +1,34 @@
-const {Schema, model} = require('mongoose');
+const { Schema, model } = require("mongoose");
 
-const courseSchema = new Schema({
-    title: {
-        type: String,
-        required: true
+const courseSchema = new Schema(
+  {
+    titulo: {
+      type: String,
+      required: true,
     },
-    description: {
-        type: String,
-        required: true
+    descripcion: {
+      type: String,
+      required: true,
     },
-    classes: {
-        type: Array,
-        required: true,
-        validate: c => c.length > 0
-    }
-})
+    calificacion: {
+      type: Number,
+      required: true,
+    },
+    imagen: {
+      type: String,
+      required: true,
+    },
+    userInscrip: {
+      type: Number,
+    },
+    clases: {
+      type: [String],
+    },
+  },
+  {
+    timestamps: true,
+    versionKey: false,
+  }
+);
 
-module.exports = model('Course', courseSchema)
+module.exports = model("Course", courseSchema);

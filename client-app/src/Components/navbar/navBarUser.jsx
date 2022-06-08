@@ -6,11 +6,11 @@ import FavoriteIcon from "../icons/Favorite";
 import Moon from "../icons/moon";
 import Notification from "../icons/notification";
 import { ThemeProvider } from "styled-components";
-import NavBar from "./navBar";
-import Home from "../../pages/home";
 import Sun from "../icons/sun";
+import { useDispatch } from "react-redux";
 
 function NavBarUser() {
+  const dispatch = useDispatch();
   const MoonIcon = <Moon />;
   const SunIcon = <Sun />;
   var style = darkTheme;
@@ -24,6 +24,10 @@ function NavBarUser() {
         "--backgroundColor",
         "#272727 "
       );
+      dispatch({
+        type: "NEW_THEME",
+        payload: theme,
+      });
     } else {
       setTheme("light");
       setThemeIcon(SunIcon);
@@ -31,14 +35,17 @@ function NavBarUser() {
         "--backgroundColor",
         "#E3E3E3 "
       );
+      dispatch({
+        type: "NEW_THEME",
+        payload: theme,
+      });
     }
   };
+
   return (
     <ThemeProvider
       theme={theme === "light" ? (style = lightTheme) : (style = darkTheme)}
     >
-      <Home theme={theme} />
-      <NavBar theme={theme} />
       <div className={style.container}>
         <div className={style.icon21}>
           <Link to="#" onClick={toggleTheme}>

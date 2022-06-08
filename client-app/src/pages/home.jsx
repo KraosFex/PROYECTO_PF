@@ -4,6 +4,8 @@ import lightTheme from "../styles/Pages/homeLight.module.css";
 import { ThemeProvider } from "styled-components";
 import codeLearnGold from "../Components/icons/codelearngold.png";
 import { Link } from "react-router-dom";
+import NavBar from "../Components/navbar/navBar";
+import NavBarUser from "../components/navbar/navBarUser";
 
 function Home(props) {
   let style = darkTheme;
