@@ -26,7 +26,7 @@ function NavBarUser() {
       );
       dispatch({
         type: "NEW_THEME",
-        payload: theme,
+        payload: "dark",
       });
     } else {
       setTheme("light");
@@ -37,7 +37,7 @@ function NavBarUser() {
       );
       dispatch({
         type: "NEW_THEME",
-        payload: theme,
+        payload: "light",
       });
     }
   };
