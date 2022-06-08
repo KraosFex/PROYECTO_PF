@@ -1,8 +1,9 @@
 
-import "./index.css";
+import { Route, Routes } from "react-router-dom";
 import Home from "./components/home/home";
 import Login from "./components/login/login";
-import { Routes, Route } from "react-router-dom";
+import Register from "./components/register/register";
+import "./index.css";
 
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
       <Routes>
 
         <Route path="/login" element={<Login />}/>
-
+        <Route path ="/Register" element={<Register />} />
         <Route path="/home" element={<Home />}/>
 
 

@@ -3,6 +3,7 @@ import style from "./article.module.css";
 
 function Article() {
   return (
+    <div className="App">
     <div className={style.flexContainer}>
       <div className={style.container}></div>
       <div className={style.flexContainer2}>
