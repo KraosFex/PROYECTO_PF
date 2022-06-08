@@ -1,3 +1,4 @@
+
 // index reducers app
 const initialState = {
   Curses: [],
@@ -28,3 +29,4 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return state;
   }
 }
+
