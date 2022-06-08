@@ -1,7 +1,7 @@
 import React from "react";
-import style from "../styles/Pages/home.module.css";
+import style from "./article.module.css";
 
-function Home() {
+function Article() {
   return (
     <div className={style.flexContainer}>
       <div className={style.container}></div>
@@ -13,4 +13,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Article;

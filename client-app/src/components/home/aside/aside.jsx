@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import style from "../../styles/Navbar/navbar.module.css";
-import CodeIcon from "../icons/code";
-import Discord from "../icons/Discord";
-import CursoIcon from "../icons/libro";
+import style from "./aside.module.css";
+import CodeIcon from "../../../icons/code";
+import Discord from "../../../icons/Discord";
+import CursoIcon from "../../../icons/libro";
 
-function NavBar() {
+function Aside() {
   let navBar = useRef(null);
   let logo = useRef(null);
   const gif1 = "https://i.imgur.com/3PgliiZ.gif";
@@ -49,4 +49,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default Aside;

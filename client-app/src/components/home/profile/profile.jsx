@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import style from "../../styles/Navbar/navbarUser.module.css";
-import FavoriteIcon from "../icons/Favorite";
-import Notification from "../icons/notification";
-import UserIcon from "../icons/User";
+import style from "./profile.module.css";
+import FavoriteIcon from "../../../icons/Favorite";
+import Notification from "../../../icons/notification";
+import UserIcon from "../../../icons/User";
 
-function NavBarUser() {
+function Profile() {
   return (
     <div className={style.container}>
       <div className={style.icon21}>
@@ -27,4 +27,4 @@ function NavBarUser() {
   );
 }
 
-export default NavBarUser;
+export default Profile;
