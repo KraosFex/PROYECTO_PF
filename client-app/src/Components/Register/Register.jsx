@@ -1,6 +1,6 @@
 
-import NavBar from "../navbar/navBar";
-import NavBarUser from "../navbar/navBarUser.jsx";
+import Aside from "../home/aside/aside";
+import Profile from "../home/profile/profile";
 import style from "./register.module.css";
 import React, { useState } from "react";
 import { createNew } from "../../../redux/actions";
@@ -91,8 +91,8 @@ function Register() {
           {errores.good ? <label className={style.good}>{errores.good}</label> : null}
         </form>
       </div>
-      <NavBar />
-      <NavBarUser />
+      <Aside />
+      <Profile />
     </div>
   );
 }

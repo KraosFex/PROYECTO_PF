@@ -1,19 +1,32 @@
 const {Schema, model} = require('mongoose');
 
 const courseSchema = new Schema({
-    title: {
+    titulo: {
         type: String,
         required: true
     },
-    description: {
+    descripcion: {
         type: String,
         required: true
     },
-    classes: {
-        type: Array,
+    calificacion: {
+        type: Number,
+        required: true
+    },
+    imagen: {
+        type: String,
         required: true,
-        validate: c => c.length > 0
+    },
+    userInscrip: {
+        type: Number,
+    },
+    clases: {
+        type: [String],
     }
+}, {
+    timestamps: true,
+    versionKey: false,
 })
+
 
 module.exports = model('Course', courseSchema)

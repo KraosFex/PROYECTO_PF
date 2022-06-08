@@ -17,14 +17,20 @@ const userSchema = new Schema({
         type: Boolean,
         default: true
     },
-    role: {
-        type: String,
-        default: 'USER'
+    isAdmin: {
+        type: Boolean,
+        default: false
     },
     Image: {
         type: String,
         default: 'https://www.softzone.es/app/uploads/2018/04/guest.png?x=480&quality=20'
-    }
+    },
+    courses: [{
+        course: {
+            type: Schema.ObjectId,
+            ref: 'Course'
+        }
+    }]
 }, {
     timestamps: true,
     versionKey: false,
