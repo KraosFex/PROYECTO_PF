@@ -1,3 +1,5 @@
+
+
 .flex{
 }
 .container{
@@ -25,12 +27,8 @@
 }
 
 .container:hover + .info{
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   opacity: 100%;
-  -webkit-transition: opacity 1.5s;
-  -o-transition: opacity 1.5s;
   transition: opacity 1.5s;
 }
 
@@ -39,6 +37,17 @@
   margin-left: 1em;
   padding-top: 1em;
   padding-left:3em;
+}
+.icon3{
+  margin-left: 0.3em;
+  margin-top: 0.5em;
+  padding-left:3em;
+}
+.icon3 img{
+  position: absolute;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
 }
 
 .icon2 svg{

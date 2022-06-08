@@ -19,20 +19,35 @@ const courseSchema = Joi.object({
 const validateAuth = (req, res, next) => {
     let token = req.get('pass')
     if (token) {
-    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-            if (err) {
-                return res.status(401).json({
-                    message: 'Token invalido'
-                })
-            }
-        }
-        )
+    jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
+        if (err) return res.status(401).json({ message: 'Token invalido' })
+        req.user = user
+        next()
+        })
+    } else {
+        return res.status(401).json({
+            message: 'No estas autenticado'
+        })
     }
-    res.send({ info: 'Aunteticado Correcto', token })
 }
+
+const validateAuthAndAnAdmin = (req, res, next) => {
+    validateAuth(req, res, () => {
+        if (req.user.isAdmin) {
+            next()
+        } else {
+            res.status(403).send({info: 'No tienes permisos para realizar esta accion'})
+        }
+    }
+)}
+
+
+
+
 
 module.exports = {
     userSchema,
     validateAuth,
+    validateAuthAndAnAdmin,
     courseSchema,
 }
