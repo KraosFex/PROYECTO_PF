@@ -63,8 +63,11 @@
     cursor: pointer;
 }
 .inputs::placeholder { color: #b8b8b8; }
-
-.send{
+.btns{
+    display: flex;
+    align-items: center;
+}
+.send, .send2{
     width: 100px;
     height: 30px;
     background: #1d1d1d;
@@ -73,13 +76,22 @@
     font-weight: bold;
     border-radius: 15px;
 }
-.send:hover{
+.send2{
+    height: 26px;
+    font-size: smaller;
+    display: flex;
+    margin-left: 5px;
+    align-items: center;
+    justify-content: center;
+}
+.send:hover, .send2:hover{
     color: white;
     cursor: pointer;
     transition: color 0.3s;
 }
 .eye{
     height: 20px;
+    padding: 0px 3px;
 }
 .beye{
     /* position: relative;
