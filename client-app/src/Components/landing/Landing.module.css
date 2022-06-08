@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: "Open_sans";
-    src: url(../fonts/Open_Sans/Open_Sans/OpenSans-Regular.ttf);
+    src: url(../../fonts/OpenSans-Regular.ttf);
 }
 
 /* UTILIDADES */
@@ -16,7 +16,7 @@ img{
     width: 95%;
 }
 
-/* ESTYLOS */
+/* ESTILOS */
 .containerHeader{
     display: flex;
     justify-content: center;

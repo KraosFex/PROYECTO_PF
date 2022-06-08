@@ -4,9 +4,9 @@ const { getUsers, createUser, getUserById } = require('../controllers/controller
 const { validateAuth } = require('../utils/validate.js')
 
 
-router.get('/', validateAuth, getUsers)
+router.get('/',  validateAuth, getUsers)
 router.post('/', createUser)
-router.get('/:id', validateAuth, getUserById)
+router.get('/:id',  getUserById)
 
 
 

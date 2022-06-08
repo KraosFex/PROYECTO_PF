@@ -3,7 +3,7 @@ const router = Router();
 const { authUser } = require('../controllers/controlllerAuth')
 
 
-router.post('/', authUser)
+router.get('/', authUser)
 
 
 module.exports = router;
