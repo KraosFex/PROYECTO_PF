@@ -5,10 +5,10 @@ import Profile from "./components/home/profile/profile";
 import Login from "./components/login/login";
 import Curses from "./components/curses/curses";
 import Register from "./components/register/register";
-import Landing from "./components/landing/Landing";
+import Landing from "./components/landing/landing";
 import { useSelector } from "react-redux";
 import "./index.css";
-import CurseD from "./components/CurseD/Curse";
+import CurseD from "./components/curseD/Curse";
 
 
 function App() {

@@ -5,6 +5,8 @@ import { BrowserRouter } from "react-router-dom";
 import store from "./redux/store/Store";
 import App from "./src/App";
 
+import axios from "axios";
+axios.defaults.baseURL = "http://localhost:3001";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
