@@ -73,8 +73,8 @@ const handleSubmit = async (event) => {
         try {
           const userData = await axios("http://localhost:3001/api/auth", {
             params: {
-              email: "example@gmail.com",
-              password: "1234"
+              email: input.email,
+              password: input.password
             }
           })
           setUser(userData)
