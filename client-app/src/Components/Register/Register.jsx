@@ -10,7 +10,7 @@ import { createNew } from "../../../redux/actions";
 function Validate(input) {
   let errores = {};
   if (input.name !== "" && input.password !== "" && input.email !== "" && input.password2 !== "") {
-    if (!/\S+\d+\W/.test(input.password)) { errores.password = "Must have a special symbol and at least one number" }
+    if (!/^(?=.*\d)(?=.*[a-zA-Z]).{8,20}/.test(input.password)) { errores.password = "Must have at least one number and 8 characters" }
     if (input.password !== input.password2) { errores.password = "Passwords must match" }
     return errores.password ? errores : (null)
   } if (input.name === "") {
