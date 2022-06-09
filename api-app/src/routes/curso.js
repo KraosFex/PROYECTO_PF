@@ -9,4 +9,5 @@ router.get('/:id', getCursoId)
 router.post('/', validateAuthAndAnAdmin, createCurso)
 
 
+
 module.exports = router;
