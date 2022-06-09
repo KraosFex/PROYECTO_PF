@@ -28,6 +28,7 @@ function Login() {
 const [input, setInput] = useState({});
 const [error, setError] = useState({});
 const [user, setUser] = useState({});
+const [logError, setLogError] = useState({});
 
 const workOnChange = (event) => {
 console.log(event.target.name)
@@ -44,7 +45,6 @@ console.log(event.target.name)
 }
 
 const handleSubmit = async (event) => {
-
 
     function isObjectEmpty(obj) {
       for(const prop in obj){
@@ -78,8 +78,10 @@ const handleSubmit = async (event) => {
             }
           })
           setUser(userData)
+          setLogError({});
+          window.location.href = window.location.href.slice('login') + "home";
         } catch(err) {
-          console.log("Hubo un error" + err)
+          setLogError({err: err});
         }
 
 
@@ -94,11 +96,29 @@ const handleSingOut = (event) => {
    document.getElementById("signInDiv").hidden = false;
 }
 
-const handleCallBackResponse = (response) => {
- console.log("Encode JWT ID token " + response.credential)
+const handleCallBackResponse = async (response) => {
  var userObject = jwt_decode(response.credential);
- console.log(userObject);
- setUser(userObject);
+
+
+ if(userObject.email_verified) {
+   try {
+     const userData = await axios("http://localhost:3001/api/auth", {
+       params: {
+         email: userObject.email,
+         password: userObject.sub
+       }
+     })
+
+     setUser(userObject)
+     setLogError({});
+     let location = window.location.href + "home";
+     location = location.split("login")
+     window.location.href = location[0] + location[1];
+   } catch(err) {
+     setLogError({err: err});
+   }
+ }
+
  document.getElementById("signInDiv").hidden = true;
 }
 
@@ -117,6 +137,7 @@ useEffect(() =>{
   google.accounts.id.prompt();
 }, []);
 
+console.log(logError);
 console.log(user);
 
   return (
@@ -130,6 +151,7 @@ console.log(user);
         </div>
         <div className={style.childContainer}>
           <h1>Sign In</h1>
+          {logError.err && <label className={style.logError}>{logError.err.response.data.info}</label>}
           <form className={style.form} onChange={(e) => workOnChange(e)} onSubmit={(e) => handleSubmit(e)}>
             <div className={style.input} >
               <label className={style.title}>EMAIL</label>
@@ -152,11 +174,6 @@ console.log(user);
           <label className={style.googleLabel}>Or sign in With your google account</label>
           <div className={style.googleInput}>
             <div id="signInDiv"></div>
-            { Object.keys(user).length != 0 &&
-
-                <button onClick={(e) => handleSingOut(e)}>Sing Out</button>
-
-            }
             </div>
         </div>
       </div>
