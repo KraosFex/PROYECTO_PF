@@ -79,7 +79,9 @@ const handleSubmit = async (event) => {
           })
           setUser(userData)
           setLogError({});
-          window.location.href = window.location.href.slice('login') + "home";
+          let location = window.location.href + "home";
+          location = location.split("login")
+          window.location.href = location[0] + location[1];
         } catch(err) {
           setLogError({err: err});
         }
