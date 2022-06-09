@@ -1,18 +1,71 @@
-@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Mandali&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 .Container{
-    position: absolute;
     margin: 7% 15%;
-    min-width: 80%;
-    min-height: 80%;
-    display: flex;
-    background: url(https://www.pngmart.com/files/21/Abstract-Design-PNG-Transparent.png);
-    background-blend-mode: color-dodge;
+    padding: 0px 60px;
+    background: url(https://static.vecteezy.com/system/resources/previews/001/192/082/non_2x/circle-dot-tunnel-png.png);
+    background-position-y: center;
+    background-blend-mode: soft-light;
     background-size: cover;
-    background-color: #8b0700c7;
+    background-color: #750e09;
+    display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    min-width: 65%;
+    min-height: 80%;
     border-radius: 25px;
-    align-content: space-between;
-    flex-wrap: wrap;
+    color: #f0f0f0;
+    border: 2px solid black;
+}
+.sup{
+    margin-top: 30px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.data{
+    display: flex;
+    flex-direction: column;
+}
+.Detail{
+    display: flex;
+}
+.titulo{
+    font-family: 'Oswald', sans-serif;
+    font-size: 60px;
+    margin: 0;
+}
+.label{
+    font-weight: bold;
+    color: #9b9b9b;
+}
+.imagen{
+    max-width: 40%;
+    max-height: 150px;
+    border-radius: 5px;
+}
+.clases{
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative
+}
+.arrowd{
+    position: absolute;
+    right: -50px;    
+    background-color: transparent;
+    border: none;
+    transform: rotate(90deg);
+}
+.arrowi{
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    transform: rotate(-90deg);
+    left: -50px;}
+.ai{
+    max-width: 50px;
 }

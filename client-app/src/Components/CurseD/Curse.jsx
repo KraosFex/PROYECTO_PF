@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { FindCourse } from "../../../redux/actions";
+import style from "./Curse.module.css"
 
 import CardD from "./Detail";
 import Aside from "../home/aside/aside";
@@ -13,7 +14,7 @@ export default function CurseD() {
     const dispatch = useDispatch();
     FindCourse(id)(dispatch)
     return (
-    <div>
+    <div  className={style.Detail}>
         <CardD />
         <Aside />
       <Profile />
