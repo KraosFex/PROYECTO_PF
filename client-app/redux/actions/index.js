@@ -11,3 +11,9 @@ export async function createNew(input) {
   return (errores);
 
 };
+export function FindCourse(id) {
+  return async function(dispatch){
+    await axios.get(`http://localhost:3001/api/cursos/${id}`).then(resp => resp.data)
+    .then((resp)=>dispatch({type:"GET_CURSE", payload: resp}))
+  }
+};

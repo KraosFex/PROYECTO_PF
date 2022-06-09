@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mandali&display=swap');
+.Container{
+    position: absolute;
+    margin: 7% 15%;
+    min-width: 80%;
+    min-height: 80%;
+    display: flex;
+    background: url(https://www.pngmart.com/files/21/Abstract-Design-PNG-Transparent.png);
+    background-blend-mode: color-dodge;
+    background-size: cover;
+    background-color: #8b0700c7;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    align-content: space-between;
+    flex-wrap: wrap;
+}

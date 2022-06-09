@@ -4,6 +4,7 @@ const initialState = {
   Curses: [],
   filteredCurses: [],
   profile: [],
+  CurseDetail: {},
   theme: "",
 };
 
@@ -14,6 +15,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         profile: payload,
+      };
+     case "GET_CURSE":
+      return {
+        ...state,
+        CurseDetail: payload,
       };
     case "POST_NEW_USER":
       return {

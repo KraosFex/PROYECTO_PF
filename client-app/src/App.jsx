@@ -8,6 +8,7 @@ import Register from "./components/register/register";
 import Landing from "./components/landing/Landing";
 import { useSelector } from "react-redux";
 import "./index.css";
+import CurseD from "./components/CurseD/Curse";
 
 
 function App() {
@@ -21,8 +22,8 @@ function App() {
         <Route path="/Login" element={<Login />}/>
         <Route path ="/Register" element={<Register />} />
         <Route path="/Home" element={<Home theme={theme} />} />
-        <Route path="/curses" element={<><Aside theme={theme}/><Profile theme={theme}/><Curses /></>}>
-        </Route>
+        <Route path="/curses" element={<><Aside theme={theme}/><Profile theme={theme}/><Curses /></>}></Route>
+        <Route path="/Curse/:id" element={<CurseD />}/>
     </Routes>
     </ div>
   )
