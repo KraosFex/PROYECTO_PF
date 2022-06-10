@@ -121,7 +121,7 @@ const handleCallBackResponse = async (response) => {
    }
  }
 
-
+ document.getElementById("signInDiv").hidden = true;
 }
 
 useEffect(() =>{
@@ -139,6 +139,8 @@ useEffect(() =>{
   google.accounts.id.prompt();
 }, []);
 
+console.log(logError);
+console.log(user);
 
   return (
     <div className={style.HeightContainer}>
