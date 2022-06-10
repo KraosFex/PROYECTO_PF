@@ -42,7 +42,7 @@
 
 .container{
     display: inline-block;
-    background-color: rgb(142, 0, 0);
+    background-color: rgb(54, 54, 54);
     border-radius: 1em;
     width: 70em;
     height: 30em;
@@ -52,7 +52,7 @@
     -moz-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
 }
 .container2{
-    background-color: rgb(142, 0, 0);
+    background-color: rgb(54, 54, 54);
     border-radius: 1em;
     width: 33.5em;
     height: 30em;
@@ -64,7 +64,7 @@
 .container31{
     display: flex;
     flex-direction: row;
-    background-color: rgb(142, 0, 0);
+    background-color: rgb(54, 54, 54);
     border-radius: 1em;
     width: 33.5em;
     height: 9em;
@@ -77,7 +77,7 @@
 .container3{
     display: flex;
     flex-direction: row;
-    background-color: rgb(142, 0, 0);
+    background-color: rgb(54, 54, 54);
     border-radius: 1em;
     width: 33.5em;
     height: 9em;

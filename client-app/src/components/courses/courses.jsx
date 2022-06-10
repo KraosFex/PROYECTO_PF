@@ -4,7 +4,7 @@ import lightTheme from "./courseLight.module.css";
 import CoursesCard from "./cards/coursesCard";
 import { getCourseByName } from "../../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
-import { lenguaje, ordered } from "../Filters/filters";
+import { lenguaje, ordered } from "../../utils/filters";
 import { ThemeProvider } from "styled-components";
 
 var style = darkTheme;
