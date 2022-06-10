@@ -1,9 +1,8 @@
 import Article from "./article/article";
 import Aside from  "./aside/aside";
 import Profile from  "./profile/profile";
+
 import style from "./home.module.css";
-
-
 
 function Home() {
   return (

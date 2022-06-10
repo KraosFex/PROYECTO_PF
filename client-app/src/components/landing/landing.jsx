@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 
 
-import style from "./Landing.module.css";
+import style from "./landing.module.css";
 
 const Landing = () => {
   return(
@@ -14,7 +14,7 @@ const Landing = () => {
               Mollitia, deserunt rerum. Aspernatur, quos.
               Quasi dolores earum, non minus ipsa iure sunt,
               odio distinctio assumenda ullam sit ea perferendis quaerat facilis?
-          </p>
+          </p> 
 
           <div className={style.containerButton}>
             <NavLink to='Home'><button> ir a conocer los cursos </button></NavLink>

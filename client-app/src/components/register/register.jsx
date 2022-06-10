@@ -1,10 +1,9 @@
-
 import Aside from "../home/aside/aside";
 import Profile from "../home/profile/profile";
-import style from "./register.module.css";
 import React, { useState } from "react";
 import { createNew } from "../../../redux/actions";
 
+import style from "./register.module.css";
 
 
 function Validate(input) {
@@ -21,7 +20,7 @@ function Validate(input) {
     errores.password = "The password is required";
   }
   if (input.email === "") {
-    errores.email = "The email is required";
+    errores.email = "The email is required"; 
   }
   return errores
 }

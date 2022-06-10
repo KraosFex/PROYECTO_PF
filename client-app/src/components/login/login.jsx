@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import jwt_decode from "jwt-decode";
-import style from "./login.module.css";
 import axios from "axios";
+
+import style from "./login.module.css";
 
 const validator = (input) => {
   let error = {};
