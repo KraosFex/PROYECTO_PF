@@ -1,3 +1,4 @@
+const { string } = require("joi");
 const { Schema, model } = require("mongoose");
 
 const courseSchema = new Schema(
@@ -22,7 +23,13 @@ const courseSchema = new Schema(
       type: Number,
     },
     clases: {
-      type: [String],
+      type: [
+        {
+          titulo: String,
+          descripcion: String,
+          isCompleted: Boolean,
+        },
+      ],
     },
     lenguaje: {
       type: String,

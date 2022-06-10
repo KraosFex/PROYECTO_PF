@@ -11,7 +11,7 @@ var style = darkTheme;
 function Courses() {
   const courses = useSelector((store) => store.courses);
   const tema = useSelector((store) => store.theme);
-  var coursess = courses;
+  var showedCourses = courses;
   const dispatch = useDispatch();
   const [courseSearch, setCourseSearch] = useState("");
   const [order, setCourseOrder] = useState("");
@@ -29,11 +29,11 @@ function Courses() {
 
   const submit = (e) => {
     e.preventDefault();
+    setCourseSearch(e.target.value);
     dispatch(getCourseByName(courseSearch));
-    setCourseSearch("");
   };
-  if (lengua && lengua != "0") coursess = lenguaje(lengua, courses);
-  if (order) coursess = ordered(order, courses);
+  if (order) showedCourses = ordered(order, courses);
+  if (lengua && lengua != "0") showedCourses = lenguaje(lengua, courses);
 
   return (
     <ThemeProvider
@@ -41,30 +41,31 @@ function Courses() {
     >
       <div className={style.flexContainer}>
         <div className={style.containerSearch}>
-          <form onSubmit={submit}>
+          <form onChange={(e) => submit(e)} className={style.form}>
             <input
               type="search"
-              value={courseSearch}
               placeholder="Buscar curso"
-              onChange={handleInputChange}
+              className={style.input}
             />
-            <button type="submit">Search</button>
+            <button className={style.button} type="submit">
+              Search
+            </button>
           </form>
-          <p>Ordenar por</p>
-          <select name="Ordernar" onChange={orderBy}>
+          <p className={style.p}>Ordenar por</p>
+          <select className={style.select} name="Ordernar" onChange={orderBy}>
             <option value="0">Seleccionar</option>
             <option value="MasVotados">Mas votados</option>
             <option value="MenosVotados">Menos votados</option>
           </select>
-          <p>Lenguaje</p>
-          <select name="Lenguaje" onChange={byTipo}>
+          <p className={style.p}>Lenguaje</p>
+          <select className={style.select} name="Lenguaje" onChange={byTipo}>
             <option value="0">seleccionar</option>
             <option value="javascript">JavaScript</option>
             <option value="css">CSS</option>
             <option value="html">HTML</option>
           </select>
-          <p>Progreso</p>
-          <select name="Progreso">
+          <p className={style.p}>Progreso</p>
+          <select className={style.select} name="Progreso">
             <option value="0">Seleccionar</option>
             <option value="1">Todos</option>
             <option value="2">Empezado</option>
@@ -72,7 +73,7 @@ function Courses() {
         </div>
         <div className={style.flexContainer2}>
           <div className={style.container2}>
-            <CoursesCard courses={coursess} />
+            <CoursesCard courses={showedCourses} />
           </div>
         </div>
       </div>

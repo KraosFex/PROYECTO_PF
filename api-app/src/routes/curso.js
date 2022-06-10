@@ -11,6 +11,6 @@ const { validateAuthAndAnAdmin } = require("../utils/validate.js");
 
 router.get("/", getCursos);
 router.get("/:name", getCursoName);
-router.post("/", validateAuthAndAnAdmin, createCurso);
+router.post("/", createCurso);
 
 module.exports = router;
