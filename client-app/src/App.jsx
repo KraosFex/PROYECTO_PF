@@ -30,9 +30,9 @@ function App() {
     <div className="App-Body">
       <Routes>
         <Route exact path="/" element={<Landing />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
         <Route element={<AppLayout />}>
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Register" element={<Register />} />
           <Route path="/Home" element={<Home theme={theme} />} />
           <Route path="/courses" element={<Courses />}></Route>
         </Route>
