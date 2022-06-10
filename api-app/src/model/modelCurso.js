@@ -17,7 +17,7 @@ const courseSchema = new Schema({
         type: String,
         required: true,
     },
-    userInscrip: {
+    userInscript: {
         type: Number,
     },
     clases: {

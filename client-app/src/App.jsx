@@ -1,9 +1,9 @@
 import { Route, Routes} from "react-router";
-import Home from "./components/home/home";
-import Aside from "./components/home/aside/aside";
-import Profile from "./components/home/profile/profile";
-import Login from "./components/login/login";
-import Curses from "./components/curses/curses";
+import Home from "./components/home/Home";
+import Aside from "./components/home/aside/Aside";
+import Profile from "./components/home/profile/Profile";
+import Login from "./components/login/Login";
+import Curses from "./components/curses/Curses";
 import Register from "./components/register/Register";
 import Landing from "./components/landing/Landing";
 import { useSelector } from "react-redux";

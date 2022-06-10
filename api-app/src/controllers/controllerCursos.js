@@ -33,7 +33,7 @@ const createCurso = async (req, res) => {
             descripcion: body.descripcion,
             calificacion: body.calificacion,
             imagen: body.imagen,
-            useInscript: body.useInscript,
+            userInscript: body.userInscript,
             clases: body.clases
         })
         const { error } = courseSchema.validate(body)
