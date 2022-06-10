@@ -4,8 +4,6 @@ import Aside from "./components/home/aside/aside";
 import Profile from "./components/home/profile/profile";
 import Login from "./components/login/login";
 import Curses from "./components/curses/curses";
-import Register from "./components/register/register";
-import Landing from "./components/landing/landing";
 import Register from "./components/register/Register";
 import Landing from "./components/landing/Landing";
 import { useSelector } from "react-redux";
