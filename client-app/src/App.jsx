@@ -11,6 +11,7 @@ import "./index.css";
 import { useEffect } from "react";
 import { getCourses } from "../redux/actions";
 import { Outlet } from "react-router-dom";
+import CurseD from "./components/curseD/Curse";
 
 function App() {
   const theme = useSelector((store) => store.theme);
@@ -36,6 +37,7 @@ function App() {
           <Route path="/Home" element={<Home theme={theme} />} />
           <Route path="/courses" element={<Courses />}></Route>
         </Route>
+        <Route path="/Curse/:id" element={<CurseD />}/>
       </Routes>
     </div>
   );

@@ -1,21 +1,17 @@
 // index reducers app
 const initialState = {
-  Curses: [],
+  courses: [],
   filteredCurses: [],
   user: [],
+  CurseDetail: {},
   theme: "dark",
-  courses: [],
+
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
   switch (type) {
     //Para obtener la lista completa de mi api y almacenarla en el estado
     case "GET_PROFILE":
-      return {
-        ...state,
-        user: payload,
-      };
-    case "POST_NEW_USER":
       return {
         ...state,
         user: payload,
@@ -29,6 +25,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         courses: payload,
+      };
+    case "GET_CURSE":
+      return {
+        ...state,
+        CurseDetail: payload,
       };
     case "GET_COURSEBYNAME":
       return {
