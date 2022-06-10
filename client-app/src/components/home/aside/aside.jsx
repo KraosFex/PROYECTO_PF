@@ -1,14 +1,14 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
-import darkTheme from "./asideBlack.module.css";
+import darkTheme from "./asideDark.module.css";
 import lightTheme from "./asideLight.module.css";
-import CodeIcon from "../../../icons/code";
-import Discord from "../../../icons/Discord";
-import CursoIcon from "../../../icons/libro";
+import CodeIcon from "../../../icons/code.jsx";
+import Discord from "../../../icons/Discord.jsx";
+import CursoIcon from "../../../icons/libro.jsx";
 import { ThemeProvider } from "styled-components";
+import { NavLink } from "react-router-dom";
 
-function Aside(props) {
-  let style = darkTheme;
+function NavBar(props) {
+  let style = props;
   let navBar = useRef(null);
   let logo = useRef(null);
   const gif1 = "https://i.imgur.com/3PgliiZ.gif";
@@ -34,28 +34,30 @@ function Aside(props) {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <img ref={logo} src={png} alt="logo" className={style.logo} />
+        <NavLink to="/home">
+          <img ref={logo} src={png} alt="logo" className={style.logo} />
+        </NavLink>
         <div className={style.icon}>
           <CursoIcon />
-          <Link to="#" className={style.hide}>
+          <NavLink to="/courses" className={style.hide}>
             Cursos
-          </Link>
+          </NavLink>
         </div>
         <div className={style.icon}>
           <CodeIcon />
-          <Link to="#" className={style.hide}>
+          <NavLink to="#" className={style.hide}>
             Ejercicios
-          </Link>
+          </NavLink>
         </div>
         <div className={style.icon}>
           <Discord />
-          <Link to="#" className={style.hide}>
+          <NavLink to="#" className={style.hide}>
             Unete a Discord!
-          </Link>
+          </NavLink>
         </div>
       </div>
     </ThemeProvider>
   );
 }
 
-export default Aside;
+export default NavBar;

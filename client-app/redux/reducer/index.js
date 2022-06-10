@@ -1,10 +1,10 @@
-
 // index reducers app
 const initialState = {
   Curses: [],
   filteredCurses: [],
-  profile: [],
-  theme: "",
+  user: [],
+  theme: "dark",
+  courses: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {
@@ -13,20 +13,29 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case "GET_PROFILE":
       return {
         ...state,
-        profile: payload,
+        user: payload,
       };
     case "POST_NEW_USER":
       return {
         ...state,
-        profile: payload,
+        user: payload,
       };
     case "NEW_THEME":
       return {
         ...state,
         theme: payload,
       };
+    case "GET_COURSES":
+      return {
+        ...state,
+        courses: payload,
+      };
+    case "GET_COURSEBYNAME":
+      return {
+        ...state,
+        courses: payload,
+      };
     default:
       return state;
   }
 }
-

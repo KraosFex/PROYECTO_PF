@@ -1,0 +1,75 @@
+
+.containerCourse{
+    display: inline-flex;
+    background-color: rgb(54, 54, 54);
+    border-radius: 1em;
+    width: 50em;
+    flex-direction: row;
+    margin-left: 1em;
+    min-height: 10em;
+    margin-top: 1em;
+    box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
+    -moz-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
+}
+
+.courseName{
+    color: rgb(221, 221, 221);
+    margin-left: 1em;
+}
+
+.courseStats{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-left: 1em;
+}
+
+.courseStats svg{
+    position: relative;
+    width: 1.5em;
+    height: 1.5em;
+    color: rgb(184, 184, 184);
+  }
+
+  .courseStats span{
+      color: rgb(208, 208, 208);
+      font-size: 0.8em;
+      margin-right: 2em;
+      margin-left: 0.4em;
+      margin-top: 0.3em;
+      
+  }
+
+  .descripcion{
+      display: flex;
+      width: 35em;
+      min-height:4em ;
+  }
+
+  .descripcion span{
+      margin-top: 1em;
+      margin-left: 1em;
+      margin-bottom: 1em;
+      top: 1em;
+      color: rgb(208, 208, 208);
+  }
+
+
+  .lenguaje{
+      display: flex;
+      margin-left: 5em;
+      width: 4em;
+        height: 4em;
+        align-self: center;
+  }
+
+  .lenguaje svg{
+      display: flex;
+  }
+
+  .flexContainer{
+      display: inline-block;
+  }

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import darkTheme from "./profileBlack.module.css";
-import lightTheme from "./profileLight.module.css";
+import darkTheme from "./navBarUserBlack.module.css";
+import lightTheme from "./navBarUserLight.module.css";
 import FavoriteIcon from "../../../icons/Favorite";
 import Moon from "../../../icons/moon";
 import Notification from "../../../icons/notification";
@@ -9,12 +9,12 @@ import { ThemeProvider } from "styled-components";
 import Sun from "../../../icons/sun";
 import { useDispatch } from "react-redux";
 
-function Profile() {
+function NavBarUser() {
   const dispatch = useDispatch();
   const MoonIcon = <Moon />;
   const SunIcon = <Sun />;
-  var style = darkTheme;
-  const [theme, setTheme] = useState("light");
+  var style = lightTheme;
+  const [theme, setTheme] = useState("dark");
   const [themeIcon, setThemeIcon] = useState(Moon);
   const toggleTheme = () => {
     if (theme === "light") {
@@ -72,4 +72,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default NavBarUser;

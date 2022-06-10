@@ -3,7 +3,6 @@ import React from "react";
 function Discord() {
   return (
     <svg
-      style={{ width: "36px", height: "36px" }}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
