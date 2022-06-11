@@ -1,24 +1,17 @@
 // import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
+// import shildren components
 import YourCourse from './yourCourse/yourCouse'
 
-import { persona } from './personas'
-
+// import stiles
 import style from './perfil.module.css'
 
 const Perfil = () => {
 
-  // dispatch(getPersona())
+  const persona = useSelector(state => state.user)
 
-  const [courses, setCourse] = useState(persona.courses)
-
-
-  // const handleClick = ()  =>{ 
-  //   return setCourse(
-  //     courses = courses.filter(courseIsTrue => courseIsTrue.favorito === true)
-  //   )  
-  // }
 
   const coursesAll = courses.map(course => {
     return(
