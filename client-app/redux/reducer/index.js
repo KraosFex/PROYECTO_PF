@@ -1,3 +1,11 @@
+// actions types
+import { 
+  POST_NEW_USER,
+  VALIDATE_USER,
+  GET_COURSES,
+  GET_COURSEBYNAME 
+  } from "../actions/actionsTypes/actionTypes";
+
 // index reducers app
 const initialState = {
   user: {},
@@ -10,12 +18,12 @@ const initialState = {
 export default function rootReducer(state = initialState, { type, payload }) {
   switch (type) {
     //Para obtener la lista completa de mi api y almacenarla en el estado
-    case "GET_PROFILE":
+    case VALIDATE_USER:
       return {
         ...state,
         user: payload,
       };
-    case "POST_NEW_USER":
+    case POST_NEW_USER:
       return {
         ...state,
         user: payload,
@@ -25,12 +33,12 @@ export default function rootReducer(state = initialState, { type, payload }) {
         ...state,
         theme: payload,
       };
-    case "GET_COURSES":
+    case GET_COURSES:
       return {
         ...state,
         courses: payload,
       };
-    case "GET_COURSEBYNAME":
+    case GET_COURSEBYNAME:
       return {
         ...state,
         courses: payload,

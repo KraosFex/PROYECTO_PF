@@ -7,7 +7,7 @@ import {
         VALIDATE_USER,
         GET_COURSES,
         GET_COURSEBYNAME 
-      } from "./Actions types/actionTypes";
+      } from "./actionsTypes/actionTypes";
 
 
 // actions
