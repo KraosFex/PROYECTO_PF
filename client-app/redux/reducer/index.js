@@ -1,10 +1,10 @@
 // index reducers app
 const initialState = {
-  Curses: [],
+  user: {},
+  isLoger: false,
+  showCurses: [],
   filteredCurses: [],
-  user: [],
   theme: "dark",
-  courses: [],
 };
 
 export default function rootReducer(state = initialState, { type, payload }) {

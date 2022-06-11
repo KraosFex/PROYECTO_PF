@@ -26,7 +26,7 @@ export function getCourses() {
       });
     } catch(err) {
       console.log(err);
-          alert("Ups! Something went wrong...");
+      alert("Ups! Something went wrong...");
     }
   };
 }
