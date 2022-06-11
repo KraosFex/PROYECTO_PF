@@ -9,7 +9,7 @@ import {
 // index reducers app
 const initialState = {
   user: {},
-  isLoger: false,
+  isLoger: true,
   showCurses: [],
   filteredCurses: [],
   theme: "dark",

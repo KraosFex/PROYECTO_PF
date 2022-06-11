@@ -18,6 +18,7 @@ import PrivateRoute from "./components/privateRoute/privateRoute";
 
 function App() {
   const theme = useSelector((store) => store.theme);
+  const isLoger = useSelector((store) => store.isLoger);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCourses());
