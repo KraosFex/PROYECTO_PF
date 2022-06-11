@@ -1,45 +1,44 @@
-const { string } = require("joi");
-const { Schema, model } = require("mongoose");
+
+const { Schema, model } = require('mongoose')
 
 const courseSchema = new Schema(
   {
     titulo: {
       type: String,
-      required: true,
+      required: true
     },
     descripcion: {
       type: String,
-      required: true,
+      required: true
     },
     calificacion: {
       type: Number,
-      required: true,
+      required: true
     },
     imagen: {
       type: String,
-      required: true,
+      required: true
     },
     userInscript: {
-      type: Number,
+      type: Number
     },
-    clases: {
-      type: [
-        {
-          titulo: String,
-          descripcion: String,
-          isCompleted: Boolean,
-        },
-      ],
-    },
+    lessions: [
+      {
+        lesson: {
+          type: Schema.ObjectId,
+          ref: 'Lession'
+        }
+      }
+    ],
     lenguaje: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   {
     timestamps: true,
-    versionKey: false,
+    versionKey: false
   }
-);
+)
 
-module.exports = model("Course", courseSchema);
+module.exports = model('Course', courseSchema)
