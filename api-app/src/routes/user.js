@@ -1,13 +1,10 @@
-const {Router} = require('express');
-const router = Router();
+const { Router } = require('express')
+const router = Router()
 const { getUsers, createUser, getUserById } = require('../controllers/controllerUser.js')
-const { validateAuth } = require('../utils/validate.js')
+const { validateAuthAndAnAdmin } = require('../utils/validate.js')
 
-
-router.get('/',  validateAuth, getUsers)
+router.get('/', validateAuthAndAnAdmin, getUsers)
 router.post('/', createUser)
-router.get('/:id',  getUserById)
+router.get('/:id', getUserById)
 
-
-
-module.exports = router;
+module.exports = router
