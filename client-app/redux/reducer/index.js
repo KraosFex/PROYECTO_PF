@@ -9,7 +9,7 @@ import {
 // index reducers app
 const initialState = {
   user: {},
-  isLoger: true,
+  isLoger: false,
   showCurses: [],
   filteredCurses: [],
   theme: "dark",
@@ -22,7 +22,7 @@ export default function rootReducer (state = initialState, { type, payload }) {
       return {
         ...state,
         user: payload.user,
-        isLoger: true,
+        isLoger: payload.isLoger,
       };
     case POST_NEW_USER:
       return {
