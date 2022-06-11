@@ -7,6 +7,7 @@ import Courses from "./components/courses/courses";
 import Register from "./components/register/register";
 import Landing from "./components/landing/landing";
 import Perfil from "./components/perfil/perfil";
+import PrivateRoute from "./components/privateRoute/privateRoute";
 import { useSelector, useDispatch } from "react-redux";
 import "./index.css";
 import { useEffect } from "react";
@@ -19,6 +20,7 @@ function App() {
   useEffect(() => {
     dispatch(getCourses());
   });
+  
   const AppLayout = ({}) => (
     <>
       <Aside theme={theme} />
@@ -36,7 +38,9 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/Home" element={<Home theme={theme} />} />
           <Route path="/courses" element={<Courses />}></Route>
-          <Route path="/Perfil" element={<Perfil />}/>
+          <Route element={<PrivateRoute />}>
+            <Route path="/Perfil" element={<Perfil />}/>
+          </Route>
         </Route>
       </Routes>
     </div>
