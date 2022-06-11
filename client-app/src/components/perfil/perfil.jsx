@@ -1,5 +1,8 @@
 // import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
+
+import YourCourse from './yourCourse/yourCouse'
+
 import { persona } from './personas'
 
 import style from './perfil.module.css'
@@ -11,12 +14,11 @@ const Perfil = () => {
   const [courses, setCourse] = useState(persona.courses)
 
 
-  const handleClick = ()  =>{ 
-    return setCourse(
-      courses = courses.filter(courseIsTrue => courseIsTrue.favorito === true)
-    )
-     
-  }
+  // const handleClick = ()  =>{ 
+  //   return setCourse(
+  //     courses = courses.filter(courseIsTrue => courseIsTrue.favorito === true)
+  //   )  
+  // }
 
   const coursesAll = courses.map(course => {
     return(
@@ -31,7 +33,7 @@ const Perfil = () => {
 
   return(
     <div className={style.containerHeader}>
-        <div className={`${style.containerPerfil} ${style.container}`}>
+        <div className={style.containerPerfil}>
             <div className={style.perfilDates}>
               <div className={style.containerImg}>
                 <img className={style.imgPerfil} src={persona.Imagen} alt="aqui va un imagen" />
@@ -67,17 +69,9 @@ const Perfil = () => {
             </div>
         </div>
 
-        <div className={style.listDetail}>
-            <button className={style.button} onClick={() => handleClick()}> show all </button>
-            <button className={style.button} onClick={() => handleClick()}> show favoritos </button>
-            <button className={style.button}> completed </button>
-        </div>
+      {/* YOUR_COURSE   */}
+        <YourCourse className={style.YourCourse} coursesAll={coursesAll} />
 
-        <div className={style.containerListYourCourse}>
-            <div className={style.list}>
-                {coursesAll}
-            </div>
-        </div>
     </div>
   )
 }
