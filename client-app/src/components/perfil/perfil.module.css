@@ -3,8 +3,6 @@ img {
     width: 105px;
     height: 105px;
   
-    border-radius: 50px;
-  
   }
   
   .container {
@@ -14,10 +12,11 @@ img {
   }
   
   .button {
-    
+    width: 125px;
+    height: 30px;
 
     border: solid 1px #000;
-    border-radius: 45px;
+    border-radius: 9px;
     
   }
   
@@ -42,10 +41,10 @@ img {
   .containerPerfil {
     width: 50%;
     height: 200px;
-    margin: 100px;
-
+    margin-top: 100px;
+    margin-bottom: 45px;
     background: #252525;
-    border-radius: 12px;
+    border-radius: px;
   }
   
   .perfilDates {
@@ -53,8 +52,6 @@ img {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    padding: 24px;
-  
     font-size: 16px;
     color: #fff;
   }
@@ -79,6 +76,17 @@ img {
     border: 1px solid #ffffff;
   
   }
+
+  .flex{
+    display: flex;
+    flex-direction: row;
+    margin-top: 9px;
+  }
+
+  .item{
+    margin-left: 22px;
+  }
+
   
   .containerListYourCourse {
     width: 50%;
@@ -95,7 +103,8 @@ img {
     border-radius: 12px;
   }
   
-  .filtro{
+  
+  .button{
     margin-left: 10px;
   }
   

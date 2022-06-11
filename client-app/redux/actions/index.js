@@ -1,8 +1,8 @@
 // actions reducer
 import axios from "axios";
 
-export function createNew(input) {
-  return async function (dispatch) {
+export const createNew = (input) => {
+  return async dispatch => {
       try{
         const resp = await axios.post("http://localhost:27017/api/users/", input)
         dispatch({
@@ -16,8 +16,19 @@ export function createNew(input) {
   };
 }
 
-export function getCourses() {
-  return async function (dispatch) {
+// Esta accion aun no esta lista. mañana en la mañana esta completo todo
+// export const getUser = () => {
+//   return async dispatch => {
+//     const resp = await axios.get("http://localhost:3001/api/getUsers")
+//     dispatch({
+//       type:"USER",
+//       payload:resp.data
+//     })
+//   }
+// }
+
+export const getCourses = () => {
+  return async dispatch => {
     try{
       const resp = await axios.get("http://localhost:3001/api/cursos")
       dispatch({
@@ -31,7 +42,7 @@ export function getCourses() {
   };
 }
 
-export function getCourseByName(name) {
+export const getCourseByName = (name) => {
   return async function (dispatch) {
       try{
         const resp = await axios.get(`http://localhost:3001/api/cursos/${name}`)

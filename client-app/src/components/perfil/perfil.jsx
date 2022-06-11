@@ -26,13 +26,27 @@ const Perfil = () => {
                   <label> User: </label>
                   <span>{persona.username}</span>
                 </div>
-                <div>
-                  <label> Name: </label>
-                  <span> {persona.name} </span>
-                </div>
-                <div>
-                  <label> e-mail: </label>
-                  <span> {persona.email} </span>
+                <div className={style.flex}>
+                  <div className={style.item}>
+                    <div>
+                      <label> Name: </label>
+                      <span> {persona.name} </span>
+                    </div>
+                    <div>
+                      <label> e-mail: </label>
+                      <span> {persona.email} </span>
+                    </div>
+                  </div>
+                  <div className={style.item}>
+                    <div>
+                      <label> Member Since: </label>
+                      <span> {persona.Member_Since} </span>
+                    </div>
+                    <div>
+                      <label> Last Seen: </label>
+                      <span> {persona.Last_Seen} </span>
+                    </div>  
+                  </div>
                 </div>
               </div>
             </div>
@@ -41,7 +55,7 @@ const Perfil = () => {
         <div className={style.listDetail}>
             <button className={style.button}> show all </button>
             <button className={style.button}> show favoritos </button>
-            <button className={style.button}> ? </button>
+            <button className={style.button}> completed courses </button>
         </div>
 
         <div className={`${style.containerListYourCourse} ${style.container}`}>
