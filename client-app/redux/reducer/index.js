@@ -21,7 +21,8 @@ export default function rootReducer (state = initialState, { type, payload }) {
     case VALIDATE_USER:
       return {
         ...state,
-        user: payload,
+        user: payload.user,
+        isLoger: true,
       };
     case POST_NEW_USER:
       return {
