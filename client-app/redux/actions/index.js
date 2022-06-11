@@ -1,12 +1,22 @@
-// actions reducer
+// import methods
 import axios from "axios";
 
+// actions types
+import { 
+        POST_NEW_USER,
+        VALIDATE_USER,
+        GET_COURSES,
+        GET_COURSEBYNAME 
+      } from "./Actions types/actionTypes";
+
+
+// actions
 export const createNew = (input) => {
   return async dispatch => {
       try{
         const resp = await axios.post("http://localhost:27017/api/users/", input)
         dispatch({
-          type: "POST_NEW_USER",
+          type: POST_NEW_USER,
           payload: resp.data,
         });
       } catch(err) {
@@ -21,7 +31,7 @@ export const validation = (post) => {
   return async dispatch => {
     const resp = await axios.post("http://localhost:3001/api/auth", post)
     dispatch({
-      type:"USER",
+      type: VALIDATE_USER,
       payload:resp.data
     })
   }
@@ -32,7 +42,7 @@ export const getCourses = () => {
     try{
       const resp = await axios.get("http://localhost:3001/api/cursos")
       dispatch({
-        type: "GET_COURSES",
+        type: GET_COURSES,
         payload: resp.data,
       });
     } catch(err) {
@@ -47,7 +57,7 @@ export const getCourseByName = (name) => {
       try{
         const resp = await axios.get(`http://localhost:3001/api/cursos/${name}`)
         dispatch({
-          type: "GET_COURSEBYNAME",
+          type: GET_COURSEBYNAME,
           payload: resp.data,
         })
       } catch(erro) {
