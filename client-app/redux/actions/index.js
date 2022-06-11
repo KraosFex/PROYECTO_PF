@@ -1,5 +1,4 @@
 // actions reducer
-// actions reducer
 import axios from "axios";
 
 export function createNew(input) {
@@ -8,7 +7,7 @@ export function createNew(input) {
         const resp = await axios.post("http://localhost:27017/api/users/", input)
         dispatch({
           type: "POST_NEW_USER",
-          payload: resp.data.respuesta
+          payload: resp.data,
         });
       } catch(err) {
           console.log(err);
@@ -23,7 +22,7 @@ export function getCourses() {
       const resp = await axios.get("http://localhost:3001/api/cursos")
       dispatch({
         type: "GET_COURSES",
-        payload: resp.data.respuesta,
+        payload: resp.data,
       });
     } catch(err) {
       console.log(err);
@@ -38,7 +37,7 @@ export function getCourseByName(name) {
         const resp = await axios.get(`http://localhost:3001/api/cursos/${name}`)
         dispatch({
           type: "GET_COURSEBYNAME",
-          payload: resp.data.respuesta,
+          payload: resp.data,
         })
       } catch(erro) {
         console.log(err);

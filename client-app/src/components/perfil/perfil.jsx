@@ -1,11 +1,11 @@
-import { useSelector, useDispatch } from 'react-redux'
+// import { useSelector, useDispatch } from 'react-redux'
 
 import { persona } from './personas'
 
 import style from './perfil.module.css'
 
 const Perfil = () => {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   // dispatch(getPersona())
 
