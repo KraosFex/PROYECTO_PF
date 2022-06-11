@@ -15,7 +15,7 @@ const initialState = {
   theme: "dark",
 };
 
-export default function rootReducer (state = initialState, { type, payload }) {
+const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     //Para obtener la lista completa de mi api y almacenarla en el estado
     case VALIDATE_USER:
@@ -48,3 +48,5 @@ export default function rootReducer (state = initialState, { type, payload }) {
       return state
   }
 }
+
+export default rootReducer;
