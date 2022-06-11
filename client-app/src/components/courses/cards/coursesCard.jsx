@@ -20,7 +20,7 @@ function CoursesCard ({ courses }) {
                 theme={
               tema === 'light' ? (style = lightTheme) : (style = darkTheme)
             }
-                key={p.titulo}
+                key={p.id}
               >
                 <div className={style.containerCourse}>
                   <div className={style.flexContainer}>
@@ -48,9 +48,9 @@ function CoursesCard ({ courses }) {
               theme={
             props.theme === 'light' ? (style = lightTheme) : (style = darkTheme)
           }
-              key={p.titulo}
+              key={p.id}
             >
-              <div className={style.containerCourse} key={courses.titulo}>
+              <div className={style.containerCourse} >
                 <div className={style.flexContainer}>
                   <h3 className={style.courseName}>{courses.titulo}</h3>
                   <div className={style.courseStats}>

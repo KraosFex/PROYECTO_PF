@@ -1,39 +1,48 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
-import { getCourseByName } from '../../../redux/actions/index'
+import { getCourseByName, setShowedCourses } from '../../../redux/actions/index'
 import { lenguaje, ordered } from '../../utils/filters'
 import CoursesCard from './cards/coursesCard'
 import darkTheme from './courseDark.module.css'
 import lightTheme from './courseLight.module.css'
 
-let style = darkTheme
+
+
 function Courses () {
-  const courses = useSelector((store) => store.courses)
-  const tema = useSelector((store) => store.theme)
-  let showedCourses = courses
   const dispatch = useDispatch()
-  const [courseSearch, setCourseSearch] = useState('')
-  const [order, setCourseOrder] = useState('')
-  const [lengua, setCourseLenguaje] = useState('')
-  const handleInputChange = (e) => {
-    setCourseSearch(e.target.value)
+  const allCourses = useSelector((store) => store.courses);
+  const tema = useSelector((store) => store.theme);
+  const showedCourses = useSelector((store) => store.showedCourses);
+
+  //forcing the re-render of the component
+  const [refresh, setRefresh] = useState(true);
+
+  let style = darkTheme;
+
+const sortByRating = (e) => {
+  let tempArr = showedCourses;
+
+  if(e.target.value === "1"){
+    tempArr.sort((a, b) => {
+      return b.calificacion - a.calificacion;
+    });
+  } else if (e.target.value === "2") {
+    tempArr.sort((a, b) => {
+      return a.calificacion - b.calificacion;
+    });
+  } else {
+    dispatch(setShowedCourses(allCourses));
   }
 
-  const orderBy = (e) => {
-    setCourseOrder(e.target.value)
-  }
-  const byTipo = (e) => {
-    setCourseLenguaje(e.target.value)
-  }
+  dispatch(setShowedCourses(tempArr));
 
-  const submit = (e) => {
-    e.preventDefault()
-    setCourseSearch(e.target.value)
-    dispatch(getCourseByName(courseSearch))
-  }
-  if (order) showedCourses = ordered(order, courses)
-  if (lengua && lengua != '0') showedCourses = lenguaje(lengua, courses)
+  refresh ? setRefresh(false) : setRefresh(true);
+}
+
+const filter = (e) => {
+  console.log(e)
+}
 
   return (
     <ThemeProvider
@@ -52,23 +61,22 @@ function Courses () {
             </button>
           </form>
           <p className={style.p}>Ordenar por</p>
-          <select className={style.select} name='Ordernar' onChange={orderBy}>
-            <option value='0'>Seleccionar</option>
-            <option value='MasVotados'>Mas votados</option>
-            <option value='MenosVotados'>Menos votados</option>
+          <select className={style.select} name='votes' onChange={(e) => sortByRating(e)}>
+            <option value='0'>---</option>
+            <option value='1'>Mas votados</option>
+            <option value='2'>Menos votados</option>
           </select>
           <p className={style.p}>Lenguaje</p>
-          <select className={style.select} name='Lenguaje' onChange={byTipo}>
-            <option value='0'>seleccionar</option>
+          <select className={style.select} name='languages' onChange={(e) => filter(e)}>
+            <option value='0'>---</option>
             <option value='javascript'>JavaScript</option>
             <option value='css'>CSS</option>
             <option value='html'>HTML</option>
           </select>
           <p className={style.p}>Progreso</p>
-          <select className={style.select} name='Progreso'>
-            <option value='0'>Seleccionar</option>
+          <select className={style.select} name='progreso' onChange={(e) => filter(e)}>
             <option value='1'>Todos</option>
-            <option value='2'>Empezado</option>
+            <option value='2'>Empezados</option>
           </select>
         </div>
         <div className={style.flexContainer2}>

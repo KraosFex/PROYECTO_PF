@@ -39,14 +39,6 @@ const userSchema = new Schema(
         }
       }
     ],
-    clases: [
-      {
-        completadas: {
-          type: Schema.ObjectId,
-          ref: 'Clase'
-        }
-      }
-    ]
   },
   {
     timestamps: true,

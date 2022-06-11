@@ -1,7 +1,7 @@
 // index reducers app
 const initialState = {
   Curses: [],
-  filteredCurses: [],
+  showedCourses: [],
   user: [],
   theme: 'dark',
   courses: []
@@ -25,7 +25,7 @@ export default function rootReducer (state = initialState, { type, payload }) {
         ...state,
         theme: payload
       }
-    case 'GET_COURSES':
+    case 'SET_COURSES':
       return {
         ...state,
         courses: payload
@@ -35,6 +35,11 @@ export default function rootReducer (state = initialState, { type, payload }) {
         ...state,
         courses: payload
       }
+      case 'SET_SHOWEDCOURSES':
+        return {
+          ...state,
+          showedCourses: payload
+        }
     default:
       return state
   }
