@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import darkTheme from "./navBarUserBlack.module.css";
-import lightTheme from "./navBarUserLight.module.css";
+import darkTheme from "./navbarUserBlack.module.css";
+import lightTheme from "./navbarUserLight.module.css";
 import FavoriteIcon from "../../../icons/Favorite";
 import Moon from "../../../icons/moon";
 import Notification from "../../../icons/notification";
@@ -63,7 +63,7 @@ function NavBarUser() {
           </Link>
         </div>
         <div className={style.icon3}>
-          <Link to="#">
+          <Link to="Perfil">
             <img src="https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png?x=480&quality=20"></img>
           </Link>
         </div>

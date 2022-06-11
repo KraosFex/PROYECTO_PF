@@ -1,0 +1,97 @@
+/* UTILIDADES */
+img {
+    width: 105px;
+    height: 105px;
+  
+    border-radius: 50px;
+  
+  }
+  
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 95%;
+  }
+  
+  .button {
+    width: 75px;
+    height: 45px;    
+    
+    border: solid 1px #fff;
+    border-radius: 50px;
+    background: #000;
+
+  }
+  
+  .button:active {
+    border: 1px solid #ffffff;
+  }
+  
+  
+  /* STYLES COMPONENT */
+  .containerHeader {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  
+    width: 100vw;
+    height: 100vh;
+  
+    background: #515151;
+  }
+  
+  .containerPerfil {
+    width: 50%;
+    height: 200px;
+    margin: 100px;
+    background: #252525;
+  }
+  
+  .perfilDates {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 24px;
+  
+    font-size: 16px;
+    color: #fff;
+  }
+  
+  .containerImg{
+    margin: 22px;
+  }
+  
+  .userDetaile{
+    margin: 20px;
+  }
+  
+  .Username {
+    display: flex;
+    align-items: center;
+  
+    height: 50px;
+    padding-left: 12px;
+  
+    background-color: black;
+    border-radius: 6px 6px 50px;
+    border: 1px solid #ffffff;
+  
+  }
+  
+  .containerListYourCourse {
+    width: 50%;
+    height: 200px;
+  
+    color: #fff;
+    font-size: 16px;
+  
+    background: #252525;
+    margin-top: 35px;
+  }
+  
+  .filtro{
+    margin-left: 10px;
+  }
+  
