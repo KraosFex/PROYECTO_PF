@@ -17,15 +17,15 @@ export const createNew = (input) => {
 }
 
 // Esta accion aun no esta lista. mañana en la mañana esta completo todo
-// export const getUser = () => {
-//   return async dispatch => {
-//     const resp = await axios.get("http://localhost:3001/api/getUsers")
-//     dispatch({
-//       type:"USER",
-//       payload:resp.data
-//     })
-//   }
-// }
+export const validation = (post) => {
+  return async dispatch => {
+    const resp = await axios.post("http://localhost:3001/api/auth", post)
+    dispatch({
+      type:"USER",
+      payload:resp.data
+    })
+  }
+}
 
 export const getCourses = () => {
   return async dispatch => {
