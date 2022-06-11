@@ -13,25 +13,29 @@ export const persona = {
         {
             id:1, 
             name:'JavaScript',
-            lecciones_Totales: 5000,
+            favorito: true,
+            lecciones_Totales: 500,
             lecciones_Termidas: 2
         }, 
         {
             id:2,
             name:'React.js',
-            lecciones_Totales: 5000,
+            favorito: true,
+            lecciones_Totales: 150,
             lecciones_Termidas: 2000
         },
         {
             id:3,
             name:'html',
-            lecciones_Totales: 5000,
+            favorito: false,
+            lecciones_Totales: 100,
             lecciones_Termidas: 255
         },
         {
             id:4,
             name:'css',
-            lecciones_Totales: 5000,
+            favorito: false,
+            lecciones_Totales: 50,
             lecciones_Termidas: 50
         }]
 }

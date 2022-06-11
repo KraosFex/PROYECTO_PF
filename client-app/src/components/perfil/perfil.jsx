@@ -1,18 +1,33 @@
 // import { useSelector, useDispatch } from 'react-redux'
-
+import { useState } from 'react'
 import { persona } from './personas'
 
 import style from './perfil.module.css'
 
 const Perfil = () => {
-  // const dispatch = useDispatch()
 
   // dispatch(getPersona())
 
-  const courses = persona.courses.map(course => <div key={course.id}> 
-                                                    <label> {course.name} </label>
-                                                    <label> {course.tareas_Terminadas}  </label>
-                                                </div>)
+  const [courses, setCourse] = useState(persona.courses)
+
+
+  const handleClick = ()  =>{ 
+    return setCourse(
+      courses = courses.filter(courseIsTrue => courseIsTrue.favorito === true)
+    )
+     
+  }
+
+  const coursesAll = courses.map(course => {
+    return(
+      <div className={style.cartYourCourse} key={course.id}> 
+        <label> {course.name} </label>
+        <label> {course.favorito === true ? 'FAVORITO' : 'NOT FAVORITO'}  </label>
+        <label> {course.lecciones_Totales}  </label>
+        <label> {course.lecciones_Termidas}  </label>
+      </div>
+      )
+  })
 
   return(
     <div className={style.containerHeader}>
@@ -53,14 +68,14 @@ const Perfil = () => {
         </div>
 
         <div className={style.listDetail}>
-            <button className={style.button}> show all </button>
-            <button className={style.button}> show favoritos </button>
-            <button className={style.button}> completed courses </button>
+            <button className={style.button} onClick={() => handleClick()}> show all </button>
+            <button className={style.button} onClick={() => handleClick()}> show favoritos </button>
+            <button className={style.button}> completed </button>
         </div>
 
-        <div className={`${style.containerListYourCourse} ${style.container}`}>
+        <div className={style.containerListYourCourse}>
             <div className={style.list}>
-                {courses}
+                {coursesAll}
             </div>
         </div>
     </div>

@@ -13,11 +13,18 @@ img {
   
   .button {
     width: 125px;
-    height: 30px;
-
-    border: solid 1px #000;
+    height: 35px;
+    
+    margin-left: 10px;
+    
+    border: solid 1px #fff;
     border-radius: 9px;
     
+    background: #252525;
+
+    font-size: 14px;
+    color: #fff;
+
   }
   
   .button:active {
@@ -103,8 +110,18 @@ img {
     border-radius: 12px;
   }
   
-  
-  .button{
-    margin-left: 10px;
+  .cartYourCourse {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+    max-width: 50%;
+
+    margin: 12px;
+    padding: 5px;
+
+    border: solid 1px #fff;
+
   }
+  
   
