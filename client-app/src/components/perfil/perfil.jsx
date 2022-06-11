@@ -39,9 +39,9 @@ const Perfil = () => {
         </div>
 
         <div className={style.listDetail}>
-            <a className={`${style.filtro} ${style.button}`} href="#">all</a>
-            <a className={`${style.filtro} ${style.button}`} href="#x">cursos favoritos</a>
-            <a className={`${style.filtro} ${style.button}`} href="#t">algo mas ...</a>
+            <button className={style.button}> show all </button>
+            <button className={style.button}> show favoritos </button>
+            <button className={style.button}> ? </button>
         </div>
 
         <div className={`${style.containerListYourCourse} ${style.container}`}>
