@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import darkTheme from "./navbarUserBlack.module.css";
@@ -9,26 +8,21 @@ import Notification from "../../../icons/notification";
 import { ThemeProvider } from "styled-components";
 import Sun from "../../../icons/sun";
 import { useDispatch } from "react-redux";
-=======
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
-import FavoriteIcon from '../../../icons/Favorite'
-import Moon from '../../../icons/moon'
-import Notification from '../../../icons/notification'
-import Sun from '../../../icons/sun'
-import darkTheme from './navbarUserBlack.module.css'
-import lightTheme from './navbarUserLight.module.css'
->>>>>>> main
 
 function NavBarUser () {
+
   const dispatch = useDispatch()
+
   const MoonIcon = <Moon />
+
   const SunIcon = <Sun />
+
   let style = lightTheme
+
   const [theme, setTheme] = useState('dark')
+
   const [themeIcon, setThemeIcon] = useState(Moon)
+  
   const toggleTheme = () => {
     if (theme === 'light') {
       setTheme('dark')
@@ -76,13 +70,8 @@ function NavBarUser () {
           </Link>
         </div>
         <div className={style.icon3}>
-<<<<<<< HEAD
           <Link to="Perfil">
             <img src="https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png?x=480&quality=20"></img>
-=======
-          <Link to='#'>
-            <img src='https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png?x=480&quality=20' />
->>>>>>> main
           </Link>
         </div>
       </div>
