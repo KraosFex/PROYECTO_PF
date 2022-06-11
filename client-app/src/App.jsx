@@ -1,4 +1,9 @@
-import { Route, Routes } from "react-router";
+import { useEffect } from "react";
+import { Outlet, Route, Routes } from "react-router-dom";
+import { getCourses } from "../redux/actions";
+import { useSelector, useDispatch } from "react-redux";
+
+
 import Home from "./components/home/home";
 import Aside from "./components/home/aside/aside";
 import NavBarUser from "./components/home/navbarUser/navBarUser";
@@ -8,11 +13,8 @@ import Register from "./components/register/register";
 import Landing from "./components/landing/landing";
 import Perfil from "./components/perfil/perfil";
 import PrivateRoute from "./components/privateRoute/privateRoute";
-import { useSelector, useDispatch } from "react-redux";
-import "./index.css";
-import { useEffect } from "react";
-import { getCourses } from "../redux/actions";
-import { Outlet } from "react-router-dom";
+
+
 
 function App() {
   const theme = useSelector((store) => store.theme);
@@ -20,8 +22,8 @@ function App() {
   useEffect(() => {
     dispatch(getCourses());
   });
-  
-  const AppLayout = ({}) => (
+
+  const AppLayout = () => (
     <>
       <Aside theme={theme} />
       <NavBarUser theme={theme} />
@@ -38,7 +40,7 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/Home" element={<Home theme={theme} />} />
           <Route path="/courses" element={<Courses />}></Route>
-          <Route element={<PrivateRoute />}>
+          <Route element={<PrivateRoute isLoger={isLoger}/>}>
             <Route path="/Perfil" element={<Perfil />}/>
           </Route>
         </Route>
