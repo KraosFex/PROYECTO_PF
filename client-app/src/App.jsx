@@ -30,14 +30,14 @@ function App() {
       <NavBarUser theme={theme} />
       <Outlet />
     </>
-  );
+  )
 
   return (
-    <div className="App-Body">
+    <div className='App-Body'>
       <Routes>
-        <Route exact path="/" element={<Landing />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Register" element={<Register />} />
+        <Route exact path='/' element={<Landing />} />
+        <Route path='/Login' element={<Login />} />
+        <Route path='/Register' element={<Register />} />
         <Route element={<AppLayout />}>
           <Route path="/Home" element={<Home theme={theme} />} />
           <Route path="/courses" element={<Courses />}></Route>
@@ -47,9 +47,9 @@ function App() {
         </Route>
       </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
 
 //  <Route path="/register" element={<Register />}/>

@@ -15,7 +15,7 @@ const initialState = {
   theme: "dark",
 };
 
-export default function rootReducer(state = initialState, { type, payload }) {
+export default function rootReducer (state = initialState, { type, payload }) {
   switch (type) {
     //Para obtener la lista completa de mi api y almacenarla en el estado
     case VALIDATE_USER:
@@ -26,9 +26,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case POST_NEW_USER:
       return {
         ...state,
-        user: payload,
-      };
-    case "NEW_THEME":
+        user: payload
+      }
+    case 'NEW_THEME':
       return {
         ...state,
         theme: payload,
@@ -41,9 +41,9 @@ export default function rootReducer(state = initialState, { type, payload }) {
     case GET_COURSEBYNAME:
       return {
         ...state,
-        courses: payload,
-      };
+        courses: payload
+      }
     default:
-      return state;
+      return state
   }
 }
