@@ -41,7 +41,7 @@
 
 .container{
     display: inline-block;
-    background-color: rgb(123, 123, 123);
+    background: linear-gradient(90deg, rgba(123,123,123,1) 40%, rgba(226, 31, 50,0.1) 100%);
     border-radius: 1em;
     width: 70em;
     height: 30em;

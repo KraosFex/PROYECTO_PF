@@ -17,17 +17,24 @@ function NavBarUser () {
   const theme = useSelector((store) => store.theme);
   const [style, setStyle] = useState(lightTheme)
 
+  let body;
+
+  if (theme === "light") body = "#272727";
+ else if (theme === "dark") body = "#E3E3E3";
+
 
   const switcher = () => {
     if (theme === 'light') {
     //ESTO NO SE DEBE MANEJAR DESDE ACA, TENDRIAMOS QUE UTILIZAR EL ESTADO GLOBAL "theme"
     //  rootElement.childNodes[2].style.setProperty('--backgroundColor',  '#272727');
+      document.documentElement.style.setProperty("--backgroundColor", body);
       setStyle(darkTheme)
       dispatch(themeSwitcher('dark'))
 
     } else if (theme === 'dark'){
       //ESTO NO SE DEBE MANEJAR DESDE ACA, TENDRIAMOS QUE UTILIZAR EL ESTADO GLOBAL "theme"
       //  rootElement.childNodes[2].style.setProperty(--backgroundColor','#E3E3E3');
+        document.documentElement.style.setProperty("--backgroundColor", body);
       setStyle(lightTheme)
       dispatch(themeSwitcher('light'))
     }

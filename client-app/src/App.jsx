@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import { getCourses } from "../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
+import style from "./index.modules.css";
 
 
 import Home from "./components/home/home";
@@ -37,7 +38,7 @@ function App() {
   )
 
   return (
-    <div className='App-Body'>
+    <div className={style.AppBody}>
       <Routes>
         <Route exact path='/' element={<Landing />} />
         <Route path='/Login' element={<Login />} />
@@ -55,5 +56,3 @@ function App() {
 }
 
 export default App
-
-//  <Route path="/register" element={<Register />}/>

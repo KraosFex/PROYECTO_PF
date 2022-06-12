@@ -63,22 +63,17 @@ function Login () {
         [event.target.name]: event.target.value
       }))
     } else {
-      event.preventDefault()
-      setInput({
-        ...input,
-        submit: 'Actividad Agregada!'
-      })
-      try {
-          dispatch(validation({email: input.email, password: input.password}));
-          setLogError({})
+          event.preventDefault()
 
-          let location = window.location.href + 'home'
-          location = location.split('Login')
-          window.location.href = location[0] + location[1]
-
-      } catch (err) {
-        setLogError({ err })
-      }
+          const data = await dispatch(validation({email: input.email, password: input.password}))
+          console.log(data.response.status)
+          if(data.response.status === 401 || data.response.status === 404 || data.response.status === 500) {
+            setLogError({err: data.response.data.info})
+          } else {
+            let location = window.location.href + 'home'
+            location = location.split('login')
+            window.location.href = location[0] + location[1]
+          }
     }
   }
 
@@ -94,7 +89,7 @@ function Login () {
     if (userObject.email_verified) {
       try {
         const data = dispatch(validation({email: userObject.email, password: userObject.sub }))
-        setLogError({})
+
         /*let location = window.location.href + 'home'
         location = location.split('login')
         window.location.href = location[0] + location[1]*/
@@ -131,7 +126,7 @@ function Login () {
         </div>
         <div className={style.childContainer}>
           <h1>Sign In</h1>
-          {logError.err && <label className={style.logError}>{logError.err.response.data.info}</label>}
+          {logError.err && <label className={style.logError}>{logError.err}</label>}
           <form className={style.form} onChange={(e) => workOnChange(e)} onSubmit={(e) => handleSubmit(e)}>
             <div className={style.input}>
               <label className={style.title}>EMAIL</label>
