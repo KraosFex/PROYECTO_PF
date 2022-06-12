@@ -1,19 +1,16 @@
-// import { useSelector, useDispatch } from 'react-redux'
-import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 // import shildren components
-import YourCourse from './yourCourse/yourCouse'
+import YourCourse from './yourCourse/yourCourse'
 
 // import stiles
 import style from './perfil.module.css'
 
 const Perfil = () => {
-
+  
   const persona = useSelector(state => state.user)
 
-
-  const coursesAll = courses.map(course => {
+  const coursesAll = persona.courses.map(course => {
     return(
       <div className={style.cartYourCourse} key={course.id}> 
         <label> {course.name} </label>
