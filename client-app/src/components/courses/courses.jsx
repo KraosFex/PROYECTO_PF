@@ -77,9 +77,9 @@ function Courses () {
             <label>JavaScript</label>
             <input type="checkbox" value='javascript' name='languages'></input>
             <label>CSS</label>
-            <input type="checkbox" value='CSS' name='languages'></input>
+            <input type="checkbox" value='css' name='languages'></input>
             <label>HTML</label>
-            <input type="checkbox" value='HTML' name='languages'></input>
+            <input type="checkbox" value='html' name='languages'></input>
           </div>
           <p className={style.p}>Progreso</p>
           <div className={style.select} onChange={() => filtered()}>
