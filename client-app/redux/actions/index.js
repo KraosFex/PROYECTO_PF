@@ -9,7 +9,7 @@ import {
         SET_SHOWEDCOURSES,
         SET_VALIDATEUSER,
         SET_THEME,
-        SET_UNVALIDATEUSER
+        LOGOUT
       } from "./actionsTypes/actionTypes";
 
 
@@ -46,7 +46,7 @@ export const setValidateUser = (userObject) => {
 export const createNew = (input) => {
   return async dispatch => {
       try{
-        const resp = await axios.post("http://localhost:27017/api/users/", input)
+        const resp = await axios.post("http://localhost:3001/api/users/", input)
         dispatch({
           type: POST_NEW_USER,
           payload: resp.data,
@@ -97,4 +97,9 @@ export const getCourseByName = (name) => {
         alert("Ups! Something went wrong...");
       }
   };
+}
+export const logout = () => {
+  return{
+    type: 'LOGOUT'
+  }
 }

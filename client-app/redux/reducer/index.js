@@ -6,7 +6,7 @@ import {
   GET_COURSEBYNAME,
   SET_SHOWEDCOURSES,
   SET_THEME,
-  SET_UNVALIDATEUSER
+  LOGOUT
   } from "../actions/actionsTypes/actionTypes";
 
 // index reducers app
@@ -25,12 +25,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         user: payload,
-        isLogged: true,
-      };
-    case SET_UNVALIDATEUSER:
-      return {
-        ...state,
-        user: payload.userObject,
         isLogged: true,
       };
     case POST_NEW_USER:
@@ -53,6 +47,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
           ...state,
           showedCourses: payload
         }
+    case LOGOUT:
+      return{
+        ...state,
+        user: {},
+        isLogged: false
+      }
     default:
       return state
   }
