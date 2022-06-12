@@ -22,7 +22,7 @@ app.use(errorHandler)
 app.use('/api/', router)
 
 // conecc to DB & listen
-mongoose.connect(db,
+const server = mongoose.connect(db,
   { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     app.listen(port, () => {
@@ -31,3 +31,8 @@ mongoose.connect(db,
   }).catch(err => {
     console.log(err)
   })
+
+process.on('unhandledRejection', (err, promise) => {
+  console.log(`Logged Error: ${err}`)
+  server.close(() => process.exit(1))
+})
