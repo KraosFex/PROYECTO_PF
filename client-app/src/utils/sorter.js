@@ -10,7 +10,7 @@ export const sortByRating = (e, showedCourses) => {
       return a.calificacion - b.calificacion;
     });
   } else {
-    return allCourses;
+    return showedCourses;
   }
 
   return tempArr
