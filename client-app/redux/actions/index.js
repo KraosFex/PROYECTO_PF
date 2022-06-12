@@ -67,7 +67,6 @@ export const validation = (post) => {
     } catch(err) {
       return err
     }
-
   }
 }
 
@@ -86,17 +85,16 @@ export const getCourses = () => {
 
 export const getCourseByName = (name) => {
   return async function (dispatch) {
-
       try {
         const metaData = await axios.get(`http://localhost:3001/api/cursos/${name}`)
         dispatch(setShowedCourses(metaData.data));
-
       } catch(err) {
         console.log(err);
         alert("Ups! Something went wrong...");
       }
   };
 }
+
 export const logout = () => {
   return{
     type: 'LOGOUT'
