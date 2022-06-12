@@ -24,9 +24,9 @@ const getCursoId = async (req, res) => {
 }
 
 const getCursoName = async (req, res) => {
-  const regex = req.params.name
+  const $regex = req.params.name
   try {
-    const course = await Course.find({ titulo: { regex, options: 'i' } })
+    const course = await Course.find({ titulo: { $regex, $options: 'i' } })
     if (!course.length) {
       console.error('El curso no existe')
     } else {
