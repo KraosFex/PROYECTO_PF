@@ -3,14 +3,14 @@ const router = Router()
 
 const {
   getCursos,
-  getCursoId,
   createCurso,
   getCursoName
 } = require('../controllers/controllerCursos.js')
-const { validateAuthAndAnAdmin } = require('../utils/validate.js')
+const { createLesson } = require('../controllers/controllerLession.js')
 
 router.get('/', getCursos)
 router.get('/:name', getCursoName)
-router.post('/', validateAuthAndAnAdmin, createCurso)
+router.post('/', createCurso)
+router.put('/:id', createLesson)
 
 module.exports = router

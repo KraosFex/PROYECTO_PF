@@ -22,11 +22,11 @@ const courseSchema = new Schema(
     userInscript: {
       type: Number
     },
-    lessions: [
+    lessons: [
       {
         lesson: {
           type: Schema.ObjectId,
-          ref: 'Lession'
+          ref: 'Lesson'
         }
       }
     ],
