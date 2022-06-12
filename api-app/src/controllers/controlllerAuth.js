@@ -22,7 +22,7 @@ const login = async (req, res, next) => {
     const match = await user.matchPassword(password)
     if (!match) return next(new ErrorResponse('Credenciales Invalidas', 401))
 
-    const token = user.generateAuthToken()
+    const token = user.generateToken()
     res.send({ info: 'Credenciales correctas', success: true, token, user })
   } catch (err) {
     res.status(500).send({ info: 'Error en credenciales', success: false, error: err.message })

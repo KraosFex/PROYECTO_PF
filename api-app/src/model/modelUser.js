@@ -83,7 +83,7 @@ userSchema.methods.generateToken = function () {
 }
 
 userSchema.methods.toJSON = function () {
-  const { password, __v, ...user } = this.toObject()
+  const { password, ...user } = this.toObject()
   return user
 }
 
