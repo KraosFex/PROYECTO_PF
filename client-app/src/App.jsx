@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import { getCourses } from "../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
+import style from "./index.modules.css";
 
 
 import Home from "./components/home/home";
@@ -18,11 +19,15 @@ import PrivateRoute from "./components/privateRoute/privateRoute";
 
 function App() {
   const theme = useSelector((store) => store.theme);
-  const isLoger = useSelector((store) => store.isLoger);
+  const isLogged = useSelector((store) => store.isLogged);
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getCourses());
   });
+
+
 
   const AppLayout = () => (
     <>
@@ -33,7 +38,7 @@ function App() {
   )
 
   return (
-    <div className='App-Body'>
+    <div className={style.AppBody}>
       <Routes>
         <Route exact path='/' element={<Landing />} />
         <Route path='/Login' element={<Login />} />
@@ -41,7 +46,7 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/Home" element={<Home theme={theme} />} />
           <Route path="/courses" element={<Courses />}></Route>
-          <Route element={<PrivateRoute isLoger={isLoger}/>}>
+          <Route element={<PrivateRoute isLogged={isLogged}/>}>
             <Route path="/Perfil" element={<Perfil />}/>
           </Route>
         </Route>
@@ -51,5 +56,3 @@ function App() {
 }
 
 export default App
-
-//  <Route path="/register" element={<Register />}/>

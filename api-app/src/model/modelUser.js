@@ -33,20 +33,12 @@ const userSchema = new Schema(
     },
     courses: [
       {
-        favoritos: {
+        course: {
           type: Schema.ObjectId,
           ref: 'Course'
         }
       }
     ],
-    clases: [
-      {
-        completadas: {
-          type: Schema.ObjectId,
-          ref: 'Clase'
-        }
-      }
-    ]
   },
   {
     timestamps: true,

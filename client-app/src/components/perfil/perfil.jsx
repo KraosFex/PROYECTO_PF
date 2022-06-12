@@ -12,7 +12,7 @@ const Perfil = () => {
 
   const coursesAll = persona.courses.map(course => {
     return(
-      <div className={style.cartYourCourse} key={course.id}> 
+      <div className={style.cartYourCourse} key={course.id}>
         <label> {course.name} </label>
         <label> {course.favorito === true ? 'FAVORITO' : 'NOT FAVORITO'}  </label>
         <label> {course.lecciones_Totales}  </label>
@@ -52,7 +52,7 @@ const Perfil = () => {
                     <div>
                       <label> Last Seen: </label>
                       <span> {persona.Last_Seen} </span>
-                    </div>  
+                    </div>
                   </div>
                 </div>
               </div>
