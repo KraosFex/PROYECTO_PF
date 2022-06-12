@@ -29,7 +29,30 @@ const login = async (req, res, next) => {
   }
 }
 
-const forgotPassword = async (req, res) => { }
+const forgotPassword = async (req, res, next) => {
+  const { email } = req.body
+  try {
+    const user = await User.findOne({ email })
+    if (!email) return next(new ErrorResponse('Por favor provea un email', 400))
+    const resetToken = user.generateTokenResetPassword()
+    await user.save()
+
+    const resetURL = `http://localhost:${process.env.PORT}/passwordreset/${resetToken}`
+
+    const message = `
+      <h1>HAz solicitado un reseteo de contraseña</h1>
+      <p>Para resetear la contraseña, haga click en el siguiente enlace:</p>
+      <a href="${resetURL}" clicktracking=off>${resetURL}</a>
+    `
+    try {
+
+    } catch (err) {
+
+    }
+  } catch (err) {
+    return next(new ErrorResponse('Error al enviar el correo', 500))
+  }
+}
 
 const resetPassword = async (req, res) => { }
 

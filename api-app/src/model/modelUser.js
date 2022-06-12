@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const crypto = require('crypto')
 
 const userSchema = new Schema(
   {
@@ -36,17 +37,9 @@ const userSchema = new Schema(
     },
     courses: [
       {
-        favoritos: {
+        course: {
           type: Schema.ObjectId,
           ref: 'Course'
-        }
-      }
-    ],
-    clases: [
-      {
-        completadas: {
-          type: Schema.ObjectId,
-          ref: 'Clase'
         }
       }
     ],
@@ -80,6 +73,13 @@ userSchema.methods.matchPassword = async function (password) {
 
 userSchema.methods.generateToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN })
+}
+
+userSchema.methods.generateTokenResetPassword = function () {
+  const resetToken = crypto.randomBytes(20).toString('hex')
+  this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+  this.resetPasswordExpire = Date.now() + 10 * 60 * 1000
+  return resetToken
 }
 
 userSchema.methods.toJSON = function () {
