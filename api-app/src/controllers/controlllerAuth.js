@@ -6,6 +6,7 @@ const authUser = async (req, res) => {
   //  error de tipado en la ruta!! es post, recuerden q estan enviando datos desde
   //  el frontend al backend
   const { email, password } = req.body
+  
   try {
     const user = await User.findOne({ email })
     if (!user) return res.status(404).send({ info: 'Datos invalidos user o pass not found' })

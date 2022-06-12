@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 import { getCourseByName, setShowedCourses } from '../../../redux/actions/index'
-import { lenguaje, ordered } from '../../utils/filters'
+import { filter } from '../../utils/filters'
+import { sortByRating } from '../../utils/sorter'
 import CoursesCard from './cards/coursesCard'
 import darkTheme from './courseDark.module.css'
 import lightTheme from './courseLight.module.css'
@@ -12,6 +13,7 @@ import lightTheme from './courseLight.module.css'
 function Courses () {
   const dispatch = useDispatch()
   const allCourses = useSelector((store) => store.courses);
+  const user = useSelector((store) => store.user);
   const tema = useSelector((store) => store.theme);
   const showedCourses = useSelector((store) => store.showedCourses);
 
@@ -20,29 +22,35 @@ function Courses () {
 
   let style = darkTheme;
 
-const sortByRating = (e) => {
-  let tempArr = showedCourses;
-
-  if(e.target.value === "1"){
-    tempArr.sort((a, b) => {
-      return b.calificacion - a.calificacion;
-    });
-  } else if (e.target.value === "2") {
-    tempArr.sort((a, b) => {
-      return a.calificacion - b.calificacion;
-    });
-  } else {
-    dispatch(setShowedCourses(allCourses));
+  const sorted = (event) => {
+    const sortedArray = sortByRating(event, showedCourses, allCourses);
+    dispatch(setShowedCourses(sortedArray))
+    refresh ? setRefresh(false) : setRefresh(true);
   }
 
-  dispatch(setShowedCourses(tempArr));
+  const filtered = () => {
+    const filterArray = filter(allCourses, showedCourses);
+    dispatch(setShowedCourses(filterArray))
+  }
 
-  refresh ? setRefresh(false) : setRefresh(true);
-}
+  const search = (e) => {
+    //SETEA TODOS LOS FILTROS/SORTS A false
+    const selector = [...document.getElementsByName("votes")];
+    selector[0].value = 0;
+    const radioInputs = [...document.getElementsByName("progreso")];
+    for(const input of radioInputs) {
+    if(input.value === "Todos") {input.checked = true}
+    else { input.checked = false}
+  }
+    const inputsCheckbox = [...document.getElementsByName("languages")];
+    for(const input of inputsCheckbox) {
+      console.log(input.checked)
+    input.checked = false;
+  }
 
-const filter = (e) => {
-  console.log(e)
-}
+    dispatch(getCourseByName(e.target.value));
+  }
+
 
   return (
     <ThemeProvider
@@ -50,34 +58,35 @@ const filter = (e) => {
     >
       <div className={style.flexContainer}>
         <div className={style.containerSearch}>
-          <form onChange={(e) => submit(e)} className={style.form}>
+          <form onChange={(e) => search(e)} className={style.form}>
             <input
               type='search'
               placeholder='Buscar curso'
               className={style.input}
             />
-            <button className={style.button} type='submit'>
-              Search
-            </button>
           </form>
           <p className={style.p}>Ordenar por</p>
-          <select className={style.select} name='votes' onChange={(e) => sortByRating(e)}>
+          <select className={style.select} name='votes' onChange={(e) => sorted(e)}>
             <option value='0'>---</option>
             <option value='1'>Mas votados</option>
             <option value='2'>Menos votados</option>
           </select>
           <p className={style.p}>Lenguaje</p>
-          <select className={style.select} name='languages' onChange={(e) => filter(e)}>
-            <option value='0'>---</option>
-            <option value='javascript'>JavaScript</option>
-            <option value='css'>CSS</option>
-            <option value='html'>HTML</option>
-          </select>
+          <div className={style.select} onChange={() => filtered()}>
+            <label>JavaScript</label>
+            <input type="checkbox" value='javascript' name='languages'></input>
+            <label>CSS</label>
+            <input type="checkbox" value='CSS' name='languages'></input>
+            <label>HTML</label>
+            <input type="checkbox" value='HTML' name='languages'></input>
+          </div>
           <p className={style.p}>Progreso</p>
-          <select className={style.select} name='progreso' onChange={(e) => filter(e)}>
-            <option value='1'>Todos</option>
-            <option value='2'>Empezados</option>
-          </select>
+          <div className={style.select} onChange={() => filtered()}>
+            <label>Todos</label>
+            <input type="radio" value="Todos" name="progreso" defaultChecked></input>
+            <label>En Progreso</label>
+            <input type="radio" value="En progreso" name="progreso"></input>
+          </div>
         </div>
         <div className={style.flexContainer2}>
           <div className={style.container2}>

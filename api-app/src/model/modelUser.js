@@ -33,7 +33,7 @@ const userSchema = new Schema(
     },
     courses: [
       {
-        favoritos: {
+        course: {
           type: Schema.ObjectId,
           ref: 'Course'
         }

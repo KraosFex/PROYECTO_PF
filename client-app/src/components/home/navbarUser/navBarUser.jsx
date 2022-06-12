@@ -7,57 +7,44 @@ import Moon from "../../../icons/moon";
 import Notification from "../../../icons/notification";
 import { ThemeProvider } from "styled-components";
 import Sun from "../../../icons/sun";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { themeSwitcher } from "../../../../redux/actions/index.js";
 
 function NavBarUser () {
 
   const dispatch = useDispatch()
 
-  const MoonIcon = <Moon />
+  const theme = useSelector((store) => store.theme);
+  const [style, setStyle] = useState(lightTheme)
 
-  const SunIcon = <Sun />
 
-  let style = lightTheme
-
-  const [theme, setTheme] = useState('dark')
-
-  const [themeIcon, setThemeIcon] = useState(Moon)
-  
-  const toggleTheme = () => {
+  const switcher = () => {
     if (theme === 'light') {
-      setTheme('dark')
-      setThemeIcon(MoonIcon)
-      document.documentElement.style.setProperty(
-        '--backgroundColor',
-        '#272727 '
-      )
-      dispatch({
-        type: 'NEW_THEME',
-        payload: 'dark'
-      })
-    } else {
-      setTheme('light')
-      setThemeIcon(SunIcon)
-      document.documentElement.style.setProperty(
-        '--backgroundColor',
-        '#E3E3E3 '
-      )
-      dispatch({
-        type: 'NEW_THEME',
-        payload: 'light'
-      })
+    //ESTO NO SE DEBE MANEJAR DESDE ACA, TENDRIAMOS QUE UTILIZAR EL ESTADO GLOBAL "theme"
+    //  rootElement.childNodes[2].style.setProperty('--backgroundColor',  '#272727');
+      setStyle(darkTheme)
+      dispatch(themeSwitcher('dark'))
+
+    } else if (theme === 'dark'){
+      //ESTO NO SE DEBE MANEJAR DESDE ACA, TENDRIAMOS QUE UTILIZAR EL ESTADO GLOBAL "theme"
+      //  rootElement.childNodes[2].style.setProperty(--backgroundColor','#E3E3E3');
+      setStyle(lightTheme)
+      dispatch(themeSwitcher('light'))
     }
-  }
+  };
+
+
+
 
   return (
     <ThemeProvider
-      theme={theme === 'light' ? (style = lightTheme) : (style = darkTheme)}
+      theme={style}
     >
       <div className={style.container}>
         <div className={style.icon21}>
-          <Link to='#' onClick={toggleTheme}>
-            {themeIcon}
-          </Link>
+          <div onClick={() => switcher()}>
+          {theme === 'light' ? <Sun /> : <Moon />}
+          </div>
         </div>
         <div className={style.icon2}>
           <Link to='#'>

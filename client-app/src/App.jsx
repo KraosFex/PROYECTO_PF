@@ -18,11 +18,15 @@ import PrivateRoute from "./components/privateRoute/privateRoute";
 
 function App() {
   const theme = useSelector((store) => store.theme);
-  const isLoger = useSelector((store) => store.isLoger);
+  const isLogged = useSelector((store) => store.isLogged);
+  const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getCourses());
   });
+
+
 
   const AppLayout = () => (
     <>
@@ -41,7 +45,7 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/Home" element={<Home theme={theme} />} />
           <Route path="/courses" element={<Courses />}></Route>
-          <Route element={<PrivateRoute isLoger={isLoger}/>}>
+          <Route element={<PrivateRoute isLogged={isLogged}/>}>
             <Route path="/Perfil" element={<Perfil />}/>
           </Route>
         </Route>

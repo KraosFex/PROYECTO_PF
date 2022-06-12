@@ -2,6 +2,8 @@ import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import React, { useEffect, useState } from 'react'
 import style from './login.module.css'
+import { validation } from '../../../redux/actions/index';
+import { useDispatch, useSelector } from 'react-redux';
 
 const validator = (input) => {
   const error = {}
@@ -22,9 +24,14 @@ const validator = (input) => {
 }
 
 function Login () {
+
+  const user = useSelector(store => store.user);
+  const isLogged = useSelector(store => store.isLogged);
+
+  const dispatch = useDispatch();
+
   const [input, setInput] = useState({})
   const [error, setError] = useState({})
-  const [user, setUser] = useState({})
   const [logError, setLogError] = useState({})
 
   const workOnChange = (event) => {
@@ -61,19 +68,14 @@ function Login () {
         ...input,
         submit: 'Actividad Agregada!'
       })
-
       try {
-        const userData = await axios('http://localhost:3001/api/auth', {
-          params: {
-            email: input.email,
-            password: input.password
-          }
-        })
-        setUser(userData)
-        setLogError({})
-        let location = window.location.href + 'home'
-        location = location.split('login')
-        window.location.href = location[0] + location[1]
+          dispatch(validation({email: input.email, password: input.password}));
+          setLogError({})
+
+          let location = window.location.href + 'home'
+          location = location.split('Login')
+          window.location.href = location[0] + location[1]
+
       } catch (err) {
         setLogError({ err })
       }
@@ -91,18 +93,12 @@ function Login () {
 
     if (userObject.email_verified) {
       try {
-        const userData = await axios('http://localhost:3001/api/auth', {
-          params: {
-            email: userObject.email,
-            password: userObject.sub
-          }
-        })
-
-        setUser(userObject)
+        const data = dispatch(validation({email: userObject.email, password: userObject.sub }))
         setLogError({})
-        let location = window.location.href + 'home'
+        /*let location = window.location.href + 'home'
         location = location.split('login')
-        window.location.href = location[0] + location[1]
+        window.location.href = location[0] + location[1]*/
+
       } catch (err) {
         setLogError({ err })
       }
