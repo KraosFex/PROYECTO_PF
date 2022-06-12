@@ -3,7 +3,8 @@ import {
   POST_NEW_USER,
   VALIDATE_USER,
   GET_COURSES,
-  GET_COURSEBYNAME 
+  GET_COURSEBYNAME ,
+  LOGOUT
   } from "../actions/actionsTypes/actionTypes";
 
 // index reducers app
@@ -43,6 +44,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         courses: payload
+      }
+    case LOGOUT:
+      return{
+        ...state,
+        user: {},
+        isLoger: false
       }
     default:
       return state

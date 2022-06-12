@@ -6,7 +6,8 @@ import {
         POST_NEW_USER,
         VALIDATE_USER,
         GET_COURSES,
-        GET_COURSEBYNAME 
+        GET_COURSEBYNAME,
+        LOGOUT
       } from "./actionsTypes/actionTypes";
 
 
@@ -65,5 +66,11 @@ export const getCourseByName = (name) => {
         alert("Ups! Something went wrong...");
       }
   };
+}
+
+export const logout = () => {
+  return{
+    type: 'LOGOUT'
+  }
 }
 
