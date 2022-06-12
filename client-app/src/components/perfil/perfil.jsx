@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 // import shildren components
-import YourCourse from './yourCourse/yourCouse'
+import YourCourse from './yourCourse/yourCourse'
 
 // import stiles
 import style from './perfil.module.css'
