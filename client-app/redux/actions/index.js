@@ -58,7 +58,6 @@ export const createNew = (input) => {
   };
 }
 
-// Esta accion aun no esta lista. mañana en la mañana esta completo todo
 export const validation = (post) => {
   return async dispatch => {
     try {
