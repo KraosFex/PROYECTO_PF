@@ -20,7 +20,7 @@ import PrivateRoute from "./components/privateRoute/privateRoute";
 function App() {
   const theme = useSelector((store) => store.theme);
   const isLogged = useSelector((store) => store.isLogged);
-  const user = useSelector((store) => store.user);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
