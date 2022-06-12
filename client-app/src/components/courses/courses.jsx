@@ -13,6 +13,7 @@ import lightTheme from './courseLight.module.css'
 function Courses () {
   const dispatch = useDispatch()
   const allCourses = useSelector((store) => store.courses);
+  //EL USER SE TRAERIA DESDE EL LOCALSTORE
   const user = useSelector((store) => store.user);
   const tema = useSelector((store) => store.theme);
   const showedCourses = useSelector((store) => store.showedCourses);
