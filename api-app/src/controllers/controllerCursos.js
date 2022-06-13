@@ -1,9 +1,11 @@
 const Course = require('../model/modelCurso')
-const { courseSchema } = require('../utils/validate.js')
 
 const getCursos = async (req, res) => {
   try {
-    const courses = await Course.find()
+    const courses = await Course.find().populate({
+      path: 'lessons.lesson',
+      ref: 'Lesson'
+    })
     res.send(courses)
     return
   } catch (err) {
@@ -43,8 +45,6 @@ const createCurso = async (req, res) => {
   const { body } = req
   try {
     const course = await new Course(body)
-    const { error } = courseSchema.validate(body)
-    if (error) return res.status(400).send(error.details[0].message)
     res.send(course)
     return
   } catch (err) {

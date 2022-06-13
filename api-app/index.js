@@ -1,34 +1,43 @@
-//imports
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const router = require('./src/routes/index')
+// imports
+require('dotenv').config()
+const express = require('express')
+const mongoose = require('mongoose')
+const cors = require('cors')
+const router = require('./src/routes/index.js')
+const errorHandler = require('./src/middleware/error.js')
 
+// config
+const app = express()
+const port = process.env.PORT || 3001
 
-//config
-const app = express();
-const port = process.env.PORT || 3001;
+const db = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cursos_db'
 
-const db = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/cursos_db";
-
-
-//middlewares
+// middlewares
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
+app.use(errorHandler)
 
-//routes
-app.use('/api/', router);
+// routes
+app.use('/api/', router)
 
+// conecc to DB & listen
 
-//conecc to DB & listen
-mongoose.connect(db,
-    { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        app.listen(port, () => {
-            console.log(`Server on port ${port} and connected to DB`)
-        })
-    }).catch(err => {
-        console.log(err)
+const connectDB = () => {
+  try {
+    mongoose.connect(db, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
     })
+
+    app.listen(port, () => {
+      console.log(`Server on port ${port} and connected to DB 🔌`)
+    })
+  } catch (err) {
+    console.log('Error al conectar a la db 🚫')
+    console.error(err.message)
+    process.exit(1)
+  }
+}
+
+connectDB()

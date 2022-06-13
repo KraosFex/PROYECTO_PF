@@ -1,25 +1,76 @@
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
-const User = require('../model/modelUser.js')
 
-const authUser = async (req, res) => {
-  //  error de tipado en la ruta!! es post, recuerden q estan enviando datos desde
-  //  el frontend al backend
-  const { email, password } = req.body
-  
+const User = require('../model/modelUser.js')
+const ErrorResponse = require('../utils/errorResponse.js')
+const sendMail = require('../utils/sendEmail.js')
+
+const registerUser = async (req, res, next) => {
   try {
-    const user = await User.findOne({ email })
-    if (!user) return res.status(404).send({ info: 'Datos invalidos user o pass not found' })
-    const validPass = await bcrypt.compareSync(password, user.password)
-    if (!validPass) return res.status(404).send({ info: 'Datos invalidos user o pass not found' })
-    const token = jwt.sign({ id: user._id, name: user.name }, process.env.SECRET_KEY, { expiresIn: '1d' })
-    res.send({ info: 'Usuario autenticado', token, user })
+    const user = await User.create(req.body)
+    await user.save()
+    res.status(201).send({ info: 'Usuario creado exitosamente' })
   } catch (err) {
-    res.send({ info: 'Error al autenticar el usuario', err })
-    console.log(err)
+    next(err)
   }
 }
 
+const login = async (req, res, next) => {
+  const { email, password } = req.body
+
+  if (!email || !password) return next(new ErrorResponse('Por favor provea un email y contraseña', 400))
+  try {
+    const user = await User.findOne({ email })
+    if (!user) return next(new ErrorResponse('Credenciales Invalidas', 401))
+
+    const match = await user.matchPassword(password)
+    if (!match) return next(new ErrorResponse('Credenciales Invalidas', 401))
+
+    const token = user.generateToken()
+    res.send({ info: 'Credenciales correctas', success: true, token, user })
+  } catch (err) {
+    res.status(500).send({ info: 'Error en credenciales', success: false, error: err.message })
+  }
+}
+
+const forgotPassword = async (req, res, next) => {
+  const { email } = req.body
+  
+  try {
+    const user = await User.findOne({ email })
+    if (!email) return next(new ErrorResponse('Por favor provea un email', 400))
+    const resetToken = user.generateTokenResetPassword()
+    await user.save()
+
+    const resetURL = `http://localhost:${process.env.PORT}/passwordreset/${resetToken}`
+
+    const message = `
+      <h1>HAz solicitado un reseteo de contraseña</h1>
+      <p>Para resetear la contraseña, haga click en el siguiente enlace:</p>
+      <a href="${resetURL}" clicktracking=off>${resetURL}</a>
+    `
+    try {
+      await sendMail({
+        email: user.email,
+        subject: 'Reseteo de contraseña',
+        text: message
+      })
+
+      res.send({ info: 'Se ha enviado un email con instrucciones para resetear la contraseña', success: true })
+    } catch (err) {
+      user.resetPasswordToken = undefined
+      user.resetPasswordExpire = undefined
+      await user.save()
+      return next(new ErrorResponse('Error al enviar el email', 500))
+    }
+  } catch (err) {
+    next(new ErrorResponse('Error al enviar el correo', 500))
+  }
+}
+
+const resetPassword = async (req, res) => { /* EN PROGRESO */ }
+
 module.exports = {
-  authUser
+  registerUser,
+  login,
+  forgotPassword,
+  resetPassword
 }

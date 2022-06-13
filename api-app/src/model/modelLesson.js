@@ -1,6 +1,6 @@
 const { model, Schema } = require('mongoose')
 
-const lessionSchema = new Schema({
+const lessonSchema = new Schema({
   titulo: {
     type: String,
     required: true
@@ -19,4 +19,4 @@ const lessionSchema = new Schema({
   }
 }, { timestamps: true, versionKey: false })
 
-module.exports = model('Lession', lessionSchema)
+module.exports = model('Lession', lessonSchema)
