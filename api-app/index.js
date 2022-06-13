@@ -22,17 +22,22 @@ app.use(errorHandler)
 app.use('/api/', router)
 
 // conecc to DB & listen
-const server = mongoose.connect(db,
-  { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    app.listen(port, () => {
-      console.log(`Server on port ${port} and connected to DB`)
-    })
-  }).catch(err => {
-    console.log(err)
-  })
 
-// process.on('unhandledRejection', (err, promise) => {
-//   console.log(`Logged Error: ${err}`)
-//   server.close(() => process.exit(1))
-// })
+const connectDB = () => {
+  try {
+    mongoose.connect(db, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    })
+
+    app.listen(port, () => {
+      console.log(`Server on port ${port} and connected to DB 🔌`)
+    })
+  } catch (err) {
+    console.log('Error al conectar a la db 🚫')
+    console.error(err.message)
+    process.exit(1)
+  }
+}
+
+connectDB()

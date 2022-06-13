@@ -6,7 +6,12 @@ const errorHandler = (err, req, res, next) => {
   error.message = err.message
 
   if (err.code === 11000) {
-    const message = 'Duplicate field value entered'
+    const message = 'Campo duplicado, ya existe un registro con ese valor'
+    error = new ErrorResponse(message, 400)
+  }
+
+  if (err.name === 'CastError') {
+    const message = 'Campo invalido'
     error = new ErrorResponse(message, 400)
   }
 
