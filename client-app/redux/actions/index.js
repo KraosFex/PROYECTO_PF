@@ -46,7 +46,7 @@ export const setValidateUser = (userObject) => {
 export async function createNew(input) {
   let newinput = { name: input.name, password: input.password, email: input.email, imagen: input.Image==="" || !input.Image ? "https://img2.freepng.es/20180323/pww/kisspng-computer-icons-clip-art-profile-cliparts-free-5ab5a47b02ff75.0880050915218535630123.jpg": input.Image}
   console.log(newinput)
-  let errores = await axios.post("http://localhost:3001/api/users", newinput)
+  let errores = await axios.post("http://localhost:3001/api/auth", newinput)
     .then(resp => resp.data).then((a) => { return { good: a.info } })
     .catch((err) => {
       return ({ password: err.response.data });
@@ -55,9 +55,9 @@ export async function createNew(input) {
 
 };
 
-export function FindCourse(id) {
+export function FindCourse(name) {
   return async function(dispatch){
-    await axios.get(`http://localhost:3001/api/cursos/${id}`).then(resp => resp.data)
+    await axios.get(`http://localhost:3001/api/cursos/${name}`).then(resp => resp.data)
     .then((resp)=>dispatch({type:"GET_CURSE", payload: resp}))
   }
 };
