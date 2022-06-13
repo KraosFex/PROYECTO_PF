@@ -14,6 +14,7 @@ const initialState = {
   user: {},
   isLogged: false,
   showedCourses: [],
+  CurseDetail: {},
   courses: [],
   theme: "light",
 };
@@ -27,11 +28,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
         user: payload,
         isLogged: true,
       };
-    case POST_NEW_USER:
+    case "GET_CURSE":
       return {
         ...state,
-        user: payload
-      }
+        CurseDetail: payload,
+      };
     case SET_THEME:
       return {
         ...state,

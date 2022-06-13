@@ -14,7 +14,7 @@ import Register from "./components/register/register";
 import Landing from "./components/landing/landing";
 import Perfil from "./components/perfil/perfil";
 import PrivateRoute from "./components/privateRoute/privateRoute";
-
+import CurseD from "./components/curseD/Curse";
 
 
 function App() {
@@ -50,6 +50,7 @@ function App() {
             <Route path="/Perfil" element={<Perfil />}/>
           </Route>
         </Route>
+        <Route path="/Curse/:id" element={<CurseD />}/>
       </Routes>
     </div>
   )

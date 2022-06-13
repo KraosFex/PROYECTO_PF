@@ -2,34 +2,16 @@ import React, { useState } from 'react'
 import { createNew } from '../../../redux/actions'
 import style from './register.module.css'
 
-
-function Validate (input) {
-  const errores = {}
-  if (
-    input.name !== '' &&
-    input.password !== '' &&
-    input.email !== '' &&
-    input.password2 !== ''
-  ) {
-    if (!/\S+\d+\W/.test(input.password)) {
-      errores.password = 'Must have a special symbol and at least one number'
-    }
-    if (input.password !== input.password2) {
-      errores.password = 'Passwords must match'
-    }
-    return errores.password ? errores : null
-  }
-  if (input.name === '') {
-    errores.name = 'The name is required'
-  }
-  if (input.password === '') {
-    errores.password = 'The password is required'
-  }
-  if (input.password2 === '') {
-    errores.password = 'The password is required'
-  }
-  if (input.email === '') {
-    errores.email = 'The email is required'
+function Validate(input) {
+  let errores = {};
+  console.log(input)
+  if (input.name !== "" && input.password !== "" && input.email !== "" && input.password2 !== "") {
+    console.log(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(input.password))
+    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(input.password)){
+      errores.password = "Minimum 8 characters, at least one uppercase letter, one lowercase letter and one number";
+    }  
+    if (input.password !== input.password2) { errores.password = "Passwords must match" }
+    return errores.password ? errores : (null)
   }
   return errores
 }
@@ -148,7 +130,7 @@ function Register () {
               )
             : null}
           <div className={style.divimg}>
-            Image:{' '}
+            Image:
             <input
               name='Image'
               id='imagen'
