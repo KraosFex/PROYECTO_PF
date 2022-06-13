@@ -5,19 +5,19 @@ const courseSchema = new Schema(
   {
     titulo: {
       type: String,
-      required: true
+      required: [true, 'El titulo es requerido']
     },
     descripcion: {
       type: String,
-      required: true
+      required: [true, 'La descripcion es requerida']
     },
     calificacion: {
       type: Number,
-      required: true
+      required: [true, 'La calificacion es requerida']
     },
     imagen: {
       type: String,
-      required: true
+      required: [true, 'La imagen es requerida']
     },
     userInscript: {
       type: Number
@@ -32,7 +32,7 @@ const courseSchema = new Schema(
     ],
     lenguaje: {
       type: String,
-      required: true
+      required: [true, 'El lenguaje es requerido']
     }
   },
   {
