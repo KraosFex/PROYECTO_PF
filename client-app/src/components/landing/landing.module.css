@@ -1,5 +1,7 @@
 /* FONTS */
 
+
+
 @font-face {
     font-family: "Open_sans";
     src: url(../../fonts/OpenSans-Regular.ttf);
@@ -19,7 +21,7 @@
 /* ESTILOS */
 .containerHeader{
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
 
     height: 100vh;

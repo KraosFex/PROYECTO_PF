@@ -1,24 +1,35 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Route, Routes } from 'react-router'
-import { Outlet } from 'react-router-dom'
-import { getCourses } from '../redux/actions'
-import Courses from './components/courses/courses'
-import Aside from './components/home/aside/aside'
-import Home from './components/home/home'
-import NavBarUser from './components/home/navbarUser/navBarUser'
-import Landing from './components/landing/landing'
-import Login from './components/login/login'
-import Register from './components/register/register'
-import './index.css'
+import { useEffect } from "react";
+import { Outlet, Route, Routes } from "react-router-dom";
+import { getCourses } from "../redux/actions";
+import { useSelector, useDispatch } from "react-redux";
+import style from "./index.modules.css";
 
-function App () {
-  const theme = useSelector((store) => store.theme)
-  const dispatch = useDispatch()
+
+import Home from "./components/home/home";
+import Aside from "./components/home/aside/aside";
+import NavBarUser from "./components/home/navbarUser/navBarUser";
+import Login from "./components/login/login";
+import Courses from "./components/courses/courses";
+import Register from "./components/register/register";
+import Landing from "./components/landing/landing";
+import Perfil from "./components/perfil/perfil";
+import PrivateRoute from "./components/privateRoute/privateRoute";
+
+
+
+function App() {
+  const theme = useSelector((store) => store.theme);
+  const isLogged = useSelector((store) => store.isLogged);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getCourses())
-  })
-  const AppLayout = ({}) => (
+    dispatch(getCourses());
+  });
+
+
+
+  const AppLayout = () => (
     <>
       <Aside theme={theme} />
       <NavBarUser theme={theme} />
@@ -27,14 +38,17 @@ function App () {
   )
 
   return (
-    <div className='App-Body'>
+    <div className={style.AppBody}>
       <Routes>
         <Route exact path='/' element={<Landing />} />
         <Route path='/Login' element={<Login />} />
         <Route path='/Register' element={<Register />} />
         <Route element={<AppLayout />}>
-          <Route path='/Home' element={<Home theme={theme} />} />
-          <Route path='/courses' element={<Courses />} />
+          <Route path="/Home" element={<Home theme={theme} />} />
+          <Route path="/courses" element={<Courses />}></Route>
+          <Route element={<PrivateRoute isLogged={isLogged}/>}>
+            <Route path="/Perfil" element={<Perfil />}/>
+          </Route>
         </Route>
       </Routes>
     </div>
@@ -42,5 +56,3 @@ function App () {
 }
 
 export default App
-
-//  <Route path="/register" element={<Register />}/>

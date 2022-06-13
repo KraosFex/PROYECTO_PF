@@ -1,56 +1,57 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
-import FavoriteIcon from '../../../icons/Favorite'
-import Moon from '../../../icons/moon'
-import Notification from '../../../icons/notification'
-import Sun from '../../../icons/sun'
-import darkTheme from './navbarUserBlack.module.css'
-import lightTheme from './navbarUserLight.module.css'
+import React, { useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import darkTheme from "./navbarUserBlack.module.css";
+import lightTheme from "./navbarUserLight.module.css";
+import FavoriteIcon from "../../../icons/Favorite";
+import Moon from "../../../icons/moon";
+import Notification from "../../../icons/notification";
+import { ThemeProvider } from "styled-components";
+import Sun from "../../../icons/sun";
+import { useDispatch, useSelector } from "react-redux";
+import { themeSwitcher } from "../../../../redux/actions/index.js";
 
 function NavBarUser () {
+
   const dispatch = useDispatch()
-  const MoonIcon = <Moon />
-  const SunIcon = <Sun />
-  let style = lightTheme
-  const [theme, setTheme] = useState('dark')
-  const [themeIcon, setThemeIcon] = useState(Moon)
-  const toggleTheme = () => {
+
+  const theme = useSelector((store) => store.theme);
+  const [style, setStyle] = useState(lightTheme)
+
+  let body;
+
+  if (theme === "light") body = "#272727";
+ else if (theme === "dark") body = "#E3E3E3";
+
+
+  const switcher = () => {
     if (theme === 'light') {
-      setTheme('dark')
-      setThemeIcon(MoonIcon)
-      document.documentElement.style.setProperty(
-        '--backgroundColor',
-        '#272727 '
-      )
-      dispatch({
-        type: 'NEW_THEME',
-        payload: 'dark'
-      })
-    } else {
-      setTheme('light')
-      setThemeIcon(SunIcon)
-      document.documentElement.style.setProperty(
-        '--backgroundColor',
-        '#E3E3E3 '
-      )
-      dispatch({
-        type: 'NEW_THEME',
-        payload: 'light'
-      })
+    //ESTO NO SE DEBE MANEJAR DESDE ACA, TENDRIAMOS QUE UTILIZAR EL ESTADO GLOBAL "theme"
+    //  rootElement.childNodes[2].style.setProperty('--backgroundColor',  '#272727');
+      document.documentElement.style.setProperty("--backgroundColor", body);
+      setStyle(darkTheme)
+      dispatch(themeSwitcher('dark'))
+
+    } else if (theme === 'dark'){
+      //ESTO NO SE DEBE MANEJAR DESDE ACA, TENDRIAMOS QUE UTILIZAR EL ESTADO GLOBAL "theme"
+      //  rootElement.childNodes[2].style.setProperty(--backgroundColor','#E3E3E3');
+        document.documentElement.style.setProperty("--backgroundColor", body);
+      setStyle(lightTheme)
+      dispatch(themeSwitcher('light'))
     }
-  }
+  };
+
+
+
 
   return (
     <ThemeProvider
-      theme={theme === 'light' ? (style = lightTheme) : (style = darkTheme)}
+      theme={style}
     >
       <div className={style.container}>
         <div className={style.icon21}>
-          <Link to='#' onClick={toggleTheme}>
-            {themeIcon}
-          </Link>
+          <div onClick={() => switcher()}>
+          {theme === 'light' ? <Sun /> : <Moon />}
+          </div>
         </div>
         <div className={style.icon2}>
           <Link to='#'>
@@ -63,8 +64,8 @@ function NavBarUser () {
           </Link>
         </div>
         <div className={style.icon3}>
-          <Link to='#'>
-            <img src='https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png?x=480&quality=20' />
+          <Link to="Perfil">
+            <img src="https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png?x=480&quality=20"></img>
           </Link>
         </div>
       </div>

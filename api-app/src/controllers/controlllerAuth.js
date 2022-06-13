@@ -15,6 +15,7 @@ const registerUser = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   const { email, password } = req.body
+
   if (!email || !password) return next(new ErrorResponse('Por favor provea un email y contraseña', 400))
   try {
     const user = await User.findOne({ email })
@@ -32,6 +33,7 @@ const login = async (req, res, next) => {
 
 const forgotPassword = async (req, res, next) => {
   const { email } = req.body
+  
   try {
     const user = await User.findOne({ email })
     if (!email) return next(new ErrorResponse('Por favor provea un email', 400))
@@ -64,7 +66,7 @@ const forgotPassword = async (req, res, next) => {
   }
 }
 
-const resetPassword = async (req, res) => { }
+const resetPassword = async (req, res) => { /* EN PROGRESO */ }
 
 module.exports = {
   registerUser,

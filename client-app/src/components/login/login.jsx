@@ -2,6 +2,8 @@ import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import React, { useEffect, useState } from 'react'
 import style from './login.module.css'
+import { validation } from '../../../redux/actions/index';
+import { useDispatch, useSelector } from 'react-redux';
 
 const validator = (input) => {
   const error = {}
@@ -22,9 +24,14 @@ const validator = (input) => {
 }
 
 function Login () {
+
+  const user = useSelector(store => store.user);
+  const isLogged = useSelector(store => store.isLogged);
+
+  const dispatch = useDispatch();
+
   const [input, setInput] = useState({})
   const [error, setError] = useState({})
-  const [user, setUser] = useState({})
   const [logError, setLogError] = useState({})
 
   const workOnChange = (event) => {
@@ -56,27 +63,17 @@ function Login () {
         [event.target.name]: event.target.value
       }))
     } else {
-      event.preventDefault()
-      setInput({
-        ...input,
-        submit: 'Actividad Agregada!'
-      })
+          event.preventDefault()
 
-      try {
-        const userData = await axios('http://localhost:3001/api/auth', {
-          params: {
-            email: input.email,
-            password: input.password
+          const data = await dispatch(validation({email: input.email, password: input.password}))
+          console.log(data.response.status)
+          if(data.response.status === 401 || data.response.status === 404 || data.response.status === 500) {
+            setLogError({err: data.response.data.info})
+          } else {
+            let location = window.location.href + 'home'
+            location = location.split('login')
+            window.location.href = location[0] + location[1]
           }
-        })
-        setUser(userData)
-        setLogError({})
-        let location = window.location.href + 'home'
-        location = location.split('login')
-        window.location.href = location[0] + location[1]
-      } catch (err) {
-        setLogError({ err })
-      }
     }
   }
 
@@ -91,18 +88,12 @@ function Login () {
 
     if (userObject.email_verified) {
       try {
-        const userData = await axios('http://localhost:3001/api/auth', {
-          params: {
-            email: userObject.email,
-            password: userObject.sub
-          }
-        })
+        const data = dispatch(validation({email: userObject.email, password: userObject.sub }))
 
-        setUser(userObject)
-        setLogError({})
-        let location = window.location.href + 'home'
+        /*let location = window.location.href + 'home'
         location = location.split('login')
-        window.location.href = location[0] + location[1]
+        window.location.href = location[0] + location[1]*/
+
       } catch (err) {
         setLogError({ err })
       }
@@ -135,7 +126,7 @@ function Login () {
         </div>
         <div className={style.childContainer}>
           <h1>Sign In</h1>
-          {logError.err && <label className={style.logError}>{logError.err.response.data.info}</label>}
+          {logError.err && <label className={style.logError}>{logError.err}</label>}
           <form className={style.form} onChange={(e) => workOnChange(e)} onSubmit={(e) => handleSubmit(e)}>
             <div className={style.input}>
               <label className={style.title}>EMAIL</label>
