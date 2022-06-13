@@ -60,7 +60,7 @@ const forgotPassword = async (req, res, next) => {
       return next(new ErrorResponse('Error al enviar el email', 500))
     }
   } catch (err) {
-    return next(new ErrorResponse('Error al enviar el correo', 500))
+    next(new ErrorResponse('Error al enviar el correo', 500))
   }
 }
 

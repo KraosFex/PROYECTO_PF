@@ -1,7 +1,8 @@
 const Lesson = require('../model/modelLesson')
 const Curso = require('../model/modelCurso')
+const ErrorResponse = require('../utils/errorResponse.js')
 
-const createLesson = async (req, res) => {
+const createLesson = async (req, res, next) => {
   const { lesson } = req.body
   try {
     const course = await Curso.findById(req.params.id)
@@ -11,8 +12,7 @@ const createLesson = async (req, res) => {
     await newLesson.save()
     res.send({ info: 'Curso creado exitosamente', newLesson })
   } catch (err) {
-    res.send({ info: 'Error al crear la leccion', err })
-    console.log(err)
+    next(new ErrorResponse('Error al crear el curso', 500))
   }
 }
 
