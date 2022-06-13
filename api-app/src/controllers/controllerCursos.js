@@ -2,7 +2,10 @@ const Course = require('../model/modelCurso')
 
 const getCursos = async (req, res) => {
   try {
-    const courses = await Course.find().populate('lessons')
+    const courses = await Course.find().populate({
+      path: 'lessons.lesson',
+      ref: 'Lesson'
+    })
     res.send(courses)
     return
   } catch (err) {
