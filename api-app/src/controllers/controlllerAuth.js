@@ -1,6 +1,7 @@
 
 const User = require('../model/modelUser.js')
 const ErrorResponse = require('../utils/errorResponse.js')
+const sendMail = require('../utils/sendEmail.js')
 
 const registerUser = async (req, res, next) => {
   try {
@@ -45,9 +46,18 @@ const forgotPassword = async (req, res, next) => {
       <a href="${resetURL}" clicktracking=off>${resetURL}</a>
     `
     try {
+      await sendMail({
+        email: user.email,
+        subject: 'Reseteo de contraseña',
+        text: message
+      })
 
+      res.send({ info: 'Se ha enviado un email con instrucciones para resetear la contraseña', success: true })
     } catch (err) {
-
+      user.resetPasswordToken = undefined
+      user.resetPasswordExpire = undefined
+      await user.save()
+      return next(new ErrorResponse('Error al enviar el email', 500))
     }
   } catch (err) {
     return next(new ErrorResponse('Error al enviar el correo', 500))
