@@ -3,10 +3,12 @@ const User = require('../model/modelUser.js')
 const ErrorResponse = require('../utils/errorResponse.js')
 
 const protect = async (req, res, next) => {
+  const { authorization } = req.headers
+
   let token
 
-  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-    token = req.headers.authorization().split(' ')[1]
+  if (authorization && authorization.startsWith('Bearer')) {
+    token = authorization.split(' ')[2]
   }
 
   if (!token) return next(new ErrorResponse('No estas autorizado', 401))

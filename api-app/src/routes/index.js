@@ -3,7 +3,7 @@ const router = Router()
 const users = require('./public/user.js')
 const cursos = require('./public/curso.js')
 const auth = require('./public/auth.js')
-const usersPrivate = require('./public/user.js')
+const usersPrivate = require('./private/userPrivate.js')
 const cursosPrivate = require('./public/curso.js')
 
 router.use('/users', users)

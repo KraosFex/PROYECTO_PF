@@ -2,8 +2,13 @@
 const User = require('../model/modelUser.js')
 
 const getUsers = async (req, res) => {
+  const { isAdmin } = req.user
+  if (!isAdmin) return res.send({ info: 'No tienes permisos para ver los usuarios' })
   try {
-    const users = await User.find({ estado: true }).populate('cursos')
+    const users = await User.find({ estado: true }).populate({
+      path: 'courses.course',
+      ref: 'Course'
+    })
     res.send(users)
   } catch (err) {
     res.send({ info: 'Error al obtener los usuarios', err })

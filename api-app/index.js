@@ -32,7 +32,7 @@ const server = mongoose.connect(db,
     console.log(err)
   })
 
-process.on('unhandledRejection', (err, promise) => {
-  console.log(`Logged Error: ${err}`)
-  server.close(() => process.exit(1))
-})
+// process.on('unhandledRejection', (err, promise) => {
+//   console.log(`Logged Error: ${err}`)
+//   server.close(() => process.exit(1))
+// })
