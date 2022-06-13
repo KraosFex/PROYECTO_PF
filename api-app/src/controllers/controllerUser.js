@@ -3,7 +3,7 @@ const User = require('../model/modelUser.js')
 
 const getUsers = async (req, res) => {
   try {
-    const users = await User.find({ estado: true })
+    const users = await User.find({ estado: true }).populate('cursos')
     res.send(users)
   } catch (err) {
     res.send({ info: 'Error al obtener los usuarios', err })
