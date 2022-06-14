@@ -35,7 +35,6 @@ function Login () {
   const [logError, setLogError] = useState({})
 
   const workOnChange = (event) => {
-    console.log(event.target.name)
     setInput({
       ...input,
       [event.target.name]: event.target.value
@@ -66,7 +65,6 @@ function Login () {
           event.preventDefault()
 
         const response = await dispatch(validation({email: input.email, password: input.password}))
-        console.log(response)
         if(response.success) {
           let location = window.location.href + 'home'
            location = location.split('login')
@@ -78,7 +76,6 @@ function Login () {
   }
 
   const handleSingOut = (event) => {
-    console.log('click')
     setUser({})
     document.getElementById('signInDiv').hidden = false
   }
