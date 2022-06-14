@@ -70,10 +70,28 @@ const addFavorite = async (req, res, next) => {
   }
 }
 
+const removeFavorite = async (req, res, next) => {
+  const { idUsuario } = req.params
+  const { idCursoFavorito } = req.body
+  try {
+    await User.findByIdAndUpdate(idUsuario, {
+      $pull: {
+        courses: {
+          course: idCursoFavorito
+        }
+      }
+    }, { new: true })
+    res.send({ info: 'Curso eliminado exitosamente', success: true })
+  } catch (err) {
+    next(new ErrorResponse('Error al eliminar el curso', 500))
+  }
+}
+
 module.exports = {
   getCursos,
   getCursoId,
   createCurso,
   getCursoName,
-  addFavorite
+  addFavorite,
+  removeFavorite
 }
