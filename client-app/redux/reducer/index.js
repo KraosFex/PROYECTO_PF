@@ -1,41 +1,61 @@
+// actions types
+import {
+  POST_NEW_USER,
+  SET_VALIDATEUSER,
+  SET_COURSES,
+  GET_COURSEBYNAME,
+  SET_SHOWEDCOURSES,
+  SET_THEME,
+  LOGOUT
+  } from "../actions/actionsTypes/actionTypes";
+
 // index reducers app
 const initialState = {
-  Curses: [],
-  filteredCurses: [],
-  user: [],
-  theme: 'dark',
-  courses: []
-}
+  user: {},
+  isLogged: false,
+  showedCourses: [],
+  courses: [],
+  theme: "light",
+};
 
-export default function rootReducer (state = initialState, { type, payload }) {
+const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    // Para obtener la lista completa de mi api y almacenarla en el estado
-    case 'GET_PROFILE':
+    //Para obtener la lista completa de mi api y almacenarla en el estado
+    case SET_VALIDATEUSER:
+      return {
+        ...state,
+        user: payload,
+        isLogged: true,
+      };
+    case POST_NEW_USER:
       return {
         ...state,
         user: payload
       }
-    case 'POST_NEW_USER':
-      return {
-        ...state,
-        user: payload
-      }
-    case 'NEW_THEME':
+    case SET_THEME:
       return {
         ...state,
         theme: payload
       }
-    case 'GET_COURSES':
+    case SET_COURSES:
       return {
         ...state,
-        courses: payload
-      }
-    case 'GET_COURSEBYNAME':
-      return {
+        courses: payload,
+      };
+      case SET_SHOWEDCOURSES:
+        return {
+          ...state,
+          showedCourses: payload
+        }
+    case LOGOUT:
+      return{
         ...state,
-        courses: payload
+        user: {},
+        isLogged: false
       }
     default:
       return state
   }
 }
+
+export default rootReducer;

@@ -1,5 +1,6 @@
 const { Router } = require('express')
 const router = Router()
+
 const { protect } = require('../../middleware/protect.js')
 const { createCurso, addFavorite, removeFavorite, addVotes } = require('../../controllers/controllerCursos.js')
 const { createLesson } = require('../../controllers/controllerLession.js')
