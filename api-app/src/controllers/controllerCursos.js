@@ -44,6 +44,7 @@ const createCurso = async (req, res, next) => {
   const { body } = req
   try {
     const course = await new Course(body)
+    await course.save()
     res.send(course)
     return
   } catch (err) {
