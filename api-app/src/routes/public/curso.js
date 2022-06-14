@@ -1,12 +1,12 @@
-const { Router } = require('express')
-const router = Router()
+const { Router } = require("express");
+const router = Router();
 
 const {
   getCursos,
-  getCursoName
-} = require('../../controllers/controllerCursos.js')
+  getCursoName,
+} = require("../../controllers/controllerCursos");
 
-router.get('/', getCursos)
-router.get('/:name', getCursoName)
+router.get("/", getCursos);
+router.get("/:name", getCursoName);
 
-module.exports = router
+module.exports = router;

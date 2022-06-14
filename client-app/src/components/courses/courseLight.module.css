@@ -127,6 +127,20 @@
     height: 2em;
 }
 
+.select2{
+
+  color: rgb(185, 185, 185);
+  display: flex;
+  padding: 2px;
+  border: 1px solid black;
+  border-radius: 4.5px;
+  background-color: rgba(123, 123, 123, 0.823) ;
+  margin-top: 0em;
+  width: 19em;
+  height: 2em;
+  justify-content: space-around;
+}
+
 .p{
     color: rgb(230, 230, 230);
     align-self: flex-start;
