@@ -14,6 +14,7 @@ import Register from "./components/register/register";
 import Landing from "./components/landing/landing";
 import Perfil from "./components/perfil/perfil";
 import PrivateRoute from "./components/privateRoute/privateRoute";
+import CourseDetailPage from "./components/courseDetailPage/course/course";
 
 
 
@@ -41,11 +42,12 @@ function App() {
     <div className={style.AppBody}>
       <Routes>
         <Route exact path='/' element={<Landing />} />
-        <Route path='/Login' element={<Login />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/Register' element={<Register />} />
         <Route element={<AppLayout />}>
           <Route path="/Home" element={<Home theme={theme} />} />
           <Route path="/courses" element={<Courses />}></Route>
+          <Route path='/course/:id' element={<CourseDetailPage />} />
           <Route element={<PrivateRoute isLogged={isLogged}/>}>
             <Route path="/Perfil" element={<Perfil />}/>
           </Route>

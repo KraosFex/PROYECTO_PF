@@ -43,27 +43,31 @@ export const setValidateUser = (userObject) => {
     }
 }
 
-export const createNew = (input) => {
-  return async dispatch => {
-      try{
-        const resp = await axios.post("http://localhost:3001/api/users/", input)
-        dispatch({
-          type: POST_NEW_USER,
-          payload: resp.data,
-        });
-      } catch(err) {
-          console.log(err);
-          alert("Ups! Something went wrong...");
-      }
-  };
-}
+export async function createNew(input) {
+  let newinput = { name: input.name, password: input.password, email: input.email, imagen: input.Image==="" || !input.Image ? "https://img2.freepng.es/20180323/pww/kisspng-computer-icons-clip-art-profile-cliparts-free-5ab5a47b02ff75.0880050915218535630123.jpg": input.Image}
+  console.log(newinput)
+  let errores = await axios.post("http://localhost:3001/api/auth/register", newinput)
+    .then(resp => resp.data).then((a) => { return { good: a.info } })
+    .catch((err) => {
+      return ({ password: err.response.data });
+    });
+  return (errores);
+
+};
+
+export function findCourse(id) {
+  return async function(dispatch){
+    await axios.get(`/api/cursos/${id}`).then(resp => resp.data)
+    .then((resp)=>dispatch({type:"GET_CURSE", payload: resp}))
+  }
+};
 
 export const validation = (post) => {
   return async dispatch => {
     try {
-      const metaData = await axios.post("http://localhost:3001/api/auth", post)
-      const data = {user: metaData.data.user, token: metaData.data.token}
-      dispatch(setValidateUser(data))
+      const metaData = await axios.post("http://localhost:3001/api/auth/login", post)
+      dispatch(setValidateUser(metaData.data))
+      return metaData.data
     } catch(err) {
       return err
     }
