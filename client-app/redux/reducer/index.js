@@ -22,7 +22,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     //Para obtener la lista completa de mi api y almacenarla en el estado
     case SET_VALIDATEUSER:
-    console.log("entre pa")
       return {
         ...state,
         user: payload,
