@@ -38,6 +38,9 @@ const courseSchema = new Schema(
         }
       }
     ],
+    votes: [
+      Number
+    ],
     lenguaje: {
       type: String,
       required: [true, 'El lenguaje es requerido']

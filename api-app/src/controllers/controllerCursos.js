@@ -8,7 +8,7 @@ const getCursos = async (req, res, next) => {
     res.send(courses)
     return
   } catch (err) {
-    next(new ErrorResponse('Error al crear el curso', 500))
+    next(new ErrorResponse('Error al crear el curso', 500, false))
     console.error(err)
   }
 }
@@ -19,7 +19,7 @@ const getCursoId = async (req, res, next) => {
     res.send(course)
     return
   } catch (err) {
-    next(new ErrorResponse('Error al crear el curso', 500))
+    next(new ErrorResponse('Error al crear el curso', 500, false))
     console.error(err)
   }
 }
@@ -29,13 +29,13 @@ const getCursoName = async (req, res, next) => {
   try {
     const course = await Course.find({ titulo: { $regex, $options: 'i' } })
     if (!course.length) {
-      next(new ErrorResponse('Error al crear el curso', 500))
+      next(new ErrorResponse('Error al crear el curso', 500, false))
     } else {
       res.send(course)
     }
     return
   } catch (err) {
-    next(new ErrorResponse('Error al crear el curso', 500))
+    next(new ErrorResponse('Error al crear el curso', 500, false))
     console.error(err)
   }
 }
@@ -48,7 +48,7 @@ const createCurso = async (req, res, next) => {
     res.send(course)
     return
   } catch (err) {
-    next(new ErrorResponse('Error al crear el curso', 500))
+    next(new ErrorResponse('Error al crear el curso', 500, false))
     console.error(err)
   }
 }
@@ -67,7 +67,7 @@ const addFavorite = async (req, res, next) => {
     }, { new: true })
     res.send({ info: 'Curso creado exitosamente', user, success: true })
   } catch (err) {
-    next(new ErrorResponse('Error al crear el curso', 500))
+    next(new ErrorResponse('Error al crear el curso', 500, false))
   }
 }
 
@@ -86,7 +86,25 @@ const removeFavorite = async (req, res, next) => {
     console.log(eliminado)
     res.send({ info: 'Curso eliminado exitosamente', success: true })
   } catch (err) {
-    next(new ErrorResponse('Error al eliminar el curso', 500))
+    next(new ErrorResponse('Error al eliminar el curso', 500, false))
+  }
+}
+
+const addVotes = async (req, res, next) => {
+  const { id } = req.params
+  const { idUser, votes } = req.body
+  try {
+    const curso = await Course.findByIdAndUpdate({ _id: id }, {
+      $push: {
+        userVotes: {
+          user: idUser
+        },
+        votes
+      }
+    }, { new: true })
+    res.send({ info: 'Votacion exitosa', curso, success: true })
+  } catch (err) {
+    next(new ErrorResponse('Error al votar el curso', 500, false))
   }
 }
 
@@ -96,5 +114,6 @@ module.exports = {
   createCurso,
   getCursoName,
   addFavorite,
-  removeFavorite
+  removeFavorite,
+  addVotes
 }

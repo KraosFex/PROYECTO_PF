@@ -21,3 +21,5 @@
 ### Agregar Cursos Favoritos **PRIVADA** **PUT** http://localhost:3001/api/cursosprivate/:id/favorite
 
 ### Eliminar Favorito **PRIVADA** **PUT** http://localhost:3001/api/cursosprivate/:id/unfavorite
+
+### Agregar Votos **PRIVADA** **PUT** http://localhost:3001/api//:id/votes
