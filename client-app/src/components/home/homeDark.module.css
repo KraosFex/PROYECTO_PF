@@ -40,7 +40,7 @@
 
 .container{
     display: inline-block;
-    background-color: rgb(54, 54, 54);
+    background: linear-gradient(90deg, rgba(54,54,54,1) 0%, rgba(124,0,1,0.1) 100%, rgba(190,0,0,0.5) 100%);
     border-radius: 1em;
     width: 70em;
     height: 30em;

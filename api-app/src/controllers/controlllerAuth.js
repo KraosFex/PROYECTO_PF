@@ -16,12 +16,15 @@ const registerUser = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   const { email, password } = req.body
+
   if (!email || !password) return next(new ErrorResponse('Por favor provea un email y contraseña', 400, false))
+
   try {
     const user = await User.findOne({ email })
     if (!user) return next(new ErrorResponse('Credenciales Invalidas', 401, false))
 
     const match = await user.matchPassword(password)
+
     if (!match) return next(new ErrorResponse('Credenciales Invalidas', 401, false))
 
     const token = user.generateToken()
@@ -33,6 +36,7 @@ const login = async (req, res, next) => {
 
 const forgotPassword = async (req, res, next) => {
   const { email } = req.body
+
   try {
     const user = await User.findOne({ email })
     if (!email) return next(new ErrorResponse('Por favor provea un email', 400))
