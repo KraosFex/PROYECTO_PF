@@ -17,3 +17,5 @@
 ### Crear Lesson para un curso **PRIVADA** **POST** http://localhost:3001/api/cursosprivate/:id
 
 ### Buscar User por UserName **PRIVADA** **GET** http://localhost:3001/api/usersprivate/username
+
+### Agregar Cursos Favoritos **PRIVADA** **PUT** http://localhost:3001/api/cursosprivate/:id/favorite

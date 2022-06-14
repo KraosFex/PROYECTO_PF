@@ -13,7 +13,7 @@ const courseSchema = new Schema(
     },
     calificacion: {
       type: Number,
-      required: [true, 'La calificacion es requerida']
+      required: false
     },
     imagen: {
       type: String,
