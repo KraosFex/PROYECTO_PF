@@ -59,7 +59,7 @@ const addFavorite = async (req, res, next) => {
     const user = await User.findByIdAndUpdate(id, {
       $push: {
         courses: {
-          idCurso,
+          course: idCurso,
           isFavorite
         }
       }
