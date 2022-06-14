@@ -23,7 +23,7 @@ const login = async (req, res, next) => {
 
     const match = await user.matchPassword(password)
     if (!match) return next(new ErrorResponse('Credenciales Invalidas', 401))
-
+  
     const token = user.generateToken()
     res.send({ info: 'Credenciales correctas', success: true, token, user })
   } catch (err) {
@@ -33,7 +33,7 @@ const login = async (req, res, next) => {
 
 const forgotPassword = async (req, res, next) => {
   const { email } = req.body
-  
+
   try {
     const user = await User.findOne({ email })
     if (!email) return next(new ErrorResponse('Por favor provea un email', 400))

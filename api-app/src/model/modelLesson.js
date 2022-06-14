@@ -19,4 +19,4 @@ const lessonSchema = new Schema({
   }
 }, { timestamps: true, versionKey: false })
 
-module.exports = model('Lession', lessonSchema)
+module.exports = model('Lesson', lessonSchema)

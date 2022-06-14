@@ -7,7 +7,7 @@ import YourCourse from './yourCourse/yourCourse'
 import style from './perfil.module.css'
 
 const Perfil = () => {
-  
+
   const persona = useSelector(state => state.user)
 
   const coursesAll = persona.courses.map(course => {

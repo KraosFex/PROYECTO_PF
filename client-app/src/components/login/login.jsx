@@ -65,14 +65,14 @@ function Login () {
     } else {
           event.preventDefault()
 
-          const data = await dispatch(validation({email: input.email, password: input.password}))
-          console.log(data.response.status)
-          if(data.response.status === 401 || data.response.status === 404 || data.response.status === 500) {
-            setLogError({err: data.response.data.info})
+        const response = await dispatch(validation({email: input.email, password: input.password}))
+        console.log(response)
+        if(response.success) {
+          let location = window.location.href + 'home'
+           location = location.split('login')
+           window.location.href = location[0] + location[1]
           } else {
-            let location = window.location.href + 'home'
-            location = location.split('login')
-            window.location.href = location[0] + location[1]
+            setLogError({err: "El email o contraseña es incorrecto"})
           }
     }
   }
@@ -88,12 +88,10 @@ function Login () {
 
     if (userObject.email_verified) {
       try {
-        const data = dispatch(validation({email: userObject.email, password: userObject.sub }))
-
-        /*let location = window.location.href + 'home'
+        setLogError({})
+        let location = window.location.href + 'home'
         location = location.split('login')
-        window.location.href = location[0] + location[1]*/
-
+        window.location.href = location[0] + location[1]
       } catch (err) {
         setLogError({ err })
       }

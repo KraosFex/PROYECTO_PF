@@ -1,0 +1,19 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    margin: 2%;
+    padding: 2%;
+    background: #000000a1;
+    border-radius: 20px;
+    border: 2px inset;
+}
+.h4{
+    font-family: 'Oswald', sans-serif;
+    margin: 0;
+    width: 100%;
+    text-align: -webkit-center;
+}
+.parrafo{
+    margin: 10px;
+} 
