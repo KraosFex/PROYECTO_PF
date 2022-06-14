@@ -30,6 +30,14 @@ const courseSchema = new Schema(
         }
       }
     ],
+    userVotes: [
+      {
+        user: {
+          type: Schema.ObjectId,
+          ref: 'User'
+        }
+      }
+    ],
     lenguaje: {
       type: String,
       required: [true, 'El lenguaje es requerido']

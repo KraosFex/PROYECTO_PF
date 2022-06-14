@@ -15,18 +15,18 @@ const registerUser = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   const { email, password } = req.body
-  if (!email || !password) return next(new ErrorResponse('Por favor provea un email y contraseña', 400))
+  if (!email || !password) return next(new ErrorResponse('Por favor provea un email y contraseña', 400, false))
   try {
     const user = await User.findOne({ email })
-    if (!user) return next(new ErrorResponse('Credenciales Invalidas', 401))
+    if (!user) return next(new ErrorResponse('Credenciales Invalidas', 401, false))
 
     const match = await user.matchPassword(password)
-    if (!match) return next(new ErrorResponse('Credenciales Invalidas', 401))
+    if (!match) return next(new ErrorResponse('Credenciales Invalidas', 401, false))
 
     const token = user.generateToken()
     res.send({ info: 'Credenciales correctas', success: true, token, user })
   } catch (err) {
-    res.status(500).send({ info: 'Error en credenciales', success: false, error: err.message })
+    next(new ErrorResponse('Error en los credenciales', 401, false))
   }
 }
 
@@ -57,10 +57,10 @@ const forgotPassword = async (req, res, next) => {
       user.resetPasswordToken = undefined
       user.resetPasswordExpire = undefined
       await user.save()
-      return next(new ErrorResponse('Error al enviar el email', 500))
+      return next(new ErrorResponse('Error al enviar el email', 500, false))
     }
   } catch (err) {
-    next(new ErrorResponse('Error al enviar el correo', 500))
+    next(new ErrorResponse('Error al enviar el correo', 500, false))
   }
 }
 
