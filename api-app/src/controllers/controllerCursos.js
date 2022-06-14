@@ -3,8 +3,11 @@ const User = require('../model/modelUser')
 const ErrorResponse = require('../utils/errorResponse.js')
 
 const getCursos = async (req, res, next) => {
+  console.log(req.query)
+  const limit = parseInt(req.query.limit) || 8
+  const page = parseInt(req.query.page) || 1
   try {
-    const courses = await Course.find()
+    const courses = await Course.paginate({ estado: true }, { limit, page })
     res.send(courses)
     return
   } catch (err) {
