@@ -4,6 +4,6 @@ const protect = require('../../middleware/protect')
 const router = Router()
 
 router.get('/', protect, getUsers)
-router.get('/name', protect, getUsersByName)
+router.get('/username', protect, getUsersByName)
 
 module.exports = router
