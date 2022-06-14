@@ -28,6 +28,7 @@ const login = async (req, res, next) => {
     if (!match) return next(new ErrorResponse('Credenciales Invalidas', 401, false))
 
     const token = user.generateToken()
+    console.log(token)
     res.send({ info: 'Credenciales correctas', success: true, token, user })
   } catch (err) {
     next(new ErrorResponse('Error en los credenciales', 401, false))

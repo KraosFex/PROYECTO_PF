@@ -2,6 +2,7 @@ const { Schema, model } = require('mongoose')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
+const mongoosePaginate = require('mongoose-paginate-v2')
 
 const userSchema = new Schema(
   {
@@ -60,6 +61,8 @@ const userSchema = new Schema(
     versionKey: false
   }
 )
+
+userSchema.plugin(mongoosePaginate)
 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {

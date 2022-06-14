@@ -1,5 +1,6 @@
 
 const { Schema, model } = require('mongoose')
+const mongoosePaginate = require('mongoose-paginate-v2')
 
 const courseSchema = new Schema(
   {
@@ -51,5 +52,7 @@ const courseSchema = new Schema(
     versionKey: false
   }
 )
+
+courseSchema.plugin(mongoosePaginate)
 
 module.exports = model('Course', courseSchema)
