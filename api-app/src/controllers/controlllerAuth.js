@@ -2,6 +2,7 @@
 const User = require('../model/modelUser.js')
 const ErrorResponse = require('../utils/errorResponse.js')
 const sendMail = require('../utils/sendEmail.js')
+const crypto = require('crypto')
 
 const registerUser = async (req, res, next) => {
   try {
@@ -64,7 +65,19 @@ const forgotPassword = async (req, res, next) => {
   }
 }
 
-const resetPassword = async (req, res) => { }
+const resetPassword = async (req, res, next) => {
+  const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex')
+  try {
+    const user = await User.findOne({ resetPasswordToken, resetPasswordExpire: { $gt: Date.now() } })
+    if (!user) return next(new ErrorResponse('Token invalido', 400, false))
+    user.password = req.body.password
+    user.resetPasswordToken = undefined
+    user.resetPasswordExpire = undefined
+    await user.save()
+  } catch (err) {
+    next(new ErrorResponse('Error al resetear la contraseña', 500, false))
+  }
+}
 
 module.exports = {
   registerUser,
