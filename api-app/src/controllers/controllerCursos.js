@@ -16,7 +16,7 @@ const getCursos = async (req, res, next) => {
   }
 }
 
-const getCursoId = async (req, res, next) => {
+const getCursoById = async (req, res, next) => {
   try {
     const course = await Course.findById(req.params.id)
     res.send(course)
@@ -113,7 +113,7 @@ const addVotes = async (req, res, next) => {
 
 module.exports = {
   getCursos,
-  getCursoId,
+  getCursoById,
   createCurso,
   getCursoName,
   addFavorite,
