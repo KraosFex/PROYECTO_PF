@@ -143,3 +143,29 @@ input[type="radio"]:focus {
     align-items: center;
     margin: 15px;
 }
+
+.bar{
+    display: flex;
+    margin: 10px;
+    width: 100%;
+}
+input[type=range] {
+    -webkit-appearance: none;
+    background-color: transparent;
+    width: 100%;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    height: 10px;
+    background: #009667;
+    border-radius: 3px;
+}
+input[type=range]::-webkit-slider-thumb {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 2px solid #006545;
+    background: #7ef2cd;
+    -webkit-appearance: none;
+    margin-top: -6px;
+}

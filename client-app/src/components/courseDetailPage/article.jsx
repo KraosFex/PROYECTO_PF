@@ -26,6 +26,7 @@ export default function CardD() {
     let MaxClase = Curso.lessons.length
     let list = Curso.lessons.slice(index[0], index[1])
     let progress = user.courses? user.courses : CursoBase.lessons.map(e=>{return{course: e, isFavorite:false}})
+    let complete = progress.filter(e=> e.course.isCompleted )
     return (
         <div className={style.Container}>
             <div className={style.sup}>
@@ -40,16 +41,20 @@ export default function CardD() {
             <h4 className={style.h4}>Clases:</h4>
             <div className={style.clases}>
                 {index[0] - 1 > 0 ? <button className={style.arrowi} onClick={() => Change("prev", index[0], setIndex)}><img className={style.ai} alt="" src="https://www.pngmart.com/files/3/Up-Arrow-PNG-HD.png" /></button> : null}
-                {list.map((e) => <Card key={e.id} e={e} />)}
+                {list.map((e) => <Card key={e.num} e={e} />)}
                 {index[1] + 1 <= MaxClase ? <button className={style.arrowd} onClick={() => Change("next", index[1], setIndex)}><img className={style.ai} alt="" src="https://www.pngmart.com/files/3/Up-Arrow-PNG-HD.png" /></button> : null}
             </div>
             <h4 className={style.h4}>Progress:</h4>
-            <div className={style.progreso}>
-                {progress.map((e) => <div className={style.ClasP}>{e.course.isCompleted ? <input key={e.course.num} checked type="radio" readOnly/>: <input key={e.num} type="radio" disabled/>}{e.course.titulo}</div>)}
-                {progress.map((e) => <div className={style.ClasP}>{e.course.isCompleted ? <input key={e.course.num} checked type="radio" readOnly/>: <input key={e.num} type="radio" disabled/>}{e.course.titulo}</div>)}
-                {progress.map((e) => <div className={style.ClasP}>{e.course.isCompleted ? <input key={e.course.num} checked type="radio" readOnly/>: <input key={e.num} type="radio" disabled/>}{e.course.titulo}</div>)}
+            <div className={style.bar}>
+                <label>{(complete.length/MaxClase*100).toFixed(1)}%</label>
+                <input type="range" max={100}  min ={0} readOnly value={complete.length/MaxClase*100}/>
             </div>
-
+            <div className={style.progreso}>
+                {progress.map((e) => <div className={style.ClasP} key={e.course.num}>{e.course.isCompleted ? <input checked type="radio" readOnly/>: <input key={e.num} type="radio" disabled/>}{e.course.titulo}</div>)}
+                {progress.map((e) => <div className={style.ClasP} key={e.course.num}>{e.course.isCompleted ? <input checked type="radio" readOnly/>: <input key={e.num} type="radio" disabled/>}{e.course.titulo}</div>)}
+                {progress.map((e) => <div className={style.ClasP} key={e.course.num}>{e.course.isCompleted ? <input checked type="radio" readOnly/>: <input key={e.num} type="radio" disabled/>}{e.course.titulo}</div>)}
+            </div>
+            
         </div>
     )
 }
