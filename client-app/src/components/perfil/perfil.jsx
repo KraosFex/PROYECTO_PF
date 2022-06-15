@@ -9,11 +9,10 @@ import PasswordPopUp from './popUps/passwordPopUp.jsx';
 
 // import stiles
 import style from './perfil.module.css'
-import persona from './persona.js';
 
 const Perfil = () => {
 
-  //const persona = useSelector(state => state.user)
+  const persona = useSelector(state => state.user)
 
   const [usernamePopUp, setUsernamePopUp] = useState(false);
   const [passwordPopUp, setPasswordPopUp] = useState(false);
