@@ -5,10 +5,12 @@ import YourCourse from './yourCourse/yourCourse'
 
 // import stiles
 import style from './perfil.module.css'
+import persona from './persona.js';
+import PopUp from './popUp/popUp.jsx';
 
 const Perfil = () => {
 
-  const persona = useSelector(state => state.user)
+  //const persona = useSelector(state => state.user)
 
   const coursesAll = persona.courses.map(course => {
     return(
@@ -38,6 +40,7 @@ const Perfil = () => {
                     <div>
                       <label> Name: </label>
                       <span> {persona.name} </span>
+                      <button className={style.popup}>Edit</button>
                     </div>
                     <div>
                       <label> e-mail: </label>
@@ -61,6 +64,8 @@ const Perfil = () => {
 
       {/* YOUR_COURSE   */}
         <YourCourse className={style.YourCourse} coursesAll={coursesAll} />
+
+        <PopUp />
 
     </div>
   )
