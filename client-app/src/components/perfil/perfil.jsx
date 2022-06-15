@@ -1,16 +1,27 @@
 import { useSelector } from 'react-redux'
+import { useState } from 'react';
+
 
 // import shildren components
 import YourCourse from './yourCourse/yourCourse'
+import UsernamePopUp from './popUps/usernamePopUp.jsx';
+import PasswordPopUp from './popUps/passwordPopUp.jsx';
 
 // import stiles
 import style from './perfil.module.css'
-import persona from './persona.js';
-import PopUp from './popUp/popUp.jsx';
 
 const Perfil = () => {
 
-  //const persona = useSelector(state => state.user)
+  const persona = useSelector(state => state.user)
+
+  const [usernamePopUp, setUsernamePopUp] = useState(false);
+  const [passwordPopUp, setPasswordPopUp] = useState(false);
+
+  const popUpFunction = (specification, bool) => {
+    if(specification === "password") setPasswordPopUp(bool)
+    else if (specification === "username") setUsernamePopUp(bool)
+
+  }
 
   const coursesAll = persona.courses.map(course => {
     return(
@@ -40,7 +51,7 @@ const Perfil = () => {
                     <div>
                       <label> Name: </label>
                       <span> {persona.name} </span>
-                      <button className={style.popup}>Edit</button>
+                      <button className={style.popup} onClick={() => popUpFunction("username", true)}>Edit</button>
                     </div>
                     <div>
                       <label> e-mail: </label>
@@ -60,12 +71,15 @@ const Perfil = () => {
                 </div>
               </div>
             </div>
+            <button className={style.popup} onClick={() => popUpFunction("password", true)}>Cambiar Contraseña</button>
         </div>
 
       {/* YOUR_COURSE   */}
         <YourCourse className={style.YourCourse} coursesAll={coursesAll} />
 
-        <PopUp />
+        {/* Condition Open pop up and Close pop up*/}
+        {usernamePopUp ? <UsernamePopUp popUpFunction={popUpFunction}/> : null}
+        {passwordPopUp ? <PasswordPopUp popUpFunction={popUpFunction}/> : null}
 
     </div>
   )
