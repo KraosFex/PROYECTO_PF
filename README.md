@@ -18,6 +18,7 @@ nivel de aprendizaje, este nivel iría aumentando entorna a que el estudiante va
 completando clases, esto permitiría que el usuario este al tanto de su progreso general
 todo el tiempo.
 
+### NOTA: **RECUERDEN GENERAR EL .ENV**
 
 # Rutas para acceder a la Data:
 
@@ -36,3 +37,11 @@ todo el tiempo.
 ### Crear Cursos **PRIVADA** **POST** http://localhost:3001/api/cursosprivate
 
 ### Crear Lesson para un curso **PRIVADA** **POST** http://localhost:3001/api/cursosprivate/:id
+
+### Añadir Favoritos **PRIVADA** **PUT** http://localhost:3001/api/cursosprivate/:id/favorite
+
+### Remove Favoritos **PRIVADA** **PUT** http://localhost:3001/api/cursosprivate/:id/unfavorite
+
+### Anadir Voto **PRIVADA** **PUT** http://localhost:3001/api/cursosprivate/:id/votes
+
+### Editar Perfil **PRIVADA** **PUT** http://localhost:3001/api/usersprivate/:id/profile
