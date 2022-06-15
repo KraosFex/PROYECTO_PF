@@ -8,7 +8,7 @@ const protect = async (req, res, next) => {
   let token
 
   if (authorization && authorization.startsWith('Bearer')) {
-    token = authorization.split(' ')[2]
+    token = authorization.split(' ')[1]
   }
 
   if (!token) return next(new ErrorResponse('No estas autorizado', 401))
