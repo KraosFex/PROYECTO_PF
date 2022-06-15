@@ -9,7 +9,8 @@ import {
         SET_SHOWEDCOURSES,
         SET_VALIDATEUSER,
         SET_THEME,
-        LOGOUT
+        LOGOUT,
+        SET_UPDATEUSER
       } from "./actionsTypes/actionTypes";
 
 
@@ -39,6 +40,13 @@ export const setCourses = (courses) => {
 export const setValidateUser = (userObject) => {
       return {
       type: SET_VALIDATEUSER,
+      payload: userObject
+    }
+}
+
+export const updateUser = (userObject) => {
+      return {
+      type: SET_UPDATEUSER,
       payload: userObject
     }
 }
@@ -103,4 +111,30 @@ export const logout = () => {
   return{
     type: 'LOGOUT'
   }
+}
+
+export const editUsername = (username, id) => {
+  return async function (dispatch) {
+      try {
+        const metaData = await axios.put(`http://localhost:3001/api/usersprivate/${id}/profile`, {username: username}, {authorization: `Bearer ${localStorage.getItem("authToken")}`})
+        dispatch(updateUser(metaData.data));
+      } catch(err) {
+        console.log(err);
+        alert("Ups! Something went wrong...");
+        return err;
+      }
+  };
+}
+
+export const editPassword = (email) => {
+  return async function (dispatch) {
+      try {
+        const metaData = await axios.put(`http://localhost:3001/api/auth/forgotPassword`, {email: email})
+        return metaData.data
+      } catch(err) {
+        console.log(err);
+        alert("Ups! Something went wrong...");
+        return err;
+      }
+  };
 }
