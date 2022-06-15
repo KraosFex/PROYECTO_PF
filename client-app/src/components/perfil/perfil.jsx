@@ -9,10 +9,11 @@ import PasswordPopUp from './popUps/passwordPopUp.jsx';
 
 // import stiles
 import style from './perfil.module.css'
+import persona from './persona.js';
 
 const Perfil = () => {
 
-  const persona = useSelector(state => state.user)
+  //const persona = useSelector(state => state.user)
 
   const [usernamePopUp, setUsernamePopUp] = useState(false);
   const [passwordPopUp, setPasswordPopUp] = useState(false);
@@ -78,8 +79,8 @@ const Perfil = () => {
         <YourCourse className={style.YourCourse} coursesAll={coursesAll} />
 
         {/* Condition Open pop up and Close pop up*/}
-        {usernamePopUp ? <UsernamePopUp popUpFunction={popUpFunction}/> : null}
-        {passwordPopUp ? <PasswordPopUp popUpFunction={popUpFunction}/> : null}
+        {usernamePopUp ? <UsernamePopUp popUpFunction={popUpFunction} id={persona.id}/> : null}
+        {passwordPopUp ? <PasswordPopUp popUpFunction={popUpFunction} email={persona.email}/> : null}
 
     </div>
   )

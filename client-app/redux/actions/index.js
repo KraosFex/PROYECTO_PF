@@ -115,11 +115,18 @@ export const logout = () => {
 
 export const editUsername = (username, id) => {
   return async function (dispatch) {
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          }
+        }
+
       try {
-        const metaData = await axios.put(`http://localhost:3001/api/usersprivate/${id}/profile`, {username: username}, {authorization: `Bearer ${localStorage.getItem("authToken")}`})
+        const metaData = await axios.put(`http://localhost:3001/api/usersprivate/${id}/profile`, {username: username}, config)
         dispatch(updateUser(metaData.data));
+        return metaData.data
       } catch(err) {
-        console.log(err);
         alert("Ups! Something went wrong...");
         return err;
       }
@@ -132,7 +139,6 @@ export const editPassword = (email) => {
         const metaData = await axios.put(`http://localhost:3001/api/auth/forgotPassword`, {email: email})
         return metaData.data
       } catch(err) {
-        console.log(err);
         alert("Ups! Something went wrong...");
         return err;
       }
