@@ -55,6 +55,7 @@ function Login () {
 
         const response = await dispatch(validation({email: input.email, password: input.password}))
         if(response.success) {
+            localStorage.setItem("authToken", response.token)
             setLogError({});
             <Navigate to='/home' />
           } else {
