@@ -5,30 +5,16 @@ import style from './login.module.css'
 import { validation } from '../../../redux/actions/index';
 import { useDispatch, useSelector } from 'react-redux';
 import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";
+import validator from "../../utils/validator.js";
+import { Navigate } from 'react-router-dom'
 
 
-const validator = (input) => {
-  const error = {}
-
-  if (!input.email) {
-    error.email = 'email is required'
-  } else if (!/^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$/.test(input.email)) {
-    error.email = 'email is invalid'
-  }
-
-  if (!input.password) {
-    error.password = 'password is required'
-  } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(input.password)) {
-    error.password = 'Minimum 8 characters, at least one uppercase letter, one lowercase letter and one number'
-  }
-
-  return error
-}
+/*  const handleSingOut = (event) => {
+    setUser({})
+    document.getElementById('signInDiv').hidden = false
+  }*/
 
 function Login () {
-
-  const user = useSelector(store => store.user);
-  const isLogged = useSelector(store => store.isLogged);
 
   const dispatch = useDispatch();
 
@@ -43,7 +29,7 @@ function Login () {
       [event.target.name]: event.target.value
     })
 
-    setError(validator({
+    setError(validator("login", {
       ...input,
       [event.target.name]: event.target.value
     }))
@@ -60,7 +46,7 @@ function Login () {
     if (!isObjectEmpty(error) || isObjectEmpty(input)) {
       event.preventDefault()
 
-      setError(validator({
+      setError(validator("login", {
         ...input,
         [event.target.name]: event.target.value
       }))
@@ -69,18 +55,12 @@ function Login () {
 
         const response = await dispatch(validation({email: input.email, password: input.password}))
         if(response.success) {
-          let location = window.location.href + 'home'
-           location = location.split('login')
-           window.location.href = location[0] + location[1]
+            setLogError({});
+            <Navigate to='/home' />
           } else {
-            setLogError({err: "El email o contraseña es incorrecto"})
+            setLogError({err: response.info});
           }
     }
-  }
-
-  const handleSingOut = (event) => {
-    setUser({})
-    document.getElementById('signInDiv').hidden = false
   }
 
   const handleCallBackResponse = async (response) => {
@@ -88,12 +68,10 @@ function Login () {
 
     if (userObject.email_verified) {
       try {
-        setLogError({})
-        let location = window.location.href + 'home'
-        location = location.split('login')
-        window.location.href = location[0] + location[1]
+        setLogError({});
+        <Navigate to='/home' />
       } catch (err) {
-        setLogError({ err })
+        setLogError({err: err});
       }
     }
   }

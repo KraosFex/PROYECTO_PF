@@ -51,8 +51,8 @@ function App() {
           <Route element={<PrivateRoute isLogged={isLogged}/>}>
             <Route path="/Perfil" element={<Perfil />}/>
           </Route>
-        </Route>
-      </Routes>
+       </Route>
+     </Routes>
     </div>
   )
 }
