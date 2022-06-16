@@ -8,12 +8,6 @@ import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";
 import validator from "../../utils/validator.js";
 import { Navigate } from 'react-router-dom'
 
-
-/*  const handleSingOut = (event) => {
-    setUser({})
-    document.getElementById('signInDiv').hidden = false
-  }*/
-
 function Login () {
 
   const dispatch = useDispatch();
