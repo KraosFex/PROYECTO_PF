@@ -50,14 +50,6 @@ const userSchema = new Schema(
           type: Boolean,
           default: false
         },
-        lessonsCompleted: [ // lecciones
-          {
-            lessonsComplete: {
-              type: Schema.ObjectId,
-              ref: 'Lesson'
-            }
-          }
-        ]
       }
     ],
     password: {

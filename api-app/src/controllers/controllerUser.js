@@ -56,18 +56,22 @@ const overallPosition = async (req, res) => {
   const limit = parseInt(req.query.limit) || 8
   const page = parseInt(req.query.page) || 1
   try {
-    const allUsers = await User.paginate({ estado: true }, { limit, page }) //[{...userProps, courses: {} }}]
-    // Se añadio lessonsCompleted que es un arreglo de lecciones.
-    const sorted = allUsers.sort((a,b) => { // longitud de arreglo de lecciones
-      // Cada objeto/esquema dentro de lessonsConmpleted vale 35
-      return (a.courses.lessonsCompleted.length + 34) - (b.courses.lessonsCompleted.length + 34)
+    const allUsers = await User.paginate({ estado: true }, { limit, page })
+    const sorted = allUsers.sort((a,b) => {
+      return (a.courses.map(c => { // cursos
+        return c.lesson.filter(l => l.isCompleted === true) //lecciones completas
+      }).length + 34)
+      -
+      (b.courses.map(c => {
+        return c.lesson.filter(l => l.isCompleted === true)
+      }).length + 34)
     }) // ordenado
     const response = sorted.findIndex(u => u.id === id) //Posicion dentro del arreglo
-    return response // :D
+    res.send(response) // :D
   } catch (err) {
     next(new ErrorResponse('Algo salio mal', 500, false))
   }
-} 
+}
 
 module.exports = {
   getUsers,
