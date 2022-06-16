@@ -3,7 +3,6 @@ import axios from "axios";
 
 // actions types
 import {
-        POST_NEW_USER,
         SET_COURSES,
         GET_COURSEBYNAME,
         SET_SHOWEDCOURSES,
@@ -51,19 +50,19 @@ export const updateUser = (userObject) => {
     }
 }
 
-export async function createNew(input) {
-  let newinput = { name: input.name, password: input.password, email: input.email, imagen: input.Image==="" || !input.Image ? "https://img2.freepng.es/20180323/pww/kisspng-computer-icons-clip-art-profile-cliparts-free-5ab5a47b02ff75.0880050915218535630123.jpg": input.Image}
-  console.log(newinput)
-  let errores = await axios.post("http://localhost:3001/api/auth/register", newinput)
-    .then(resp => resp.data).then((a) => { return { good: a.info } })
-    .catch((err) => {
-      return ({ password: err.response.data });
-    });
-  return (errores);
-
+export const register = (userData) => {
+  return async function(dispatch){
+    try {
+      const metaData = await axios.post("http://localhost:3001/api/auth/register", userData);
+      return metaData;
+    } catch(err) {
+        alert('Ups! Something went wrong...')
+        return err;
+      }
+  }
 };
 
-export function findCourse(id) {
+export const findCourse = (id) => {
   return async function(dispatch){
     await axios.get(`/api/cursos/${id}`).then(resp => resp.data)
     .then((resp)=>dispatch({type:"GET_CURSE", payload: resp}))

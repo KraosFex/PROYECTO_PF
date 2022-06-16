@@ -1,160 +1,125 @@
-import React, { useState } from 'react'
-import { createNew } from '../../../redux/actions'
-import style from './register.module.css'
+import React, { useState } from 'react';
+import { register } from '../../../redux/actions';
+import style from './register.module.css';
+import validator from '../../utils/validator.js';
+import { Navigate } from 'react-router-dom';
 
-function Validate(input) {
-  let errores = {};
-  if (input.name !== "" && input.password !== "" && input.email !== "" && input.password2 !== "") {
-    console.log(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(input.password))
-    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(input.password)){
-      errores.password = "Minimum 8 characters, at least one uppercase letter, one lowercase letter and one number";
-    }
-    if (input.password !== input.password2) { errores.password = "Passwords must match" }
-    return errores.password ? errores : (null)
-  }
-  return errores
-}
 
 function Register () {
-  const [input, setInput] = React.useState({
-    name: '',
-    password: '',
-    password2: '',
-    email: '',
-    Image: ''
-  })
-  const [errores, seterrores] = useState({})
 
-  const Submitiar = (e) => {
-    e.preventDefault()
-    const errorfind = Validate(input)
-    if (!errorfind) {
-      createNew(input).then((data) => seterrores(data))
-    } else {
-      seterrores(errorfind)
+
+  const [input, setInput] = useState({});
+  const [error, setError] = useState({});
+  const [registerError, setRegisterError] = useState({});
+
+  const workOnChange = (event) => {
+    setInput({
+      ...input,
+      [event.target.name]: event.target.value
+    })
+
+    setError(validator('register', {
+      ...input,
+      [event.target.name]: event.target.value
+    }))
+  }
+
+  const handleSubmit = async (event) => {
+    function isObjectEmpty (obj) {
+      for (const prop in obj) {
+        if (obj.hasOwnProperty(prop)) return false
+      }
+      return true
     }
-    console.log(errores)
-  }
-  const Reset = () => {
-    const formulario = document.getElementById('formul')
-    formulario.reset()
-    setInput({ name: '', password: '', email: '', Image: '' })
-  }
-  const Visible = () => {
-    const password = document.getElementById('pasw')
-    const password2 = document.getElementById('pasw2')
-    if (password.type === 'password') {
-      password.type = 'text'
-      password2.type = 'text'
+
+    if (!isObjectEmpty(error) || isObjectEmpty(input)) {
+      event.preventDefault()
+
+      setError(validator("register", {
+        ...input,
+        [event.target.name]: event.target.value
+      }))
     } else {
-      password.type = 'password'
-      password2.type = 'password'
+          event.preventDefault()
+
+        const response = await dispatch(register({name: input.name, username: input.username, email: input.email, password: input.password}))
+        if(response.success) {
+            setRegisterError({});
+            localStorage.setItem("authToken", response.token);
+            <Navigate to='/home' />
+          } else {
+            setRegisterError({err: response.info})
+          }
     }
   }
-  const Changes = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value })
-  }
+
   return (
     <div>
       <div className={style.Container}>
-        <form className={style.form} onSubmit={(e) => Submitiar(e)} id='formul'>
+        <form className={style.form} onSubmit={(e) => handleSubmit(e)} onChange={(e) => workOnChange(e)} id='formul'>
           <h1 className={style.h1}>Create an account</h1>
           <label className={style.label1}>Es easy and fast</label>
-          <div className={style.divs}>
-            Name:
-            <input
-              name='name'
-              placeholder='Insert Name...'
-              className={style.inputs}
-              onChange={(e) => Changes(e)}
-              required
-            />
-          </div>
-          {errores.name
-            ? (
-              <label className={style.errors}>{errores.name}</label>
-              )
-            : null}
-
-          <div className={style.divs}>
-            Email :{' '}
-            <input
-              name='email'
-              type='email'
-              onChange={(e) => Changes(e)}
-              placeholder='example@xxxxxx.com'
-              className={style.inputs}
-              required
-            />
-          </div>
-          {errores.email
-            ? (
-              <label className={style.errors}>{errores.email}</label>
-              )
-            : null}
-          <div className={style.divs}>
-            Password :{' '}
-            <label className={style.beye} onClick={(e) => Visible(e)}>
-              <img
-                alt='1'
-                className={style.eye}
-                src='https://cdn-icons-png.flaticon.com/512/58/58976.png'
+            <div className={style.divs}>
+            <label>Name:</label>
+              <input
+                name='name'
+                placeholder='Your name'
+                className={style.inputs}
               />
-            </label>
-            <input
-              id='pasw'
-              name='password'
-              type='password'
-              onChange={(e) => Changes(e)}
-              placeholder='Insert password...'
-              className={style.inputs}
-              required
-            />
-          </div>
-          <div className={style.divimg}>
-            Repeat password:
-            <input
-              id='pasw2'
-              name='password2'
-              type='password'
-              onChange={(e) => Changes(e)}
-              placeholder='Repeat password...'
-              className={style.inputs}
-              required
-            />
-          </div>
-          {errores.password
-            ? (
-              <label className={style.errors}>{errores.password}</label>
-              )
-            : null}
-          <div className={style.divimg}>
-            Image:{' '}
-            <input
-              name='Image'
-              id='imagen'
-              onChange={(e) => Changes(e)}
-              type='file'
-              accept='image/png, .jpeg, .jpg, image/gif'
-              className={style.inputimg}
-            />
-          </div>
-          <div className={style.btns}>
-            <input type='submit' value='Create' className={style.send} />
-            {errores.good
-              ? (
-                <label className={style.send2} onClick={() => Reset()}>
-                  Clear
-                </label>
-                )
-              : null}
-          </div>
-          {errores.good
-            ? (
-              <label className={style.good}>{errores.good}</label>
-              )
-            : null}
-        </form>
+            </div>
+            {error.name && <label className={style.errors}>{error.name}</label> }
+
+            <div className={style.divs}>
+            <label>Username:</label>
+              <input
+                name='username'
+                placeholder='Write a username'
+                className={style.inputs}
+              />
+            </div>
+            {error.username && <label className={style.errors}>{error.username}</label> }
+
+
+            <div className={style.divs}>
+            <label>Email:</label>
+              <input
+                name='email'
+                type='email'
+                placeholder='example@gmail.com'
+                className={style.inputs}
+              />
+            </div>
+            {error.email && <label className={style.errors}>{error.email}</label> }
+
+            <div className={style.divs}>
+              <label>Password:</label>
+              <input
+                id='password'
+                name='password'
+                type='password'
+                placeholder='Write a password'
+                className={style.inputs}
+              />
+            </div>
+            {error.password && <label className={style.errors}>{error.password}</label> }
+
+            <div className={style.divimg}>
+                <label>Confirm Password:</label>
+              <input
+                id='confirmPassword'
+                name='confirmPassword'
+                type='password'
+                placeholder='Confirm Password'
+                className={style.inputs}
+              />
+            </div>
+            {error.confirmPassword && <label className={style.errors}>{error.confirmPassword}</label> }
+
+            <div className={style.btns}>
+              <input type='submit' value='Create' className={style.send} />
+              {registerError.err && <label className={style.errors}>{registerError.err}</label>}
+            </div>
+          </form>
       </div>
     </div>
   )
