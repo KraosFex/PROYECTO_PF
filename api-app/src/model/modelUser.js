@@ -40,12 +40,16 @@ const userSchema = new Schema(
       {
         course: {
           type: Schema.ObjectId,
-          ref: 'Course'
+          ref: 'Course',
         },
         isFavorite: {
           type: Boolean,
           default: false
-        }
+        },
+        completed: {
+          type: Boolean,
+          default: false
+        },
       }
     ],
     password: {
