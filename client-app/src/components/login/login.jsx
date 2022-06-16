@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 import style from './login.module.css'
 import { validation } from '../../../redux/actions/index';
 import { useDispatch, useSelector } from 'react-redux';
+import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";
+
 
 const validator = (input) => {
   const error = {}
@@ -33,6 +35,7 @@ function Login () {
   const [input, setInput] = useState({})
   const [error, setError] = useState({})
   const [logError, setLogError] = useState({})
+  const [forgotPopUp, setForgotPopUp] = useState(false)
 
   const workOnChange = (event) => {
     setInput({
@@ -95,6 +98,10 @@ function Login () {
     }
   }
 
+  const popUpFunction = (bool) => {
+    setForgotPopUp(bool)
+  }
+
   useEffect(() => {
   /* global google */
     google.accounts.id.initialize({
@@ -141,12 +148,16 @@ function Login () {
               SIGN IN
             </button>
           </form>
+          {/*PopUp Trigger*/}
+          <a onClick={() => popUpFunction(true)}>Forgot password?</a>
           <label className={style.googleLabel}>Or sign in With your google account</label>
           <div className={style.googleInput}>
             <div id='signInDiv' />
           </div>
         </div>
       </div>
+      {/*Codition open popUp or Close popUp*/}
+      {forgotPopUp ? <ForgotPopUp popUpFunction={popUpFunction}/> : null};
     </div>
 
   )
