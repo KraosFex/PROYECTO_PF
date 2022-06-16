@@ -78,8 +78,8 @@ const Perfil = () => {
         <YourCourse className={style.YourCourse} coursesAll={coursesAll} />
 
         {/* Condition Open pop up and Close pop up*/}
-        {usernamePopUp ? <UsernamePopUp popUpFunction={popUpFunction}/> : null}
-        {passwordPopUp ? <PasswordPopUp popUpFunction={popUpFunction}/> : null}
+        {usernamePopUp ? <UsernamePopUp popUpFunction={popUpFunction} id={persona.id}/> : null}
+        {passwordPopUp ? <PasswordPopUp popUpFunction={popUpFunction} email={persona.email}/> : null}
 
     </div>
   )
