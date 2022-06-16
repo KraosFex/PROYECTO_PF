@@ -1,6 +1,5 @@
 // actions types
 import {
-  POST_NEW_USER,
   SET_VALIDATEUSER,
   SET_COURSES,
   GET_COURSEBYNAME,
@@ -28,11 +27,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
         user: payload,
         isLogged: true,
       };
-    case POST_NEW_USER:
-      return {
-        ...state,
-        user: payload
-      }
     case SET_THEME:
       return {
         ...state,
