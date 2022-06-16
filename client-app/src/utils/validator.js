@@ -46,6 +46,7 @@ const validator = (specification, input) => {
     } else if(input.confirmPassword !== input.password) {
       error.confirmPassword = "Passwords dont match"
     }
+
   }
 
 
