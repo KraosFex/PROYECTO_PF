@@ -8,7 +8,10 @@ const registerUser = async (req, res, next) => {
   try {
     const user = await User.create(req.body)
     await user.save()
-    res.status(201).send({ info: 'Usuario creado exitosamente' })
+
+    const token = user.generateToken()
+
+    res.status(201).send({ info: 'Usuario creado exitosamente', success: true, token })
   } catch (err) {
     next(err)
   }
@@ -28,7 +31,7 @@ const login = async (req, res, next) => {
     if (!match) return next(new ErrorResponse('Credenciales Invalidas', 401, false))
 
     const token = user.generateToken()
-    console.log(token)
+
     res.send({ info: 'Credenciales correctas', success: true, token, user })
   } catch (err) {
     next(new ErrorResponse('Error en los credenciales', 401, false))
