@@ -7,4 +7,4 @@ export const LOGOUT = "LOGOUT";
 export const SET_UPDATEUSER = 'SET_UPDATEUSER';
 
 // course favorite
-export const FAVORITE = 'FAVORITE'
+export const FAVORITE = 'FAVORITE';
