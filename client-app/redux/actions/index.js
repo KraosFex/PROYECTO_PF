@@ -76,10 +76,7 @@ export const findCourse = (id) => {
   return async dispatch => {
     try{
       const resp = await axios.get(`http://localhost:3001/api/cursos/${id}`)
-      dispatch({
-        type: GET_CURSE, 
-        payload: resp.data
-      })
+      return resp.data
     }catch(err){
       alert('Ups! Something went wrong...')
       new Error(err)
@@ -97,19 +94,6 @@ export const validation = (post) => {
       new Error(err)
     }
   }
-}
-
-export const getCourses = () => {
-  return async dispatch => {
-    try{
-      const metaData = await axios.get("http://localhost:3001/api/cursos")
-      dispatch(setCourses(metaData.data));
-      dispatch(setShowedCourses(metaData.data));
-    } catch(err) {
-      new Error(err)
-      alert("Ups! Something went wrong...");
-    }
-  };
 }
 
 export const getCourseByName = (name) => {
@@ -170,7 +154,7 @@ export const bookmarkCourse = id => {
     }
   }
 }
-      
+
 export const getLesson = (idCourse, idLesson) => {
   return async function(dispatch) {
     try {
