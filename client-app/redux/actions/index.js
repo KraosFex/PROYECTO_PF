@@ -165,7 +165,8 @@ export const bookmarkCourse = id => {
         payload: resp.data.user
       })
     }catch(erro) {
-
+      alert("Ups! Something went wrong...");
+      new Error(err)
     }
   }
 }
