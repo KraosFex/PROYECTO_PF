@@ -54,7 +54,7 @@ export const updateUser = (userObject) => {
 
 export const logout = () => {
   return{
-    type: 'LOGOUT'
+    type: LOGOUT,
   }
 }
 
@@ -162,7 +162,7 @@ export const bookmarkCourse = id => {
       const resp = await axios.put(`http://localhost:3001/api/${id}/favorite`)
       dispatch({
         type: BOOKMARCOURSE,
-        payload: resp.data
+        payload: resp.data.user
       })
     }catch(erro) {
 
