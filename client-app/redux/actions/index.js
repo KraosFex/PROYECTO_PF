@@ -170,3 +170,17 @@ export const bookmarkCourse = id => {
     }
   }
 }
+      
+export const getLesson = (idCourse, idLesson) => {
+  return async function(dispatch) {
+    try {
+                                  /*A LA ESPERA DE LA CREACION DE LA RUTA*/
+      const metaData = await axios(`http://localhost:3001/api/cursos/${idCourse}`, idLesson);
+      return metaData.data
+
+    }catch(err) {
+      alert("Algo no va pa");
+      return err;
+    }
+  }
+}
