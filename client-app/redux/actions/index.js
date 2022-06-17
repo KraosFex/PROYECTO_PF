@@ -143,3 +143,18 @@ export const editPassword = (email) => {
       }
   };
 }
+
+export const unmarkfavorites = id => {
+  return async dispatch => {
+    try{
+      const resp = await axios.put(`http://localhost:3001/api/${id}/favorite`)
+      dispatch({
+        type: UNMARKFAVORITES,
+        payload: resp.data.user
+      })
+    }catch(erro) {
+      alert("Ups! Something went wrong...");
+      return err;
+    }
+  }
+}

@@ -6,7 +6,8 @@ import {
   SET_SHOWEDCOURSES,
   SET_THEME,
   LOGOUT,
-  SET_UPDATEUSER
+  SET_UPDATEUSER,
+  UNMARKFAVORITES
   } from "../actions/actionsTypes/actionTypes";
 
 // index reducers app
