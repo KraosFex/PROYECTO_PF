@@ -9,8 +9,9 @@ import {
         SET_VALIDATEUSER,
         SET_THEME,
         LOGOUT,
+        GET_CURSE,
         SET_UPDATEUSER,
-        FAVORITE
+        BOOKMARCOURSE
       } from "./actionsTypes/actionTypes";
 
 
@@ -76,7 +77,7 @@ export const findCourse = (id) => {
     try{
       const resp = await axios.get(`http://localhost:3001/api/cursos/${id}`)
       dispatch({
-        type:"GET_CURSE", 
+        type: GET_CURSE, 
         payload: resp.data
       })
     }catch(err){
@@ -153,4 +154,18 @@ export const editPassword = (email) => {
         new Error(err)
       }
   };
+}
+
+export const bookmarkCourse = id => {
+  return async dispatch => {
+    try{
+      const resp = await axios.put(`http://localhost:3001/api/${id}/favorite`)
+      dispatch({
+        type: BOOKMARCOURSE,
+        payload: resp.data
+      })
+    }catch(erro) {
+
+    }
+  }
 }
