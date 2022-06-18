@@ -6,6 +6,7 @@ import {
   SET_THEME,
   LOGOUT,
   SET_UPDATEUSER,
+  UNMARKFAVORITES,
   BOOKMARCOURSE
   } from "../actions/actionsTypes/actionTypes";
 
@@ -49,6 +50,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
         showedCourses: payload,
       }
     case BOOKMARCOURSE:
+      return{
+        ...state,
+        user: payload,
+      }
+    case UNMARKFAVORITES:
       return{
         ...state,
         user: payload,

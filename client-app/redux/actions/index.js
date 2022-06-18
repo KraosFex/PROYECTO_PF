@@ -159,7 +159,22 @@ export const bookmarkCourse = id => {
         type: BOOKMARCOURSE,
         payload: resp.data.user
       })
-    }catch(erro) {
+    }catch(err) {
+      alert("Ups! Something went wrong...");
+      new Error(err)
+    }
+  }
+}
+
+export const unmarkfavorites = id => {
+  return async dispatch => {
+    try{
+      const resp = await axios.put(`http://localhost:3001/api/${id}/unfavorite`)
+      dispatch({
+        type: BOOKMARCOURSE,
+        payload: resp.data.user
+      })
+    }catch(err){
       alert("Ups! Something went wrong...");
       new Error(err)
     }

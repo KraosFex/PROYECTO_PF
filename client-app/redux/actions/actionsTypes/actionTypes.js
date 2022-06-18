@@ -7,3 +7,4 @@ export const SET_UPDATEUSER = 'SET_UPDATEUSER';
 
 // course favorite
 export const BOOKMARCOURSE = 'BOOKMARCOURSE';
+export const UNMARKFAVORITES = 'UNMARKFAVORITES';
