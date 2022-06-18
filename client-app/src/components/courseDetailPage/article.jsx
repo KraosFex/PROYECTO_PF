@@ -21,7 +21,7 @@ export default function CardD() {
     let id = useParams().id;
     const { CurseDetail, user } = useSelector((state) => state);
 
-    let CursoBase = { id, titulo: "Curso " + id, calificacion: 2000, imagen: "http://www.venturapp.com/wp-content/uploads/2016/03/html_elementos_etiquetas_usadas-680x350.jpg", userIncript: 4567, description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.    Mollitia, deserunt rerum. Aspernatur, quos.    Quasi dolores earum, non minus ipsa iure sunt,    odio distinctio assumenda ullam sit ea perferendis quaerat facilis?Lorem ipsum dolor sit amet, consectetur adipisicing elit.    Mollitia, deserunt rerum. Aspernatur, quos.    Quasi dolores earum, non minus ipsa iure sunt,    odio distinctio assumenda ullam sit ea perferendis quaerat facilis", lessons: [{ ...lessons, num: 1, isCompleted: true }, { ...lessons, num: 2, isCompleted: true }, { ...lessons, num: 3, isCompleted: true }, { ...lessons, num: 4 }, { ...lessons, num: 5 }, { ...lessons, num: 6 }, { ...lessons, num: 7 }] }
+    let CursoBase = { id, titulo: "Curso " + id, calificacion: 2000, userVotes:{length: 500} , imagen: "http://www.venturapp.com/wp-content/uploads/2016/03/html_elementos_etiquetas_usadas-680x350.jpg", userIncript: 4567, description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.    Mollitia, deserunt rerum. Aspernatur, quos.    Quasi dolores earum, non minus ipsa iure sunt,    odio distinctio assumenda ullam sit ea perferendis quaerat facilis?Lorem ipsum dolor sit amet, consectetur adipisicing elit.    Mollitia, deserunt rerum. Aspernatur, quos.    Quasi dolores earum, non minus ipsa iure sunt,    odio distinctio assumenda ullam sit ea perferendis quaerat facilis", lessons: [{ ...lessons, num: 1, isCompleted: true }, { ...lessons, num: 2, isCompleted: true }, { ...lessons, num: 3, isCompleted: true }, { ...lessons, num: 4 }, { ...lessons, num: 5 }, { ...lessons, num: 6 }, { ...lessons, num: 7 }] }
 
     let Curso = CursoBase;
     let MaxClase = Curso.lessons.length
@@ -33,7 +33,7 @@ export default function CardD() {
             <div className={style.sup}>
                 <div className={style.data}>
                     <h1 className={style.titulo}>{Curso.titulo.toUpperCase()}</h1>
-                    <label className={style.label}>Clasification: {Curso.calificacion}</label>
+                    <label className={style.label}>Clasification: {(Curso.calificacion/Curso.userVotes.length).toFixed(1)}</label>
                     <label className={style.label}>Usuarios Inscriptos: {Curso.userIncript}</label>
                 </div>
                 <img className={style.imagen} alt="" src={Curso.imagen} />
