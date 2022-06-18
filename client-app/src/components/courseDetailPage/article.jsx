@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 import Card from "./card/card";
 import style from "./course/course.module.css"
+import Stars from "./Vote/Vote";
 
 let lessons = { titulo: "Clase", descripcion: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.    Mollitia, deserunt rerum. Aspernatur, quos." , isCompleted: false }
 
@@ -37,6 +38,7 @@ export default function CardD() {
                 </div>
                 <img className={style.imagen} alt="" src={Curso.imagen} />
             </div>
+            <Stars />
             <p>{Curso.description}</p>
             <h4 className={style.h4}>Clases:</h4>
             <div className={style.clases}>
