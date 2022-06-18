@@ -6,11 +6,12 @@ import { validation } from '../../../redux/actions/index';
 import { useDispatch, useSelector } from 'react-redux';
 import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";
 import validator from "../../utils/validator.js";
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 function Login () {
 
   const dispatch = useDispatch();
+  const navigateTo = useNavigate();
 
   const [input, setInput] = useState({})
   const [error, setError] = useState({})
@@ -51,7 +52,7 @@ function Login () {
         if(response.success) {
             localStorage.setItem("authToken", response.token)
             setLogError({});
-            <Navigate to='/home' />
+            navigateTo("/home")
           } else {
             setLogError({err: response.info});
           }
@@ -64,7 +65,7 @@ function Login () {
     if (userObject.email_verified) {
       try {
         setLogError({});
-        <Navigate to='/home' />
+        navigateTo("/home")
       } catch (err) {
         setLogError({err: err});
       }
