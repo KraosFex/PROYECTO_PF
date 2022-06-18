@@ -38,7 +38,7 @@ export default function CardD() {
                 </div>
                 <img className={style.imagen} alt="" src={Curso.imagen} />
             </div>
-            <Stars />
+            <Stars idCurso={Curso.id} idUser={user? user.id: null}/>
             <p>{Curso.description}</p>
             <h4 className={style.h4}>Clases:</h4>
             <div className={style.clases}>

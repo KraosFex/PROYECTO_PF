@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { addVotes } from "../../../../redux/actions/index";
 import "./vote.css"
-export default function Stars() {
+
+export default function Stars({idCurso,idUser}) {
+    
     let [boton, setBoton] = useState(false)
     function Click() {
         setBoton(true)
@@ -17,8 +20,7 @@ export default function Stars() {
         let inputs = document.getElementsByName("rating-star");
         let max = 0;
         for(let i = 0; i < 5; i++){if(inputs[i].checked){max = inputs[i].id.split("rc")[1] }}
-        console.log(parseInt(max))
-        // dispatch(max)
+        if(idCurso && idUser){addVotes(idCurso,{ idUser: idUser, votes:parseInt(max)})}
     }
     return (
         <div className="Conteiner_rating">
@@ -62,7 +64,7 @@ export default function Stars() {
                         7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                 </svg>
             </label>
-            {boton ? <button className="boton_send" onClick={()=>SendVote()}>Send Vote</button> : null}
+            {idCurso && idUser && boton ? <button className="boton_send" onClick={()=>SendVote()}>Send Vote</button> : null}
         </div>
     )
 }
