@@ -5,3 +5,4 @@ export const SET_VALIDATEUSER = "SET_VALIDATEUSER";
 export const SET_THEME = "SET_THEME";
 export const LOGOUT = "LOGOUT";
 export const SET_UPDATEUSER = 'SET_UPDATEUSER';
+export const FIND_BY_USERNAME = 'FIND_BY_USERNAME';
