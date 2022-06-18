@@ -53,6 +53,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         user: payload,
       }
+    case UNMARKFAVORITES:
+      return{
+        ...state,
+        user: payload,
+      }
     case SET_THEME:
       return {
         ...state,
