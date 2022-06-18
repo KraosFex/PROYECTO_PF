@@ -8,8 +8,7 @@ import {
         SET_VALIDATEUSER,
         SET_THEME,
         LOGOUT,
-        SET_UPDATEUSER,
-        BOOKMARCOURSE
+        SET_UPDATEUSER
       } from "./actionsTypes/actionTypes";
 
 
@@ -151,14 +150,11 @@ export const getCourses = () => {
   };
 }
 
-export const bookmarkCourse = id => {
+export const bookmarkCourse = (id) => {
   return async dispatch => {
     try{
       const resp = await axios.put(`http://localhost:3001/api/${id}/favorite`)
-      dispatch({
-        type: BOOKMARCOURSE,
-        payload: resp.data.user
-      })
+      dispatch(updateUser(resp.data.user))
     }catch(err) {
       alert("Ups! Something went wrong...");
       new Error(err)
@@ -166,14 +162,11 @@ export const bookmarkCourse = id => {
   }
 }
 
-export const unmarkfavorites = id => {
+export const unmarkfavorites = (id) => {
   return async dispatch => {
     try{
       const resp = await axios.put(`http://localhost:3001/api/${id}/unfavorite`)
-      dispatch({
-        type: BOOKMARCOURSE,
-        payload: resp.data.user
-      })
+      dispatch(updateUser(resp.data.user))
     }catch(err){
       alert("Ups! Something went wrong...");
       new Error(err)
