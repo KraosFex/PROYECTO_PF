@@ -2,7 +2,7 @@ import style from "./usersPage.module.css";
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../../../../redux/actions';
-import UserCard from './userCard/userCard';
+//import UserCard from './userCard/userCard'; todavia no implementado
 
 function UserPage() {
 
