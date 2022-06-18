@@ -9,7 +9,8 @@ import {
         SET_VALIDATEUSER,
         SET_THEME,
         LOGOUT,
-        SET_UPDATEUSER
+        SET_UPDATEUSER,
+        FIND_BY_USERNAME
       } from "./actionsTypes/actionTypes";
 
 
@@ -109,6 +110,26 @@ export const getCourseByName = (name) => {
 export const logout = () => {
   return{
     type: 'LOGOUT'
+  }
+}
+
+export const findByUsername = (usernameAndToken) => {
+console.log("🚀 ~ file: index.js ~ line 117 ~ findByUsername ~ usernameAndToken", usernameAndToken.authorization)
+  return async function (dispatch) {
+    try {
+      let json = await axios.post("http://localhost:3001/api/usersprivate/username", usernameAndToken, {headers: {
+        'Content-Type': 'application/json',
+        'authorization': usernameAndToken.authorization
+      }});
+      return dispatch({
+        type: FIND_BY_USERNAME,
+        payload: json.data
+      });    
+    }
+    catch(err) {
+      console.log(err);
+      alert("Ups! Something went wrong...");
+    }
   }
 }
 
