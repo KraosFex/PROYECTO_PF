@@ -29,7 +29,7 @@ const getUserById = async (req, res, next) => {
 }
 
 const getUsersByName = async (req, res, next) => {
-  const { username } = req.body
+  const { username } = req.query
   try {
     const user = await User.find({ username: { $regex: username, $options: 'i' } })
     if (!user.length) return next(new ErrorResponse('Error al obtener el usuario', 500, false))
