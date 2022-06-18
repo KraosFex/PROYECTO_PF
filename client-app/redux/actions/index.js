@@ -142,8 +142,8 @@ export const getCourses = () => {
   return async dispatch => {
     try{
       const metaData = await axios.get("http://localhost:3001/api/cursos")
-      dispatch(setCourses(metaData.data));
-      dispatch(setShowedCourses(metaData.data));
+      dispatch(setCourses(metaData.data.docs));
+      dispatch(setShowedCourses(metaData.data.docs));
     } catch(err) {
       console.log(err);
       alert("Ups! Something went wrong...");
