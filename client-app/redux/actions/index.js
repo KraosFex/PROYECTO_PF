@@ -4,12 +4,10 @@ import axios from "axios";
 // actions types
 import {
         SET_COURSES,
-        GET_COURSEBYNAME,
         SET_SHOWEDCOURSES,
         SET_VALIDATEUSER,
         SET_THEME,
         LOGOUT,
-        GET_CURSE,
         SET_UPDATEUSER,
         BOOKMARCOURSE
       } from "./actionsTypes/actionTypes";
@@ -137,6 +135,19 @@ export const editPassword = (email) => {
         alert("Ups! Something went wrong...");
         new Error(err)
       }
+  };
+}
+
+export const getCourses = () => {
+  return async dispatch => {
+    try{
+      const metaData = await axios.get("http://localhost:3001/api/cursos")
+      dispatch(setCourses(metaData.data));
+      dispatch(setShowedCourses(metaData.data));
+    } catch(err) {
+      console.log(err);
+      alert("Ups! Something went wrong...");
+    }
   };
 }
 
