@@ -6,8 +6,6 @@ import {
   SET_THEME,
   LOGOUT,
   SET_UPDATEUSER,
-  UNMARKFAVORITES,
-  BOOKMARCOURSE
   } from "../actions/actionsTypes/actionTypes";
 
 // index reducers app
@@ -48,16 +46,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         showedCourses: payload,
-      }
-    case BOOKMARCOURSE:
-      return{
-        ...state,
-        user: payload,
-      }
-    case UNMARKFAVORITES:
-      return{
-        ...state,
-        user: payload,
       }
     case SET_THEME:
       return {
