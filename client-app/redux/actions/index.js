@@ -10,7 +10,6 @@ import {
         SET_THEME,
         LOGOUT,
         SET_UPDATEUSER,
-        FIND_BY_USERNAME
       } from "./actionsTypes/actionTypes";
 
 
@@ -113,18 +112,17 @@ export const logout = () => {
   }
 }
 
-export const findByUsername = (usernameAndToken) => {
-console.log("🚀 ~ file: index.js ~ line 117 ~ findByUsername ~ usernameAndToken", usernameAndToken.authorization)
+export const findUserByName = (username) => {
   return async function (dispatch) {
     try {
-      let json = await axios.post("http://localhost:3001/api/usersprivate/username", usernameAndToken, {headers: {
-        'Content-Type': 'application/json',
-        'authorization': usernameAndToken.authorization
-      }});
-      return dispatch({
-        type: FIND_BY_USERNAME,
-        payload: json.data
-      });    
+      const config ={
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": `Bearer ${localStorage.getItem("authToken")}`
+        }
+      }
+      let metaData = await axios.get(`http://localhost:3001/api/usersprivate/username?username=${username}`, config );
+      dispatch(setShowedUsers(metaData.data));
     }
     catch(err) {
       console.log(err);
