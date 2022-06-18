@@ -1,5 +1,5 @@
 
-import style from './popUp.module.css';
+import style from './forgotPopUp.module.css';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { editPassword } from '../../../../redux/actions';
 import { useDispatch } from 'react-redux';
@@ -7,7 +7,7 @@ import validator from '../../../utils/updateProfileValidator';
 import { useState } from 'react';
 
 
-const PasswordPopUp = ({popUpFunction}) => {
+const ForgotPopUp = ({popUpFunction}) => {
 
  const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ const PasswordPopUp = ({popUpFunction}) => {
      [event.target.name]: event.target.value
    })
 
-   setError(validator( "email", {
+   setError(validator( "password", {
      ...input,
      [event.target.name]: event.target.value
    }))
@@ -45,7 +45,7 @@ const PasswordPopUp = ({popUpFunction}) => {
    } else {
        event.preventDefault()
        const response = await dispatch(editPassword(input.email))
-  
+
        if(response.success) {
            setInput({
              ...input,
@@ -57,27 +57,27 @@ const PasswordPopUp = ({popUpFunction}) => {
    }
  }
 
-  return(
-    <div className={style.overlay}>
-      <div className={style.pop_up}>
-        <div className={style.close_and_title}>
-          <a href='#' id="btn_close_popup" className={style.btn_close_popup} onClick={() => popUpFunction("password", false)}><AiFillCloseCircle className={style.icon} /></a>
-          <h2>Actualiza tu contraseña</h2>
-        </div>
-        <h4>Introduce tu mail para recivir el formulario de cambio de contraseña.</h4>
-        <form className={style.form} onSubmit={(e) => handleSubmit(e)} onChange={(e) => workOnChange(e)}>
-          <div className={style.inputs_container}>
-            <input type="text" placeholder="Email" name="email"></input>
-            {error.email && <label className={style.error}>{error.email}</label>}
-          </div>
-          <input type="submit" value="Listo"></input>
-          {input.success && <label className={style.success}>{input.success}</label>}
-          {updateError.err && <label className={style.error}>{updateError.err}</label>}
-        </form>
-      </div>
-    </div>
-  )
+ return(
+   <div className={style.overlay}>
+     <div className={style.pop_up}>
+       <div className={style.close_and_title}>
+         <a href='#' id="btn_close_popup" className={style.btn_close_popup} onClick={() => popUpFunction(false)}><AiFillCloseCircle className={style.icon} /></a>
+         <h2>Recupera tu cuenta</h2>
+       </div>
+       <h4>Introduce tu mail para recivir el formulario de restauracion de contraseña.</h4>
+       <form className={style.form} onSubmit={(e) => handleSubmit(e)} onChange={(e) => workOnChange(e)}>
+         <div className={style.inputs_container}>
+           <input type="text" placeholder="Email" name="email"></input>
+           {error.email && <label className={style.error}>{error.email}</label>}
+         </div>
+         <input type="submit" value="Listo"></input>
+         {input.success && <label className={style.success}>{input.success}</label>}
+         {updateError.err && <label className={style.error}>{updateError.err}</label>}
+       </form>
+     </div>
+   </div>
+ )
 
 }
 
-export default PasswordPopUp;
+export default ForgotPopUp;

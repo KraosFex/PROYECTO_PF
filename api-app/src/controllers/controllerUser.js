@@ -50,9 +50,33 @@ const editUsername = async (req, res, next) => {
     next(new ErrorResponse('Error al obtener el usuario', 500, false))
   }
 }
+
+const overallPosition = async (req, res) => {
+  const { id } = req.params
+  const limit = parseInt(req.query.limit) || 8
+  const page = parseInt(req.query.page) || 1
+  try {
+    const allUsers = await User.paginate({ estado: true }, { limit, page })
+    const sorted = allUsers.sort((a,b) => {
+      return (a.courses.map(c => { // cursos
+        return c.lesson.filter(l => l.isCompleted === true) //lecciones completas
+      }).length + 34)
+      -
+      (b.courses.map(c => {
+        return c.lesson.filter(l => l.isCompleted === true)
+      }).length + 34)
+    }) // ordenado
+    const response = sorted.findIndex(u => u.id === id) //Posicion dentro del arreglo
+    res.send(response) // :D
+  } catch (err) {
+    next(new ErrorResponse('Algo salio mal', 500, false))
+  }
+}
+
 module.exports = {
   getUsers,
   getUserById,
   getUsersByName,
-  editUsername
+  editUsername,
+  overallPosition
 }
