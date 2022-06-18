@@ -6,7 +6,8 @@ import {
   SET_THEME,
   LOGOUT,
   SET_UPDATEUSER,
-  UNMARKFAVORITES
+  UNMARKFAVORITES,
+  BOOKMARCOURSE
   } from "../actions/actionsTypes/actionTypes";
 
 // index reducers app
