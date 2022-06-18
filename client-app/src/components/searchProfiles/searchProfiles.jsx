@@ -1,28 +1,20 @@
 import React from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { findByUsername } from '../../../redux/actions/index';
+import { findUserByName } from '../../../redux/actions/index';
 
 const searchProfiles = () => {
 
-    const user = useSelector((state) => state.user)
-
-    const [input, setInput] = useState({
-        username: "",
-        authorization: ""
-    });
+    const [input, setInput] = useState("");
     const dispatch = useDispatch()
     const handleChange = (e) => {
         e.preventDefault();
-        setInput({
-            username: e.target.value,
-            authorization: "Bearer " + user.token
-        })
+        setInput(e.target.value)
     }
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(input)
-        dispatch(findByUsername(input))
+        dispatch(findUserByName(input))
         setInput("");
     }
     
