@@ -4,3 +4,5 @@ export const SET_VALIDATEUSER = "SET_VALIDATEUSER";
 export const SET_THEME = "SET_THEME";
 export const LOGOUT = "LOGOUT";
 export const SET_UPDATEUSER = 'SET_UPDATEUSER';
+export const SET_ALLUSERS = 'SET_ALLUSERS';
+export const SET_SHOWEDUSERS = 'SET_SHOWEDUSERS';

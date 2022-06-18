@@ -6,6 +6,8 @@ import {
   SET_THEME,
   LOGOUT,
   SET_UPDATEUSER,
+  SET_ALLUSERS,
+  SET_SHOWEDUSERS
   } from "../actions/actionsTypes/actionTypes";
 
 // index reducers app
@@ -15,6 +17,8 @@ const initialState = {
   showedCourses: [],
   courses: [],
   theme: "light",
+  allUsers: [],
+  showedUsers: []
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -47,6 +51,16 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         showedCourses: payload,
       }
+    case SET_ALLUSERS:
+      return {
+        ...state,
+        allUsers: payload,
+      };
+    case SET_SHOWEDUSERS:
+      return {
+        ...state,
+        showedUsers: payload,
+      };
     case SET_THEME:
       return {
         ...state,

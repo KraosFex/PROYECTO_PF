@@ -3,13 +3,15 @@ import axios from "axios";
 
 // actions types
 import {
-  SET_COURSES,
-  SET_SHOWEDCOURSES,
-  SET_VALIDATEUSER,
-  SET_THEME,
-  LOGOUT,
-  SET_UPDATEUSER
-} from "./actionsTypes/actionTypes";
+        SET_COURSES,
+        SET_SHOWEDCOURSES,
+        SET_VALIDATEUSER,
+        SET_THEME,
+        LOGOUT,
+        SET_UPDATEUSER,
+        SET_ALLUSERS,
+        SET_SHOWEDUSERS
+      } from "./actionsTypes/actionTypes";
 
 
 // synchronous actions
@@ -33,6 +35,20 @@ export const setCourses = (courses) => {
     type: SET_COURSES,
     payload: courses
   }
+}
+
+export const setShowedUsers = (users) => {
+      return {
+      type: SET_SHOWEDUSERS,
+      payload: users
+    }
+}
+
+export const setAllUsers = (users) => {
+      return {
+      type: SET_ALLUSERS,
+      payload: users
+    }
 }
 
 export const setValidateUser = (userObject) => {
@@ -188,6 +204,7 @@ export const getLesson = (idCourse, idLesson) => {
   }
 }
 
+
 export const addVotes = async function (id, info){
   try {
     const data = await axios.put(`http://localhost:3001/api/cursosprivate/${id}/votes`, info)
@@ -197,3 +214,25 @@ export const addVotes = async function (id, info){
   }
 
 }
+
+export const getAllUsers = () => {
+  return async function(dispatch) {
+    try {
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            }
+          }
+
+      const metaData = await axios(`http://localhost:3001/api/usersprivate/`, null, config);
+      dispatch(setAllUsers(metaData.data.docs));
+      dispatch(setShowedUsers(metaData.data.docs))
+
+    }catch(err) {
+      alert("Algo no va pa");
+      return err;
+    }
+  }
+}
+
