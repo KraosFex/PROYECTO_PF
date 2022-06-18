@@ -4,16 +4,16 @@ import axios from "axios";
 // actions types
 import {
         SET_COURSES,
-        GET_COURSEBYNAME,
         SET_SHOWEDCOURSES,
         SET_VALIDATEUSER,
         SET_THEME,
         LOGOUT,
-        SET_UPDATEUSER
+        SET_UPDATEUSER,
+        BOOKMARCOURSE
       } from "./actionsTypes/actionTypes";
 
 
-// actions
+// synchronous actions
 
 export const themeSwitcher = (theme) => {
   return {
@@ -50,22 +50,35 @@ export const updateUser = (userObject) => {
     }
 }
 
+export const logout = () => {
+  return{
+    type: LOGOUT,
+  }
+}
+
+// asynchronous actions
+
 export const register = (userData) => {
-  return async function(dispatch){
+  return async () => {
     try {
       const metaData = await axios.post("http://localhost:3001/api/auth/register", userData);
       return metaData;
     } catch(err) {
         alert('Ups! Something went wrong...')
-        return err;
+        new Error(err)
       }
   }
 };
 
 export const findCourse = (id) => {
-  return async function(dispatch){
-    await axios.get(`/api/cursos/${id}`).then(resp => resp.data)
-    .then((resp)=>dispatch({type:"GET_CURSE", payload: resp}))
+  return async dispatch => {
+    try{
+      const resp = await axios.get(`http://localhost:3001/api/cursos/${id}`)
+      return resp.data
+    }catch(err){
+      alert('Ups! Something went wrong...')
+      new Error(err)
+    }
   }
 };
 
@@ -76,22 +89,9 @@ export const validation = (post) => {
       dispatch(setValidateUser(metaData.data))
       return metaData.data
     } catch(err) {
-      return err
+      new Error(err)
     }
   }
-}
-
-export const getCourses = () => {
-  return async dispatch => {
-    try{
-      const metaData = await axios.get("http://localhost:3001/api/cursos")
-      dispatch(setCourses(metaData.data));
-      dispatch(setShowedCourses(metaData.data));
-    } catch(err) {
-      console.log(err);
-      alert("Ups! Something went wrong...");
-    }
-  };
 }
 
 export const getCourseByName = (name) => {
@@ -100,16 +100,10 @@ export const getCourseByName = (name) => {
         const metaData = await axios.get(`http://localhost:3001/api/cursos/${name}`)
         dispatch(setShowedCourses(metaData.data));
       } catch(err) {
-        console.log(err);
+        new Error(err)
         alert("Ups! Something went wrong...");
       }
   };
-}
-
-export const logout = () => {
-  return{
-    type: 'LOGOUT'
-  }
 }
 
 export const editUsername = (username, id) => {
@@ -127,7 +121,7 @@ export const editUsername = (username, id) => {
         return metaData.data
       } catch(err) {
         alert("Ups! Something went wrong...");
-        return err;
+        new Error(err)
       }
   };
 }
@@ -139,9 +133,37 @@ export const editPassword = (email) => {
         return metaData.data
       } catch(err) {
         alert("Ups! Something went wrong...");
-        return err;
+        new Error(err)
       }
   };
+}
+
+export const getCourses = () => {
+  return async dispatch => {
+    try{
+      const metaData = await axios.get("http://localhost:3001/api/cursos")
+      dispatch(setCourses(metaData.data));
+      dispatch(setShowedCourses(metaData.data));
+    } catch(err) {
+      console.log(err);
+      alert("Ups! Something went wrong...");
+    }
+  };
+}
+
+export const bookmarkCourse = id => {
+  return async dispatch => {
+    try{
+      const resp = await axios.put(`http://localhost:3001/api/${id}/favorite`)
+      dispatch({
+        type: BOOKMARCOURSE,
+        payload: resp.data.user
+      })
+    }catch(erro) {
+      alert("Ups! Something went wrong...");
+      new Error(err)
+    }
+  }
 }
 
 export const getLesson = (idCourse, idLesson) => {
