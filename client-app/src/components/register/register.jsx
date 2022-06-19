@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
+import { useState } from "react";
 import { register } from "../../../redux/actions";
 import style from "./register.module.css";
 import validator from "../../utils/validator.js";
