@@ -13,7 +13,6 @@ const searchProfiles = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(input)
         dispatch(findUserByName(input))
         setInput("");
     }
