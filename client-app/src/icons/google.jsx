@@ -1,6 +1,4 @@
-import React from "react";
-
-function Google() {
+export default function Google() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -27,5 +25,3 @@ function Google() {
     </svg>
   );
 }
-
-export default Google;
