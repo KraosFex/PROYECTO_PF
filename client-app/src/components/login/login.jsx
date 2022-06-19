@@ -13,9 +13,6 @@ import validator from "../../utils/validator.js";
 // styles
 import style from "./login.module.css";
 
-function Login () {
-
-
 function Login() {
   const dispatch = useDispatch();
   const navigateTo = useNavigate();
@@ -46,6 +43,7 @@ function Login() {
       return true;
     }
 
+
     if (!isObjectEmpty(error) || isObjectEmpty(input)) {
       event.preventDefault();
 
@@ -66,7 +64,8 @@ function Login() {
           } else {
             setLogError({err: response.info});
     }
-  };
+  }
+};
 
 
   const handleCallBackResponse = async (response) => {
@@ -86,10 +85,6 @@ function Login() {
     setForgotPopUp(bool);
   };
 
-  const popUpFunction = (bool) => {
-    setForgotPopUp(bool)
-  }
-
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
@@ -107,7 +102,7 @@ function Login() {
   }, []);
 
   return (
-    <body className={style.body}>
+    <div className={style.body}>
       <div className={style.HeightContainer}>
         <div className={style.parentContainer}>
           <div className={style.childContainer}>
@@ -172,7 +167,7 @@ function Login() {
         {/*Codition open popUp or Close popUp*/}
         {forgotPopUp ? <ForgotPopUp popUpFunction={popUpFunction} /> : null};
       </div>
-    </body>
+    </div>
   );
 }
 
