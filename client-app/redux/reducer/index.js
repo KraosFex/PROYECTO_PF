@@ -13,12 +13,12 @@ import {
 // index reducers app
 const initialState = {
   user: {},
+  allUsers: [],
+  showedUsers: [],
   isLogged: false,
   showedCourses: [],
   courses: [],
-  theme: "light",
-  allUsers: [],
-  showedUsers: []
+  theme: "light"
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {

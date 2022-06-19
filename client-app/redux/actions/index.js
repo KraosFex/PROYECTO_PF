@@ -121,6 +121,24 @@ export const getCourseByName = (name) => {
   };
 }
 
+export const findUserByName = (username) => {
+  return async function (dispatch) {
+    try {
+      const config ={
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": `Bearer ${localStorage.getItem("authToken")}`
+        }
+      }
+      let metaData = await axios.get(`http://localhost:3001/api/usersprivate/username?username=${username}`, config );
+      dispatch(setShowedUsers(metaData.data));
+    }
+    catch(err) {
+      alert("Ups! Something went wrong...");
+    }
+  }
+}
+
 export const editUsername = (username, id) => {
   return async function (dispatch) {
     let config = {

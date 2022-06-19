@@ -1,16 +1,24 @@
-<<<<<<< HEAD
+// libraries
+import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import React, { useEffect, useState } from "react";
-import style from "./login.module.css";
+
+
 import { validation } from "../../../redux/actions/index";
-import { useDispatch, useSelector } from "react-redux";
 import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";
 import validator from "../../utils/validator.js";
-import { Navigate } from "react-router-dom";
+
+// styles
+import style from "./login.module.css";
+
+function Login () {
+
 
 function Login() {
   const dispatch = useDispatch();
+  const navigateTo = useNavigate();
 
   const [input, setInput] = useState({});
   const [error, setError] = useState({});
@@ -48,18 +56,15 @@ function Login() {
         })
       );
     } else {
-      event.preventDefault();
+          event.preventDefault()
 
-      const response = await dispatch(
-        validation({ email: input.email, password: input.password })
-      );
-      if (response.success) {
-        localStorage.setItem("authToken", response.token);
-        setLogError({});
-        <Navigate to="/home" />;
-      } else {
-        setLogError({ err: response.info });
-      }
+        const response = await dispatch(validation({email: input.email, password: input.password}))
+        if(response.success) {
+            localStorage.setItem("authToken", response.token)
+            setLogError({});
+            navigateTo("/home")
+          } else {
+            setLogError({err: response.info});
     }
   };
 
@@ -70,7 +75,7 @@ function Login() {
     if (userObject.email_verified) {
       try {
         setLogError({});
-        <Navigate to="/home" />;
+        navigateTo("/home")
       } catch (err) {
         setLogError({ err: err });
       }
