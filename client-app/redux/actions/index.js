@@ -8,13 +8,9 @@ import {
         SET_VALIDATEUSER,
         SET_THEME,
         LOGOUT,
-<<<<<<< HEAD
-        SET_UPDATEUSER
-=======
         SET_UPDATEUSER,
         SET_ALLUSERS,
         SET_SHOWEDUSERS
->>>>>>> 1be860b2a19cc436c0e18551cdb7b03808c791cf
       } from "./actionsTypes/actionTypes";
 
 
@@ -63,27 +59,10 @@ export const setValidateUser = (userObject) => {
 }
 
 export const updateUser = (userObject) => {
-<<<<<<< HEAD
       return {
       type: SET_UPDATEUSER,
       payload: userObject
     }
-}
-
-export const register = (userData) => {
-  return async function(dispatch){
-    try {
-      const metaData = await axios.post("http://localhost:3001/api/auth/register", userData);
-      return metaData;
-    } catch(err) {
-        alert('Ups! Something went wrong...')
-        return err;
-      }
-=======
-  return {
-    type: SET_UPDATEUSER,
-    payload: userObject
-  }
 }
 
 export const logout = () => {
@@ -103,17 +82,11 @@ export const register = (userData) => {
       alert('Ups! Something went wrong...')
       new Error(err)
     }
->>>>>>> 1be860b2a19cc436c0e18551cdb7b03808c791cf
   }
 };
 
 export const findCourse = (id) => {
-<<<<<<< HEAD
-  return async function(dispatch){
-    await axios.get(`/api/cursos/${id}`).then(resp => resp.data)
-    .then((resp)=>dispatch({type:"GET_CURSE", payload: resp}))
-=======
-  return async dispatch => {
+  return async function(dispatch)  {
     try {
       const resp = await axios.get(`http://localhost:3001/api/cursos/${id}`)
       return resp.data
@@ -121,12 +94,11 @@ export const findCourse = (id) => {
       alert('Ups! Something went wrong...')
       new Error(err)
     }
->>>>>>> 1be860b2a19cc436c0e18551cdb7b03808c791cf
   }
 };
 
 export const validation = (post) => {
-  return async dispatch => {
+  return async function(dispatch) {
     try {
       const metaData = await axios.post("http://localhost:3001/api/auth/login", post)
       dispatch(setValidateUser(metaData.data))
@@ -182,7 +154,7 @@ export const editPassword = (email) => {
 }
 
 export const getCourses = () => {
-  return async dispatch => {
+  return async function(dispatch) {
     try {
       const metaData = await axios.get("http://localhost:3001/api/cursos")
       dispatch(setCourses(metaData.data.docs));
@@ -206,41 +178,8 @@ export const bookmarkCourse = (id) => {
   }
 }
 
-<<<<<<< HEAD
-export const editUsername = (username, id) => {
-  return async function (dispatch) {
-    let config = {
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          }
-        }
-
-      try {
-        const metaData = await axios.put(`http://localhost:3001/api/usersprivate/${id}/profile`, {username: username}, config)
-        dispatch(updateUser(metaData.data));
-        return metaData.data
-      } catch(err) {
-        alert("Ups! Something went wrong...");
-        return err;
-      }
-  };
-}
-
-export const editPassword = (email) => {
-  return async function (dispatch) {
-      try {
-        const metaData = await axios.put(`http://localhost:3001/api/auth/forgotPassword`, {email: email})
-        return metaData.data
-      } catch(err) {
-        alert("Ups! Something went wrong...");
-        return err;
-      }
-  };
-}
-=======
 export const unmarkfavorites = (id) => {
-  return async dispatch => {
+  return async function(dispatch) {
     try {
       const resp = await axios.put(`http://localhost:3001/api/${id}/unfavorite`)
       dispatch(updateUser(resp.data.user))
@@ -269,11 +208,9 @@ export const getLesson = (idCourse, idLesson) => {
 export const addVotes = async function (id, info){
   try {
     const data = await axios.put(`http://localhost:3001/api/cursosprivate/${id}/votes`, info)
-    console.log(data)
   } catch (err) {
     new Error(err)
   }
-
 }
 
 export const getAllUsers = () => {
@@ -296,5 +233,3 @@ export const getAllUsers = () => {
     }
   }
 }
-
->>>>>>> 1be860b2a19cc436c0e18551cdb7b03808c791cf
