@@ -3,6 +3,10 @@ const User = require('../model/modelUser.js')
 const ErrorResponse = require('../utils/errorResponse.js')
 const sendMail = require('../utils/sendEmail.js')
 const crypto = require('crypto')
+const { google } = require('googleapis')
+const { OAuth2 } = google.auth
+
+const client = new OAuth2(process.env.MAILING_SERVICE_CLIENT_ID)
 
 const registerUser = async (req, res, next) => {
   try {
@@ -87,9 +91,46 @@ const resetPassword = async (req, res, next) => {
   }
 }
 
+const googleLogin = async (req, res) => {
+  try {
+    const { tokenId } = req.body
+
+    const verify = await client.verifyIdToken({ idToken: tokenId, audience: process.env.MAILING_SERVICE_CLIENT_ID })
+
+    const { email_verified, email, name, picture } = verify.payload
+
+    const password = email + process.env.GOOGLE_SECRET
+
+    if (!email_verified) return res.status(400).json({ msg: 'Email verification failed.' })
+
+    const user = await User.findOne({ email })
+
+    if (user) {
+      const match = await user.matchPassword(password)
+      if (!match) return res.status(400).json({ msg: 'Password is incorrect.' })
+
+      res.json({ msg: 'Login success!' })
+    } else {
+      const newUser = new User({
+        name, email, password, image: picture
+      })
+
+      await newUser.save()
+
+      const token = user.generateToken()
+
+      res.send({ info: 'Credenciales correctas', success: true, token, user })
+    }
+  } catch (err) {
+    return res.status(500).json({ msg: err.message })
+  }
+}
+
+
 module.exports = {
   registerUser,
   login,
   forgotPassword,
-  resetPassword
+  resetPassword,
+  googleLogin
 }
