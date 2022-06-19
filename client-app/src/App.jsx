@@ -14,13 +14,16 @@ import Register from "./components/register/register";
 import Landing from "./components/landing/landing";
 import Perfil from "./components/perfil/perfil";
 import PrivateRoute from "./components/privateRoute/privateRoute";
+import PrivateAdminRoute from "./components/privateRoute/PrivateAdminRoute";
 import CourseDetailPage from "./components/courseDetailPage/course/course";
-
+import LessonPage from "./components/lessonPage/lessonPage";
+import UsersPage from "./components/adminPages/usersPage/usersPage";
 
 
 function App() {
   const theme = useSelector((store) => store.theme);
   const isLogged = useSelector((store) => store.isLogged);
+  const user = useSelector((store) => store.user);
 
   const dispatch = useDispatch();
 
@@ -43,14 +46,21 @@ function App() {
       <Routes>
         <Route exact path='/' element={<Landing />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/Register' element={<Register />} />
+        <Route path='/register' element={<Register />} />
         <Route element={<AppLayout />}>
-          <Route path="/Home" element={<Home theme={theme} />} />
+          <Route path="/home" element={<Home theme={theme} />} />
           <Route path="/courses" element={<Courses />}></Route>
           <Route path='/course/:id' element={<CourseDetailPage />} />
+
           <Route element={<PrivateRoute isLogged={isLogged}/>}>
-            <Route path="/Perfil" element={<Perfil />}/>
+            <Route path="/profile" element={<Perfil />}/>
+            <Route path="/course/:idCourse/:idLesson" element={<LessonPage />}/>
           </Route>
+
+          <Route element={<PrivateAdminRoute isAdmin={user.isAdmin}/>}>
+              <Route path='/users' element={<UsersPage />} />
+          </Route>
+
        </Route>
      </Routes>
     </div>

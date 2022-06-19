@@ -2,11 +2,12 @@
 import {
   SET_VALIDATEUSER,
   SET_COURSES,
-  GET_COURSEBYNAME,
   SET_SHOWEDCOURSES,
   SET_THEME,
   LOGOUT,
   SET_UPDATEUSER,
+  SET_ALLUSERS,
+  SET_SHOWEDUSERS
   } from "../actions/actionsTypes/actionTypes";
 
 // index reducers app
@@ -17,7 +18,7 @@ const initialState = {
   isLogged: false,
   showedCourses: [],
   courses: [],
-  theme: "light",
+  theme: "light"
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -29,31 +30,41 @@ const rootReducer = (state = initialState, { type, payload }) => {
         user: payload,
         isLogged: true,
       };
-    case SET_THEME:
-      return {
+    case LOGOUT:
+      return{
         ...state,
-        theme: payload
+        user: {},
+        isLogged: false,
+      }
+    case SET_UPDATEUSER:
+      return{
+        ...state,
+        user: payload,
       }
     case SET_COURSES:
       return {
         ...state,
         courses: payload,
       };
-      case SET_SHOWEDCOURSES:
-        return {
-          ...state,
-          showedCourses: payload
-        }
-    case LOGOUT:
-      return{
+    case SET_SHOWEDCOURSES:
+      return {
         ...state,
-        user: {},
-        isLogged: false
+        showedCourses: payload,
       }
-    case SET_UPDATEUSER:
-      return{
+    case SET_ALLUSERS:
+      return {
         ...state,
-        user: payload
+        allUsers: payload,
+      };
+    case SET_SHOWEDUSERS:
+      return {
+        ...state,
+        showedUsers: payload,
+      };
+    case SET_THEME:
+      return {
+        ...state,
+        theme: payload,
       }
     default:
       return state
