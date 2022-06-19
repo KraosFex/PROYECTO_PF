@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-export const SET_COURSES = "SET_COURSES";
-export const GET_COURSEBYNAME = "GET_COURSEBYNAME";
-export const SET_SHOWEDCOURSES = "SET_SHOWEDCOURSES";
-export const SET_VALIDATEUSER = "SET_VALIDATEUSER";
-export const SET_THEME = "SET_THEME";
-export const LOGOUT = "LOGOUT";
-export const SET_UPDATEUSER = "SET_UPDATEUSER";
-export const POST_NEW_USER = "POST_NEW_USER";
-=======
 export const SET_COURSES = 'SET_COURSES';
 export const SET_SHOWEDCOURSES = 'SET_SHOWEDCOURSES';
 export const SET_VALIDATEUSER = "SET_VALIDATEUSER";
@@ -16,4 +6,4 @@ export const LOGOUT = "LOGOUT";
 export const SET_UPDATEUSER = 'SET_UPDATEUSER';
 export const SET_ALLUSERS = 'SET_ALLUSERS';
 export const SET_SHOWEDUSERS = 'SET_SHOWEDUSERS';
->>>>>>> 1be860b2a19cc436c0e18551cdb7b03808c791cf
+
