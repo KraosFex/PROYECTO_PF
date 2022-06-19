@@ -4,49 +4,26 @@ import React, { useEffect, useState } from "react";
 import style from "./login.module.css";
 import { validation } from "../../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
-
-const validator = (input) => {
-  const error = {};
-
-  if (!input.email) {
-    error.email = "email is required";
-  } else if (
-    !/^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$/.test(input.email)
-  ) {
-    error.email = "email is invalid";
-  }
-
-  if (!input.password) {
-    error.password = "password is required";
-    // } else if (
-    //   !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(input.password)
-    // ) {
-    //   error.password =
-    //     "Minimum 8 characters, at least one uppercase letter, one lowercase letter and one number";
-  }
-
-  return error;
-};
+import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";
+import validator from "../../utils/validator.js";
+import { Navigate } from "react-router-dom";
 
 function Login() {
-  const user = useSelector((store) => store.user);
-  const isLogged = useSelector((store) => store.isLogged);
-
   const dispatch = useDispatch();
 
   const [input, setInput] = useState({});
   const [error, setError] = useState({});
   const [logError, setLogError] = useState({});
+  const [forgotPopUp, setForgotPopUp] = useState(false);
 
   const workOnChange = (event) => {
-    console.log(event.target.name);
     setInput({
       ...input,
       [event.target.name]: event.target.value,
     });
 
     setError(
-      validator({
+      validator("login", {
         ...input,
         [event.target.name]: event.target.value,
       })
@@ -65,7 +42,7 @@ function Login() {
       event.preventDefault();
 
       setError(
-        validator({
+        validator("login", {
           ...input,
           [event.target.name]: event.target.value,
         })
@@ -73,28 +50,17 @@ function Login() {
     } else {
       event.preventDefault();
 
-      const data = await dispatch(
+      const response = await dispatch(
         validation({ email: input.email, password: input.password })
       );
-      console.log(data.response.status);
-      if (
-        data.response.status === 401 ||
-        data.response.status === 404 ||
-        data.response.status === 500
-      ) {
-        setLogError({ err: data.response.data.info });
+      if (response.success) {
+        localStorage.setItem("authToken", response.token);
+        setLogError({});
+        <Navigate to="/home" />;
       } else {
-        let location = window.location.href + "home";
-        location = location.split("login");
-        window.location.href = location[0] + location[1];
+        setLogError({ err: response.info });
       }
     }
-  };
-
-  const handleSingOut = (event) => {
-    console.log("click");
-    setUser({});
-    document.getElementById("signInDiv").hidden = false;
   };
 
   const handleCallBackResponse = async (response) => {
@@ -102,17 +68,16 @@ function Login() {
 
     if (userObject.email_verified) {
       try {
-        const data = dispatch(
-          validation({ email: userObject.email, password: userObject.sub })
-        );
-
-        /*let location = window.location.href + 'home'
-        location = location.split('login')
-        window.location.href = location[0] + location[1]*/
+        setLogError({});
+        <Navigate to="/home" />;
       } catch (err) {
-        setLogError({ err });
+        setLogError({ err: err });
       }
     }
+  };
+
+  const popUpFunction = (bool) => {
+    setForgotPopUp(bool);
   };
 
   useEffect(() => {
@@ -136,13 +101,14 @@ function Login() {
       <div className={style.HeightContainer}>
         <div className={style.parentContainer}>
           <div className={style.childContainer}>
-            <h3>
-              Lorem ipsum dolor sit amet, vivamus eu augue erat. Donec rutrum
-              suscipit muris at blandit. Vestibulum loborti varius feugiat.
-              Quisque at varius nibh
-            </h3>
+            <img
+              src="https://i.imgur.com/98pNMkQ.png"
+              alt="logo"
+              referrerPolicy="no-referrer"
+            />
+            <h3>Aprende a programar desde cero con tests en tiempo real</h3>
             <div className={style.imgContainer}>
-              <img src="../../img/rocketLogin.png" />
+              <img src="../../img/programming.png" />
             </div>
           </div>
           <div className={style.childContainer}>
@@ -156,7 +122,7 @@ function Login() {
               onSubmit={(e) => handleSubmit(e)}
             >
               <div className={style.input}>
-                <label className={style.title}>EMAIL</label>
+                <label className={style.title}>Email</label>
                 <input
                   type="text"
                   placeholder="example@gmail.com"
@@ -167,7 +133,7 @@ function Login() {
                 )}
               </div>
               <div className={style.input}>
-                <label className={style.title}>PASSWORD</label>
+                <label className={style.title}>Contraseña</label>
                 <input type="password" placeholder="password" name="password" />
                 {error.password && (
                   <label className={style.error}>{error.password}</label>
@@ -178,17 +144,23 @@ function Login() {
                 <span />
                 <span />
                 <span />
-                SIGN IN
+                Entrar
               </button>
             </form>
+            {/*PopUp Trigger*/}
+            <a onClick={() => popUpFunction(true)} className={style.forgot}>
+              Olvidaste la contraseña?
+            </a>
             <label className={style.googleLabel}>
-              Or sign in With your google account
+              O puedes entrar con tu cuenta de google
             </label>
             <div className={style.googleInput}>
               <div id="signInDiv" />
             </div>
           </div>
         </div>
+        {/*Codition open popUp or Close popUp*/}
+        {forgotPopUp ? <ForgotPopUp popUpFunction={popUpFunction} /> : null};
       </div>
     </body>
   );

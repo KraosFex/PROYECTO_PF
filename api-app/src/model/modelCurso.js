@@ -1,5 +1,6 @@
 
 const { Schema, model } = require('mongoose')
+const mongoosePaginate = require('mongoose-paginate-v2')
 
 const courseSchema = new Schema(
   {
@@ -13,7 +14,7 @@ const courseSchema = new Schema(
     },
     calificacion: {
       type: Number,
-      required: [true, 'La calificacion es requerida']
+      required: false
     },
     imagen: {
       type: String,
@@ -30,6 +31,17 @@ const courseSchema = new Schema(
         }
       }
     ],
+    userVotes: [
+      {
+        user: {
+          type: Schema.ObjectId,
+          ref: 'User'
+        }
+      }
+    ],
+    votes: [
+      Number
+    ],
     lenguaje: {
       type: String,
       required: [true, 'El lenguaje es requerido']
@@ -40,5 +52,7 @@ const courseSchema = new Schema(
     versionKey: false
   }
 )
+
+courseSchema.plugin(mongoosePaginate)
 
 module.exports = model('Course', courseSchema)

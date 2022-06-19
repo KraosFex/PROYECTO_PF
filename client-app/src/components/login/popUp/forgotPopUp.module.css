@@ -1,0 +1,84 @@
+.overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pop_up {
+  background-color: rgb(237, 237, 237);
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 40%;
+  padding: .5em 1em;
+  border-radius: 0.5em;
+}
+
+.close_and_title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.btn_close_popup {
+  text-align: right;
+  color: rgb(227, 59, 40);
+  font-size: 40px;
+}
+
+.close_and_title > h2 {
+  text-align: center;
+  order: -1;
+  flex-grow: 4;
+  margin: 0;
+  font-size: 30px;
+}
+
+.pop_up > h4 {
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em;
+}
+
+.inputs_container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.inputs_container > input {
+  width: 100%;
+  line-height: 4px;
+  font-size: 25px;
+}
+
+.error {
+  font-size: 12px;
+  color: rgb(230, 84, 84);
+  text-shadow: .5px .5px 0px rgba(150, 150, 150, 1);
+  font-weight: bold;
+}
+
+.updateError {
+  width: 100%;
+  font-size: 12px;
+  color: rgb(230, 84, 84);
+  text-shadow: .5px .5px 0px rgba(150, 150, 150, 1);
+  font-weight: bold;
+  text-align: center;
+}

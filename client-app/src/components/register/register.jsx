@@ -1,79 +1,67 @@
 import React, { useState } from "react";
-import { createNew } from "../../../redux/actions";
+import { register } from "../../../redux/actions";
 import style from "./register.module.css";
-import { NavLink, Link } from "react-router-dom";
+import validator from "../../utils/validator.js";
+import { Navigate, Link, NavLink } from "react-router-dom";
 import Google from "../../icons/google";
 
-function Validate(input) {
-  const errores = {};
-  if (
-    input.name !== "" &&
-    input.password !== "" &&
-    input.email !== "" &&
-    input.password2 !== ""
-  ) {
-    if (!/\S+\d+\W/.test(input.password)) {
-      errores.password = "Must have a special symbol and at least one number";
-    }
-    if (input.password !== input.password2) {
-      errores.password = "Passwords must match";
-    }
-    return errores.password ? errores : null;
-  }
-  if (input.name === "") {
-    errores.name = "The name is required";
-  }
-  if (input.password === "") {
-    errores.password = "The password is required";
-  }
-  if (input.password2 === "") {
-    errores.password = "The password is required";
-  }
-  if (input.email === "") {
-    errores.email = "The email is required";
-  }
-  return errores;
-}
-
 function Register() {
-  const [input, setInput] = React.useState({
-    name: "",
-    password: "",
-    password2: "",
-    email: "",
-    Image: "",
-  });
-  const [errores, seterrores] = useState({});
+  const [input, setInput] = useState({});
+  const [error, setError] = useState({});
+  const [registerError, setRegisterError] = useState({});
 
-  const Submitiar = (e) => {
-    e.preventDefault();
-    const errorfind = Validate(input);
-    if (!errorfind) {
-      createNew(input).then((data) => seterrores(data));
-    } else {
-      seterrores(errorfind);
+  const workOnChange = (event) => {
+    setInput({
+      ...input,
+      [event.target.name]: event.target.value,
+    });
+
+    setError(
+      validator("register", {
+        ...input,
+        [event.target.name]: event.target.value,
+      })
+    );
+  };
+
+  const handleSubmit = async (event) => {
+    function isObjectEmpty(obj) {
+      for (const prop in obj) {
+        if (obj.hasOwnProperty(prop)) return false;
+      }
+      return true;
     }
-    console.log(errores);
-  };
-  const Reset = () => {
-    const formulario = document.getElementById("formul");
-    formulario.reset();
-    setInput({ name: "", password: "", email: "", Image: "" });
-  };
-  const Visible = () => {
-    const password = document.getElementById("pasw");
-    const password2 = document.getElementById("pasw2");
-    if (password.type === "password") {
-      password.type = "text";
-      password2.type = "text";
+
+    if (!isObjectEmpty(error) || isObjectEmpty(input)) {
+      event.preventDefault();
+
+      setError(
+        validator("register", {
+          ...input,
+          [event.target.name]: event.target.value,
+        })
+      );
     } else {
-      password.type = "password";
-      password2.type = "password";
+      event.preventDefault();
+
+      const response = await dispatch(
+        register({
+          name: input.name,
+          username: input.username,
+          email: input.email,
+          password: input.password,
+        })
+      );
+      if (response.success) {
+        setRegisterError({});
+        localStorage.setItem("authToken", response.token);
+        <Navigate to="/home" />;
+      } else {
+        setRegisterError({ err: response.info });
+      }
     }
   };
-  const Changes = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
-  };
+
   return (
     <div className={style.flexContainer}>
       <div className={style.Container}>
@@ -84,90 +72,72 @@ function Register() {
             referrerPolicy="no-referrer"
           />
         </div>
-        <form className={style.form} onSubmit={(e) => Submitiar(e)} id="formul">
+        <form
+          className={style.form}
+          onSubmit={(e) => handleSubmit(e)}
+          onChange={(e) => workOnChange(e)}
+          id="formul"
+        >
           <h1 className={style.h1}>Registrate</h1>
           <label className={style.label1}>Es facil y rapido</label>
           <div className={style.divs}>
+            <input name="name" placeholder="Nombre" className={style.inputs} />
+          </div>
+          {error.name && <label className={style.errors}>{error.name}</label>}
+
+          <div className={style.divs}>
             <input
-              name="name"
-              placeholder="Nombre"
+              name="username"
+              placeholder="Usuario"
               className={style.inputs}
-              onChange={(e) => Changes(e)}
-              required
             />
           </div>
-          {errores.name ? (
-            <label className={style.errors}>{errores.name}</label>
-          ) : null}
+          {error.username && (
+            <label className={style.errors}>{error.username}</label>
+          )}
 
           <div className={style.divs}>
             <input
               name="email"
               type="email"
-              onChange={(e) => Changes(e)}
               placeholder="ejemplo@gmail.com"
               className={style.inputs}
-              required
             />
           </div>
-          {errores.email ? (
-            <label className={style.errors}>{errores.email}</label>
-          ) : null}
-          <div className={style.divs}>
-            <input
-              id="pasw"
-              name="password"
-              type="password"
-              onChange={(e) => Changes(e)}
-              placeholder="Contraseña"
-              className={style.inputs}
-              required
-            />
-            <label className={style.beye} onClick={(e) => Visible(e)}>
-              <img
-                alt="1"
-                className={style.eye}
-                src="https://cdn-icons-png.flaticon.com/512/58/58976.png"
-              />
-            </label>
-          </div>
+          {error.email && <label className={style.errors}>{error.email}</label>}
 
           <div className={style.divs}>
             <input
-              id="pasw2"
-              name="password2"
+              id="password"
+              name="password"
               type="password"
-              onChange={(e) => Changes(e)}
-              placeholder="Repetir Contraseña"
+              placeholder="Contraseña"
               className={style.inputs}
-              required
             />
           </div>
-          {errores.password ? (
-            <label className={style.errors}>{errores.password}</label>
-          ) : null}
-          {/* <div className={style.divimg}>
-            Image:{" "}
+          {error.password && (
+            <label className={style.errors}>{error.password}</label>
+          )}
+
+          <div className={style.divs}>
             <input
-              name="Image"
-              id="imagen"
-              onChange={(e) => Changes(e)}
-              type="file"
-              accept="image/png, .jpeg, .jpg, image/gif"
-              className={style.inputimg}
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              placeholder="Repetir contraseña"
+              className={style.inputs}
             />
-          </div> */}
+          </div>
+          {error.confirmPassword && (
+            <label className={style.errors}>{error.confirmPassword}</label>
+          )}
+
           <div className={style.btns}>
             <input type="submit" value="Crear" className={style.send} />
-            {errores.good ? (
-              <label className={style.send2} onClick={() => Reset()}>
-                Clear
-              </label>
-            ) : null}
+            {registerError.err && (
+              <label className={style.errors}>{registerError.err}</label>
+            )}
           </div>
-          {errores.good ? (
-            <label className={style.good}>{errores.good}</label>
-          ) : null}
         </form>
         <div className={style.signIn}>
           <h1>Ya tienes cuenta?</h1>

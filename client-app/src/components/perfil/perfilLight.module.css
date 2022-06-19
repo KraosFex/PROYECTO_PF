@@ -1,0 +1,109 @@
+/* UTILIDADES */
+.imgPerfil {
+    width: 7em;
+    height: 7em;
+    border-radius: 0.2em;
+  
+  }
+  
+  .container {
+    max-width: 100vw;
+    width: 95%;
+  }
+    
+  /* STYLES COMPONENT */
+  .containerHeader {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+  
+  }
+  
+  .containerPerfil {
+    width: 70%;
+    height: 15em;
+    margin-top: 100px;
+    margin-bottom: 45px;
+    background: rgb(250, 250, 250);
+    border-radius: 0.5em;
+    -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11); 
+    box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
+  }
+  
+  .perfilDates {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 16px;
+    color: rgb(84, 84, 84);
+  }
+  
+  .containerImg{
+    margin: 22px;
+  }
+  
+  .userDetail{
+    margin: 20px;
+  }
+
+  .flex{
+    display: inline-flex;
+    gap: 4em;
+  }
+
+  .item label{
+    display: inline-flex;
+    margin-top: 0.5em;
+    color: #a5a5a5;
+  }
+  
+  .Username {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding-left: 1em;
+    width:7em;
+    background-color: rgb(248, 248, 248);
+    border-radius: 6px 30px 30px 6px;
+    border: 1px solid #474747;
+    -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11); 
+    box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
+  
+  }
+
+  .Username span{
+    max-width: fit-content;
+    font-size: 1.2em;
+
+  }
+
+
+  .cartYourCourse{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 5px;
+    border: solid 1px #474747;
+    margin-bottom: 1em;
+  }
+
+  .cartYourCourse svg{
+    width: 2em;
+    height: 2em;
+
+  }
+  .cursos{
+    text-align: center;
+    width: 20%;
+  }
+
+  .lenguaje{
+    display: flex;
+    justify-content: center;
+    width:20%;
+  }

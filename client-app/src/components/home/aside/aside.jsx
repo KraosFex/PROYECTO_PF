@@ -35,7 +35,13 @@ function NavBar(props) {
         onMouseLeave={handleMouseLeave}
       >
         <NavLink to="/home">
-          <img ref={logo} src={png} alt="logo" className={style.logo} />
+          <img
+            ref={logo}
+            src={png}
+            alt="logo"
+            className={style.logo}
+            referrerPolicy="no-referrer"
+          />
         </NavLink>
         <div className={style.icon}>
           <CursoIcon />

@@ -87,3 +87,12 @@
           flex-direction: row;
   position: relative;
 }
+
+
+@media (max-width: 768px) {
+  .navbar{
+    display: none;
+    pointer-events: none;
+  }
+
+}

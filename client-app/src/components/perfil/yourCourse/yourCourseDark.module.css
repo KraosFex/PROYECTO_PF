@@ -1,0 +1,68 @@
+.container {
+    width: 100%;
+  }
+
+.button {
+    width: 125px;
+    height: 35px;
+    margin-left: 10px;
+    border: solid 1px #474747;
+    border-radius: 0.5em;
+    background: rgb(54, 54, 54);
+    font-size: 14px;
+    color: #fff;
+
+  }
+  
+.button:active {
+    border: 1px solid #ffffff;
+  }
+
+.flex{
+    display: flex;
+    flex-direction: row;
+    margin-top: 9px;
+  }
+
+.item{
+    margin-left: 22px;
+  }
+
+  
+.containerListYourCourse {
+    min-height: 200px;
+    margin-top: 3em;
+    padding: 18px;
+    color: #fff;
+    font-size: 16px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background: rgb(54, 54, 54);
+    border-radius: 0.5em;
+    box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
+    -moz-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
+  }
+
+  .List{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 5px;
+    border: solid 1px rgb(68, 68, 68);
+    margin-bottom: 1em;
+
+  }
+
+
+  .listDetail{
+    margin-top: 1em;
+  }
+
+  .cursos{
+    text-align: center;
+    width: 20%;
+  }
+
