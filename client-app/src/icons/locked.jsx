@@ -1,6 +1,4 @@
-import React from "react";
-
-function Locked() {
+export default function Locked() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,5 +15,3 @@ function Locked() {
     </svg>
   );
 }
-
-export default Locked;
