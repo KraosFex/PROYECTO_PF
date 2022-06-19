@@ -20,12 +20,9 @@
   padding-top: 1em;
   margin-left: 1.5em;
   width:9em;
-  height: 3em;
+  height: 4em;
   background-size: 4em 4em;
   background-repeat: no-repeat;
-  -webkit-transition: margin-left 1.9s;
-  -o-transition: margin-left 1.9s;
-  transition: margin-left 1.9s;
 }
 
 .icon{
@@ -72,7 +69,7 @@
   transition: margin-left 1.5s, opacity 2.5s;
 }
 
-.navbar:hover > .logo{
+.navbar:hover  .logo{
   background-size: 10em 4em;
   margin-left: 2.5em;
   -webkit-transition: margin-left 1.6s;
@@ -91,3 +88,10 @@
   position: relative;
 }
 
+@media (max-width: 768px) {
+  .navbar{
+    display: none;
+    pointer-events: none;
+  }
+
+}

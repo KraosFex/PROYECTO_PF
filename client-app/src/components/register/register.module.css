@@ -1,68 +1,94 @@
 @import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Mandali&display=swap');
-.Container{
-    position: absolute;
-    margin: 7% 15%;
-    min-width: 80%;
-    min-height: 80%;
-    display: flex;
-    background-color: #ffffff4f;
-    justify-content: center;
-    align-items: center;
-    border-radius: 25px;
-    align-content: space-between;
-    flex-wrap: wrap;
+
+
+
+.flexContainer{
+    min-height: 100vh;
+display: flex;
+justify-content: center;
+align-content: center;
+background-image:url("img/backgroundregister.jpg"); 
+
 }
-.form{
+
+
+.Container{
+    display: flex;
+    position: relative;
+    width: 25%;
+    height: 50%;
+    background-color: #f9f9f9;
+    flex-wrap: wrap;
+    align-self: center;
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.54); 
+box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.54);
+}
+
+.logo{
+    display: flex;
     width: 100%;
-    min-height: 450px;
+    justify-content: center;
+    align-content: center;
+}
+.logo img{
+    margin-top: 3em;
+    width: 8em;
+    height: 8em;
+}
+
+.form{
+    display: inline-flex;
+    width: 100%;
+    min-height: 25em;
     display: flex;
     flex-direction: column;
     align-items: center;
-    align-content: space-between;
     justify-content: space-between;
     color: #1d1d1d;
 }
 .h1{
-    margin: 40px 0px 0px 0px;
-    color: #a0140d;
+    margin: 0em 0px 0px 0px;
+    color: #383838;
     font-family: 'Kdam Thmor Pro', sans-serif;
     font-size: xxx-large;
 }
 .label1{
+    margin-top: 0em;
     position: relative;
-    top: -35px;
     font-style: italic;
     font-size: small;
 }
 .divs,.divimg{
     margin: -10px;
-    width: 300px;
+    margin-top: 1em;
+    width: 15em;
     height: 30px;
     display: flex;
-    justify-content: space-between;
     font-family: 'Mandali', sans-serif;
     font-weight: bold;
+    justify-content: center;
+    border: black solid 1.5px;
 }
 .divimg{
     width: 350px;
 }
 .inputs, .inputimg{
-    background: #a0140d;
-    border: 1px solid #b8b8b8;
-    border-radius: 5px;
-    text-align-last: center;
-    color: white;
+    width: 18em;
+    display:inline-block;
+    border: none;
+    text-align: center;
+    background-color: #f9f9f9;
 }
 .inputimg{
     width: 300px;
 }
 .inputimg::-webkit-file-upload-button {
-    background: #a9a7a7;
+    background: #f9f9f9;
     color: #1d1d1d;
     cursor: pointer;
 }
-.inputs::placeholder { color: #b8b8b8; }
+.inputs::placeholder { color: rgb(51, 51, 51); }
 .btns{
     display: flex;
     align-items: center;
@@ -70,11 +96,11 @@
 .send, .send2{
     width: 100px;
     height: 30px;
-    background: #1d1d1d;
+    margin-top: 2em;
+    background: #2e2e2e;
     border: 2px solid;
     color: #d1d1d1;
     font-weight: bold;
-    border-radius: 15px;
 }
 .send2{
     height: 26px;
@@ -91,22 +117,26 @@
 }
 .eye{
     height: 20px;
+    width: 24px;
     padding: 0px 3px;
 }
 .beye{
     /* position: relative;
     left: 10px; */
-    margin: 5px 0px;
-    background: white;
+    margin-left:;
     border: none;
     border-radius: 10px;
 }
 .errors{
-    background-color: #cd69008a;
     width: 90%;
+    margin-top: 1em;
     text-align: center;
-    color: white;
+    color: rgb(193, 0, 0);
     font-style: italic;
+}
+
+.errors::before + .divs{
+    margin-top: 5em;
 }
 .good{
     background-color: #20cd008a;
@@ -114,4 +144,54 @@
     text-align: center;
     color: white;
     font-style: italic;
+}
+
+.policy{
+    margin-top: 2em;
+    width: 30em;
+    text-align: center;
+    justify-self: center;
+}
+
+.policy h1{
+    font-size: 1em;
+    font-weight: 300;
+}
+
+.policy a{
+    text-decoration: none;
+}
+
+.signIn{
+    display: inline-flex;
+    width: 100%;
+    margin-top: 1em;
+
+}
+
+.signIn h1{
+    font-size: 1em;
+    font-weight: 400;
+    margin-left: 32%;
+}
+
+.signIn a{
+    margin-left: 1em;
+    margin-top: 0.7em;
+}
+
+
+.signInGoogle{
+    width: 100%;
+    text-align: center;
+}
+
+.signInGoogle h1{
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.signInGoogle svg{
+    width: 2.5em;
+    height: 2.5em;
 }
