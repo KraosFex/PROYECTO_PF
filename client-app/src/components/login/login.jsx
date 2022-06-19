@@ -1,28 +1,36 @@
-import axios from 'axios'
-import jwt_decode from 'jwt-decode'
-import React, { useEffect, useState } from 'react'
-import style from './login.module.css'
-import { validation } from '../../../redux/actions/index';
-import { useDispatch, useSelector } from 'react-redux';
+// libraries
+import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
+
+
+import { validation } from "../../../redux/actions/index";
 import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";
 import validator from "../../utils/validator.js";
-import { useNavigate } from 'react-router-dom';
+
+// styles
+import style from "./login.module.css";
 
 function Login () {
 
+
+function Login() {
   const dispatch = useDispatch();
   const navigateTo = useNavigate();
 
-  const [input, setInput] = useState({})
-  const [error, setError] = useState({})
-  const [logError, setLogError] = useState({})
-  const [forgotPopUp, setForgotPopUp] = useState(false)
+  const [input, setInput] = useState({});
+  const [error, setError] = useState({});
+  const [logError, setLogError] = useState({});
+  const [forgotPopUp, setForgotPopUp] = useState(false);
 
   const workOnChange = (event) => {
     setInput({
       ...input,
-      [event.target.name]: event.target.value
-    })
+      [event.target.name]: event.target.value,
+    });
+
 
     setError(validator("login", {
       ...input,
@@ -31,20 +39,22 @@ function Login () {
   }
 
   const handleSubmit = async (event) => {
-    function isObjectEmpty (obj) {
+    function isObjectEmpty(obj) {
       for (const prop in obj) {
-        if (obj.hasOwnProperty(prop)) return false
+        if (obj.hasOwnProperty(prop)) return false;
       }
-      return true
+      return true;
     }
 
     if (!isObjectEmpty(error) || isObjectEmpty(input)) {
-      event.preventDefault()
+      event.preventDefault();
 
-      setError(validator("login", {
-        ...input,
-        [event.target.name]: event.target.value
-      }))
+      setError(
+        validator("login", {
+          ...input,
+          [event.target.name]: event.target.value,
+        })
+      );
     } else {
           event.preventDefault()
 
@@ -55,86 +65,115 @@ function Login () {
             navigateTo("/home")
           } else {
             setLogError({err: response.info});
-          }
     }
-  }
+  };
+
 
   const handleCallBackResponse = async (response) => {
-    const userObject = jwt_decode(response.credential)
+    const userObject = jwt_decode(response.credential);
 
     if (userObject.email_verified) {
       try {
         setLogError({});
         navigateTo("/home")
       } catch (err) {
-        setLogError({err: err});
+        setLogError({ err: err });
       }
     }
-  }
+  };
+
+  const popUpFunction = (bool) => {
+    setForgotPopUp(bool);
+  };
 
   const popUpFunction = (bool) => {
     setForgotPopUp(bool)
   }
 
   useEffect(() => {
-  /* global google */
+    /* global google */
     google.accounts.id.initialize({
-      client_id: '759322645352-ch2qqv99md1ts29e7spp1cjs6o4ri5df.apps.googleusercontent.com',
-      callback: handleCallBackResponse
-    })
+      client_id:
+        "759322645352-ch2qqv99md1ts29e7spp1cjs6o4ri5df.apps.googleusercontent.com",
+      callback: handleCallBackResponse,
+    });
 
-    google.accounts.id.renderButton(
-      document.getElementById('signInDiv'),
-      { theme: 'outline', size: 'large' }
-    )
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large",
+    });
 
-    google.accounts.id.prompt()
-  }, [])
+    google.accounts.id.prompt();
+  }, []);
 
   return (
-    <div className={style.HeightContainer}>
-      <div className={style.parentContainer}>
-        <div className={style.childContainer}>
-          <h3>Lorem ipsum dolor sit amet, vivamus eu augue erat. Donec rutrum suscipit muris at blandit. Vestibulum loborti varius feugiat. Quisque at varius nibh</h3>
-          <div className={style.imgContainer}>
-            <img src='../../img/rocketLogin.png' />
+    <body className={style.body}>
+      <div className={style.HeightContainer}>
+        <div className={style.parentContainer}>
+          <div className={style.childContainer}>
+            <img
+              src="https://i.imgur.com/98pNMkQ.png"
+              alt="logo"
+              referrerPolicy="no-referrer"
+            />
+            <h3>Aprende a programar desde cero con tests en tiempo real</h3>
+            <div className={style.imgContainer}>
+              <img src="../../img/programming.png" />
+            </div>
+          </div>
+          <div className={style.childContainer}>
+            <h1>Sign In</h1>
+            {logError.err && (
+              <label className={style.logError}>{logError.err}</label>
+            )}
+            <form
+              className={style.form}
+              onChange={(e) => workOnChange(e)}
+              onSubmit={(e) => handleSubmit(e)}
+            >
+              <div className={style.input}>
+                <label className={style.title}>Email</label>
+                <input
+                  type="text"
+                  placeholder="example@gmail.com"
+                  name="email"
+                />
+                {error.email && (
+                  <label className={style.error}>{error.email}</label>
+                )}
+              </div>
+              <div className={style.input}>
+                <label className={style.title}>Contraseña</label>
+                <input type="password" placeholder="password" name="password" />
+                {error.password && (
+                  <label className={style.error}>{error.password}</label>
+                )}
+              </div>
+              <button type="submit" className={style.button2}>
+                <span />
+                <span />
+                <span />
+                <span />
+                Entrar
+              </button>
+            </form>
+            {/*PopUp Trigger*/}
+            <a onClick={() => popUpFunction(true)} className={style.forgot}>
+              Olvidaste la contraseña?
+            </a>
+            <label className={style.googleLabel}>
+              O puedes entrar con tu cuenta de google
+            </label>
+            <div className={style.googleInput}>
+              <div id="signInDiv" />
+            </div>
           </div>
         </div>
-        <div className={style.childContainer}>
-          <h1>Sign In</h1>
-          {logError.err && <label className={style.logError}>{logError.err}</label>}
-          <form className={style.form} onChange={(e) => workOnChange(e)} onSubmit={(e) => handleSubmit(e)}>
-            <div className={style.input}>
-              <label className={style.title}>EMAIL</label>
-              <input type='text' placeholder='example@gmail.com' name='email' />
-              {error.email && <label className={style.error}>{error.email}</label>}
-            </div>
-            <div className={style.input}>
-              <label className={style.title}>PASSWORD</label>
-              <input type='password' placeholder='password' name='password' />
-              {error.password && <label className={style.error}>{error.password}</label>}
-            </div>
-            <button type='submit' className={style.button2}>
-              <span />
-              <span />
-              <span />
-              <span />
-              SIGN IN
-            </button>
-          </form>
-          {/*PopUp Trigger*/}
-          <a onClick={() => popUpFunction(true)}>Forgot password?</a>
-          <label className={style.googleLabel}>Or sign in With your google account</label>
-          <div className={style.googleInput}>
-            <div id='signInDiv' />
-          </div>
-        </div>
+        {/*Codition open popUp or Close popUp*/}
+        {forgotPopUp ? <ForgotPopUp popUpFunction={popUpFunction} /> : null};
       </div>
-      {/*Codition open popUp or Close popUp*/}
-      {forgotPopUp ? <ForgotPopUp popUpFunction={popUpFunction}/> : null};
-    </div>
-
-  )
+    </body>
+  );
 }
 
-export default Login
+export default Login;

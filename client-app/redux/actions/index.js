@@ -59,10 +59,10 @@ export const setValidateUser = (userObject) => {
 }
 
 export const updateUser = (userObject) => {
-  return {
-    type: SET_UPDATEUSER,
-    payload: userObject
-  }
+      return {
+      type: SET_UPDATEUSER,
+      payload: userObject
+    }
 }
 
 export const logout = () => {
@@ -86,7 +86,7 @@ export const register = (userData) => {
 };
 
 export const findCourse = (id) => {
-  return async dispatch => {
+  return async function(dispatch)  {
     try {
       const resp = await axios.get(`http://localhost:3001/api/cursos/${id}`)
       return resp.data
@@ -98,7 +98,7 @@ export const findCourse = (id) => {
 };
 
 export const validation = (post) => {
-  return async dispatch => {
+  return async function(dispatch) {
     try {
       const metaData = await axios.post("http://localhost:3001/api/auth/login", post)
       dispatch(setValidateUser(metaData.data))
@@ -172,7 +172,7 @@ export const editPassword = (email) => {
 }
 
 export const getCourses = () => {
-  return async dispatch => {
+  return async function(dispatch) {
     try {
       const metaData = await axios.get("http://localhost:3001/api/cursos")
       dispatch(setCourses(metaData.data.docs));
@@ -197,7 +197,7 @@ export const bookmarkCourse = (id) => {
 }
 
 export const unmarkfavorites = (id) => {
-  return async dispatch => {
+  return async function(dispatch) {
     try {
       const resp = await axios.put(`http://localhost:3001/api/${id}/unfavorite`)
       dispatch(updateUser(resp.data.user))
@@ -226,11 +226,9 @@ export const getLesson = (idCourse, idLesson) => {
 export const addVotes = async function (id, info){
   try {
     const data = await axios.put(`http://localhost:3001/api/cursosprivate/${id}/votes`, info)
-    console.log(data)
   } catch (err) {
     new Error(err)
   }
-
 }
 
 export const getAllUsers = () => {
@@ -253,4 +251,3 @@ export const getAllUsers = () => {
     }
   }
 }
-

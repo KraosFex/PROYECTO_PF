@@ -4,7 +4,6 @@ import { getCourses } from "../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
 import style from "./index.modules.css";
 
-
 import Home from "./components/home/home";
 import Aside from "./components/home/aside/aside";
 import NavBarUser from "./components/home/navbarUser/navBarUser";
@@ -31,30 +30,27 @@ function App() {
     dispatch(getCourses());
   });
 
-
-
   const AppLayout = () => (
     <>
       <Aside theme={theme} />
       <NavBarUser theme={theme} />
       <Outlet />
     </>
-  )
+  );
 
   return (
     <div className={style.AppBody}>
       <Routes>
-        <Route exact path='/' element={<Landing />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
+        <Route exact path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
         <Route element={<AppLayout />}>
           <Route path="/home" element={<Home theme={theme} />} />
           <Route path="/courses" element={<Courses />}></Route>
-          <Route path='/course/:id' element={<CourseDetailPage />} />
-
-          <Route element={<PrivateRoute isLogged={isLogged}/>}>
-            <Route path="/profile" element={<Perfil />}/>
-            <Route path="/course/:idCourse/:idLesson" element={<LessonPage />}/>
+          <Route path="/course/:id" element={<CourseDetailPage theme={theme} />} />
+          <Route element={<PrivateRoute isLogged={isLogged} />}>
+            <Route path="/perfil" element={<Perfil />} />
+            <Route path="/course/:idCourse/:idLesson" element={<LessonPage />} />
           </Route>
 
           <Route element={<PrivateAdminRoute isAdmin={user.isAdmin}/>}>
@@ -64,7 +60,7 @@ function App() {
        </Route>
      </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

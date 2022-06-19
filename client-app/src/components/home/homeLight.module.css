@@ -41,49 +41,44 @@
 
 .container{
     display: inline-block;
-    background: linear-gradient(90deg, rgba(123,123,123,1) 40%, rgba(226, 31, 50,0.1) 100%);
-    border-radius: 1em;
+    background: linear-gradient(90deg, rgb(250, 250, 250) 40%, rgba(226, 31, 50,0.1) 100%);
+    border-radius: 0.5em;
     width: 70em;
     height: 30em;
     margin-top: 5em;
-    box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
-    -moz-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11); 
+    box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
 }
 .container2{
-    background-color: rgb(123, 123, 123);
-    border-radius: 1em;
+    background-color: rgb(250, 250, 250);
+    border-radius: 0.5em;
     width: 33.5em;
     height: 30em;
-    box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
-    -moz-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11); 
+    box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
 }
 
 .container31{
     display: flex;
     flex-direction: row;
-    background-color: rgb(123, 123, 123);
-    border-radius: 1em;
+    background: linear-gradient(90deg, rgba(207,207,207,1) 0%, rgba(247,247,247,1) 100%);
+    border-radius: 0.5em;
     width: 33.5em;
     height: 9em;
-    box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
-    -moz-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
+
     gap:1em;
 }
 
 .container3{
     display: flex;
     flex-direction: row;
-    background-color: rgb(123, 123, 123);
-    border-radius: 1em;
+    background-color: rgb(250, 250, 250);
+    border-radius: 0.5em;
     width: 33.5em;
     height: 9em;
     margin-top: 1.5em;
-    box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
-    -moz-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11); 
+    box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
     gap:1em;
 }
 
@@ -102,17 +97,17 @@
 }
 
 .container3Text h3{
-    color:rgb(204, 204, 204);
+    color:rgb(135, 135, 135);
 }
 .container3Text h1{
-    color:rgb(204, 204, 204);
+    color:rgb(135, 135, );
     font-size: 0.8em;
     font-weight: 100;
 }
 
 .button{
-    margin-left: 18em;
-    background-color: rgb(31, 31, 31);
+    margin-left: 5em;
+    background-color: rgb(174, 174, 174);
     width: 6em;
     border-radius: 0.5em;
     text-align: center;
@@ -125,3 +120,4 @@
     color: white;
     font-size: 0.9em;
 }
+
