@@ -3,11 +3,21 @@ const User = require("../model/modelUser");
 const ErrorResponse = require("../utils/errorResponse.js");
 
 const getCursos = async (req, res, next) => {
+<<<<<<< HEAD
   console.log(req.query);
   try {
     const courses = await Course.find({});
     res.send(courses);
     return;
+=======
+
+  const limit = parseInt(req.query.limit) || 8
+  const page = parseInt(req.query.page) || 1
+  try {
+    const courses = await Course.paginate({ estado: true }, { limit, page })
+    res.send(courses)
+    
+>>>>>>> 1be860b2a19cc436c0e18551cdb7b03808c791cf
   } catch (err) {
     next(new ErrorResponse("Error al crear el curso", 500, false));
     console.error(err);

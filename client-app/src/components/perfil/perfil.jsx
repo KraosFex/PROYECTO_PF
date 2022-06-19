@@ -1,7 +1,18 @@
+<<<<<<< HEAD
 import { useSelector } from "react-redux";
 
 // import shildren components
 import YourCourse from "./yourCourse/yourCourse";
+=======
+import { useSelector } from 'react-redux'
+import { useState } from 'react';
+
+
+// import shildren components
+import YourCourse from './yourCourse/yourCourse'
+import UsernamePopUp from './popUps/usernamePopUp.jsx';
+import PasswordPopUp from './popUps/passwordPopUp.jsx';
+>>>>>>> 1be860b2a19cc436c0e18551cdb7b03808c791cf
 
 // import stiles
 import darkTheme from "./perfilDark.module.css";
@@ -83,10 +94,24 @@ const Perfil = (props) => {
     },
   ];
 
+<<<<<<< HEAD
   console.log(persona.courses);
 
   const coursesAll = persona[0].courses.map((course) => {
     return (
+=======
+  const [usernamePopUp, setUsernamePopUp] = useState(false);
+  const [passwordPopUp, setPasswordPopUp] = useState(false);
+
+  const popUpFunction = (specification, bool) => {
+    if(specification === "password") setPasswordPopUp(bool)
+    else if (specification === "username") setUsernamePopUp(bool)
+
+  }
+
+  const coursesAll = persona.courses.map(course => {
+    return(
+>>>>>>> 1be860b2a19cc436c0e18551cdb7b03808c791cf
       <div className={style.cartYourCourse} key={course.id}>
         <label className={style.cursos}> {course.titulo} </label>
         <label className={style.cursos}>
@@ -122,11 +147,30 @@ const Perfil = (props) => {
               <div className={style.Username}>
                 <span>{persona[0].username}</span>
               </div>
+<<<<<<< HEAD
               <div className={style.flex}>
                 <div className={style.item}>
                   <div>
                     <label> Nombre: </label>
                     <span> {persona[0].name} </span>
+=======
+              <div className={style.userDetail}>
+                <div className={style.Username}>
+                  <label> User: </label>
+                  <span>{persona.username}</span>
+                </div>
+                <div className={style.flex}>
+                  <div className={style.item}>
+                    <div>
+                      <label> Name: </label>
+                      <span> {persona.name} </span>
+                      <button className={style.popup} onClick={() => popUpFunction("username", true)}>Edit</button>
+                    </div>
+                    <div>
+                      <label> e-mail: </label>
+                      <span> {persona.email} </span>
+                    </div>
+>>>>>>> 1be860b2a19cc436c0e18551cdb7b03808c791cf
                   </div>
                   <div>
                     <label> Email: </label>
@@ -145,6 +189,7 @@ const Perfil = (props) => {
                 </div>
               </div>
             </div>
+<<<<<<< HEAD
           </div>
           <YourCourse className={style.YourCourse} coursesAll={coursesAll} />
         </div>
@@ -152,5 +197,20 @@ const Perfil = (props) => {
     </ThemeProvider>
   );
 };
+=======
+            <button className={style.popup} onClick={() => popUpFunction("password", true)}>Cambiar Contraseña</button>
+        </div>
+
+      {/* YOUR_COURSE   */}
+        <YourCourse className={style.YourCourse} coursesAll={coursesAll} />
+
+        {/* Condition Open pop up and Close pop up*/}
+        {usernamePopUp ? <UsernamePopUp popUpFunction={popUpFunction} id={persona.id}/> : null}
+        {passwordPopUp ? <PasswordPopUp popUpFunction={popUpFunction} email={persona.email}/> : null}
+
+    </div>
+  )
+}
+>>>>>>> 1be860b2a19cc436c0e18551cdb7b03808c791cf
 
 export default Perfil;

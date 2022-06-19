@@ -13,11 +13,19 @@ import Register from "./components/register/register";
 import Landing from "./components/landing/landing";
 import Perfil from "./components/perfil/perfil";
 import PrivateRoute from "./components/privateRoute/privateRoute";
+import PrivateAdminRoute from "./components/privateRoute/PrivateAdminRoute";
 import CourseDetailPage from "./components/courseDetailPage/course/course";
+<<<<<<< HEAD
+=======
+import LessonPage from "./components/lessonPage/lessonPage";
+import UsersPage from "./components/adminPages/usersPage/usersPage";
+
+>>>>>>> 1be860b2a19cc436c0e18551cdb7b03808c791cf
 
 function App() {
   const theme = useSelector((store) => store.theme);
   const isLogged = useSelector((store) => store.isLogged);
+  const user = useSelector((store) => store.user);
 
   const dispatch = useDispatch();
 
@@ -49,9 +57,15 @@ function App() {
           <Route path="/perfil1" element={<Perfil theme={theme} />} />
           <Route element={<PrivateRoute isLogged={isLogged} />}>
             <Route path="/perfil" element={<Perfil />} />
+            <Route path="/course/:idCourse/:idLesson" element={<LessonPage />}/>
           </Route>
-        </Route>
-      </Routes>
+
+          <Route element={<PrivateAdminRoute isAdmin={user.isAdmin}/>}>
+              <Route path='/users' element={<UsersPage />} />
+          </Route>
+
+       </Route>
+     </Routes>
     </div>
   );
 }

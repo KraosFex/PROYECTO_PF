@@ -1,0 +1,13 @@
+.highContainer {
+  width: 100vw;
+  height: 100vh;
+  margin-left: 7em;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.infoContainer {
+  width: 100%;
+  background-color: rgb(181, 181, 181);
+  padding: 1em;
+}
