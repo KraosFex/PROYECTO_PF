@@ -134,7 +134,6 @@ export const findUserByName = (username) => {
       dispatch(setShowedUsers(metaData.data));
     }
     catch(err) {
-      console.log(err);
       alert("Ups! Something went wrong...");
     }
   }
