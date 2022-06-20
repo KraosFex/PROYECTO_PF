@@ -103,28 +103,30 @@ const googleLogin = async (req, res) => {
 
     const password = email + process.env.GOOGLE_SECRET
 
-    if (!email_verified) return res.status(400).json({ msg: 'Email verification failed.' })
+    if (!email_verified) return res.status(400).json({ info: 'Email verification failed.', success: false })
 
     const user = await User.findOne({ email })
 
     if (user) {
       const match = await user.matchPassword(password)
-      if (!match) return res.status(400).json({ msg: 'Password is incorrect.' })
+      if (!match) return res.status(400).json({ info: 'Password is incorrect.', success: false})
 
-      res.json({ msg: 'Login success!' })
+      const token = user.generateToken()
+
+      res.send({ info: 'Login success!', success: true, token, user })
     } else {
       const newUser = new User({
-        name, email, password, image: picture
+        username: verify.payload.sub[3] + name, name, email, password, image: picture
       })
 
       await newUser.save()
 
-      const token = user.generateToken()
+      const token = newUser.generateToken()
 
-      res.send({ info: 'Credenciales correctas', success: true, token, user })
+      res.send({ info: 'Credenciales correctas', success: true, token, user: newUser })
     }
   } catch (err) {
-    return res.status(500).json({ msg: err.message })
+    return res.status(500).json({ info: err.message,  success: false})
   }
 }
 
