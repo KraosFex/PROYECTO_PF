@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { register, auhtGoogle } from "../../../redux/actions";
 import style from "./register.module.css";
 import validator from "../../utils/validator.js";
@@ -67,6 +67,36 @@ function Register() {
       }
     }
   };
+
+  const handleCallBackResponse = async (response) => {
+
+    const data = await dispatch(auhtGoogle(response.credential));
+
+    if (data.success) {
+        localStorage.setItem("authToken", data.token)
+        setLogError({});
+        navigateTo("/home")
+    } else {
+      setLogError({err: data.info});
+    }
+
+  };
+
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        "759322645352-ch2qqv99md1ts29e7spp1cjs6o4ri5df.apps.googleusercontent.com",
+      callback: handleCallBackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large",
+    });
+
+    google.accounts.id.prompt();
+  }, []);
 
 return (
     <div className={style.flexContainer}>
@@ -151,9 +181,9 @@ return (
         </div>
         <div className={style.signInGoogle}>
           <h1>O puedes entrar con</h1>
-          <NavLink to="/login">
-            <Google />
-          </NavLink>
+          <div className={style.googleInput}>
+            <div id="signInDiv" />
+          </div>
         </div>
         <div className={style.policy}>
           <h1>
