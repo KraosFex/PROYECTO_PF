@@ -6,15 +6,12 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 
-import { validation } from "../../../redux/actions/index";
+import { login } from "../../../redux/actions/index";
 import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";
 import validator from "../../utils/validator.js";
 
 // styles
 import style from "./login.module.css";
-
-function Login () {
-
 
 function Login() {
   const dispatch = useDispatch();
@@ -56,9 +53,10 @@ function Login() {
         })
       );
     } else {
-          event.preventDefault()
+        event.preventDefault()
 
-        const response = await dispatch(validation({email: input.email, password: input.password}))
+        const response = await dispatch(login({email: input.email, password: input.password}))
+
         if(response.success) {
             localStorage.setItem("authToken", response.token)
             setLogError({});
@@ -66,7 +64,8 @@ function Login() {
           } else {
             setLogError({err: response.info});
     }
-  };
+  }
+};
 
 
   const handleCallBackResponse = async (response) => {
@@ -86,15 +85,10 @@ function Login() {
     setForgotPopUp(bool);
   };
 
-  const popUpFunction = (bool) => {
-    setForgotPopUp(bool)
-  }
-
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
-      client_id:
-        "759322645352-ch2qqv99md1ts29e7spp1cjs6o4ri5df.apps.googleusercontent.com",
+      client_id: "759322645352-ch2qqv99md1ts29e7spp1cjs6o4ri5df.apps.googleusercontent.com",
       callback: handleCallBackResponse,
     });
 
@@ -107,7 +101,7 @@ function Login() {
   }, []);
 
   return (
-    <body className={style.body}>
+    <div className={style.body}>
       <div className={style.HeightContainer}>
         <div className={style.parentContainer}>
           <div className={style.childContainer}>
@@ -172,7 +166,7 @@ function Login() {
         {/*Codition open popUp or Close popUp*/}
         {forgotPopUp ? <ForgotPopUp popUpFunction={popUpFunction} /> : null};
       </div>
-    </body>
+    </div>
   );
 }
 

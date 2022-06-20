@@ -4,8 +4,4 @@ const PrivateRoute = ({ isLogged }) => {
   return isLogged ? <Outlet /> : <Navigate to="/login" />;
 };
 
-const PrivateRoute = ( {isLogged} ) => {
-    return isLogged? <Outlet /> : <Navigate to='/login' />
-}
-
 export default PrivateRoute;

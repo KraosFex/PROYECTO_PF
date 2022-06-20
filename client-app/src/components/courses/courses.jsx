@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ThemeProvider } from "styled-components";
 import {
@@ -49,7 +49,6 @@ function Courses() {
     }
     const inputsCheckbox = [...document.getElementsByName("languages")];
     for (const input of inputsCheckbox) {
-      console.log(input.checked);
       input.checked = false;
     }
 

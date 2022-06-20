@@ -74,19 +74,18 @@ export const logout = () => {
 // asynchronous actions
 
 export const register = (userData) => {
-  return async () => {
+  return async function() {
     try {
       const metaData = await axios.post("http://localhost:3001/api/auth/register", userData);
-      return metaData;
+      return metaData.data;
     } catch (err) {
-      alert('Ups! Something went wrong...')
-      new Error(err)
+      return err.response.data
     }
   }
 };
 
 export const findCourse = (id) => {
-  return async function(dispatch)  {
+  return async function()  {
     try {
       const resp = await axios.get(`http://localhost:3001/api/cursos/${id}`)
       return resp.data
@@ -97,14 +96,14 @@ export const findCourse = (id) => {
   }
 };
 
-export const validation = (post) => {
+export const login = (post) => {
   return async function(dispatch) {
     try {
       const metaData = await axios.post("http://localhost:3001/api/auth/login", post)
       dispatch(setValidateUser(metaData.data))
       return metaData.data
     } catch (err) {
-      new Error(err)
+      return err.response.data;
     }
   }
 }
@@ -160,7 +159,7 @@ export const editUsername = (username, id) => {
 }
 
 export const editPassword = (email) => {
-  return async function (dispatch) {
+  return async function() {
     try {
       const metaData = await axios.put(`http://localhost:3001/api/auth/forgotPassword`, { email: email })
       return metaData.data
@@ -185,7 +184,7 @@ export const getCourses = () => {
 }
 
 export const bookmarkCourse = (id) => {
-  return async dispatch => {
+  return async function(dispatch) {
     try {
       const resp = await axios.put(`http://localhost:3001/api/${id}/favorite`)
       dispatch(updateUser(resp.data.user))

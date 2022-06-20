@@ -1,21 +1,28 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+// libraries
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { themeSwitcher } from "../../../../redux/actions/index.js";
+
+//  styles
+import { ThemeProvider } from "styled-components";
 import darkTheme from "./navbarUserBlack.module.css";
 import lightTheme from "./navbarUserLight.module.css";
+
+//  icones
 import FavoriteIcon from "../../../icons/Favorite";
+import Moon from "../../../icons/moon";
 import CodeIcon from "../../../icons/code.jsx";
 import Discord from "../../../icons/Discord.jsx";
 import CursoIcon from "../../../icons/libro.jsx";
-import Moon from "../../../icons/moon";
 import Notification from "../../../icons/notification";
-import { ThemeProvider } from "styled-components";
 import Sun from "../../../icons/sun";
-import { useDispatch, useSelector } from "react-redux";
-import { themeSwitcher } from "../../../../redux/actions/index.js";
 
 function NavBarUser() {
   const dispatch = useDispatch();
 
+  const isLogged = useSelector(store => store.isLogged)
+  const user = useSelector(store => store.user)
   const theme = useSelector((store) => store.theme);
 
   let body;
@@ -45,12 +52,10 @@ function NavBarUser() {
       const isDropdownButton = e.target.matches("[data-dropdown-button]");
       if (!isDropdownButton && e.target.closest("[data-dropdown]") != null)
         return;
-
       let currentDropdown;
       if (isDropdownButton) {
         setActive(!active);
       }
-
       if (!isDropdownButton) {
         setActive(false);
       }
@@ -68,55 +73,56 @@ function NavBarUser() {
           </div>
         </div>
         <div className={style.icon2}>
-          <Link to="#">
+          <NavLink to="#">
             <FavoriteIcon />
-          </Link>
+          </NavLink>
         </div>
         <div className={style.icon2}>
-          <Link to="#">
+          <NavLink to="#">
             <Notification />
-          </Link>
+          </NavLink>
         </div>
         <div className={style.icon4}>
-          <Link to="#">
+          <NavLink to="#">
             <CodeIcon />
-          </Link>
+          </NavLink>
         </div>
         <div className={style.icon4}>
-          <Link to="/courses">
+          <NavLink to="/courses">
             <CursoIcon />
-          </Link>
+          </NavLink>
         </div>
         <div className={style.icon4}>
-          <Link to="#">
+          <NavLink to="#">
             <Discord />
-          </Link>
+          </NavLink>
         </div>
         <div data-dropdown className={style.dropdown}>
           <input
             type="image"
-            src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
+            src={isLogged ? user.Image : "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"}
             data-dropdown-button
             className={style.icon3}
           />
           <div
             className={active ? style.dropdownmenuActive : style.dropdownmenu}
           >
-            <NavLink to="/perfil1" data-dropdown-button>
+            <NavLink to="/perfil" data-dropdown-button>
               Perfil
             </NavLink>
             <NavLink to="/home" data-dropdown-button>
               Inicio
             </NavLink>
-            <NavLink to="/configuracion" data-dropdown-button>
-              Configuracion
-            </NavLink>
-            <NavLink to="/login" data-dropdown-button>
-              Log In
-            </NavLink>
-            <NavLink to="/register" data-dropdown-button>
-              Registrarse
-            </NavLink>
+            {isLogged ? null :
+              <>
+                <NavLink to="/login" data-dropdown-button>
+                  Log In
+                </NavLink>
+                <NavLink to="/register" data-dropdown-button>
+                  Registrarse
+                </NavLink>
+              </>
+              }
           </div>
         </div>
       </div>
