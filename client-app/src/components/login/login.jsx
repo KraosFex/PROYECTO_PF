@@ -1,12 +1,9 @@
 // libraries
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import jwt_decode from "jwt-decode";
-
-
-import { login } from "../../../redux/actions/index";
+import { login, auhtGoogle } from "../../../redux/actions/index";
 import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";
 import validator from "../../utils/validator.js";
 
@@ -43,6 +40,7 @@ function Login() {
       return true;
     }
 
+
     if (!isObjectEmpty(error) || isObjectEmpty(input)) {
       event.preventDefault();
 
@@ -70,15 +68,17 @@ function Login() {
 
   const handleCallBackResponse = async (response) => {
     const userObject = jwt_decode(response.credential);
+    
+    const data = await dispatch(auhtGoogle(response.credential));
 
-    if (userObject.email_verified) {
-      try {
+    if (data.success) {
+        localStorage.setItem("authToken", data.token)
         setLogError({});
         navigateTo("/home")
-      } catch (err) {
-        setLogError({ err: err });
-      }
+    } else {
+      setLogError({err: data.info});
     }
+
   };
 
   const popUpFunction = (bool) => {

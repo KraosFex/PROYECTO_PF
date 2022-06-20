@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { register } from "../../../redux/actions";
+import { register, auhtGoogle } from "../../../redux/actions";
 import style from "./register.module.css";
 import validator from "../../utils/validator.js";
 import { useNavigate, Link, NavLink } from "react-router-dom";
