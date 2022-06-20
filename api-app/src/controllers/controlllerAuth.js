@@ -1,8 +1,11 @@
-
 const User = require('../model/modelUser.js')
 const ErrorResponse = require('../utils/errorResponse.js')
 const sendMail = require('../utils/sendEmail.js')
 const crypto = require('crypto')
+const { google } = require('googleapis')
+const { OAuth2 } = google.auth
+
+const client = new OAuth2(process.env.MAILING_SERVICE_CLIENT_ID)
 
 const registerUser = async (req, res, next) => {
   try {
@@ -13,7 +16,8 @@ const registerUser = async (req, res, next) => {
 
     res.status(201).send({ info: 'Usuario creado exitosamente', success: true, token })
   } catch (err) {
-    next(err)
+    return res.status(500).send({info: 'Ya existe una cuenta con ese gmail', success: false})
+    //next(err);
   }
 }
 
@@ -24,17 +28,18 @@ const login = async (req, res, next) => {
 
   try {
     const user = await User.findOne({ email })
-    if (!user) return next(new ErrorResponse('Credenciales Invalidas', 401, false))
+    if (!user) return res.status(401).send({info: 'Credenciales Invalidas', success:false})//return next(new ErrorResponse('Credenciales Invalidas', 401, false))
 
     const match = await user.matchPassword(password)
 
-    if (!match) return next(new ErrorResponse('Credenciales Invalidas', 401, false))
+    if (!match) return res.status(401).send({info: 'Credenciales Invalidas', success:false})//return next(new ErrorResponse('Credenciales Invalidas', 401, false))
 
     const token = user.generateToken()
 
     res.send({ info: 'Credenciales correctas', success: true, token, user })
   } catch (err) {
-    next(new ErrorResponse('Error en los credenciales', 401, false))
+    return res.status(401).send({info: 'Credenciales Invalidas', success:false})
+    //next(new ErrorResponse('Error en los credenciales', 401, false))
   }
 }
 
@@ -87,9 +92,46 @@ const resetPassword = async (req, res, next) => {
   }
 }
 
+const googleLogin = async (req, res) => {
+  try {
+    const { tokenId } = req.body
+
+    const verify = await client.verifyIdToken({ idToken: tokenId, audience: process.env.MAILING_SERVICE_CLIENT_ID })
+
+    const { email_verified, email, name, picture } = verify.payload
+
+    const password = email + process.env.GOOGLE_SECRET
+
+    if (!email_verified) return res.status(400).json({ msg: 'Email verification failed.' })
+
+    const user = await User.findOne({ email })
+
+    if (user) {
+      const match = await user.matchPassword(password)
+      if (!match) return res.status(400).json({ msg: 'Password is incorrect.' })
+
+      res.json({ msg: 'Login success!' })
+    } else {
+      const newUser = new User({
+        name, email, password, image: picture
+      })
+
+      await newUser.save()
+
+      const token = user.generateToken()
+
+      res.send({ info: 'Credenciales correctas', success: true, token, user })
+    }
+  } catch (err) {
+    return res.status(500).json({ msg: err.message })
+  }
+}
+
+
 module.exports = {
   registerUser,
   login,
   forgotPassword,
-  resetPassword
+  resetPassword,
+  googleLogin
 }
