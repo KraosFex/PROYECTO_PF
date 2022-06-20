@@ -1,8 +1,7 @@
 // libraries
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import jwt_decode from "jwt-decode";
 import { login, auhtGoogle } from "../../../redux/actions/index";
 import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";
@@ -52,7 +51,7 @@ function Login() {
         })
       );
     } else {
-          event.preventDefault()
+        event.preventDefault()
 
         const response = await dispatch(login({email: input.email, password: input.password}))
 
@@ -68,8 +67,7 @@ function Login() {
 
 
   const handleCallBackResponse = async (response) => {
-    const userObject = jwt_decode(response.credential);
-    
+       
     const data = await dispatch(auhtGoogle(response.credential));
 
     if (data.success) {
@@ -89,8 +87,7 @@ function Login() {
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
-      client_id:
-        "759322645352-ch2qqv99md1ts29e7spp1cjs6o4ri5df.apps.googleusercontent.com",
+      client_id: "759322645352-ch2qqv99md1ts29e7spp1cjs6o4ri5df.apps.googleusercontent.com",
       callback: handleCallBackResponse,
     });
 

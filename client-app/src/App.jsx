@@ -1,9 +1,12 @@
+// Libraries
 import { useEffect } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
-import { getCourses } from "../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
-import style from "./index.modules.css";
 
+//actions redux
+import { getCourses } from "../redux/actions";
+
+// compoents
 import Home from "./components/home/home";
 import Aside from "./components/home/aside/aside";
 import NavBarUser from "./components/home/navbarUser/navBarUser";
@@ -13,11 +16,13 @@ import Register from "./components/register/register";
 import Landing from "./components/landing/landing";
 import Perfil from "./components/perfil/perfil";
 import PrivateRoute from "./components/privateRoute/privateRoute";
-import PrivateAdminRoute from "./components/privateRoute/PrivateAdminRoute";
+import PrivateAdminRoute from "./components/privateRoute/privateAdminRoute";
 import CourseDetailPage from "./components/courseDetailPage/course/course";
 import LessonPage from "./components/lessonPage/lessonPage";
 import UsersPage from "./components/adminPages/usersPage/usersPage";
 
+// styles
+import style from "./index.modules.css";
 
 function App() {
   const theme = useSelector((store) => store.theme);
@@ -53,7 +58,6 @@ function App() {
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/course/:idCourse/:idLesson" element={<LessonPage />} />
           </Route>
-
           <Route element={<PrivateAdminRoute isAdmin={user.isAdmin}/>}>
               <Route path='/users' element={<UsersPage />} />
           </Route>

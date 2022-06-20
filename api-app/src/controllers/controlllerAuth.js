@@ -1,4 +1,3 @@
-
 const User = require('../model/modelUser.js')
 const ErrorResponse = require('../utils/errorResponse.js')
 const sendMail = require('../utils/sendEmail.js')
@@ -129,7 +128,6 @@ const googleLogin = async (req, res) => {
     return res.status(500).json({ info: err.message,  success: false})
   }
 }
-
 
 module.exports = {
   registerUser,
