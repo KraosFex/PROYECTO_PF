@@ -102,14 +102,11 @@ function NavBarUser() {
           <div
             className={active ? style.dropdownmenuActive : style.dropdownmenu}
           >
-            <NavLink to="/perfil1" data-dropdown-button>
+            <NavLink to="/perfil" data-dropdown-button>
               Perfil
             </NavLink>
             <NavLink to="/home" data-dropdown-button>
               Inicio
-            </NavLink>
-            <NavLink to="/configuracion" data-dropdown-button>
-              Configuracion
             </NavLink>
             <NavLink to="/login" data-dropdown-button>
               Log In
