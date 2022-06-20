@@ -6,7 +6,7 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 
-import { validation } from "../../../redux/actions/index";
+import { login } from "../../../redux/actions/index";
 import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";
 import validator from "../../utils/validator.js";
 
@@ -56,7 +56,8 @@ function Login() {
     } else {
           event.preventDefault()
 
-        const response = await dispatch(validation({email: input.email, password: input.password}))
+        const response = await dispatch(login({email: input.email, password: input.password}))
+
         if(response.success) {
             localStorage.setItem("authToken", response.token)
             setLogError({});
