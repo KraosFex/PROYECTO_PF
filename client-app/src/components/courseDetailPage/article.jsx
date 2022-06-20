@@ -11,7 +11,6 @@ import lightTheme from "./course/courseLight.module.css";
 import LessonSumary from "./course/lessonSumary/lessonSumary";
 
 export default function CardD(props) {
-  
   let [idClase, setIdClase] = useState(1);
   let Curso = CursoBase;
   let claseSumary = Curso.clases.find((o) => o.id === idClase);
