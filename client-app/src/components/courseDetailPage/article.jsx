@@ -14,11 +14,12 @@ export default function CardD(props) {
   let [idClase, setIdClase] = useState(1);
   let Curso = CursoBase;
   let claseSumary = Curso.clases.find((o) => o.id === idClase);
-  const style = darkTheme;
+  let style = darkTheme;
+
   return (
     <ThemeProvider
       theme={
-        props.theme === "light" ? (style = lightTheme) : (style = darkTheme)
+        props.theme === "light" ? style = lightTheme : style = darkTheme
       }
     >
       <div className={style.flexContainer}>
