@@ -17,7 +17,8 @@ const registerUser = async (req, res, next) => {
 
     res.status(201).send({ info: 'Usuario creado exitosamente', success: true, token })
   } catch (err) {
-    next(err)
+    return res.status(500).send({info: 'Ya existe una cuenta con ese gmail', success: false})
+    //next(err);
   }
 }
 
@@ -28,17 +29,18 @@ const login = async (req, res, next) => {
 
   try {
     const user = await User.findOne({ email })
-    if (!user) return next(new ErrorResponse('Credenciales Invalidas', 401, false))
+    if (!user) return res.status(401).send({info: 'Credenciales Invalidas', success:false})//return next(new ErrorResponse('Credenciales Invalidas', 401, false))
 
     const match = await user.matchPassword(password)
 
-    if (!match) return next(new ErrorResponse('Credenciales Invalidas', 401, false))
+    if (!match) return res.status(401).send({info: 'Credenciales Invalidas', success:false})//return next(new ErrorResponse('Credenciales Invalidas', 401, false))
 
     const token = user.generateToken()
 
     res.send({ info: 'Credenciales correctas', success: true, token, user })
   } catch (err) {
-    next(new ErrorResponse('Error en los credenciales', 401, false))
+    return res.status(401).send({info: 'Credenciales Invalidas', success:false})
+    //next(new ErrorResponse('Error en los credenciales', 401, false))
   }
 }
 
