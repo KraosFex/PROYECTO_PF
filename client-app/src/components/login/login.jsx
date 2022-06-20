@@ -67,8 +67,7 @@ function Login() {
 
 
   const handleCallBackResponse = async (response) => {
-    const userObject = jwt_decode(response.credential);
-    
+       
     const data = await dispatch(auhtGoogle(response.credential));
 
     if (data.success) {
