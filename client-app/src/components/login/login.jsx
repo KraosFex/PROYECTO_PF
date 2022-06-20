@@ -4,17 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-
-
-import { validation } from "../../../redux/actions/index";
+import { login, auhtGoogle } from "../../../redux/actions/index";
 import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";
 import validator from "../../utils/validator.js";
 
 // styles
 import style from "./login.module.css";
-
-function Login () {
-
 
 function Login() {
   const dispatch = useDispatch();
@@ -46,6 +41,7 @@ function Login() {
       return true;
     }
 
+
     if (!isObjectEmpty(error) || isObjectEmpty(input)) {
       event.preventDefault();
 
@@ -58,7 +54,8 @@ function Login() {
     } else {
           event.preventDefault()
 
-        const response = await dispatch(validation({email: input.email, password: input.password}))
+        const response = await dispatch(login({email: input.email, password: input.password}))
+
         if(response.success) {
             localStorage.setItem("authToken", response.token)
             setLogError({});
@@ -66,29 +63,28 @@ function Login() {
           } else {
             setLogError({err: response.info});
     }
-  };
+  }
+};
 
 
   const handleCallBackResponse = async (response) => {
     const userObject = jwt_decode(response.credential);
+    
+    const data = await dispatch(auhtGoogle(response.credential));
 
-    if (userObject.email_verified) {
-      try {
+    if (data.success) {
+        localStorage.setItem("authToken", data.token)
         setLogError({});
         navigateTo("/home")
-      } catch (err) {
-        setLogError({ err: err });
-      }
+    } else {
+      setLogError({err: data.info});
     }
+
   };
 
   const popUpFunction = (bool) => {
     setForgotPopUp(bool);
   };
-
-  const popUpFunction = (bool) => {
-    setForgotPopUp(bool)
-  }
 
   useEffect(() => {
     /* global google */
@@ -107,7 +103,7 @@ function Login() {
   }, []);
 
   return (
-    <body className={style.body}>
+    <div className={style.body}>
       <div className={style.HeightContainer}>
         <div className={style.parentContainer}>
           <div className={style.childContainer}>
@@ -172,7 +168,7 @@ function Login() {
         {/*Codition open popUp or Close popUp*/}
         {forgotPopUp ? <ForgotPopUp popUpFunction={popUpFunction} /> : null};
       </div>
-    </body>
+    </div>
   );
 }
 

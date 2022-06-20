@@ -77,10 +77,9 @@ export const register = (userData) => {
   return async () => {
     try {
       const metaData = await axios.post("http://localhost:3001/api/auth/register", userData);
-      return metaData;
+      return metaData.data;
     } catch (err) {
-      alert('Ups! Something went wrong...')
-      new Error(err)
+      return err.response.data
     }
   }
 };
@@ -97,14 +96,14 @@ export const findCourse = (id) => {
   }
 };
 
-export const validation = (post) => {
+export const login = (post) => {
   return async function(dispatch) {
     try {
       const metaData = await axios.post("http://localhost:3001/api/auth/login", post)
-      dispatch(setValidateUser(metaData.data))
+      dispatch(setValidateUser(metaData.data.user))
       return metaData.data
     } catch (err) {
-      new Error(err)
+      return err.response.data;
     }
   }
 }
@@ -248,6 +247,18 @@ export const getAllUsers = () => {
     }catch(err) {
       alert("Algo no va pa");
       return err;
+    }
+  }
+}
+
+export const auhtGoogle = (tokenId) => {
+  return async function(dispatch) {
+    try {
+      const metaData = await axios.post("http://localhost:3001/api/auth/googlelogin", {tokenId});
+      dispatch(setValidateUser(metaData.data.user));
+      return metaData.data
+    } catch (err) {
+      return err.response.data;
     }
   }
 }

@@ -1,11 +1,16 @@
 import { useState } from "react";
-import { register } from "../../../redux/actions";
+import { register, auhtGoogle } from "../../../redux/actions";
 import style from "./register.module.css";
 import validator from "../../utils/validator.js";
-import { Navigate, Link, NavLink } from "react-router-dom";
+import { useNavigate, Link, NavLink } from "react-router-dom";
 import Google from "../../icons/google";
+import { useDispatch } from 'react-redux';
 
 function Register() {
+
+  const navigateTo = useNavigate();
+  const dispatch = useDispatch();
+
   const [input, setInput] = useState({});
   const [error, setError] = useState({});
   const [registerError, setRegisterError] = useState({});
@@ -52,10 +57,11 @@ function Register() {
           password: input.password,
         })
       );
+
       if (response.success) {
         setRegisterError({});
         localStorage.setItem("authToken", response.token);
-        <Navigate to="/home" />;
+        navigateTo("/home")
       } else {
         setRegisterError({ err: response.info });
       }
