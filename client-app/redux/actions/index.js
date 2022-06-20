@@ -74,9 +74,10 @@ export const logout = () => {
 // asynchronous actions
 
 export const register = (userData) => {
-  return async () => {
+  return async (dispatch) => {
     try {
       const metaData = await axios.post("http://localhost:3001/api/auth/register", userData);
+      dispatch(setValidateUser(metaData.data.user));
       return metaData.data;
     } catch (err) {
       return err.response.data
