@@ -53,10 +53,8 @@ const editUsername = async (req, res, next) => {
 
 const overallPosition = async (req, res) => {
   const { id } = req.params
-  const limit = parseInt(req.query.limit) || 8
-  const page = parseInt(req.query.page) || 1
   try {
-    const allUsers = await User.paginate({ estado: true }, { limit, page })
+    const allUsers = await User.find()
     const sorted = allUsers.sort((a,b) => {
       return (a.courses.map(c => { // cursos
         return c.lesson.filter(l => l.isCompleted === true) //lecciones completas
@@ -73,10 +71,29 @@ const overallPosition = async (req, res) => {
   }
 }
 
+const topTen = async (req, res) => {
+  try {
+    const allUsers = await User.find()
+    const sorted = allUsers.slice(0, 10).sort((a,b) => {
+      return (a.courses.map(c => { // cursos
+        return c.lesson.filter(l => l.isCompleted === true) //lecciones completas
+      }).length + 34)
+      -
+      (b.courses.map(c => {
+        return c.lesson.filter(l => l.isCompleted === true)
+      }).length + 34)
+    })
+    res.send(sorted)
+  } catch (err) {
+    next(new ErrorResponse('Algo salio mal', 500, false))
+  }
+}
+
 module.exports = {
   getUsers,
   getUserById,
   getUsersByName,
   editUsername,
-  overallPosition
+  overallPosition,
+  topTen
 }
