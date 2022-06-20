@@ -1,5 +1,13 @@
+let clase = {
+  title: "Clase",
+  description:
+    "Lorem ipsum dolor sit amet, consectetur adipisicing elit.    Mollitia, deserunt rerum. Aspernatur, quos.",
+  temas: ["Java", "script", "Front", "Back"],
+  isCompleted: false,
+};
+
 export const CursoBase = {
-    id,
+    id:1,
     titulo: "JavaScript",
     calificacion: 2000,
     imagen:
