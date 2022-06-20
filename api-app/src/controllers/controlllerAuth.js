@@ -14,7 +14,7 @@ const registerUser = async (req, res, next) => {
 
     const token = user.generateToken()
 
-    res.status(201).send({ info: 'Usuario creado exitosamente', success: true, token })
+    res.status(201).send({ info: 'Usuario creado exitosamente', success: true, token, user })
   } catch (err) {
     return res.status(500).send({info: 'Ya existe una cuenta con ese gmail', success: false})
     //next(err);

@@ -74,9 +74,10 @@ export const logout = () => {
 // asynchronous actions
 
 export const register = (userData) => {
-  return async function() {
+  return async function(dispatch) {
     try {
       const metaData = await axios.post("http://localhost:3001/api/auth/register", userData);
+      dispatch(setValidateUser(metaData.data.user));
       return metaData.data;
     } catch (err) {
       return err.response.data
@@ -208,7 +209,7 @@ export const unmarkfavorites = (id) => {
 }
 
 export const getLesson = (idCourse, idLesson) => {
-  return async function (dispatch) {
+  return async function () {
     try {
       /*A LA ESPERA DE LA CREACION DE LA RUTA*/
       const metaData = await axios(`http://localhost:3001/api/cursos/${idCourse}`, idLesson);
