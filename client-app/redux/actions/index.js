@@ -281,6 +281,7 @@ export const getUserRank = (userId) => {
     }
   }
 }
+
 export const getranking = () => {
   return async function (dispatch) {
     const Usuario = (id) => { return { name: "Usuario", id, username: "Usuario192" } }
@@ -295,3 +296,26 @@ export const getranking = () => {
     }
   }
 }
+
+
+export const isAdminConverter = (userId, boolean) => {
+  return async function(dispatch) {
+    try {
+
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`
+        }
+      }
+
+      const metaData = await axios.put(`http://localhost:3001/api/usersprivate/isAdmin`, {id: userId, change: boolean} ,config);
+      console.log(metaData)
+      return metaData.data
+    } catch(err) {
+      console.log(err.response)
+      alert(err.response.data.info)
+    }
+  }
+}
+
