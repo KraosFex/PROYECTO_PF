@@ -10,7 +10,8 @@ import {
         LOGOUT,
         SET_UPDATEUSER,
         SET_ALLUSERS,
-        SET_SHOWEDUSERS
+        SET_SHOWEDUSERS,
+        SET_RANKING,
       } from "./actionsTypes/actionTypes";
 
 
@@ -277,6 +278,20 @@ export const getUserRank = (userId) => {
       return metaData.data
     } catch(err) {
       return err.response.data
+    }
+  }
+}
+export const getranking = () => {
+  return async function (dispatch) {
+    const Usuario = (id) => { return { name: "Usuario", id, username: "Usuario192" } }
+    try {
+      const metaData = await axios.get("http://localhost:3001/api/users/topten");
+      dispatch({ type: SET_RANKING, payload: metaData.sorted })
+      return metaData.sorted
+    } catch (err) {
+      console.log(err)
+      dispatch({ type: SET_RANKING, payload: [Usuario(1), Usuario(2), Usuario(3), Usuario(4), Usuario(5), Usuario(6), Usuario(7), Usuario(8), Usuario(9), Usuario(10)] })
+      return [Usuario(1), Usuario(2), Usuario(3), Usuario(4), Usuario(5), Usuario(6), Usuario(7), Usuario(8), Usuario(9), Usuario(10)]
     }
   }
 }
