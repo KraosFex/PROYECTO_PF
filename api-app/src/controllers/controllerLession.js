@@ -19,18 +19,12 @@ const createLesson = async (req, res, next) => {
 
 const getLesson = async (req, res, next) => {
   const { id } = req.params;
-  let clases = [];
   try {
-    const course = await Curso.findById(id);
-    const arrLessons = course.lessons
-    for(let i=0; i<arrLessons.length; i++) {
-      let id = arrLessons[i]._id.valueOf();
-      let lesson = await Lesson.findById(id);
-      clases.push(lesson);
-    }
-    res.send({info: 'Clases obtenidas correctamente', clases})
+    const lesson = await Lesson.findById(id);
+
+    res.send({info: 'Clase obtenida correctamente', lesson})
   } catch (err){
-    next(new ErrorResponse(err, 500))
+    next(new ErrorResponse('Error al obtener la clase', 500))
   }
 }
 
@@ -38,3 +32,4 @@ module.exports = {
   createLesson,
   getLesson
 }
+
