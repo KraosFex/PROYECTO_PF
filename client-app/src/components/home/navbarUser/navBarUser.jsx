@@ -104,6 +104,7 @@ function NavBarUser() {
             data-dropdown-button
             className={style.icon3}
           />
+          <h2 className={style.username}>{user.username}</h2>
           <div
             className={active ? style.dropdownmenuActive : style.dropdownmenu}
           >
@@ -123,8 +124,14 @@ function NavBarUser() {
                 </NavLink>
               </>
               }
+            {user.isAdmin ? (
+              <NavLink to="/users" data-dropdown-button>
+                Users
+              </NavLink>
+            ) : null}
           </div>
         </div>
+
       </div>
     </ThemeProvider>
   );
