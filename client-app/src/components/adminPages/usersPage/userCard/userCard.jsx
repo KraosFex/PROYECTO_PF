@@ -1,9 +1,10 @@
 import style from './userCard.module.css';
 import { useDispatch } from 'react-redux';
-import { deleteUser, getAllUsers } from '../../../../../redux/actions';
+import { isAdminConverter, deleteUser, getAllUsers } from '../../../../../redux/actions';
 
 
 function UserCard({id, sname, username, email, isAdmin, image, courses}) {
+
 
   const dispatch = useDispatch();
 
@@ -18,9 +19,11 @@ function UserCard({id, sname, username, email, isAdmin, image, courses}) {
 
   const adminFunction = (e) => {
     if(e.target.name === "add_admin") {
-        console.log("user is admin")
+        dispatch(isAdminConverter(id, true))
+        dispatch(getAllUsers())
     } else if(e.target.name === "delete_admin") {
-        console.log("user is  admin")
+        dispatch(isAdminConverter(id, false))
+        dispatch(getAllUsers())
     }
   }
 
