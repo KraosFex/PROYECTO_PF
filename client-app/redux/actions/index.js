@@ -280,3 +280,25 @@ export const getUserRank = (userId) => {
     }
   }
 }
+
+export const deleteUser = (userId) => {
+  return async function(dispatch) {
+    try {
+
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`
+            },
+        data: {
+          id: userId
+            }
+          }
+
+      const metaData = await axios.delete(`http://localhost:3001/api/usersprivate/deleteUser`, config);
+      return metaData.data
+    } catch(err) {
+      console.log(err.response.data)
+    }
+  }
+}

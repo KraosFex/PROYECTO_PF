@@ -1,15 +1,19 @@
 import style from './userCard.module.css';
+import { useDispatch } from 'react-redux';
+import { deleteUser, getAllUsers } from '../../../../../redux/actions';
 
 
-function UserCard({name, username, email, isAdmin, image, courses}) {
+function UserCard({id, sname, username, email, isAdmin, image, courses}) {
 
+  const dispatch = useDispatch();
 
   const popUpFunction = () => {
     console.log("some function not implemented yet")
   }
 
   const deleteFunction = () => {
-    console.log("user deleted")
+    dispatch(deleteUser(id))
+    dispatch(getAllUsers());
   }
 
   const adminFunction = (e) => {
