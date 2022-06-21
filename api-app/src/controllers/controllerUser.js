@@ -62,10 +62,12 @@ const overallPosition = async (req, res) => {
         return c.lesson.filter(l => l.isCompleted === true)
       }).length + 34)
     }) // ordenado
+
     const response = sorted.findIndex(u => u.id === id) // Posicion dentro del arreglo
     res.send({ info: 'Proceso completado con exito', response, success: true }) // :D
   } catch (err) {
     res.status(500).send({ info: 'Algo salio mal', success: false })
+
   }
 }
 
