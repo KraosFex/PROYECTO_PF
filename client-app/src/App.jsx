@@ -61,7 +61,6 @@ function App() {
           <Route element={<PrivateAdminRoute isAdmin={user.isAdmin}/>}>
               <Route path='/users' element={<UsersPage />} />
           </Route>
-
        </Route>
      </Routes>
     </div>

@@ -2,7 +2,8 @@ import style from "./usersPage.module.css";
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../../../../redux/actions';
-//import UserCard from './userCard/userCard'; todavia no implementado
+import UserCard from './userCard/userCard';
+import SearchProfiles from './searchProfiles/searchProfiles';
 
 function UserPage() {
 
@@ -19,9 +20,9 @@ useEffect(() => {
 
   return (
   <div className={style.highContainer}>
-    {/*INPUT SEARCH CREADO POR SAMIR*/}
+    <SearchProfiles />
     {showedUsers.map(user => (
-      <UserCard name={user.name} username={user.username} email={user.email} isAdmin={user.isAdmin} image={user.image} courses={user.courses}/>
+      <UserCard name={user.name} username={user.username} email={user.email} isAdmin={user.isAdmin} image={user.Image} courses={user.courses}/>
     ))}
   </div>
   )

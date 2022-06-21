@@ -68,36 +68,6 @@ function Register() {
     }
   };
 
-  const handleCallBackResponse = async (response) => {
-
-    const data = await dispatch(auhtGoogle(response.credential));
-
-    if (data.success) {
-        localStorage.setItem("authToken", data.token)
-        setRegisterError({});
-        navigateTo("/home")
-    } else {
-      setRegisterError({err: data.info});
-    }
-
-  };
-
-  useEffect(() => {
-    /* global google */
-    google.accounts.id.initialize({
-      client_id:
-        "759322645352-ch2qqv99md1ts29e7spp1cjs6o4ri5df.apps.googleusercontent.com",
-      callback: handleCallBackResponse,
-    });
-
-    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
-      theme: "outline",
-      size: "large",
-    });
-
-    google.accounts.id.prompt();
-  }, []);
-
 return (
     <div className={style.flexContainer}>
       <div className={style.Container}>
@@ -178,12 +148,6 @@ return (
         <div className={style.signIn}>
           <h1>Ya tienes cuenta?</h1>
           <NavLink to="/login">Sign In</NavLink>
-        </div>
-        <div className={style.signInGoogle}>
-          <h1>O puedes entrar con</h1>
-          <div className={style.googleInput}>
-            <div id="signInDiv" />
-          </div>
         </div>
         <div className={style.policy}>
           <h1>
