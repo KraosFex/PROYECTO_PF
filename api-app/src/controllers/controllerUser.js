@@ -88,11 +88,27 @@ const topTen = async (req, res) => {
   }
 }
 
+const editIsAdmin = async (req, res) => {
+  const { isAdmin } = req.user
+  if (!isAdmin) return res.status(401).send({info: 'No tienes permisos para acceder a esta ruta', success: false})
+  try {
+    const { id, change } = req.body 
+    await User.findOneAndUpdate(id, {
+      isAdmin: change
+    })
+    res.send({info: 'Estado isAdmin cambiado', success: true})
+  }
+  catch {
+    res.status(500).send({info: 'Algo salio mal', success: false})
+  }
+}
+
 module.exports = {
   getUsers,
   getUserById,
   getUsersByName,
   editUsername,
   overallPosition,
-  topTen
+  topTen,
+  editIsAdmin
 }
