@@ -53,10 +53,8 @@ const editUsername = async (req, res, next) => {
 
 const overallPosition = async (req, res) => {
   const { id } = req.params
-  const limit = parseInt(req.query.limit) || 8
-  const page = parseInt(req.query.page) || 1
   try {
-    const allUsers = await User.paginate({ estado: true }, { limit, page })
+    const allUsers = await User.find()
     const sorted = allUsers.sort((a,b) => {
       return (a.courses.map(c => { // cursos
         return c.lesson.filter(l => l.isCompleted === true) //lecciones completas
@@ -67,9 +65,27 @@ const overallPosition = async (req, res) => {
       }).length + 34)
     }) // ordenado
     const response = sorted.findIndex(u => u.id === id) //Posicion dentro del arreglo
-    res.send(response) // :D
+    res.send(info:"Proceso completado con exito", response, success: true) // :D
   } catch (err) {
-    next(new ErrorResponse('Algo salio mal', 500, false))
+   res.status(500).send(info:'Algo salio mal', success: false)
+  }
+}
+
+const topTen = async (req, res) => {
+  try {
+    const allUsers = await User.find()
+    const sorted = allUsers.slice(0, 10).sort((a,b) => {
+      return (a.courses.map(c => { // cursos
+        return c.lesson.filter(l => l.isCompleted === true) //lecciones completas
+      }).length + 34)
+      -
+      (b.courses.map(c => {
+        return c.lesson.filter(l => l.isCompleted === true)
+      }).length + 34)
+    })
+     res.send(info:"Proceso completado con exito", sorted, success: true) // :D
+  } catch (err) {
+    res.status(500).send(info:'Algo salio mal', success: false)
   }
 }
 
@@ -78,5 +94,6 @@ module.exports = {
   getUserById,
   getUsersByName,
   editUsername,
-  overallPosition
+  overallPosition,
+  topTen
 }

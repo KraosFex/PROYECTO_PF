@@ -3,12 +3,12 @@ const User = require("../model/modelUser");
 const ErrorResponse = require("../utils/errorResponse.js");
 
 const getCursos = async (req, res, next) => {
-  
+
   const limit = parseInt(req.query.limit) || 8
   const page = parseInt(req.query.page) || 1
-  
+
   try {
-    
+
     const courses = await Course.paginate({ estado: true }, { limit, page })
     res.send(courses)
   } catch (err) {
@@ -71,7 +71,7 @@ const addFavorite = async (req, res, next) => {
       },
       { new: true }
     );
-    res.send({ info: "Curso creado exitosamente", user, success: true });
+    res.send({ info: "Curso añadido exitosamente", user, success: true });
   } catch (err) {
     next(new ErrorResponse("Error al crear el curso", 500, false));
   }
@@ -80,7 +80,7 @@ const addFavorite = async (req, res, next) => {
 const removeFavorite = async (req, res, next) => {
   const { id } = req.params;
   const { idCursoFavorito } = req.body;
-  
+
   try {
     const eliminado = await User.findByIdAndUpdate(
       { _id: id },
@@ -93,7 +93,7 @@ const removeFavorite = async (req, res, next) => {
       },
       { new: true }
     );
-   
+
     res.send({ info: "Curso eliminado exitosamente", success: true });
   } catch (err) {
     next(new ErrorResponse("Error al eliminar el curso", 500, false));

@@ -74,10 +74,10 @@ function Register() {
 
     if (data.success) {
         localStorage.setItem("authToken", data.token)
-        setLogError({});
+        setRegisterError({});
         navigateTo("/home")
     } else {
-      setLogError({err: data.info});
+      setRegisterError({err: data.info});
     }
 
   };
