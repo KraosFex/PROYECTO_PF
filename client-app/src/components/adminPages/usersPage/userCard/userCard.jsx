@@ -1,8 +1,11 @@
 import style from './userCard.module.css';
+import { useDispatch } from 'react-redux';
+import { isAdminConverter, getAllUsers } from '../../../../../redux/actions';
 
 
-function UserCard({name, username, email, isAdmin, image, courses}) {
+function UserCard({id, name, username, email, isAdmin, image, courses}) {
 
+  const dispatch = useDispatch();
 
   const popUpFunction = () => {
     console.log("some function not implemented yet")
@@ -14,9 +17,11 @@ function UserCard({name, username, email, isAdmin, image, courses}) {
 
   const adminFunction = (e) => {
     if(e.target.name === "add_admin") {
-        console.log("user is admin")
+        dispatch(isAdminConverter(id, true))
+        dispatch(getAllUsers())
     } else if(e.target.name === "delete_admin") {
-        console.log("user is  admin")
+        dispatch(isAdminConverter(id, false))
+        dispatch(getAllUsers())
     }
   }
 

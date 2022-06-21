@@ -22,7 +22,7 @@ useEffect(() => {
   <div className={style.highContainer}>
     <SearchProfiles />
     {showedUsers.map(user => (
-      <UserCard name={user.name} username={user.username} email={user.email} isAdmin={user.isAdmin} image={user.Image} courses={user.courses}/>
+      <UserCard id={user._id} name={user.name} username={user.username} email={user.email} isAdmin={user.isAdmin} image={user.Image} courses={user.courses}/>
     ))}
   </div>
   )

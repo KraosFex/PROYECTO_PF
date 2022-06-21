@@ -92,10 +92,12 @@ const editIsAdmin = async (req, res) => {
   const { isAdmin } = req.user
   if (!isAdmin) return res.status(401).send({info: 'No tienes permisos para acceder a esta ruta', success: false})
   try {
-    const { id, change } = req.body 
-    await User.findOneAndUpdate(id, {
+    const { id, change } = req.body
+
+      await User.findByIdAndUpdate(id, {
       isAdmin: change
     })
+
     res.send({info: 'Estado isAdmin cambiado', success: true})
   }
   catch {
@@ -110,7 +112,7 @@ const deleteUser = async (req, res) => {
     const { id } = req.body;
     const userDB = await User.findById(id);
     if (!userDB) return res.status(404).send({info: 'Usuario no encontrado', success: false})
-    await User.findByIdAndDelete(id)
+    await User.findByIdAndDelete(id);
     res.send({info: 'Usuario eliminado', success: true})
   } catch {
     res.status(500).send({info: 'Algo salio mal', success: false})
