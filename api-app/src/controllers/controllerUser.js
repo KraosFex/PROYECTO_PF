@@ -64,9 +64,9 @@ const overallPosition = async (req, res) => {
       }).length + 34)
     }) // ordenado
     const response = sorted.findIndex(u => u.id === id) //Posicion dentro del arreglo
-    res.send(info:"Proceso completado con exito", response, success: true) // :D
+    res.send({info:"Proceso completado con exito", response, success: true}) // :D
   } catch (err) {
-   res.status(500).send(info:'Algo salio mal', success: false)
+   res.status(500).send({info:'Algo salio mal', success: false})
   }
 }
 
@@ -82,9 +82,9 @@ const topTen = async (req, res) => {
         return c.lesson.filter(l => l.isCompleted === true)
       }).length + 34)
     })
-     res.send(info:"Proceso completado con exito", sorted, success: true) // :D
+     res.send({info:"Proceso completado con exito", sorted, success: true}) // :D
   } catch (err) {
-    res.status(500).send(info:'Algo salio mal', success: false)
+    res.status(500).send({info:'Algo salio mal', success: false})
   }
 }
 
