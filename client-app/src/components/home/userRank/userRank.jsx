@@ -1,7 +1,9 @@
-import style from "./userRank.module.css";
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-//import { getUserRank } from '../../../../redux/actions';
+import { getUserRank } from '../../../../redux/actions';
+
+// styles
+import style from "./userRank.module.css";
 
 const UserRank = () => {
 
@@ -9,19 +11,18 @@ const UserRank = () => {
   const isLogged = useSelector((store) => store.isLogged);
   const user = useSelector((store) => store.user)
   const [userRank, setUserRank] = useState()
+  const [errorRank, setErrorRank] = useState({})
 
-  //  TODAVIA NO ESTA IMPLEMENTADO LA ACTION EN EL REDUX
-
-  /*useEffect(() => {
+  useEffect(() => {
     async function axiosReq() {
-      const rank = await dispatch(getUserRank(user._id))
-      setUserRank(rank);
+      const data = await dispatch(getUserRank(user._id))
+      if(data.success) {  setUserRank(data.response) }
+      else { setErrorRank( {err: data.info } )}
     }
-
     if(isLogged) {
       axiosReq();
     }
-  }, [dispatch]);*/
+  }, [dispatch]);
 
   if(isLogged) {
     return (
@@ -31,6 +32,7 @@ const UserRank = () => {
         <img src={user.Image} alt={user.username} />
         </div>
         <h1 className={style.userRank}>{userRank}#</h1>
+        {errorRank.err && <label className={style.err}>{errorRank.err}</label>}
       </div>
     )
   } else {
