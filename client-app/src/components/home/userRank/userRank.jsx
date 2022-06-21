@@ -1,7 +1,9 @@
-import style from "./userRank.module.css";
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getUserRank } from '../../../../redux/actions';
+
+// styles
+import style from "./userRank.module.css";
 
 const UserRank = () => {
 
@@ -11,15 +13,12 @@ const UserRank = () => {
   const [userRank, setUserRank] = useState()
   const [errorRank, setErrorRank] = useState({})
 
-
-
   useEffect(() => {
     async function axiosReq() {
       const data = await dispatch(getUserRank(user._id))
       if(data.success) {  setUserRank(data.response) }
       else { setErrorRank( {err: data.info } )}
     }
-
     if(isLogged) {
       axiosReq();
     }
