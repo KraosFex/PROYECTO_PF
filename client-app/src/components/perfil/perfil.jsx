@@ -87,6 +87,9 @@ const Perfil = (props) => {
     },
   ];
 
+  const user = useSelector(store => store.user);
+
+
   const [usernamePopUp, setUsernamePopUp] = useState(false);
   const [passwordPopUp, setPasswordPopUp] = useState(false);
 
@@ -94,7 +97,7 @@ const Perfil = (props) => {
     if (specification === "password") setPasswordPopUp(bool);
     else if (specification === "username") setUsernamePopUp(bool);
   };
-  const coursesAll = persona[0].courses.map((course) => {
+  const coursesAll = user.courses.map((course) => {
     return (
       <div className={style.cartYourCourse} key={course.id}>
         <label className={style.cursos}> {course.titulo} </label>
@@ -122,7 +125,7 @@ const Perfil = (props) => {
             <div className={style.containerImg}>
               <img
                 className={style.imgPerfil}
-                src={persona[0].Image}
+                src={user.Image}
                 alt="aqui va un imagen"
                 referrerPolicy="no-referrer"
               />
@@ -130,7 +133,7 @@ const Perfil = (props) => {
             <div className={style.userDetail}>
               <div className={style.userFlex}>
                 <div className={style.Username}>
-                  <span>{persona[0].username}</span>
+                  <span>{user.username}</span>
                 </div>
                 <button
                   className={style.popup}
@@ -149,21 +152,21 @@ const Perfil = (props) => {
                 <div className={style.item}>
                   <div>
                     <label> Name: </label>
-                    <span> {persona[0].name} </span>
+                    <span> {user.name} </span>
                   </div>
                   <div>
                     <label> Email: </label>
-                    <span> {persona[0].email} </span>
+                    <span> {user.email} </span>
                   </div>
                 </div>
                 <div className={style.item}>
                   <div>
                     <label> Miembro desde:</label>
-                    <span> {persona[0].Member_Since} </span>
+                    <span> {user.Member_Since || "sin implementar"} </span>
                   </div>
                   <div>
                     <label> Visto por última vez: </label>
-                    <span> {persona[0].Last_Seen} </span>
+                    <span> {user.Last_Seen || "sin implementar"} </span>
                   </div>
                 </div>
               </div>
@@ -175,12 +178,12 @@ const Perfil = (props) => {
 
           {/* Condition Open pop up and Close pop up*/}
           {usernamePopUp ? (
-            <UsernamePopUp popUpFunction={popUpFunction} id={persona.id} />
+            <UsernamePopUp popUpFunction={popUpFunction} id={user._id} />
           ) : null}
           {passwordPopUp ? (
             <PasswordPopUp
               popUpFunction={popUpFunction}
-              email={persona.email}
+              email={user.email}
             />
           ) : null}
         </div>
