@@ -59,9 +59,8 @@ function App() {
             <Route path="/course/:idCourse/:idLesson" element={<LessonPage />} />
           </Route>
           <Route element={<PrivateAdminRoute isAdmin={user.isAdmin}/>}>
-
+              <Route path='/users' element={<UsersPage />} />
           </Route>
-  <Route path='/users' element={<UsersPage />} />
        </Route>
      </Routes>
     </div>
