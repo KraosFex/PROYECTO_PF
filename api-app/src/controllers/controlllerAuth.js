@@ -115,7 +115,7 @@ const googleLogin = async (req, res) => {
       res.send({ info: 'Login success!', success: true, token, user })
     } else {
       const newUser = new User({
-        username: verify.payload.sub[3] + name, name, email, password, image: picture
+        username: verify.payload.sub[3] + name, name, email, password, Image: picture
       })
 
       await newUser.save()

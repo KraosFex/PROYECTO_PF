@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const YourCourse = ({ coursesAll }) => {
   const theme = useSelector((store) => store.theme);
-  console.log(theme);
+
   var style = theme;
   return (
     <ThemeProvider
