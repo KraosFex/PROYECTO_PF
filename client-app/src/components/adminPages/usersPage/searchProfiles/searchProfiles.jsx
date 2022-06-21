@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { findUserByName } from '../../../redux/actions/index';
+import { findUserByName } from '../../../../../redux/actions';
 
-const searchProfiles = () => {
+const SearchProfiles = () => {
 
     const [input, setInput] = useState("");
     const dispatch = useDispatch()
@@ -16,7 +16,7 @@ const searchProfiles = () => {
         dispatch(findUserByName(input))
         setInput("");
     }
-    
+
   return (
     <div>
         <form>
@@ -27,4 +27,4 @@ const searchProfiles = () => {
   )
 }
 
-export default searchProfiles
+export default SearchProfiles

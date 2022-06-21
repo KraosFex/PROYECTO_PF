@@ -208,11 +208,11 @@ export const unmarkfavorites = (id) => {
   }
 }
 
-export const getLesson = (idCourse, idLesson) => {
+export const getLesson = (idLesson) => {
   return async function(dispatch) {
     try {
       /*A LA ESPERA DE LA CREACION DE LA RUTA*/
-      const metaData = await axios(`http://localhost:3001/api/cursos/${idCourse}`, idLesson);
+      const metaData = await axios(`http://localhost:3001/api/cursosprivate/${idLesson}/lesson`);
       return metaData.data
 
     } catch (err) {
@@ -237,17 +237,15 @@ export const getAllUsers = () => {
       let config = {
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          authorization: `Bearer ${localStorage.getItem("authToken")}`
             }
           }
 
-      const metaData = await axios(`http://localhost:3001/api/usersprivate/`, null, config);
-      dispatch(setAllUsers(metaData.data.docs));
-      dispatch(setShowedUsers(metaData.data.docs))
-
+      const metaData = await axios(`http://localhost:3001/api/usersprivate/`, config);
+      dispatch(setAllUsers(metaData.data.users.docs));
+      dispatch(setShowedUsers(metaData.data.users.docs))
     }catch(err) {
-      alert("Algo no va pa");
-      return err;
+      return err.response.data;
     }
   }
 }

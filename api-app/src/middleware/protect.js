@@ -11,16 +11,16 @@ const protect = async (req, res, next) => {
     token = authorization.split(' ')[1]
   }
 
-  if (!token) return next(new ErrorResponse('No estas autorizado', 401))
+  if (!token) return res.status(401).send({info: 'No estas autorizado', success: false})
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
     const user = await User.findById(decoded.id)
-    if (!user) return next(new ErrorResponse('No hay usuario con ese id', 401))
+    if (!user) return res.status(401).send({info: 'No estas autorizado', success: false})
     req.user = user
     next()
   } catch (err) {
-    return next(new ErrorResponse('Error al validar el token', 500))
+    res.status(500).send({info: 'Error al validar el token', success: false})
   }
 }
 

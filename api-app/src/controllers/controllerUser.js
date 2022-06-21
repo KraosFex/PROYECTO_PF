@@ -4,15 +4,14 @@ const ErrorResponse = require('../utils/errorResponse.js')
 
 const getUsers = async (req, res, next) => {
   const { isAdmin } = req.user
-  if (!isAdmin) return res.send({ info: 'No tienes permisos para ver los usuarios' })
+  if (!isAdmin) return res.send({ info: 'No tienes permisos para ver los usuarios', success: false })
   const limit = parseInt(req.query.limit) || 8
   const page = parseInt(req.query.page) || 1
   try {
     const users = await User.paginate({ estado: true }, { limit, page })
-    res.send(users)
+    res.send({info: "Todos lo usuarios enviados", users: users, success: true})
   } catch (err) {
-    next(new ErrorResponse('Error al enviar el correo', 500, false))
-    console.log(err)
+    res.status(500).send({info: "Error al realizar la peticion", success: false})
   }
 }
 
