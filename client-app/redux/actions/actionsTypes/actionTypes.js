@@ -6,4 +6,5 @@ export const LOGOUT = "LOGOUT";
 export const SET_UPDATEUSER = 'SET_UPDATEUSER';
 export const SET_ALLUSERS = 'SET_ALLUSERS';
 export const SET_SHOWEDUSERS = 'SET_SHOWEDUSERS';
-
+export const SET_RANKING = "SET_RANKING";
+export const SET_RANKING_ID= "SET_RANKING_ID,";
