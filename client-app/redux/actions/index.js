@@ -261,3 +261,22 @@ export const auhtGoogle = (tokenId) => {
     }
   }
 }
+
+export const getUserRank = (userId) => {
+  return async function(dispatch) {
+    try {
+
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`
+            }
+          }
+
+      const metaData = await axios.get(`http://localhost:3001/api/usersprivate/position/${userId}`, config);
+      return metaData.data
+    } catch(err) {
+      return err.response.data
+    }
+  }
+}
