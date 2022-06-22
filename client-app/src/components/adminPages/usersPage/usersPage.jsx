@@ -15,19 +15,21 @@ function UserPage() {
   }, [dispatch]);
 
   return (
-    <div className={style.highContainer}>
-      <SearchProfiles />
-      {showedUsers.map((user) => (
-        <UserCard
-          id={user._id}
-          name={user.name}
-          username={user.username}
-          email={user.email}
-          isAdmin={user.isAdmin}
-          image={user.Image}
-          courses={user.courses}
-        />
-      ))}
+    <div className={style.flexContainer}>
+      <div className={style.highContainer}>
+        <SearchProfiles />
+        {showedUsers.map((user) => (
+          <UserCard
+            id={user._id}
+            name={user.name}
+            username={user.username}
+            email={user.email}
+            isAdmin={user.isAdmin}
+            image={user.Image}
+            courses={user.courses}
+          />
+        ))}
+      </div>
     </div>
   );
 }

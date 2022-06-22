@@ -3,7 +3,7 @@ import darkTheme from "./userCardDark.module.css";
 import { ThemeProvider } from "styled-components";
 import { useSelector } from "react-redux";
 
-function UserCard({ name, username, email, isAdmin, image, courses }) {
+function UserCard({ id, name, username, email, isAdmin, image, courses }) {
   const popUpFunction = () => {
     console.log("some function not implemented yet");
   };
@@ -35,6 +35,7 @@ function UserCard({ name, username, email, isAdmin, image, courses }) {
     return (
       <ThemeProvider
         theme={theme === "light" ? (style = lightTheme) : (style = darkTheme)}
+        key={id}
       >
         <div className={style.cardContainer}>
           <div className={style.userIdentity}>
