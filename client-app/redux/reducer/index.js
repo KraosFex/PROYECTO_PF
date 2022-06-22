@@ -14,7 +14,7 @@ import {
 // index reducers app
 const initialState = {
   user: {},
-  isLogged: false,
+  isLogged: true,
   topTen: [],
   allUsers: [],
   showedUsers: [],

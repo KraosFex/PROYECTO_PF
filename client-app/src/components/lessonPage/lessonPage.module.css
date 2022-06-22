@@ -11,3 +11,8 @@
   background-color: rgb(181, 181, 181);
   padding: 1em;
 }
+
+.video{
+  width: 700px;
+  height: 700px;
+}

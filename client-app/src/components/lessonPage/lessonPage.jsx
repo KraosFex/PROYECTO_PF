@@ -1,5 +1,5 @@
 import Vimeo from '@u-wave/react-vimeo';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 
 // style
 import style from './lessonPage.module.css';
@@ -12,9 +12,12 @@ function LessonPage() {
     <div className={style.highContainer}>
       {/*ESTA ES TODA LA DATA QUE TRAE EL COMPONENETE DE MOMENTO*/}
       <div className={style.infoContainer}>
-        <h1 className={style.title}>Hello orld</h1>
-        <Vimeo video='76979871' autoplay responsive />
+        <NavLink to={'/home'}> Volver al home </NavLink>
+        <div className={style.video}>
+          <Vimeo video='76979871' autoplay responsive />
+        </div>
         <h4 className={style.description}>Una description</h4>
+        <button> <NavLink to={'/home'}> ir al test </NavLink> </button>
       </div>
       {/*ACA IRIA EL COMPONENTE QUE TIENE QUE CREAR JOHAN CON EL EDITOR DE CODIGO Y EL TEST O GRAFICO*/}
     </div>
