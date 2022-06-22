@@ -79,6 +79,13 @@ export const addVotes = async function (id, info){
   }
 }
 
+export const setRanking = (ranking) => {
+  return {
+    type: SET_RANKING,
+    payload: ranking
+  }
+}
+
 // asynchronous actions
 
 export const register = (userData) => {
@@ -183,6 +190,7 @@ export const getCourses = () => {
   return async function(dispatch) {
     try {
       const metaData = await axios.get("http://localhost:3001/api/cursos")
+      console.log(metaData.data.docs)
       dispatch(setCourses(metaData.data.docs));
       dispatch(setShowedCourses(metaData.data.docs));
     } catch (err) {
@@ -278,14 +286,13 @@ export const getUserRank = (userId) => {
 }
 
 
-export const getranking = () => {
+export const getRanking = () => {
   return async function (dispatch) {
-    const Usuario = (id) => { return { name: "Usuario", id, username: "Usuario192" } }
     try {
       const metaData = await axios.get("http://localhost:3001/api/users/topten");
-      dispatch({ type: SET_RANKING, payload: metaData.sorted })
+      dispatch(setRanking(metaData.data.sorted))
     } catch (err) {
-      new Error(err)
+      console.log(err.response.data.info)
     }
   }
 }
@@ -306,7 +313,7 @@ export const deleteUser = (userId) => {
           }
 
       const metaData = await axios.delete(`http://localhost:3001/api/usersprivate/deleteUser`, config);
-      return metaData.data
+      console.log(metaData.data)
     } catch(err) {
       console.log(err.response.data)
      }
@@ -323,7 +330,7 @@ export const isAdminConverter = (userId, boolean) => {
           authorization: `Bearer ${localStorage.getItem("authToken")}`
             }
           };
-      
+
       const metaData = await axios.put(`http://localhost:3001/api/usersprivate/isAdmin`, {id: userId, change: boolean} ,config);
       console.log(metaData)
       return metaData.data
@@ -332,4 +339,3 @@ export const isAdminConverter = (userId, boolean) => {
     }
   }
 }
-

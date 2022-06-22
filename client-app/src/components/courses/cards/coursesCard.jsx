@@ -15,12 +15,19 @@ import lightTheme from "./coursesCardLight.module.css";
 
 let style = darkTheme;
 
-function CoursesCard({ courses , setRefresh }) {
-  
+function CoursesCard({ courses , setRefresh, refresh }) {
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const theme = useSelector(store => store.theme);
   let isLogged  = useSelector(store => store.isLogged);
+
+  const { user } = useSelector(store => store)
+
+  const handleClick = () => {
+    dispatch(bookmarkCourse())
+    refresh? setRefresh(false) : setRefresh(true);
+  }
 
   return (
     <div>
@@ -35,8 +42,8 @@ function CoursesCard({ courses , setRefresh }) {
                 {curse.titulo}
               </NavLink>
               <div className={style.courseStats}>
-                {isLogged ? 
-                  <button onClick={() => dispatch(bookmarkCourse(), setRefresh())}> <FavoriteIcon /> </button> : 
+                {isLogged ?
+                  <button onClick={() => handleClick()}> <FavoriteIcon /> </button> :
                   <button onClick={() => navigate('/login')} > <FavoriteIcon /> </button>}
                 <span>{curse.calificacion}</span>
                 <CompletedIcon />
@@ -50,7 +57,7 @@ function CoursesCard({ courses , setRefresh }) {
               <JSIcon lenguajes={curse.lenguaje} />
             </div>
             <div>
-              
+
             </div>
           </div>
         </ThemeProvider>
