@@ -1,5 +1,5 @@
 // libraries
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 // Redux actions
@@ -8,7 +8,7 @@ import { bookmarkCourse } from "../../../../redux/actions";
 // styles
 import { ThemeProvider } from "styled-components";
 import CompletedIcon from "../../../icons/completedicon";
-// import FavoriteIcon from "../../../icons/Favorite";
+import FavoriteIcon from "../../../icons/Favorite";
 import JSIcon from "../../../icons/javascript";
 import darkTheme from "./coursesCardDark.module.css";
 import lightTheme from "./coursesCardLight.module.css";
@@ -17,6 +17,7 @@ let style = darkTheme;
 
 function CoursesCard({ courses }) {
   
+  const navigate = useDispatch()
   const dispatch = useDispatch()
   const theme = useSelector(store => store.theme);
   let isLogged  = useSelector(store => store.isLogged);
@@ -35,8 +36,8 @@ function CoursesCard({ courses }) {
               </NavLink>
               <div className={style.courseStats}>
                 {isLogged ? 
-                  <button onClick={() => dispatch(bookmarkCourse())}> Favorito </button> : 
-                  <button disabled onClick={() => dispatch(bookmarkCourse())}> Favorito </button>}
+                  <button onClick={() => dispatch(bookmarkCourse())}> <FavoriteIcon /> </button> : 
+                  <button onClick={() => navigate('/login')} > <FavoriteIcon /> </button>}
                 <span>{curse.calificacion}</span>
                 <CompletedIcon />
                 <span>1600</span>
