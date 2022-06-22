@@ -288,11 +288,8 @@ export const getranking = () => {
     try {
       const metaData = await axios.get("http://localhost:3001/api/users/topten");
       dispatch({ type: SET_RANKING, payload: metaData.sorted })
-      return metaData.sorted
     } catch (err) {
-      console.log(err)
-      dispatch({ type: SET_RANKING, payload: [Usuario(1), Usuario(2), Usuario(3), Usuario(4), Usuario(5), Usuario(6), Usuario(7), Usuario(8), Usuario(9), Usuario(10)] })
-      return [Usuario(1), Usuario(2), Usuario(3), Usuario(4), Usuario(5), Usuario(6), Usuario(7), Usuario(8), Usuario(9), Usuario(10)]
+      new Error(err)
     }
   }
 }
