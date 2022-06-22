@@ -17,7 +17,7 @@ let style = darkTheme;
 
 function CoursesCard({ courses }) {
   
-  const navigate = useDispatch()
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const theme = useSelector(store => store.theme);
   let isLogged  = useSelector(store => store.isLogged);
