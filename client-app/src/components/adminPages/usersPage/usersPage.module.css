@@ -1,3 +1,17 @@
+.flexContainer{
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-content: center;
+}
+
 .highContainer {
-  margin-left: 10em;
+  height: 100%;
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+
 }

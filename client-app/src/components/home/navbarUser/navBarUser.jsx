@@ -21,8 +21,8 @@ import Sun from "../../../icons/sun";
 function NavBarUser() {
   const dispatch = useDispatch();
 
-  const isLogged = useSelector(store => store.isLogged)
-  const user = useSelector(store => store.user)
+  const isLogged = useSelector((store) => store.isLogged);
+  const user = useSelector((store) => store.user);
   const theme = useSelector((store) => store.theme);
 
   let body;
@@ -97,14 +97,20 @@ function NavBarUser() {
             <Discord />
           </NavLink>
         </div>
+        <div className={style.username}>
+          <h2 className={style.username}>{user.username}</h2>
+        </div>
         <div data-dropdown className={style.dropdown}>
           <input
             type="image"
-            src={isLogged ? user.Image : "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"}
+            src={
+              isLogged
+                ? user.Image
+                : "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"
+            }
             data-dropdown-button
             className={style.icon3}
           />
-          <h2 className={style.username}>{user.username}</h2>
           <div
             className={active ? style.dropdownmenuActive : style.dropdownmenu}
           >
@@ -114,7 +120,7 @@ function NavBarUser() {
             <NavLink to="/home" data-dropdown-button>
               Inicio
             </NavLink>
-            {isLogged ? null :
+            {isLogged ? null : (
               <>
                 <NavLink to="/login" data-dropdown-button>
                   Log In
@@ -123,7 +129,7 @@ function NavBarUser() {
                   Registrarse
                 </NavLink>
               </>
-              }
+            )}
             {user.isAdmin ? (
               <NavLink to="/users" data-dropdown-button>
                 Users
@@ -131,7 +137,6 @@ function NavBarUser() {
             ) : null}
           </div>
         </div>
-
       </div>
     </ThemeProvider>
   );

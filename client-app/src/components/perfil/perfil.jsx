@@ -14,7 +14,7 @@ import JSIcon from "../../icons/javascript";
 import { ThemeProvider } from "styled-components";
 
 const Perfil = (props) => {
-  var style = darkTheme;
+  var style = lightTheme;
   const persona = [
     {
       _id: "62a79b0eff516d849eb713d1",
@@ -87,8 +87,7 @@ const Perfil = (props) => {
     },
   ];
 
-  const user = useSelector(store => store.user);
-
+  const user = useSelector((store) => store.user);
 
   const [usernamePopUp, setUsernamePopUp] = useState(false);
   const [passwordPopUp, setPasswordPopUp] = useState(false);
@@ -181,10 +180,7 @@ const Perfil = (props) => {
             <UsernamePopUp popUpFunction={popUpFunction} id={user._id} />
           ) : null}
           {passwordPopUp ? (
-            <PasswordPopUp
-              popUpFunction={popUpFunction}
-              email={user.email}
-            />
+            <PasswordPopUp popUpFunction={popUpFunction} email={user.email} />
           ) : null}
         </div>
       </div>
