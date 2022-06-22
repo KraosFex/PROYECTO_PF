@@ -14,11 +14,11 @@ import darkTheme from "./courseDark.module.css";
 import lightTheme from "./courseLight.module.css";
 
 function Courses() {
-  
+
   let style = darkTheme;
-  
+
   const dispatch = useDispatch();
-  
+
   const allCourses = useSelector((store) => store.courses);
   const tema = useSelector((store) => store.theme);
   const showedCourses = useSelector((store) => store.showedCourses);
@@ -110,7 +110,7 @@ function Courses() {
           </div>
           <div className={style.flexContainer2}>
             <div className={style.container2}>
-              <CoursesCard courses={showedCourses} setRefresh={setRefresh} />
+              <CoursesCard courses={showedCourses} setRefresh={setRefresh} refresh={refresh}/>
             </div>
           </div>
         </div>
