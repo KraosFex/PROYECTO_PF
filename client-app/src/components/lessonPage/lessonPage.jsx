@@ -1,7 +1,12 @@
+// libraries
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
+// redux actions 
 import { getLesson } from '../../../redux/actions';
+
+// style
 import style from './lessonPage.module.css';
 
 function LessonPage() {

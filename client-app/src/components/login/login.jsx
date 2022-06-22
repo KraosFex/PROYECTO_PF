@@ -2,9 +2,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import jwt_decode from "jwt-decode";
+
+// redux actions
 import { login, auhtGoogle } from "../../../redux/actions/index";
+
+// childrend component
 import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";
+
+// utills
 import validator from "../../utils/validator.js";
 import { NavLink } from "react-router-dom";
 
