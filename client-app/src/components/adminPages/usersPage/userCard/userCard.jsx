@@ -7,32 +7,29 @@ import { isAdminConverter, deleteUser, getAllUsers } from '../../../../../redux/
 
 
 function UserCard({ id, name, username, email, isAdmin, image, courses }) {
-  
+
   const dispatch = useDispatch();
-  
+
+
   const popUpFunction = () => {
     console.log("some function not implemented yet");
   };
 
-  const deleteFunction = () => {
-    dispatch(deleteUser(id))
+  const deleteFunction = async () => {
+  await dispatch(deleteUser(id))
     dispatch(getAllUsers());
   };
 
-  const adminFunction = (e) => {
+  const adminFunction = async (e) => {
     if (e.target.name === "add_admin") {
-      dispatch(isAdminConverter(id, true));
+      await dispatch(isAdminConverter(id, true));
       dispatch(getAllUsers());
     } else if (e.target.name === "delete_admin") {
-      dispatch(isAdminConverter(id, false));
+      await dispatch(isAdminConverter(id, false));
       dispatch(getAllUsers());
+    };
+  };
 
-      if (e.target.name === "add_admin") {
-        console.log("user is admin");
-      } else if (e.target.name === "delete_admin") {
-        console.log("user is  admin");
-      }
-    }
 
     var style = darkTheme;
     const theme = useSelector((store) => store.theme);
@@ -99,7 +96,6 @@ function UserCard({ id, name, username, email, isAdmin, image, courses }) {
           </div>
         </div>
       </ThemeProvider>
-    );
+    )
   };
-}
 export default UserCard;

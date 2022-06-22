@@ -5,6 +5,8 @@ import { ThemeProvider } from "styled-components";
 import codeLearnGold from "../../icons/codelearngold.png";
 import { Link } from "react-router-dom";
 import Ranking from "./ranking/ranking";
+import UserRank from "./userRank/userRank";
+
 
 function Home(props) {
   let style = props;
@@ -16,7 +18,8 @@ function Home(props) {
     >
       <div className={style.flexContainer}>
         <div className={style.container}>
-            <Ranking/>
+            <Ranking />
+            <UserRank />
         </div>
         <div className={style.flexContainer2}>
           <div className={style.container2}></div>

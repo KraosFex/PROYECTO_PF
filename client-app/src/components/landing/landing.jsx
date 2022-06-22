@@ -30,6 +30,7 @@ const Landing = () => {
             className={style.img}
             src="../../../public/img/Landing_Draw.svg"
             alt="Landing"
+            referrerPolicy="no-referrer"
           />
         </div>
       </div>

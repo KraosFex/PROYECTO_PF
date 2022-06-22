@@ -14,8 +14,8 @@ import {
 // index reducers app
 const initialState = {
   user: {},
-  isLogged: true,
-  topTem: [],
+  isLogged: false,
+  topTen: [],
   allUsers: [],
   showedUsers: [],
   courses: [],
@@ -71,7 +71,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case SET_RANKING:
       return{
         ...state,
-        topTem: payload
+        topTen: payload
       }
     default:
       return state
