@@ -1,9 +1,12 @@
 // libraries
 import { useState } from "react";
 
+// components
+import Stars from "./Vote/Vote";
+
 // hardDate
 import { CursoBase } from "./CurssoBase";
-import Stars from "./Vote/Vote";
+
 
 // styles
 import { ThemeProvider } from "styled-components";

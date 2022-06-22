@@ -17,7 +17,7 @@ function LessonSumary({ clase }) {
         </div>
         <h1>{clase.descripcion}</h1>
         <div className={style.flexContainer3}>
-          <NavLink to={"#"}> Ver clase </NavLink>
+          <NavLink to={`/lesson/${clase.vimeoId}`}> Ver clase </NavLink>
         </div>
       </div>
     </div>

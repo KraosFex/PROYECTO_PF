@@ -4,10 +4,10 @@ import UserRank from "../userRank/userRank";
 import style from "./ranking.module.css";
 
 export default function Ranking() {
-    const { topten } = useSelector((store) => store);
+    const { topTem } = useSelector((store) => store);
     const dispatch = useDispatch();
-    if (topten.length === 0) { getranking()(dispatch) }
-    let usuarios = topten
+    if (topTem.length === 0) { getranking()(dispatch) }
+    let usuarios = topTem
 
     let divs = function(e,i){
         if(i>=0 && i<3){
