@@ -6,7 +6,6 @@ import style from './lessonPage.module.css';
 
 function LessonPage() {
   const { leccionId } = useParams()
-  // const leccion = curso.lecciones.find(leccion => leccion.id === parseInt(leccionId))
   const leccion = parseInt(leccionId)
   return (
     <div className={style.highContainer}>
@@ -17,9 +16,9 @@ function LessonPage() {
           <Vimeo video='76979871' autoplay responsive />
         </div>
         <h4 className={style.description}>Una description</h4>
-        <button> <NavLink to={'/home'}> ir al test </NavLink> </button>
+        <button> <NavLink to={`/lesson/${leccion}/Testing`}> ir al test </NavLink> </button>
       </div>
-      {/*ACA IRIA EL COMPONENTE QUE TIENE QUE CREAR JOHAN CON EL EDITOR DE CODIGO Y EL TEST O GRAFICO*/}
+      
     </div>
   )
 }
