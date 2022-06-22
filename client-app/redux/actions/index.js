@@ -10,7 +10,8 @@ import {
         LOGOUT,
         SET_UPDATEUSER,
         SET_ALLUSERS,
-        SET_SHOWEDUSERS
+        SET_SHOWEDUSERS,
+        SET_RANKING,
       } from "./actionsTypes/actionTypes";
 
 
@@ -231,6 +232,7 @@ export const addVotes = async function (id, info){
   }
 }
 
+
 export const getAllUsers = () => {
   return async function(dispatch) {
     try {
@@ -282,6 +284,19 @@ export const getUserRank = (userId) => {
 }
 
 
+export const getranking = () => {
+  return async function (dispatch) {
+    const Usuario = (id) => { return { name: "Usuario", id, username: "Usuario192" } }
+    try {
+      const metaData = await axios.get("http://localhost:3001/api/users/topten");
+      dispatch({ type: SET_RANKING, payload: metaData.sorted })
+    } catch (err) {
+      new Error(err)
+    }
+  }
+}
+
+
 export const deleteUser = (userId) => {
    return async function(dispatch) {
     try {
@@ -301,7 +316,7 @@ export const deleteUser = (userId) => {
     } catch(err) {
       console.log(err.response.data)
      }
-   }
+}
 }
 
 export const isAdminConverter = (userId, boolean) => {
@@ -323,3 +338,4 @@ export const isAdminConverter = (userId, boolean) => {
     }
   }
 }
+

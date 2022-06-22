@@ -4,7 +4,7 @@ import lightTheme from "./homeLight.module.css";
 import { ThemeProvider } from "styled-components";
 import codeLearnGold from "../../icons/codelearngold.png";
 import { Link } from "react-router-dom";
-import UserRank from "./userRank/userRank";
+import Ranking from "./ranking/ranking";
 
 function Home(props) {
   let style = props;
@@ -16,7 +16,7 @@ function Home(props) {
     >
       <div className={style.flexContainer}>
         <div className={style.container}>
-            <UserRank />
+            <Ranking/>
         </div>
         <div className={style.flexContainer2}>
           <div className={style.container2}></div>
