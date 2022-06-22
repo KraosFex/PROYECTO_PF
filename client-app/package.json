@@ -8,6 +8,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@monaco-editor/react": "^4.4.5",
         "@reduxjs/toolkit": "^1.8.2",
         "@sweetalert2/theme-dark": "5.0.11",
         "@u-wave/react-vimeo": "^0.9.8",
