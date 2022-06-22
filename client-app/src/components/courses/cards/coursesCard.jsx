@@ -15,7 +15,7 @@ import lightTheme from "./coursesCardLight.module.css";
 
 let style = darkTheme;
 
-function CoursesCard({ courses }) {
+function CoursesCard({ courses , setRefresh }) {
   
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -36,7 +36,7 @@ function CoursesCard({ courses }) {
               </NavLink>
               <div className={style.courseStats}>
                 {isLogged ? 
-                  <button onClick={() => dispatch(bookmarkCourse())}> <FavoriteIcon /> </button> : 
+                  <button onClick={() => dispatch(bookmarkCourse(), setRefresh())}> <FavoriteIcon /> </button> : 
                   <button onClick={() => navigate('/login')} > <FavoriteIcon /> </button>}
                 <span>{curse.calificacion}</span>
                 <CompletedIcon />

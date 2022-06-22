@@ -110,7 +110,7 @@ function Courses() {
           </div>
           <div className={style.flexContainer2}>
             <div className={style.container2}>
-              <CoursesCard courses={showedCourses} />
+              <CoursesCard courses={showedCourses} setRefresh={setRefresh} />
             </div>
           </div>
         </div>
