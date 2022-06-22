@@ -316,6 +316,8 @@ export const deleteUser = (userId) => {
     } catch(err) {
       console.log(err.response.data)
      }
+}
+}
 
 export const isAdminConverter = (userId, boolean) => {
   return async function(dispatch) {
