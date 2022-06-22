@@ -19,7 +19,8 @@ const initialState = {
   showedUsers: [],
   courses: [],
   showedCourses: [],
-  theme: "light"
+  theme: "light",
+  topTen: []
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
