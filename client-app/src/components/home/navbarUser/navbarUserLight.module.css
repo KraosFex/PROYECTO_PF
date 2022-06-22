@@ -12,7 +12,7 @@
     position: absolute;
     right: 0;
     background-color: rgba(12, 12, 12, 0.538);
-    width: 15.7em;
+    min-width: 15.7em;
     height: 4em;
     border-radius: 0em 0 0 1em;
 }
@@ -34,8 +34,8 @@
 
 
 .icon2{
+  margin-top: 1em;
   margin-left: 1em;
-  padding-top: 1em;
   padding-left:3em;
 }
 .icon3{
@@ -43,7 +43,7 @@
   justify-content: center;
   align-items: center;
   display: flex;
-  margin-left: 4em;
+  margin-left: 0.5em;
   margin-top:0.25em;
   width: 4em;
   height: 4em;
@@ -66,8 +66,8 @@
 
 .icon21{
   margin-left: 1em;
-  padding-top: 1em;
   padding-left:0em;
+  margin-top: 1em;
 }
 
 .icon21 svg{
@@ -94,8 +94,8 @@
 .icon4{
   display: none;
   pointer-events: none;
+  margin-top: 1em;
   margin-left: 1em;
-  padding-top: 1em;
   padding-left:3em;
 }
 
@@ -111,6 +111,15 @@
   -webkit-transition: color 0.3s;
   -o-transition: color 0.3s;
   transition: color 0.3s;
+}
+
+.username{
+  display: flex;
+  height: 100%;
+  margin-left:1.5em;
+  align-items: center;
+  color: rgb(220, 220, 220);
+  font-weight: 20;
 }
 
 .dropdown{
