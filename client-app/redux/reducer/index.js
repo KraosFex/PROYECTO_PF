@@ -13,11 +13,11 @@ import {
 // index reducers app
 const initialState = {
   user: {},
+  isLogged: false,
   allUsers: [],
   showedUsers: [],
-  isLogged: false,
-  showedCourses: [],
   courses: [],
+  showedCourses: [],
   theme: "light"
 };
 

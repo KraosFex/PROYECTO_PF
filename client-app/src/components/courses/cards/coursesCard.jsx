@@ -1,13 +1,9 @@
 // libraries
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 // Redux actions
-import { bookmarkCourse, unmarkfavorites } from "../../../../redux/actions";
-
-// utils
-
+import { bookmarkCourse } from "../../../../redux/actions";
 
 // styles
 import { ThemeProvider } from "styled-components";
@@ -29,12 +25,12 @@ function CoursesCard({ courses }) {
     <div>
       {courses.map((curse) => (
         <ThemeProvider
-          key={curse.id}
+          key={curse._id}
           theme={theme === "light" ? (style = lightTheme) : (style = darkTheme)}
         >
           <div className={style.containerCourse}>
             <div className={style.flexContainer}>
-              <NavLink to={`/course/${curse.id}`} className={style.courseName}>
+              <NavLink to={`/course/${curse._id}`} className={style.courseName}>
                 {curse.titulo}
               </NavLink>
               <div className={style.courseStats}>

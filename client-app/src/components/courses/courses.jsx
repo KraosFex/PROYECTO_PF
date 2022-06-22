@@ -13,24 +13,13 @@ import CoursesCard from "./cards/coursesCard";
 import darkTheme from "./courseDark.module.css";
 import lightTheme from "./courseLight.module.css";
 
-
-// AREA DE PRUEBAS
-////////////////
-////////////////
-////////////////
-import { curses } from "./cursHardData";
-////////////////
-////////////////
-////////////////
-
 function Courses() {
   
   let style = darkTheme;
   
   const dispatch = useDispatch();
   
-  // const allCourses = useSelector((store) => store.courses);
-  const user = useSelector((store) => store.user);
+  const allCourses = useSelector((store) => store.courses);
   const tema = useSelector((store) => store.theme);
   const showedCourses = useSelector((store) => store.showedCourses);
 
@@ -39,34 +28,34 @@ function Courses() {
 
 
   const sorted = (event) => {
-  //   const sortedArray = sortByRating(event, showedCourses, allCourses);
-  //   dispatch(setShowedCourses(sortedArray));
-  //   refresh ? setRefresh(false) : setRefresh(true);
-  // };
+    const sortedArray = sortByRating(event, showedCourses, allCourses);
+    dispatch(setShowedCourses(sortedArray));
+    refresh ? setRefresh(false) : setRefresh(true);
+  };
 
-  // const filtered = () => {
-  //   const filterArray = filter(allCourses, showedCourses);
-  //   dispatch(setShowedCourses(filterArray));
+  const filtered = () => {
+    const filterArray = filter(allCourses, showedCourses);
+    dispatch(setShowedCourses(filterArray));
   };
 
   const search = (e) => {
-    //SETEA TODOS LOS FILTROS/SORTS A false
-    // const selector = [...document.getElementsByName("votes")];
-    // selector[0].value = 0;
-    // const radioInputs = [...document.getElementsByName("progreso")];
-    // for (const input of radioInputs) {
-    //   if (input.value === "Todos") {
-    //     input.checked = true;
-    //   } else {
-    //     input.checked = false;
-    //   }
-    // }
-    // const inputsCheckbox = [...document.getElementsByName("languages")];
-    // for (const input of inputsCheckbox) {
-    //   input.checked = false;
-    // }
+    // SETEA TODOS LOS FILTROS/SORTS A false
+    const selector = [...document.getElementsByName("votes")];
+    selector[0].value = 0;
+    const radioInputs = [...document.getElementsByName("progreso")];
+    for (const input of radioInputs) {
+      if (input.value === "Todos") {
+        input.checked = true;
+      } else {
+        input.checked = false;
+      }
+    }
+    const inputsCheckbox = [...document.getElementsByName("languages")];
+    for (const input of inputsCheckbox) {
+      input.checked = false;
+    }
 
-    // dispatch(getCourseByName(e.target.value));
+    dispatch(getCourseByName(e.target.value));
   };
 
   return (
@@ -116,7 +105,7 @@ function Courses() {
         </div>
         <div className={style.flexContainer2}>
           <div className={style.container2}>
-            <CoursesCard courses={curses} />
+            <CoursesCard courses={showedCourses} />
           </div>
         </div>
       </div>
