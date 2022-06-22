@@ -5,7 +5,7 @@ const cursos = require('./public/curso.js')
 const auth = require('./public/auth.js')
 const usersPrivate = require('./private/userPrivate.js')
 const cursosPrivate = require('./private/cursoPrivate.js')
-const paysMethods = require('')
+const paysMethods = require('./private/paysMethods.js')
 
 router.use('/users', users)
 router.use('/cursos', cursos)
