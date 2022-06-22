@@ -1,9 +1,10 @@
 import style from './userCard.module.css';
 import { useDispatch } from 'react-redux';
-import { isAdminConverter, getAllUsers } from '../../../../../redux/actions';
+import { isAdminConverter, deleteUser, getAllUsers } from '../../../../../redux/actions';
 
 
-function UserCard({id, name, username, email, isAdmin, image, courses}) {
+function UserCard({id, sname, username, email, isAdmin, image, courses}) {
+
 
   const dispatch = useDispatch();
 
@@ -12,7 +13,8 @@ function UserCard({id, name, username, email, isAdmin, image, courses}) {
   }
 
   const deleteFunction = () => {
-    console.log("user deleted")
+    dispatch(deleteUser(id))
+    dispatch(getAllUsers());
   }
 
   const adminFunction = (e) => {

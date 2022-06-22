@@ -12,7 +12,7 @@ router.get('/username', protect, getUsersByName)
 router.get('/position/:id', protect, overallPosition)
 router.put('/:id/profile', protect, editUsername)
 router.put('/isAdmin', protect, editIsAdmin)
-router.delete('/username', protect, deleteUser)
+router.delete('/deleteUser', protect, deleteUser)
 
 
 module.exports = router
