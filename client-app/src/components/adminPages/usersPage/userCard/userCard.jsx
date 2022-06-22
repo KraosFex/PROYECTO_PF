@@ -1,15 +1,22 @@
+
 import lightTheme from "./userCardLight.module.css";
 import darkTheme from "./userCardDark.module.css";
 import { ThemeProvider } from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { isAdminConverter, deleteUser, getAllUsers } from '../../../../../redux/actions';
 
-function UserCard({ name, username, email, isAdmin, image, courses }) {
+
+function UserCard({ id, name, username, email, isAdmin, image, courses }) {
+  
+  const dispatch = useDispatch();
+  
   const popUpFunction = () => {
     console.log("some function not implemented yet");
   };
 
   const deleteFunction = () => {
-    console.log("user deleted");
+    dispatch(deleteUser(id))
+    dispatch(getAllUsers());
   };
 
   const adminFunction = (e) => {

@@ -281,6 +281,29 @@ export const getUserRank = (userId) => {
   }
 }
 
+
+export const deleteUser = (userId) => {
+   return async function(dispatch) {
+    try {
+
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`
+            },
+        data: {
+          id: userId
+            }
+          }
+
+      const metaData = await axios.delete(`http://localhost:3001/api/usersprivate/deleteUser`, config);
+      return metaData.data
+    } catch(err) {
+      console.log(err.response.data)
+     }
+   }
+}
+
 export const isAdminConverter = (userId, boolean) => {
   return async function(dispatch) {
     try {
@@ -289,15 +312,14 @@ export const isAdminConverter = (userId, boolean) => {
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${localStorage.getItem("authToken")}`
-        }
-      }
-
+            }
+          };
+      
       const metaData = await axios.put(`http://localhost:3001/api/usersprivate/isAdmin`, {id: userId, change: boolean} ,config);
       console.log(metaData)
       return metaData.data
     } catch(err) {
-      console.log(err.response)
-      alert(err.response.data.info)
+      console.log(err.response.data)
     }
   }
 }
