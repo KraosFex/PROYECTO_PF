@@ -1,28 +1,31 @@
+// libraries
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ThemeProvider } from "styled-components";
-import {
-  getCourseByName,
-  setShowedCourses,
-} from "../../../redux/actions/index";
+import { getCourseByName, setShowedCourses } from "../../../redux/actions/index";
+
+// utils
 import { filter } from "../../utils/filters";
 import { sortByRating } from "../../utils/sorter";
+
+// styles
+import { ThemeProvider } from "styled-components";
 import CoursesCard from "./cards/coursesCard";
 import darkTheme from "./courseDark.module.css";
 import lightTheme from "./courseLight.module.css";
 
 function Courses() {
+  
+  let style = darkTheme;
+  
   const dispatch = useDispatch();
+  
   const allCourses = useSelector((store) => store.courses);
-
-  const user = useSelector((store) => store.user);
   const tema = useSelector((store) => store.theme);
   const showedCourses = useSelector((store) => store.showedCourses);
 
   //forcing the re-render of the component
   const [refresh, setRefresh] = useState(true);
 
-  let style = darkTheme;
 
   const sorted = (event) => {
     const sortedArray = sortByRating(event, showedCourses, allCourses);
@@ -36,7 +39,7 @@ function Courses() {
   };
 
   const search = (e) => {
-    //SETEA TODOS LOS FILTROS/SORTS A false
+    // SETEA TODOS LOS FILTROS/SORTS A false
     const selector = [...document.getElementsByName("votes")];
     selector[0].value = 0;
     const radioInputs = [...document.getElementsByName("progreso")];
@@ -107,7 +110,7 @@ function Courses() {
           </div>
           <div className={style.flexContainer2}>
             <div className={style.container2}>
-              <CoursesCard courses={showedCourses} />
+              <CoursesCard courses={showedCourses} setRefresh={setRefresh} />
             </div>
           </div>
         </div>
