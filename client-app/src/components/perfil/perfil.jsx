@@ -106,10 +106,7 @@ const Perfil = (props) => {
             <UsernamePopUp popUpFunction={popUpFunction} id={user._id} />
           ) : null}
           {passwordPopUp ? (
-            <PasswordPopUp
-              popUpFunction={popUpFunction}
-              email={user.email}
-            />
+            <PasswordPopUp popUpFunction={popUpFunction} email={user.email} />
           ) : null}
         </div>
       </div>

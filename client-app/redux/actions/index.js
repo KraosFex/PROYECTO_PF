@@ -10,7 +10,8 @@ import {
         LOGOUT,
         SET_UPDATEUSER,
         SET_ALLUSERS,
-        SET_SHOWEDUSERS
+        SET_SHOWEDUSERS,
+        SET_RANKING,
       } from "./actionsTypes/actionTypes";
 
 // synchronous actions
@@ -275,3 +276,60 @@ export const getUserRank = (userId) => {
     }
   }
 }
+
+
+export const getranking = () => {
+  return async function (dispatch) {
+    const Usuario = (id) => { return { name: "Usuario", id, username: "Usuario192" } }
+    try {
+      const metaData = await axios.get("http://localhost:3001/api/users/topten");
+      dispatch({ type: SET_RANKING, payload: metaData.sorted })
+    } catch (err) {
+      new Error(err)
+    }
+  }
+}
+
+
+export const deleteUser = (userId) => {
+   return async function(dispatch) {
+    try {
+
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`
+            },
+        data: {
+          id: userId
+            }
+          }
+
+      const metaData = await axios.delete(`http://localhost:3001/api/usersprivate/deleteUser`, config);
+      return metaData.data
+    } catch(err) {
+      console.log(err.response.data)
+     }
+}
+}
+
+export const isAdminConverter = (userId, boolean) => {
+  return async function(dispatch) {
+    try {
+
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`
+            }
+          };
+      
+      const metaData = await axios.put(`http://localhost:3001/api/usersprivate/isAdmin`, {id: userId, change: boolean} ,config);
+      console.log(metaData)
+      return metaData.data
+    } catch(err) {
+      console.log(err.response.data)
+    }
+  }
+}
+

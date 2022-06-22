@@ -1,23 +1,27 @@
-.flexContainer{
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: inline-flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        margin-top: 5em;
+.heightContainer{
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
 
+.flexContainer{
+  display: flex;
+  margin-top: 5em;
+  width: 100%;
+  justify-content: center;
 }
 
 .flexContainer2{
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
-    display: inline-flex;
+    display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction:column;
-
+            width: 50em;
 }
+
 
 .containerSearch{
     display: -webkit-inline-box;
@@ -34,14 +38,13 @@
     min-width: 25em;
     max-width: 25em;
     height: 70em;
-    margin-left: 25em;
     margin-top: 1em;
     box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
     -webkit-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
     -moz-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
 }
 .containerCourse1{
-    display: inline-block;
+    display: inline-flex;
     background-color: rgb(123, 123, 123);
     border-radius: 0.5em;
     width: 30em;
@@ -54,7 +57,7 @@
 }
 
 .containerCourse{
-    display: inline-block;
+    display: inline-flex;
     background-color: rgb(123, 123, 123);
     border-radius: 0.5em;
     width: 50em;
@@ -139,6 +142,14 @@
   width: 19em;
   height: 2em;
   justify-content: space-around;
+}
+
+.select2 input[type="radio"]{
+  margin-top: 0.5em;
+}
+
+.select2 input[type="checkbox"]{
+  margin-top: 0.5em;
 }
 
 .p{

@@ -1,0 +1,78 @@
+.cardContainer {
+  display: flex;
+  max-height: 10em;
+  min-width: 60em;
+  background-color: rgb(250, 250, 250);
+  padding: .5em;
+  border-radius: .5em;
+  -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11); 
+  box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
+  color: #505050;
+}
+
+.userIdentity {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 4
+}
+
+.imgContainer {
+  width: 6em;
+  height: 6em;
+  border-radius: 0.5em;
+  overflow: hidden;
+  align-self: center;
+}
+
+.imgContainer > img {
+  width: 6em;
+  height: 6em;
+}
+
+.dataContainer{
+  margin-left: 2em;
+}
+
+.dataContainer h1{
+  font-weight: 400;
+}
+
+.dataContainer h4{
+  font-weight: 300;
+}
+
+.userCourses {
+  flex-grow: 3
+
+}
+
+.userCourses h2{
+  font-weight: 300;
+}
+
+.adminOptions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .5em;
+}
+
+.optionButton {
+  width: 8em;
+  height: 2em;
+  margin-left: 10px;
+  border: solid 1px #474747;
+  border-radius: 0.5em;
+  background: rgb(243, 243, 243);
+  font-size: 14px;
+  color: rgb(103, 103, 103);
+
+}
+
+.optionButton:active {
+  border: 1px solid #ffffff;
+}
+
+.optionButton:hover {
+  border: 1px solid #ffffff;
+}

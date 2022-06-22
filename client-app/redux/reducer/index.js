@@ -7,7 +7,8 @@ import {
   LOGOUT,
   SET_UPDATEUSER,
   SET_ALLUSERS,
-  SET_SHOWEDUSERS
+  SET_SHOWEDUSERS,
+  SET_RANKING,
   } from "../actions/actionsTypes/actionTypes";
 
 // index reducers app
@@ -65,6 +66,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         theme: payload,
+      }
+    case SET_RANKING:
+      return{
+        ...state,
+        topten: payload
       }
     default:
       return state

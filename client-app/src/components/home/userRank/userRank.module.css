@@ -1,7 +1,7 @@
 .userRankContainer {
   display:flex;
   flex-wrap: wrap;
-  width: 50%;
+  min-width: 50%;
   height: 100%;
   background-color: rgb(189, 189, 189);
 }
