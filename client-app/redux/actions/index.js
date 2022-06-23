@@ -203,11 +203,19 @@ export const getCourses = () => {
 export const bookmarkCourse = (id) => {
   return async function(dispatch) {
     try {
-      const resp = await axios.put(`http://localhost:3001/api/${id}/favorite`)
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`
+            }
+          }
+
+
+      const resp = await axios.put(`http://localhost:3001/api/cursosprivate/favorite`, {idCurso: id}, config)
       dispatch(updateUser(resp.data.user))
     } catch (err) {
       alert("Ups! Something went wrong...");
-      new Error(err)
+      console.log(err)
     }
   }
 }
@@ -215,11 +223,19 @@ export const bookmarkCourse = (id) => {
 export const unmarkfavorites = (id) => {
   return async function(dispatch) {
     try {
-      const resp = await axios.put(`http://localhost:3001/api/${id}/unfavorite`)
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`
+            }
+          }
+
+
+      const resp = await axios.put(`http://localhost:3001/api/cursosprivate/unfavorite`,{idCurso: id}, config)
       dispatch(updateUser(resp.data.user))
     } catch (err) {
       alert("Ups! Something went wrong...");
-      new Error(err)
+      console.log(err)
     }
   }
 }
