@@ -9,7 +9,7 @@ import { findCourse } from "../../../redux/actions";
 import Stars from "./Vote/Vote";
 
 // hardDate
-import { CursoBase } from "./CurssoBase";
+// import { CursoBase } from "./CurssoBase";
 
 // styles
 import { ThemeProvider } from "styled-components";
