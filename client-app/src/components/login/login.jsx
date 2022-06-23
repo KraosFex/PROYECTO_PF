@@ -1,11 +1,17 @@
 // libraries
 import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import jwt_decode from "jwt-decode";
+
+// redux actions
 import { login, auhtGoogle } from "../../../redux/actions/index";
+
+// childrend component
 import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";
+
+// utills
 import validator from "../../utils/validator.js";
+import { NavLink } from "react-router-dom";
 
 // styles
 import style from "./login.module.css";
@@ -25,12 +31,13 @@ function Login() {
       [event.target.name]: event.target.value,
     });
 
-
-    setError(validator("login", {
-      ...input,
-      [event.target.name]: event.target.value
-    }))
-  }
+    setError(
+      validator("login", {
+        ...input,
+        [event.target.name]: event.target.value,
+      })
+    );
+  };
 
   const handleSubmit = async (event) => {
     function isObjectEmpty(obj) {
@@ -39,7 +46,6 @@ function Login() {
       }
       return true;
     }
-
 
     if (!isObjectEmpty(error) || isObjectEmpty(input)) {
       event.preventDefault();
@@ -51,33 +57,32 @@ function Login() {
         })
       );
     } else {
-        event.preventDefault()
+      event.preventDefault();
 
-        const response = await dispatch(login({email: input.email, password: input.password}))
+      const response = await dispatch(
+        login({ email: input.email, password: input.password })
+      );
 
-        if(response.success) {
-            localStorage.setItem("authToken", response.token)
-            setLogError({});
-            navigateTo("/home")
-          } else {
-            setLogError({err: response.info});
+      if (response.success) {
+        localStorage.setItem("authToken", response.token);
+        setLogError({});
+        navigateTo("/home");
+      } else {
+        setLogError({ err: response.info });
+      }
     }
-  }
-};
-
+  };
 
   const handleCallBackResponse = async (response) => {
-       
     const data = await dispatch(auhtGoogle(response.credential));
 
     if (data.success) {
-        localStorage.setItem("authToken", data.token)
-        setLogError({});
-        navigateTo("/home")
+      localStorage.setItem("authToken", data.token);
+      setLogError({});
+      navigateTo("/home");
     } else {
-      setLogError({err: data.info});
+      setLogError({ err: data.info });
     }
-
   };
 
   const popUpFunction = (bool) => {
@@ -87,7 +92,8 @@ function Login() {
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
-      client_id: "759322645352-ch2qqv99md1ts29e7spp1cjs6o4ri5df.apps.googleusercontent.com",
+      client_id:
+        "759322645352-ch2qqv99md1ts29e7spp1cjs6o4ri5df.apps.googleusercontent.com",
       callback: handleCallBackResponse,
     });
 
@@ -154,6 +160,17 @@ function Login() {
             <a onClick={() => popUpFunction(true)} className={style.forgot}>
               Olvidaste la contraseña?
             </a>
+            <div className={style.buttons}>
+              <NavLink to="/register" className={style.forgot}>
+                {" "}
+                Registrarse
+              </NavLink>
+
+              <NavLink to="/home" className={style.forgot}>
+                {" "}
+                Volver al inicio
+              </NavLink>
+            </div>
             <label className={style.googleLabel}>
               O puedes entrar con tu cuenta de google
             </label>

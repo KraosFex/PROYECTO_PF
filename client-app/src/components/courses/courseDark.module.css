@@ -1,22 +1,25 @@
-.flexContainer{
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: inline-flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        margin-top: 5em;
+.heightContainer{
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
 
+.flexContainer{
+  display: flex;
+  margin-top: 5em;
+  width: 100%;
+  justify-content: center;
 }
 
 .flexContainer2{
     display: -webkit-inline-box;
     display: -ms-inline-flexbox;
-    display: inline-flex;
+    display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction:column;
-
+            width: 50em;
 }
 
 .containerSearch{
@@ -32,19 +35,16 @@
     background-color: rgb(54, 54, 54);
     border-radius: 0.5em;
     min-width: 25em;
-    max-width: 25em;
     height: 70em;
-    margin-left: 25em;
     margin-top: 1em;
     box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
     -webkit-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
     -moz-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
 }
 .containerCourse1{
-    display: inline-block;
+    display: inline-flex;
     background-color: rgb(54, 54, 54);
     border-radius: 0.5em;
-    width: 30em;
     margin-left: 1em;
     min-height: 10em;
     margin-top: 6em;
@@ -54,7 +54,7 @@
 }
 
 .containerCourse{
-    display: inline-block;
+    display: inline-flex;
     background-color: rgb(54, 54, 54);
     border-radius: 0.5em;
     width: 50em;
@@ -137,6 +137,14 @@
   margin-top: 0em;
   width: 19em;
   height: 2em;
+}
+
+.select2 input[type="radio"]{
+  margin-top: 0.5em;
+}
+
+.select2 input[type="checkbox"]{
+  margin-top: 0.5em;
 }
 
 .p{

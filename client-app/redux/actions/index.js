@@ -10,9 +10,9 @@ import {
         LOGOUT,
         SET_UPDATEUSER,
         SET_ALLUSERS,
-        SET_SHOWEDUSERS
+        SET_SHOWEDUSERS,
+        SET_RANKING,
       } from "./actionsTypes/actionTypes";
-
 
 // synchronous actions
 
@@ -68,6 +68,21 @@ export const updateUser = (userObject) => {
 export const logout = () => {
   return {
     type: LOGOUT,
+  }
+}
+
+export const addVotes = async function (id, info){
+  try {
+    const data = await axios.put(`http://localhost:3001/api/cursosprivate/${id}/votes`, info)
+  } catch (err) {
+    new Error(err)
+  }
+}
+
+export const setRanking = (ranking) => {
+  return {
+    type: SET_RANKING,
+    payload: ranking
   }
 }
 
@@ -175,6 +190,7 @@ export const getCourses = () => {
   return async function(dispatch) {
     try {
       const metaData = await axios.get("http://localhost:3001/api/cursos")
+      console.log(metaData.data.docs)
       dispatch(setCourses(metaData.data.docs));
       dispatch(setShowedCourses(metaData.data.docs));
     } catch (err) {
@@ -187,11 +203,19 @@ export const getCourses = () => {
 export const bookmarkCourse = (id) => {
   return async function(dispatch) {
     try {
-      const resp = await axios.put(`http://localhost:3001/api/${id}/favorite`)
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`
+            }
+          }
+
+
+      const resp = await axios.put(`http://localhost:3001/api/cursosprivate/favorite`, {idCurso: id}, config)
       dispatch(updateUser(resp.data.user))
     } catch (err) {
       alert("Ups! Something went wrong...");
-      new Error(err)
+      console.log(err)
     }
   }
 }
@@ -199,11 +223,19 @@ export const bookmarkCourse = (id) => {
 export const unmarkfavorites = (id) => {
   return async function(dispatch) {
     try {
-      const resp = await axios.put(`http://localhost:3001/api/${id}/unfavorite`)
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`
+            }
+          }
+
+
+      const resp = await axios.put(`http://localhost:3001/api/cursosprivate/unfavorite`,{idCurso: id}, config)
       dispatch(updateUser(resp.data.user))
     } catch (err) {
       alert("Ups! Something went wrong...");
-      new Error(err)
+      console.log(err)
     }
   }
 }
@@ -222,15 +254,6 @@ export const getLesson = (idLesson) => {
   }
 }
 
-
-export const addVotes = async function (id, info){
-  try {
-    const data = await axios.put(`http://localhost:3001/api/cursosprivate/${id}/votes`, info)
-  } catch (err) {
-    new Error(err)
-  }
-}
-
 export const getAllUsers = () => {
   return async function(dispatch) {
     try {
@@ -240,7 +263,6 @@ export const getAllUsers = () => {
           authorization: `Bearer ${localStorage.getItem("authToken")}`
             }
           }
-
       const metaData = await axios(`http://localhost:3001/api/usersprivate/`, config);
       dispatch(setAllUsers(metaData.data.users.docs));
       dispatch(setShowedUsers(metaData.data.users.docs))
@@ -265,18 +287,71 @@ export const auhtGoogle = (tokenId) => {
 export const getUserRank = (userId) => {
   return async function(dispatch) {
     try {
-
       let config = {
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${localStorage.getItem("authToken")}`
             }
           }
-
       const metaData = await axios.get(`http://localhost:3001/api/usersprivate/position/${userId}`, config);
       return metaData.data
     } catch(err) {
       return err.response.data
+    }
+  }
+}
+
+
+export const getRanking = () => {
+  return async function (dispatch) {
+    try {
+      const metaData = await axios.get("http://localhost:3001/api/users/topten");
+      dispatch(setRanking(metaData.data.sorted))
+    } catch (err) {
+      console.log(err.response.data.info)
+    }
+  }
+}
+
+
+export const deleteUser = (userId) => {
+   return async function(dispatch) {
+    try {
+
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`
+            },
+        data: {
+          id: userId
+            }
+          }
+
+      const metaData = await axios.delete(`http://localhost:3001/api/usersprivate/deleteUser`, config);
+      console.log(metaData.data)
+    } catch(err) {
+      console.log(err.response.data)
+     }
+}
+}
+
+export const isAdminConverter = (userId, boolean) => {
+  return async function(dispatch) {
+    try {
+
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`
+            }
+          };
+
+      const metaData = await axios.put(`http://localhost:3001/api/usersprivate/isAdmin`, {id: userId, change: boolean} ,config);
+      console.log(metaData)
+      return metaData.data
+    } catch(err) {
+      console.log(err.response.data)
     }
   }
 }

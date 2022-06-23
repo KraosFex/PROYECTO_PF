@@ -3,6 +3,7 @@ import { useState } from "react";
 
 // hardDate
 import { CursoBase } from "./CurssoBase";
+import Stars from "./Vote/Vote";
 
 // styles
 import { ThemeProvider } from "styled-components";
@@ -19,7 +20,7 @@ export default function CardD(props) {
   return (
     <ThemeProvider
       theme={
-        props.theme === "light" ? style = lightTheme : style = darkTheme
+        props.theme === "light" ? (style = lightTheme) : (style = darkTheme)
       }
     >
       <div className={style.flexContainer}>
@@ -33,6 +34,7 @@ export default function CardD(props) {
               <label className={style.label}>
                 Usuarios Inscriptos: {Curso.userIncript}
               </label>
+              <Stars />
             </div>
             <img className={style.imagen} alt="" src={Curso.imagen} />
           </div>
