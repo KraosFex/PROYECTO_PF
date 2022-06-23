@@ -1,11 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap');
 
 .Contenedor,
+.flexContainer{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-end;
+
+}
 .All {
     width: 100%;
     height: 100%;
-    display: flex;
-    position: relative;
 }
 
 .All {
@@ -65,21 +70,21 @@
     z-index: 10;
 }
 .medalla2{
-    right: 10px;
+    right: 0px;
 }
 .medalla3{
-    right: 20px;
+    right: 0px;
 }
 .medalla4{
-    right: 30px;
+    right: 0px;
 }.medalla5{
     height: 37px;
-    right: 40px;
+    right: 0px;
 }
 .medalla6{
     top:-6px;
     height: 35px;
-    right: 50px;
+    right: 0px;
 }
 .cargando{
     height: 100px;
