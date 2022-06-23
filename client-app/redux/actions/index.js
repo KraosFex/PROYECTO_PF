@@ -5,6 +5,7 @@ import axios from "axios";
 import {
         SET_COURSES,
         SET_SHOWEDCOURSES,
+        SET_SHOWEDCOURSE,
         SET_VALIDATEUSER,
         SET_THEME,
         LOGOUT,
@@ -26,6 +27,13 @@ export const themeSwitcher = (theme) => {
 export const setShowedCourses = (courses) => {
   return {
     type: SET_SHOWEDCOURSES,
+    payload: courses
+  }
+}
+
+export const setShowedCourse = (courses) => {
+  return {
+    type: SET_SHOWEDCOURSE,
     payload: courses
   }
 }
@@ -182,7 +190,7 @@ export const findCourse = (id) => {
   return async function(dispatch)  {
     try {
       const resp = await axios.get(`http://localhost:3001/api/cursos/${id}`)
-      dispatch(setShowedCourses(resp.data))
+      dispatch(setShowedCourse(resp.data))
     } catch (err) {
       alert('Ups! Something went wrong...')
       new Error(err)

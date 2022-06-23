@@ -3,6 +3,7 @@ import {
   SET_VALIDATEUSER,
   SET_COURSES,
   SET_SHOWEDCOURSES,
+  SET_SHOWEDCOURSE,
   SET_THEME,
   LOGOUT,
   SET_UPDATEUSER,
@@ -18,6 +19,7 @@ const initialState = {
   topTen: [],
   allUsers: [],
   showedUsers: [],
+  course: {},
   courses: [],
   showedCourses: [],
   theme: "light"
@@ -52,6 +54,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         showedCourses: payload,
+      }
+    case SET_SHOWEDCOURSE:
+      return {
+        ...state,
+        course: payload,
       }
     case SET_ALLUSERS:
       return {
