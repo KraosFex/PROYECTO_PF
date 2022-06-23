@@ -56,7 +56,7 @@ const createCurso = async (req, res, next) => {
 };
 
 const addFavorite = async (req, res, next) => {
-  const { id } = req.params;
+  const  id  = req.user._id;
   const { idCurso, isFavorite } = req.body;
   try {
     const user = await User.findByIdAndUpdate(
@@ -78,7 +78,7 @@ const addFavorite = async (req, res, next) => {
 };
 
 const removeFavorite = async (req, res, next) => {
-  const { id } = req.params;
+  const  id  = req.user._id;
   const { idCursoFavorito } = req.body;
 
   try {
@@ -101,7 +101,7 @@ const removeFavorite = async (req, res, next) => {
 };
 
 const addVotes = async (req, res, next) => {
-  const { id } = req.params;
+  const  id  = req.user._id;
   const { idUser, votes } = req.body;
   try {
     const curso = await Course.findByIdAndUpdate(
