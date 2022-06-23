@@ -2,6 +2,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { useState } from 'react';
 
 // Redux actions
 import { bookmarkCourse, unmarkfavorites } from "../../../../redux/actions";
@@ -20,7 +21,9 @@ function CoursesCard({ courses , setRefresh, refresh }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const theme = useSelector(store => store.theme);
-  let isLogged  = useSelector(store => store.isLogged);
+  const isLogged  = useSelector(store => store.isLogged);
+
+  const [button, setButton] = useState()
 
   const { user } = useSelector(store => store)
 
@@ -38,10 +41,10 @@ function CoursesCard({ courses , setRefresh, refresh }) {
   const isFavorite = (id) => {
     for(const course of user.courses) {
       if(course.course._id === id && course.isFavorite === true) {
-        return true
+        setButton(<AiFillHeart onClick={() => handleClick(course._id, true)}/>)
       }
     }
-    return false
+    setButton(<AiOutlineHeart onClick={() => handleClick(course._id, false)}/>)
   }
 
   return (
@@ -57,14 +60,12 @@ function CoursesCard({ courses , setRefresh, refresh }) {
                 {course.titulo}
               </NavLink>
               <div className={style.courseStats}>
-                {
-                  isFavorite(course._id)?
-                   <AiFillHeart onClick={() => handleClick(course._id, true)}/>
-                  :
-                   <AiOutlineHeart onClick={() => handleClick(course._id, false)}/>
-                }
+              {isLogged?
+                  {button}
+                :
+                  <AiOutlineHeart onClick={() => navigate("/login")}/>
+              }
                 <span>Rating: {course.calificacion}</span>
-
               </div>
               <div className={style.descripcion}>
                 <span>Descripcion: {course.descripcion}</span>
