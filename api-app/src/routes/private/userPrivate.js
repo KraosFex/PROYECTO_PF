@@ -1,7 +1,7 @@
 const { Router } = require('express')
 
 
-const { getUsers, getUsersByName, editUsername, overallPosition, editIsAdmin, deleteUser } = require('../../controllers/controllerUser')
+const { getUsers, getUsersByName, editUsername, overallPosition, editIsAdmin, deleteUser, banUsers, permaBanUsers } = require('../../controllers/controllerUser')
 
 const { protect } = require('../../middleware/protect')
 
@@ -13,6 +13,7 @@ router.get('/position/:id', protect, overallPosition)
 router.put('/:id/profile', protect, editUsername)
 router.put('/isAdmin', protect, editIsAdmin)
 router.delete('/username', protect, deleteUser)
-
+router.post('/ban', protect, banUsers)
+router.post('/permaBan', protect, permaBanUsers)
 
 module.exports = router
