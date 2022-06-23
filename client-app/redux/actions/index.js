@@ -368,11 +368,11 @@ export const Banear = (userId, fecha) => {
             }
           };
 
-      const metaData = await axios.put(`http://localhost:3001/api/usersprivate/ban`, {id: userId, fecha: fecha} ,config);
-      console.log(metaData)
-      return metaData.data
+      const metaData = await axios.post(`http://localhost:3001/api/usersprivate/ban`, {id: userId, fecha: fecha} ,config);
+      
+      return {successful: true, data:metaData}
     } catch(err) {
-      console.log(err.response.data)
+      return {successful: false, error: err}
     }
   }
 }
