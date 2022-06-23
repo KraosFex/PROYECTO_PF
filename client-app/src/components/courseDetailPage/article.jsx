@@ -1,5 +1,6 @@
 // libraries
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 // components
 import Stars from "./Vote/Vote";

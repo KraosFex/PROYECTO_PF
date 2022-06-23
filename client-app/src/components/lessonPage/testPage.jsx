@@ -15,7 +15,7 @@ const files = {
 `}
 }
 
-function TestPage() {
+export default function TestPage() {
   
   const [fileName, setFileName] = useState("script.js");
 
@@ -49,5 +49,3 @@ function TestPage() {
     </>
   );
 }
-
-export default TestPage;

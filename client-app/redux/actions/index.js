@@ -100,18 +100,6 @@ export const register = (userData) => {
   }
 };
 
-export const findCourse = (id) => {
-  return async function(dispatch)  {
-    try {
-      const resp = await axios.get(`http://localhost:3001/api/cursos/${id}`)
-      return resp.data
-    } catch (err) {
-      alert('Ups! Something went wrong...')
-      new Error(err)
-    }
-  }
-};
-
 export const login = (post) => {
   return async function(dispatch) {
     try {
@@ -124,17 +112,6 @@ export const login = (post) => {
   }
 }
 
-export const getCourseByName = (name) => {
-  return async function(dispatch) {
-    try {
-      const metaData = await axios.get(`http://localhost:3001/api/cursos/${name}`)
-      dispatch(setShowedCourses(metaData.data));
-    } catch (err) {
-      new Error(err)
-      alert("Ups! Something went wrong...");
-    }
-  };
-}
 
 export const findUserByName = (username) => {
   return async function (dispatch) {
@@ -195,6 +172,31 @@ export const getCourses = () => {
       dispatch(setShowedCourses(metaData.data.docs));
     } catch (err) {
       console.log(err);
+      alert("Ups! Something went wrong...");
+    }
+  };
+}
+
+// REVISA SI ESTO ENVIA BIEN LA DATA, NO TENGO COMO TESTEAR
+export const findCourse = (id) => {
+  return async function(dispatch)  {
+    try {
+      const resp = await axios.get(`http://localhost:3001/api/cursos/${id}`)
+      dispatch(setShowedCourses(resp.data))
+    } catch (err) {
+      alert('Ups! Something went wrong...')
+      new Error(err)
+    }
+  }
+};
+
+export const getCourseByName = (name) => {
+  return async function(dispatch) {
+    try {
+      const metaData = await axios.get(`http://localhost:3001/api/cursos/${name}`)
+      dispatch(setShowedCourses(metaData.data));
+    } catch (err) {
+      new Error(err)
       alert("Ups! Something went wrong...");
     }
   };

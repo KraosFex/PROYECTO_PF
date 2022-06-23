@@ -4,9 +4,9 @@ import { useParams, NavLink } from 'react-router-dom';
 // style
 import style from './lessonPage.module.css';
 
-function LessonPage() {
+export default function LessonPage() {
   const { leccionId } = useParams()
-  const leccion = parseInt(leccionId)
+  console.log(typeof leccionId)
   return (
     <div className={style.highContainer}>
       {/*ESTA ES TODA LA DATA QUE TRAE EL COMPONENETE DE MOMENTO*/}
@@ -17,10 +17,7 @@ function LessonPage() {
         </div>
         <h4 className={style.description}>Una description</h4>
         <button> <NavLink to={`/lesson/${leccion}/Testing`}> ir al test </NavLink> </button>
-      </div>
-      
+      </div>      
     </div>
   )
 }
-
-export default LessonPage;

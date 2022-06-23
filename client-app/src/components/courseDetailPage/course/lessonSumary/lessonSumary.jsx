@@ -1,8 +1,10 @@
-import React from "react";
-import style from "./lessonSumary.module.css";
+// libraries
 import { NavLink } from "react-router-dom";
 
-function LessonSumary({ clase }) {
+// styles
+import style from "./lessonSumary.module.css";
+
+export default function LessonSumary({ clase }) {
   var completo = clase.isCompleted === true ? "Completada" : "Disponible";
   return (
     <div className={style.flexContainer}>
@@ -23,5 +25,3 @@ function LessonSumary({ clase }) {
     </div>
   );
 }
-
-export default LessonSumary;
