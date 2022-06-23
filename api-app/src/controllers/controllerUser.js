@@ -93,7 +93,7 @@ const editIsAdmin = async (req, res) => {
   if (!isAdmin) return res.status(401).send({info: 'No tienes permisos para acceder a esta ruta', success: false})
   try {
     const { id, change } = req.body 
-    await User.findOneAndUpdate(id, {
+    await User.findByIdAndUpdate(id, {
       isAdmin: change
     })
     res.send({info: 'Estado isAdmin cambiado', success: true})
@@ -117,6 +117,35 @@ const deleteUser = async (req, res) => {
   }
 }
 
+const banUsers = async (req, res) => {
+  const { isAdmin } = req.user
+  if (!isAdmin) return res.status(401).send({info: 'No tienes permisos para acceder a esta ruta', success: false})
+  try {
+    const { id, fecha } = req.body;
+    await User.findByIdAndUpdate(id, {
+      timeBanned: fecha
+    }, { new: true })
+    res.send({info: 'Usuario baneado', success: true})
+  } catch {
+    res.status(500).send({info: 'Error al intentar banear al usuario', success: false})
+  }
+}
+
+const permaBanUsers = async (req, res) => {
+  const { isAdmin } = req.user
+  if (!isAdmin) return res.status(401).send({info: 'No tienes permisos para acceder a esta ruta', success: false})
+  try { 
+    const { id } = req.body;
+    await User.findByIdAndUpdate(id, {
+      estado: false
+    })
+    res.send({info: 'Usuario baneado permanentemente', success: true})
+  } catch {
+    res.status(500).send({info: 'Error al intentar banear al usuario', success: false})
+  }
+}
+
+
 module.exports = {
   getUsers,
   getUserById,
@@ -125,5 +154,7 @@ module.exports = {
   overallPosition,
   topTen,
   editIsAdmin,
-  deleteUser
+  deleteUser,
+  banUsers,
+  permaBanUsers
 }
