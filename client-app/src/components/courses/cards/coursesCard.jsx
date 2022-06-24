@@ -19,7 +19,6 @@ export default function CoursesCard({ courses, setRefresh, refresh }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const theme = useSelector((store) => store.theme);
-  let isLogged = useSelector((store) => store.isLogged);
 
   const { user } = useSelector((store) => store);
 
