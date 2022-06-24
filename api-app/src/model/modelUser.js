@@ -27,6 +27,10 @@ const userSchema = new Schema(
       type: Boolean,
       default: true
     },
+    timeBanned: {
+      type: String,
+      default: null
+    },
     isAdmin: {
       type: Boolean,
       default: false
