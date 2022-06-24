@@ -17,6 +17,7 @@ También cabe destacar que cada usuario tendrá un perfil en el que se mostrará
 nivel de aprendizaje, este nivel iría aumentando entorna a que el estudiante vaya
 completando clases, esto permitiría que el usuario este al tanto de su progreso general
 todo el tiempo.
+<<<<<<< HEAD
 
 ### NOTA: **RECUERDEN GENERAR EL .ENV**
 
@@ -47,3 +48,5 @@ todo el tiempo.
 ### Editar Perfil **PRIVADA** **PUT** http://localhost:3001/api/usersprivate/:id/profile
 
 ### Stripe (pago) **PRIVADA** **POST** http://localhost:3001/api/paysprivate
+=======
+>>>>>>> 8efb5b047d86cd4cebe09f7b1f7386357a93b01b

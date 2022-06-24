@@ -26,8 +26,8 @@
 
     height: 100vh;
     width: 100vw;
-    background: red;
-    background: linear-gradient(90deg, #F70000 0%, #ffd2ff 100%);
+    background: rgb(255,29,56);
+    background: linear-gradient(9deg, rgba(255,29,56,1) 0%, rgba(255,102,108,1) 65%);
 }
 
 .containerMain{
@@ -62,7 +62,7 @@
     font-family: 'Open_Sans';
     text-transform: uppercase;
     color: #ffffff;
-    border-radius: 50px;
+    border-radius: .5em;
     border: solid 2px #ffffff;
     cursor: pointer;
     box-shadow: -2px 2px 5px #000;

@@ -48,6 +48,15 @@
       
   }
 
+  .courseStats button{
+      background: none;
+      border: none;
+  }
+
+  .courseStats button svg:hover{
+    color: rgb(213, 0, 0);
+}
+
   .descripcion{
       display: flex;
       width: 35em;
@@ -78,3 +87,19 @@
   .flexContainer{
       display: inline-block;
   }
+
+  @media (max-width: 768px) {
+
+    .containerCourse{
+        width: 23em;
+    }
+
+    .descripcion{
+        width: 120%;
+    }
+
+    .lenguaje{
+        margin-right: 2em;
+    }
+  }
+
