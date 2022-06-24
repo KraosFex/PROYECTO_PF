@@ -7,12 +7,16 @@ import {
   deleteUser,
   getAllUsers,
 } from "../../../../../redux/actions";
+import BanearPopUp from "../PopUpBanear/BanearPopUp";
+import { useState } from "react";
+
 
 function UserCard({ id, name, username, email, isAdmin, image, courses }) {
   const dispatch = useDispatch();
+  const [banearPopUp, setBanear] = useState(false);
 
-  const popUpFunction = () => {
-    console.log("some function not implemented yet");
+  const popUpFunction = (change) => {
+    setBanear(change)
   };
 
   const deleteFunction = async () => {
@@ -64,7 +68,7 @@ function UserCard({ id, name, username, email, isAdmin, image, courses }) {
         <div className={style.adminOptions}>
           <button
             className={style.optionButton}
-            onClick={() => popUpFunction()}
+            onClick={() => popUpFunction(true)}
             name="ban"
           >
             Banear
@@ -93,6 +97,9 @@ function UserCard({ id, name, username, email, isAdmin, image, courses }) {
               Hacer Admin
             </button>
           )}
+          {banearPopUp ? (
+            <BanearPopUp popUpFunction={popUpFunction} id={id} />
+          ) : null}
         </div>
       </div>
     </ThemeProvider>

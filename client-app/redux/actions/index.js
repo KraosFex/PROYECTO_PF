@@ -355,3 +355,24 @@ export const isAdminConverter = (userId, boolean) => {
     }
   }
 }
+
+
+export const Banear = (userId, fecha) => {
+  return async function() {
+    try {
+
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`
+            }
+          };
+
+      const metaData = await axios.post(`http://localhost:3001/api/usersprivate/ban`, {id: userId, fecha: fecha} ,config);
+      
+      return {successful: true, data:metaData}
+    } catch(err) {
+      return {successful: false, error: err}
+    }
+  }
+}
