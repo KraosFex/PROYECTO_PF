@@ -54,7 +54,7 @@ function App() {
           <Route path="/home" element={<Home theme={theme} />} />
           <Route path="/courses" element={<Courses />}></Route>
           <Route
-            path="/course/:id"
+            path="/course/:name"
             element={<CourseDetailPage theme={theme} />}
           />
           <Route element={<PrivateRoute isLogged={isLogged} />}>

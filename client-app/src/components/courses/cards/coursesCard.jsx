@@ -57,7 +57,7 @@ function CoursesCard({ courses, setRefresh, refresh }) {
           <div className={style.containerCourse}>
             <div className={style.flexContainer}>
               <NavLink
-                to={`/course/${course._id}`}
+                to={`/course/${course.titulo}`}
                 className={style.courseName}
               >
                 {course.titulo}

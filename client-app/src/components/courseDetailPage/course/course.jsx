@@ -1,15 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { findCourse } from "../../../../redux/actions";
+import { getCourseByName } from "../../../../redux/actions";
 import style from "./courseDark.module.css";
-import NavBarUser from "../../home/navbarUser/navBarUser";
 import CardD from "../article";
 
 export default function CurseD(props) {
-  let id = useParams().id;
+  let name = useParams().name;
   const dispatch = useDispatch();
-  findCourse(id)(dispatch);
+  getCourseByName(name)(dispatch);
   return (
     <div className={style.Detail}>
       <CardD theme={props.theme} />
