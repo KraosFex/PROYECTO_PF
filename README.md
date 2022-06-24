@@ -45,3 +45,5 @@ todo el tiempo.
 ### Anadir Voto **PRIVADA** **PUT** http://localhost:3001/api/cursosprivate/:id/votes
 
 ### Editar Perfil **PRIVADA** **PUT** http://localhost:3001/api/usersprivate/:id/profile
+
+### Stripe (pago) **PRIVADA** **POST** http://localhost:3001/api/paysprivate
