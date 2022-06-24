@@ -1,7 +1,7 @@
 // libraries
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 // Redux actions
 import { bookmarkCourse, unmarkfavorites } from "../../../../redux/actions";
@@ -15,34 +15,32 @@ import lightTheme from "./coursesCardLight.module.css";
 
 let style = darkTheme;
 
-function CoursesCard({ courses , setRefresh, refresh }) {
+function CoursesCard({ courses, setRefresh, refresh }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const theme = useSelector((store) => store.theme);
+  let isLogged = useSelector((store) => store.isLogged);
 
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const theme = useSelector(store => store.theme);
-  let isLogged  = useSelector(store => store.isLogged);
-
-  const { user } = useSelector(store => store)
+  const { user } = useSelector((store) => store);
 
   const handleClick = (id) => {
-
-    if(isFavorite) {
-      dispatch(unmarkfavorites(id))
+    if (isFavorite) {
+      dispatch(unmarkfavorites(id));
     } else {
-      dispatch(bookmarkCourse(id))
+      dispatch(bookmarkCourse(id));
     }
-    refresh? setRefresh(false) : setRefresh(true);
-  }
+    refresh ? setRefresh(false) : setRefresh(true);
+  };
 
-//FUNCION PARA SABER SI EL CURSO ES UNO FAVORITO O NO
+  //FUNCION PARA SABER SI EL CURSO ES UNO FAVORITO O NO
   const isFavorite = (id) => {
-    for(const course of user.courses) {
-      if(course.course._id === id && course.isFavorite === true) {
-        return true
+    for (const course of user.courses) {
+      if (course.course._id === id && course.isFavorite === true) {
+        return true;
       }
     }
-    return false
-  }
+    return false;
+  };
 
   return (
     <div>
@@ -53,18 +51,21 @@ function CoursesCard({ courses , setRefresh, refresh }) {
         >
           <div className={style.containerCourse}>
             <div className={style.flexContainer}>
-              <NavLink to={`/course/${course._id}`} className={style.courseName}>
+              <NavLink
+                to={`/course/${course._id}`}
+                className={style.courseName}
+              >
                 {course.titulo}
               </NavLink>
               <div className={style.courseStats}>
-                {
-                  isFavorite(course._id)?
-                   <AiFillHeart onClick={() => handleClick(course._id, true)}/>
-                  :
-                   <AiOutlineHeart onClick={() => handleClick(course._id, false)}/>
-                }
+                {isFavorite(course._id) ? (
+                  <AiFillHeart onClick={() => handleClick(course._id, true)} />
+                ) : (
+                  <AiOutlineHeart
+                    onClick={() => handleClick(course._id, false)}
+                  />
+                )}
                 <span>Rating: {course.calificacion}</span>
-
               </div>
               <div className={style.descripcion}>
                 <span>Descripcion: {course.descripcion}</span>
@@ -73,9 +74,7 @@ function CoursesCard({ courses , setRefresh, refresh }) {
             <div className={style.lenguaje}>
               <JSIcon lenguajes={course.lenguaje} />
             </div>
-            <div>
-
-            </div>
+            <div></div>
           </div>
         </ThemeProvider>
       ))}

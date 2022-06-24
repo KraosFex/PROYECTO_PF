@@ -1,6 +1,7 @@
 
 
 .flex{
+  width: 100%;
 }
 .container{
   display: -webkit-box;
@@ -8,13 +9,12 @@
   display: flex;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
-          justify-content: flex-start;
     position: absolute;
     right: 0;
     background-color: rgba(12, 12, 12, 0.538);
-    min-width: 15.7em;
+    min-width: 7em;
     height: 4em;
-    border-radius: 0em 0 0 1em;
+    border-radius: 0 0 0 1em;
 }
 .info{
     position: absolute;
@@ -38,31 +38,29 @@
   margin-left: 1em;
   padding-left:3em;
 }
-.icon3{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  margin-left: 0.5em;
-  margin-top:0.25em;
-  width: 4em;
-  height: 4em;
-  right: 0;
-  background:none;
-  border-radius:50% ;
-}
-.icon3 img{
-  width: 4em;
-  height: 4em;
-  border-radius: 50%;
-}
-
 .icon2 svg{
   position: absolute;
   width: 2em;
   height: 2em;
   color: rgb(226, 31, 50);
 }
+
+.icon3{
+  display: flex;
+  margin-top:0.25em;
+  width: 4em;
+  height: 4em;
+  background:none;
+  border-radius:50% ;
+  margin-right: 0.5em;
+}
+.icon3 img{
+  display: flex;
+  width: 4em;
+  height: 4em;
+  border-radius: 50%;
+}
+
 
 .icon21{
   margin-left: 1em;
@@ -188,14 +186,113 @@
   padding-top: 0.3em;
 }
 
+.arrows{
+  display: none;
+  pointer-events: none;
+  margin-right: 4em;
+  margin-top: 1em;
+}
+
+.arrows svg{
+  position: absolute;
+  width: 2em;
+  height: 2em;
+  color: rgb(226, 31, 73);
+}
+
 @media (max-width: 768px) {
-  .icon4{
-    display: block;
-    pointer-events: auto;
-    margin-left: 0.7em;
-  }
-  .icon2{
-    margin-left:0.7em;
+
+  .container{
   }
 
+  .arrows{
+    display: block;
+    pointer-events: auto;
+
+  }
+
+  .icon4Active{
+    display: block;
+    pointer-events: auto;
+    margin-top: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding-left:3em;
+  }
+  
+  .icon4Active svg{
+    width: 2em;
+    height: 2em;
+    color: rgb(226, 31, 73);
+  }
+  
+
+  .icon2Active{
+    margin-left:0.7em;
+    display: flex;
+  }
+  
+  .icon21{
+    display: none;
+    margin-left: 4em;
+  }
+
+  .icon2{
+    display: none; 
+    pointer-events: none;
+  }
+
+
+  .username{
+    display: none;
+  }
+
+  .icon2Active{
+    margin-top: 1em;
+    margin-left: 1em;
+    padding-left:3em;
+  }
+  .icon3Active{
+    display: flex;
+    margin-top:0.25em;
+    margin-right: .5em;
+    width: 4;
+    height: 4em;
+    background:none;
+    border-radius:50% ;
+  }
+  .icon3Active img{
+    display: flex;
+    width: 4em;
+    height: 4em;
+    border-radius: 50%;
+  }
+  
+  .icon2Active svg{
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    color: rgb(226, 31, 50);
+  }
+  
+  .icon21Active{
+
+    display: block;
+    padding-left:0em;
+    margin-top: 1em;
+  }
+  
+  .icon21Active svg{
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    color: rgb(226, 31, 73);
+  }
+
+  .dropdownmenu{
+    width: 7em;
+  }
+  .dropdownmenuActive{
+    width:6.5em;
+  }
 }

@@ -8,7 +8,8 @@
 display: flex;
 justify-content: center;
 align-content: center;
-background-image:url("img/backgroundregister.jpg"); 
+background: rgb(255,29,56);
+background: linear-gradient(9deg, rgba(255,29,56,1) 0%, rgba(255,102,108,1) 65%);
 
 }
 
