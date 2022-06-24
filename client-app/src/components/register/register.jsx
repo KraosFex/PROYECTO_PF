@@ -4,10 +4,9 @@ import style from "./register.module.css";
 import validator from "../../utils/validator.js";
 import { useNavigate, Link, NavLink } from "react-router-dom";
 import Google from "../../icons/google";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 
 function Register() {
-
   const navigateTo = useNavigate();
   const dispatch = useDispatch();
 
@@ -61,14 +60,14 @@ function Register() {
       if (response.success) {
         setRegisterError({});
         localStorage.setItem("authToken", response.token);
-        navigateTo("/home")
+        navigateTo("/home");
       } else {
         setRegisterError({ err: response.info });
       }
     }
   };
 
-return (
+  return (
     <div className={style.flexContainer}>
       <div className={style.Container}>
         <div className={style.logo}>
@@ -148,6 +147,9 @@ return (
         <div className={style.signIn}>
           <h1>Ya tienes cuenta?</h1>
           <NavLink to="/login">Sign In</NavLink>
+        </div>
+        <div className={style.home}>
+          <NavLink to="/home">Volver al inicio</NavLink>
         </div>
         <div className={style.policy}>
           <h1>

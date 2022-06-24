@@ -8,10 +8,10 @@
 display: flex;
 justify-content: center;
 align-content: center;
-background-image:url("img/backgroundregister.jpg"); 
+background: rgb(255,29,56);
+background: linear-gradient(9deg, rgba(255,29,56,1) 0%, rgba(255,102,108,1) 65%);
 
 }
-
 
 .Container{
     display: flex;
@@ -35,6 +35,12 @@ box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.54);
     margin-top: 3em;
     width: 8em;
     height: 8em;
+}
+
+.home{
+    display: flex;
+    width: 100%;
+    justify-content: center;
 }
 
 .form{
