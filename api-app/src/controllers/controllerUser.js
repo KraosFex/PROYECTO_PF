@@ -9,9 +9,9 @@ const getUsers = async (req, res, next) => {
   const page = parseInt(req.query.page) || 1
   try {
     const users = await User.paginate({ estado: true }, { limit, page })
-    res.send({info: "Todos lo usuarios enviados", users: users, success: true})
+    res.send({ info: 'Todos lo usuarios enviados', users, success: true })
   } catch (err) {
-    res.status(500).send({info: "Error al realizar la peticion", success: false})
+    res.status(500).send({ info: 'Error al realizar la peticion', success: false })
   }
 }
 
@@ -67,7 +67,6 @@ const overallPosition = async (req, res) => {
     res.send({ info: 'Proceso completado con exito', response, success: true }) // :D
   } catch (err) {
     res.status(500).send({ info: 'Algo salio mal', success: false })
-
   }
 }
 
@@ -90,32 +89,31 @@ const topTen = async (req, res) => {
 
 const editIsAdmin = async (req, res) => {
   const { isAdmin } = req.user
-  if (!isAdmin) return res.status(401).send({info: 'No tienes permisos para acceder a esta ruta', success: false})
+  if (!isAdmin) return res.status(401).send({ info: 'No tienes permisos para acceder a esta ruta', success: false })
   try {
     const { id, change } = req.body
 
-      await User.findByIdAndUpdate(id, {
+    await User.findByIdAndUpdate(id, {
       isAdmin: change
     })
 
-    res.send({info: 'Estado isAdmin cambiado', success: true})
-  }
-  catch {
-    res.status(500).send({info: 'Algo salio mal', success: false})
+    res.send({ info: 'Estado isAdmin cambiado', success: true })
+  } catch {
+    res.status(500).send({ info: 'Algo salio mal', success: false })
   }
 }
 
 const deleteUser = async (req, res) => {
   const { isAdmin } = req.user
-  if (!isAdmin) return res.status(401).send({info: 'No tienes permisos para acceder a esta ruta', success: false})
+  if (!isAdmin) return res.status(401).send({ info: 'No tienes permisos para acceder a esta ruta', success: false })
   try {
-    const { id } = req.body;
-    const userDB = await User.findById(id);
-    if (!userDB) return res.status(404).send({info: 'Usuario no encontrado', success: false})
-    await User.findByIdAndDelete(id);
-    res.send({info: 'Usuario eliminado', success: true})
+    const { id } = req.body
+    const userDB = await User.findById(id)
+    if (!userDB) return res.status(404).send({ info: 'Usuario no encontrado', success: false })
+    await User.findByIdAndDelete(id)
+    res.send({ info: 'Usuario eliminado', success: true })
   } catch {
-    res.status(500).send({info: 'Algo salio mal', success: false})
+    res.status(500).send({ info: 'Algo salio mal', success: false })
   }
 }
 

@@ -16,8 +16,8 @@ const registerUser = async (req, res, next) => {
 
     res.status(201).send({ info: 'Usuario creado exitosamente', success: true, token, user })
   } catch (err) {
-    return res.status(500).send({info: 'Ya existe una cuenta con ese gmail', success: false})
-    //next(err);
+    return res.status(500).send({ info: 'Ya existe una cuenta con ese gmail', success: false })
+    // next(err);
   }
 }
 
@@ -28,18 +28,18 @@ const login = async (req, res, next) => {
 
   try {
     const user = await User.findOne({ email })
-    if (!user) return res.status(401).send({info: 'Credenciales Invalidas', success:false})//return next(new ErrorResponse('Credenciales Invalidas', 401, false))
+    if (!user) return res.status(401).send({ info: 'Credenciales Invalidas', success: false })// return next(new ErrorResponse('Credenciales Invalidas', 401, false))
 
     const match = await user.matchPassword(password)
 
-    if (!match) return res.status(401).send({info: 'Credenciales Invalidas', success:false})//return next(new ErrorResponse('Credenciales Invalidas', 401, false))
+    if (!match) return res.status(401).send({ info: 'Credenciales Invalidas', success: false })// return next(new ErrorResponse('Credenciales Invalidas', 401, false))
 
     const token = user.generateToken()
 
     res.send({ info: 'Credenciales correctas', success: true, token, user })
   } catch (err) {
-    return res.status(401).send({info: 'Credenciales Invalidas', success:false})
-    //next(new ErrorResponse('Error en los credenciales', 401, false))
+    return res.status(401).send({ info: 'Credenciales Invalidas', success: false })
+    // next(new ErrorResponse('Error en los credenciales', 401, false))
   }
 }
 
@@ -108,7 +108,7 @@ const googleLogin = async (req, res) => {
 
     if (user) {
       const match = await user.matchPassword(password)
-      if (!match) return res.status(400).json({ info: 'Password is incorrect.', success: false})
+      if (!match) return res.status(400).json({ info: 'Password is incorrect.', success: false })
 
       const token = user.generateToken()
 
@@ -125,7 +125,7 @@ const googleLogin = async (req, res) => {
       res.send({ info: 'Credenciales correctas', success: true, token, user: newUser })
     }
   } catch (err) {
-    return res.status(500).json({ info: err.message,  success: false})
+    return res.status(500).json({ info: err.message, success: false })
   }
 }
 
