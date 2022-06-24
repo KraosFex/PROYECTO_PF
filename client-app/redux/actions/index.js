@@ -12,6 +12,8 @@ import {
   SET_ALLUSERS,
   SET_SHOWEDUSERS,
   SET_RANKING,
+  SET_ARROW_DIRECTION,
+  SET_ARROW_UPDOWN,  
   SET_DETAIL
 } from "./actionsTypes/actionTypes";
 
@@ -93,6 +95,19 @@ export const setRanking = (ranking) => {
   }
 }
 
+export const setArrowDirection = (arrow) => {
+  return {
+    type: SET_ARROW_DIRECTION,
+    payload: arrow,
+  };
+};
+
+export const setArrowUpDown = (arrowUpDown) => {
+  return {
+    type: SET_ARROW_UPDOWN,
+    payload: arrowUpDown,
+  };
+};
 // asynchronous actions
 
 export const register = (userData) => {
@@ -106,17 +121,7 @@ export const register = (userData) => {
     }
   }
 };
-export const findCourse = (id) => {
-  return async function (dispatch) {
-    try {
-      const resp = await axios.get(`http://localhost:3001/api/cursos/${id}`);
-      return resp.data;
-    } catch (err) {
-      alert("Ups! Something went wrong...");
-      new Error(err);
-    }
-  };
-};
+
 
 export const DetailByName = (name) => {
   return async function (dispatch) {
