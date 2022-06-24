@@ -11,11 +11,13 @@ import {
   SET_RANKING,
   SET_ARROW_UPDOWN,
   SET_ARROW_DIRECTION,
+  SET_DETAIL
 } from "../actions/actionsTypes/actionTypes";
 
 // index reducers app
 const initialState = {
   user: {},
+  detail: {},
   isLogged: false,
   topTen: [],
   allUsers: [],
@@ -86,6 +88,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         arrowUpDown: payload,
+      };
+    case SET_DETAIL:
+      return {
+        ...state,
+        detail: payload,
       };
     default:
       return state;

@@ -14,6 +14,7 @@ import {
   SET_RANKING,
   SET_ARROW_DIRECTION,
   SET_ARROW_UPDOWN,
+  SET_DETAIL
 } from "./actionsTypes/actionTypes";
 
 // synchronous actions
@@ -121,17 +122,6 @@ export const register = (userData) => {
   };
 };
 
-export const findCourse = (id) => {
-  return async function (dispatch) {
-    try {
-      const resp = await axios.get(`http://localhost:3001/api/cursos/${id}`);
-      return resp.data;
-    } catch (err) {
-      alert("Ups! Something went wrong...");
-      new Error(err);
-    }
-  };
-};
 
 export const login = (post) => {
   return async function (dispatch) {
@@ -154,10 +144,9 @@ export const getCourseByName = (name) => {
       const metaData = await axios.get(
         `http://localhost:3001/api/cursos/${name}`
       );
-      dispatch(setShowedCourses(metaData.data));
+      dispatch({type: SET_DETAIL , payload:  metaData.data});
     } catch (err) {
-      new Error(err);
-      alert("Ups! Something went wrong...");
+      dispatch({type: SET_DETAIL , payload:  {error: "No esta", data: err}});
     }
   };
 };
