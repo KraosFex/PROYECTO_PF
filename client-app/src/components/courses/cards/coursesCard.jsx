@@ -15,19 +15,18 @@ import lightTheme from "./coursesCardLight.module.css";
 
 let style = darkTheme;
 
-function CoursesCard({ courses , setRefresh, refresh }) {
+function CoursesCard({ courses, setRefresh, refresh }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const theme = useSelector((store) => store.theme);
+  let isLogged = useSelector((store) => store.isLogged);
 
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const theme = useSelector(store => store.theme);
-  let isLogged  = useSelector(store => store.isLogged);
-
-  const { user } = useSelector(store => store)
+  const { user } = useSelector((store) => store);
 
   const handleClick = () => {
-    dispatch(bookmarkCourse())
-    refresh? setRefresh(false) : setRefresh(true);
-  }
+    dispatch(bookmarkCourse());
+    refresh ? setRefresh(false) : setRefresh(true);
+  };
 
   return (
     <div>
@@ -42,9 +41,17 @@ function CoursesCard({ courses , setRefresh, refresh }) {
                 {curse.titulo}
               </NavLink>
               <div className={style.courseStats}>
-                {isLogged ?
-                  <button onClick={() => handleClick()}> <FavoriteIcon /> </button> :
-                  <button onClick={() => navigate('/login')} > <FavoriteIcon /> </button>}
+                {isLogged ? (
+                  <button onClick={() => handleClick()}>
+                    {" "}
+                    <FavoriteIcon />{" "}
+                  </button>
+                ) : (
+                  <button onClick={() => navigate("/login")}>
+                    {" "}
+                    <FavoriteIcon />{" "}
+                  </button>
+                )}
                 <span>{curse.calificacion}</span>
                 <CompletedIcon />
                 <span>1600</span>
@@ -56,9 +63,7 @@ function CoursesCard({ courses , setRefresh, refresh }) {
             <div className={style.lenguaje}>
               <JSIcon lenguajes={curse.lenguaje} />
             </div>
-            <div>
-
-            </div>
+            <div></div>
           </div>
         </ThemeProvider>
       ))}

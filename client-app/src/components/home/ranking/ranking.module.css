@@ -10,11 +10,15 @@
 }
 .All {
     width: 100%;
-    height: 100%;
+    height: 80%;
+    flex-direction: column;
+    text-align: center;
 }
 
-.All {
-    flex-direction: column;
+.All h2 {
+    font-size: 2.3em;
+    font-weight: 400;
+    color: rgb(111, 111, 111);
 }
 
 .Contenedor2,
