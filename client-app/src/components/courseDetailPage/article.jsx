@@ -10,8 +10,10 @@ import { ThemeProvider } from "styled-components";
 import darkTheme from "./course/courseDark.module.css";
 import lightTheme from "./course/courseLight.module.css";
 import LessonSumary from "./course/lessonSumary/lessonSumary";
+import { useSelector } from "react-redux";
 
 export default function CardD(props) {
+  let {detail, user }= useSelector(state=>state)
   let [idClase, setIdClase] = useState(1);
   let Curso = CursoBase;
   let claseSumary = Curso.clases.find((o) => o.id === idClase);

@@ -144,7 +144,7 @@ export const getCourseByName = (name) => {
       const metaData = await axios.get(
         `http://localhost:3001/api/cursos/${name}`
       );
-      dispatch({type: SET_DETAIL , payload:  metaData.data});
+      dispatch({type: SET_DETAIL , payload:  metaData.data[0]});
     } catch (err) {
       dispatch({type: SET_DETAIL , payload:  {error: "No esta", data: err}});
     }
