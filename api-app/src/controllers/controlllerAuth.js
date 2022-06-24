@@ -29,7 +29,8 @@ const login = async (req, res, next) => {
   try {
     const user = await User.findOne({ email })
     if (!user) return res.status(401).send({info: 'Credenciales Invalidas', success:false})//return next(new ErrorResponse('Credenciales Invalidas', 401, false))
-
+    if (!user.estado) return res.status(401).send({info: 'Usuario baneado permanentemente', success: false})
+    if (new Date().toString().slice(4,24) < user.timeBanned) return res.send({info: `Usuario baneado hasta ${user.timeBanned}`, success: false, user})
     const match = await user.matchPassword(password)
 
     if (!match) return res.status(401).send({info: 'Credenciales Invalidas', success:false})//return next(new ErrorResponse('Credenciales Invalidas', 401, false))
