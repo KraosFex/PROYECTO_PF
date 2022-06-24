@@ -14,8 +14,8 @@ function Arrows() {
         strokeWidth="2"
       >
         <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           d="M15 19l-7-7 7-7"
         />
       </svg>
@@ -29,7 +29,7 @@ function Arrows() {
         stroke="currentColor"
         strokeWidth="2"
       >
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
       </svg>
     );
   }
