@@ -1,4 +1,4 @@
-const stripe = require("stripe")(process.en.STRIPE_KEY);
+const stripe = require('stripe')(process.env.STRIPE_KEY)
 
 const payStripe = (req, res) => {
   const { tokenId, amount } = req.body;
