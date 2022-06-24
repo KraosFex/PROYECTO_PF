@@ -10,7 +10,9 @@ import {
   SET_ALLUSERS,
   SET_SHOWEDUSERS,
   SET_RANKING,
-  } from "../actions/actionsTypes/actionTypes";
+  SET_ARROW_UPDOWN,
+  SET_ARROW_DIRECTION,
+} from "../actions/actionsTypes/actionTypes";
 
 // index reducers app
 const initialState = {
@@ -22,7 +24,9 @@ const initialState = {
   course: {},
   courses: [],
   showedCourses: [],
-  theme: "light"
+  theme: "light",
+  arrowDirection: "left",
+  arrowUpDown: "down",
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -35,16 +39,16 @@ const rootReducer = (state = initialState, { type, payload }) => {
         isLogged: true,
       };
     case LOGOUT:
-      return{
+      return {
         ...state,
         user: {},
         isLogged: false,
-      }
+      };
     case SET_UPDATEUSER:
-      return{
+      return {
         ...state,
         user: payload,
-      }
+      };
     case SET_COURSES:
       return {
         ...state,
@@ -74,15 +78,25 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         theme: payload,
-      }
+      };
     case SET_RANKING:
-      return{
+      return {
         ...state,
-        topTen: payload
-      }
+        topTen: payload,
+      };
+    case SET_ARROW_DIRECTION:
+      return {
+        ...state,
+        arrowDirection: payload,
+      };
+    case SET_ARROW_UPDOWN:
+      return {
+        ...state,
+        arrowUpDown: payload,
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
 export default rootReducer;

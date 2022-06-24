@@ -121,15 +121,15 @@ const editIsAdmin = async (req, res) => {
         success: false,
       });
   try {
-    const { id, change } = req.body;
-
+    const { id, change } = req.body 
     await User.findByIdAndUpdate(id, {
-      isAdmin: change,
-    });
+      isAdmin: change
+    })
+    res.send({info: 'Estado isAdmin cambiado', success: true})
+  }
+  catch {
+    res.status(500).send({info: 'Algo salio mal', success: false})
 
-    res.send({ info: "Estado isAdmin cambiado", success: true });
-  } catch {
-    res.status(500).send({ info: "Algo salio mal", success: false });
   }
 };
 
@@ -156,6 +156,35 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const banUsers = async (req, res) => {
+  const { isAdmin } = req.user
+  if (!isAdmin) return res.status(401).send({info: 'No tienes permisos para acceder a esta ruta', success: false})
+  try {
+    const { id, fecha } = req.body;
+    await User.findByIdAndUpdate(id, {
+      timeBanned: fecha
+    }, { new: true })
+    res.send({info: 'Usuario baneado', success: true})
+  } catch {
+    res.status(500).send({info: 'Error al intentar banear al usuario', success: false})
+  }
+}
+
+const permaBanUsers = async (req, res) => {
+  const { isAdmin } = req.user
+  if (!isAdmin) return res.status(401).send({info: 'No tienes permisos para acceder a esta ruta', success: false})
+  try { 
+    const { id } = req.body;
+    await User.findByIdAndUpdate(id, {
+      estado: false
+    })
+    res.send({info: 'Usuario baneado permanentemente', success: true})
+  } catch {
+    res.status(500).send({info: 'Error al intentar banear al usuario', success: false})
+  }
+}
+
+
 module.exports = {
   getUsers,
   getUserById,
@@ -165,4 +194,7 @@ module.exports = {
   topTen,
   editIsAdmin,
   deleteUser,
+  banUsers,
+  permaBanUsers
+
 };
