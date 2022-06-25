@@ -93,13 +93,13 @@ const topFive = async (_, res) => {
     const sorted = allUsers.filter(element => element.courses.length > 0)
       .slice(0, 5).sort((a, b) => {
       return (
-        a.courses.map((c) => {
+        a.courses?.map((c) => {
           // cursos
-          return c.lesson.filter((l) => l.isCompleted === true) // lecciones completas
+          return c.lesson?.filter((l) => l.isCompleted === true) // lecciones completas
         }).length +
         34 -
-        (b.courses.map((c) => {
-          return c.lesson.filter((l) => l.isCompleted === true)
+        (b.courses?.map((c) => {
+          return c.lesson?.filter((l) => l.isCompleted === true)
         }).length +
           34)
       )
