@@ -14,35 +14,35 @@ export const CursoBase = {
     "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/800px-JavaScript-logo.png",
   userIncript: 4567,
   description:
-    "JavaScript es el lenguaje de programación que debes usar para añadir características interactivas a tu sitio web, (por ejemplo, juegos, eventos que ocurren cuando los botones son presionados o los datos son introducidos en los formularios, efectos de estilo dinámicos, animación, y mucho más)",
-  clases: [
+    "JavaScript es el lenguaje de programación que debes usar para añadir características interactivas a tu sitio web, (por ejemplo, juegos, eventos que ocurren cuando los botones son presionados o los datos son introduc_idos en los formularios, efectos de estilo dinámicos, animación, y mucho más)",
+  lessons: [
     {
-      ...clase,
-      id: 1,
+      _id: 1,
       titulo: "Hello World!",
       descripcion: "El tipico ejercicio introductorio Hello World",
+      num: 1,
       isCompleted: true,
       isLocked: false,
     },
     {
-      ...clase,
-      id: 2,
+      _id: 2,
       titulo: "clase prueba",
       descripcion: "clase de prueba",
+      num: 2,
       isCompleted: true,
       isLocked: false,
     },
     {
-      ...clase,
-      id: 3,
+      _id: 3,
       titulo: "clase prueba",
       descripcion: "clase de prueba?",
+      num: 3,
       isCompleted: true,
       isLocked: false,
     },
     // {
     //   ...clase,
-    //   id: 4,
+    //   _id: 4,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -50,7 +50,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 5,
+    //   _id: 5,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -58,7 +58,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 6,
+    //   _id: 6,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -66,7 +66,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 7,
+    //   _id: 7,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -74,7 +74,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 8,
+    //   _id: 8,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -82,7 +82,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 9,
+    //   _id: 9,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -90,7 +90,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 10,
+    //   _id: 10,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -98,7 +98,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 11,
+    //   _id: 11,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -106,7 +106,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 12,
+    //   _id: 12,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -114,7 +114,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 13,
+    //   _id: 13,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -122,7 +122,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 14,
+    //   _id: 14,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -130,7 +130,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 15,
+    //   _id: 15,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -138,7 +138,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 16,
+    //   _id: 16,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -146,7 +146,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 17,
+    //   _id: 17,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -154,7 +154,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 18,
+    //   _id: 18,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -162,7 +162,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 19,
+    //   _id: 19,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -170,7 +170,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 20,
+    //   _id: 20,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -178,7 +178,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 21,
+    //   _id: 21,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -186,7 +186,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 22,
+    //   _id: 22,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -194,7 +194,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 23,
+    //   _id: 23,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -202,7 +202,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 24,
+    //   _id: 24,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -210,7 +210,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 25,
+    //   _id: 25,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -218,7 +218,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 26,
+    //   _id: 26,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,
@@ -226,7 +226,7 @@ export const CursoBase = {
     // },
     // {
     //   ...clase,
-    //   id: 27,
+    //   _id: 27,
     //   titulo: "clase prueba",
     //   descripcion: "clase de prueba",
     //   isCompleted: false,

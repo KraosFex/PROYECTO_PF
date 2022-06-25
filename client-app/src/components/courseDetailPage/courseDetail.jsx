@@ -21,31 +21,29 @@ export default function CourseDetail(props) {
 
   let dispatch = useDispatch();
 
-  const [idClase, setIdClase] = useState(1);
+  const [idClase, setIdClase] = useState("");
+  const [activeArrow, setActiveArrow] = useState(false);
+  const [course, setCourse] = useState({});
   const [claseSumary, setClaseSumary] = useState({});
 
-  const [Course, setCourse] = useState("");
-
   useEffect(() => {
-    const axionReq = async () => {
+    async function axionReq() {
       const data = await dispatch(findCourse(id));
-      console.log(data);
       setCourse(data);
-    };
+    }
     axionReq();
   }, [dispatch]);
 
-  console.log("hola", Course);
-  let Curso = Course;
-  if (Curso.lessons) {
-    const lesson = Curso.lessons.find((o) => o._id === idClase);
+  if (course.lesson) {
+    const lesson = course.lessons.find((o) => o._id === idClase);
     setClaseSumary(lesson);
   }
+
+  console.log(course);
+  let Curso = course;
   let style = darkTheme;
 
   const direction = useSelector((store) => store.arrowCourse);
-
-  const [activeArrow, setActiveArrow] = useState(false);
 
   const arrowDir = () => {
     if (direction === "down") dispatch(setArrowCourse("up"));
@@ -94,30 +92,30 @@ export default function CourseDetail(props) {
                 <h3>Clases</h3>
                 <div className={style.progreso}>
                   <div className={style.input}>
-                    {Curso.clases &&
-                      Curso.clases.map((e) => (
+                    {Curso.lessons &&
+                      Curso.lessons.map((e) => (
                         <div className={style.ClasP}>
                           {e.isCompleted ? (
                             <input
-                              key={e.id}
+                              key={e._id}
                               defaultChecked
                               type="radio"
                               readOnly
-                              onClick={() => setIdClase(e.id)}
+                              onClick={() => setIdClase(e._id)}
                             />
                           ) : e.isLocked ? (
                             <input
                               key={e.id}
                               type="radio"
                               disabled
-                              onClick={() => setIdClase(e.id)}
+                              onClick={() => setIdClase(e._id)}
                             />
                           ) : (
                             <input
-                              key={e.id}
+                              key={e._id}
                               type="radio"
                               defaultChecked={false}
-                              onClick={() => setIdClase(e.id)}
+                              onClick={() => setIdClase(e._id)}
                               className={style.locked}
                             />
                           )}
@@ -143,7 +141,7 @@ export default function CourseDetail(props) {
                 </div>
               </div>
               <div className={style.lessonSumary}>
-                <LessonSumary clase={Curso.lessons} />
+                <LessonSumary clase={claseSumary} />
               </div>
             </div>
           </div>

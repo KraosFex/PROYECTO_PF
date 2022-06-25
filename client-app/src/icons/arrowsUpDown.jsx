@@ -13,15 +13,7 @@ function ArrowsUpDown() {
         stroke="currentColor"
         strokeWidth="2"
       >
-<<<<<<< HEAD
         <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-=======
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M19 9l-7 7-7-7"
-        />
->>>>>>> 319a9ea1cbcd70259c535a5159498249d55c8552
       </svg>
     );
   } else if (direction === "up") {
@@ -33,15 +25,7 @@ function ArrowsUpDown() {
         stroke="currentColor"
         strokeWidth="2"
       >
-<<<<<<< HEAD
         <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-=======
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M5 15l7-7 7 7"
-        />
->>>>>>> 319a9ea1cbcd70259c535a5159498249d55c8552
       </svg>
     );
   }

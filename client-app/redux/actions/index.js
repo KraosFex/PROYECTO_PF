@@ -135,12 +135,10 @@ export const findCourse = (id) => {
       const resp = await axios.get(
         `http://localhost:3001/api/cursos/detail/${id}`
       );
-      console.log("hola", resp);
       return resp.data;
     } catch (err) {
-      console.log("roto");
-      // alert("Ups! Something went wrong...");
-      // new Error(err);
+      alert("Ups! Something went wrong...");
+      new Error(err);
     }
   };
 };

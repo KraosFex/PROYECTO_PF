@@ -43,11 +43,7 @@ const UserRank = () => {
           <img
             src={frame}
             className={style.frame}
-<<<<<<< HEAD
             onerror={() => "this.style.display='none'"}
-=======
-            onError="this.style.display='none'"
->>>>>>> 319a9ea1cbcd70259c535a5159498249d55c8552
           />
         </div>
         <div className={style.userRankContainer}>

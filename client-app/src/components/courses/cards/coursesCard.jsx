@@ -24,8 +24,6 @@ function CoursesCard({ courses, setRefresh, refresh }) {
 
   const { user } = useSelector((store) => store);
 
-  const { user } = useSelector((store) => store);
-
   const handleClick = (id) => {
     if (isFavorite) {
       dispatch(unmarkfavorites(id));
