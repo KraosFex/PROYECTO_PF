@@ -49,12 +49,6 @@ function NavBar(props) {
             Cursos
           </NavLink>
         </div>
-        {/* <div className={style.icon}>
-          <CodeIcon />
-          <NavLink to="#" className={style.hide}>
-            Ejercicios
-          </NavLink>
-        </div> */}
         <div className={style.icon}>
           <Discord />
           <NavLink to="#" className={style.hide}>

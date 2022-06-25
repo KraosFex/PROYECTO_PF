@@ -140,7 +140,7 @@ export default function CourseDetail(props) {
                 </div>
               </div>
               <div className={style.lessonSumary}>
-                <LessonSumary clase={claseSumary} />
+                <LessonSumary clase={claseSumary} courseId={courseId}/>
               </div>
             </div>
           </div>

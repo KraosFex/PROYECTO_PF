@@ -157,19 +157,6 @@ export const login = (post) => {
   };
 };
 
-export const getCourseByName = (name) => {
-  return async function (dispatch) {
-    try {
-      const metaData = await axios.get(
-        `http://localhost:3001/api/cursos/${name}`
-      );
-      dispatch(setShowedCourses(metaData.data));
-    } catch (err) {
-      new Error(err);
-      alert("Ups! Something went wrong...");
-    }
-  };
-};
 
 export const findUserByName = (username) => {
   return async function (dispatch) {
@@ -242,6 +229,18 @@ export const getCourses = () => {
   };
 };
 
+export const getCourseByName = (name) => {
+  return async function(dispatch) {
+    try {
+      const metaData = await axios.get(`http://localhost:3001/api/cursos/${name}`)
+      dispatch(setShowedCourses(metaData.data));
+    } catch (err) {
+      new Error(err)
+      alert("Ups! Something went wrong...");
+    }
+  };
+}
+
 export const bookmarkCourse = (id) => {
   return async function (dispatch) {
     try {
@@ -288,10 +287,10 @@ export const unmarkfavorites = (id) => {
   };
 };
 
+/*A LA ESPERA DE LA CREACION DE LA RUTA??????*/
 export const getLesson = (idLesson) => {
   return async function (dispatch) {
     try {
-      /*A LA ESPERA DE LA CREACION DE LA RUTA*/
       const metaData = await axios(
         `http://localhost:3001/api/cursosprivate/${idLesson}/lesson`
       );
