@@ -10,6 +10,8 @@ import {
 // utils
 import { filter } from "../../utils/filters";
 import { sortByRating } from "../../utils/sorter";
+import { ordered } from "../../utils/filterSorter";
+import { lenguaje } from "../../utils/filterSorter";
 
 // styles
 import { ThemeProvider } from "styled-components";
@@ -27,7 +29,7 @@ function Courses() {
 
   const allCourses = useSelector((store) => store.courses);
   const tema = useSelector((store) => store.theme);
-  const showedCourses = useSelector((store) => store.showedCourses);
+  var showedCourses = allCourses;
   const direction = useSelector((store) => store.arrowUpDown);
 
   //forcing the re-render of the component
@@ -45,25 +47,50 @@ function Courses() {
     dispatch(setShowedCourses(filterArray));
   };
 
-  const search = (e) => {
-    // SETEA TODOS LOS FILTROS/SORTS A false
-    const selector = [...document.getElementsByName("votes")];
-    selector[0].value = 0;
-    const radioInputs = [...document.getElementsByName("progreso")];
-    for (const input of radioInputs) {
-      if (input.value === "Todos") {
-        input.checked = true;
-      } else {
-        input.checked = false;
-      }
-    }
-    const inputsCheckbox = [...document.getElementsByName("languages")];
-    for (const input of inputsCheckbox) {
-      input.checked = false;
-    }
+  //   const search = (e) => {
+  //     // SETEA TODOS LOS FILTROS/SORTS A false
+  //     const selector = [...document.getElementsByName("votes")];
+  //     selector[0].value = 0;
+  //     const radioInputs = [...document.getElementsByName("progreso")];
+  //     for (const input of radioInputs) {
+  //       if (input.value === "Todos") {
+  //         input.checked = true;
+  //       } else {
+  //         input.checked = false;
+  //       }
+  //     }
+  //     const inputsCheckbox = [...document.getElementsByName("languages")];
+  //     for (const input of inputsCheckbox) {
+  //       input.checked = false;
+  //     }
+  //   dispatch(getCourseByName(e.target.value));
+  // };
 
+  // AGREGADO  PRUEBA--------------------------------
+  const [order, setCourseOrder] = useState("");
+  const [tipo1, setTipo1] = useState("");
+  const [tipo2, setTipo2] = useState("");
+
+  const orderBy = (e) => {
+    setCourseOrder(e.target.value);
+  };
+  const byTipo = (e) => {
+    if (tipo1 === "0") {
+      setTipo1(e.target.value);
+    } else {
+      setTipo2(e.target.value);
+    }
+  };
+
+  const search = (e) => {
+    e.preventDefault();
     dispatch(getCourseByName(e.target.value));
   };
+
+  if (order) showedCourses = ordered(order, allCourses);
+  if (tipo1 && tipo1 != "0") showedCourses = lenguaje(tipo1, tipo2, allCourses);
+
+  //---------------------------------------------------
 
   const arrowDir = () => {
     if (direction === "down") dispatch(setArrowUpDown("up"));
@@ -89,16 +116,16 @@ function Courses() {
             <select
               className={activeArrow ? style.selectActive : style.select}
               name="votes"
-              onChange={(e) => sorted(e)}
+              onChange={(e) => orderBy(e)}
             >
               <option value="0">---</option>
-              <option value="1">Mas votados</option>
-              <option value="2">Menos votados</option>
+              <option value="MasVotados">Mas votados</option>
+              <option value="MenosVotados">Menos votados</option>
             </select>
             <p className={activeArrow ? style.pActive : style.p}>Lenguaje</p>
             <div
               className={activeArrow ? style.select2Active : style.select2}
-              onChange={() => filtered()}
+              onChange={byTipo}
             >
               <label>JavaScript</label>
               <input

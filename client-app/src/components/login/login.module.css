@@ -288,3 +288,42 @@
   width: 100%;
   justify-content: center;
 }
+
+
+@media (max-width: 768px) {
+
+  .parentContainer{
+    flex-direction: column;
+    width: 80%;
+    border-radius: 0em;
+    height: 75%;
+  }
+
+  .childContainer{
+    width: 100%;
+    border-radius: 0 0 0 0 ;
+    justify-content: center;
+    margin-top: 1em;
+  }
+
+  .childContainer h3{
+    display: none;
+  }
+
+  .childContainer:first-child{
+    background: none;
+  }
+
+  .imgContainer{
+    display: none;
+  }
+  
+  .form{
+    width: 70%;
+  }
+
+  .googleLabel{
+    display: none;
+  }
+
+}

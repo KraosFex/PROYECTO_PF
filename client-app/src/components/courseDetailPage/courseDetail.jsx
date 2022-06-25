@@ -1,48 +1,54 @@
 // libraries
-import { useState,  useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { findCourse } from "../../../redux/actions";
 import { useParams } from "react-router-dom";
 
-//actions
-import { findCourse } from '../../../redux/actions';
-
 // hardDate
+import { CursoBase } from "./CurssoBase";
 import Stars from "./Vote/Vote";
 
 // styles
 import { ThemeProvider } from "styled-components";
-import darkTheme from "./courseDark.module.css";
-import lightTheme from "./courseLight.module.css";
-import LessonSumary from "./lessonSumary/lessonSumary";
+import darkTheme from "./course/courseDark.module.css";
+import lightTheme from "./course/courseLight.module.css";
+import LessonSumary from "./course/lessonSumary/lessonSumary";
+import { setArrowCourse } from "../../../redux/actions";
+import ArrowsCourse from "../../icons/arrowsCourse";
 
 export default function CourseDetail(props) {
+  let { id } = useParams();
 
-  const { id } = useParams();
+  let dispatch = useDispatch();
 
-  const [ course, setCourse ] = useState({});
-
-  const dispatch = useDispatch();
-
-
-  const [idClase, setIdClase] = useState(1);
+  const [idClase, setIdClase] = useState("");
+  const [activeArrow, setActiveArrow] = useState(false);
+  const [course, setCourse] = useState({});
   const [claseSumary, setClaseSumary] = useState({});
-
-
-  let style = darkTheme;
 
   useEffect(() => {
     async function axionReq() {
       const data = await dispatch(findCourse(id));
-      setCourse(data)
+      setCourse(data);
     }
-
     axionReq();
-  }, [dispatch])
+  }, [dispatch]);
 
-  if(course.lesson) {
+  if (course.lesson) {
     const lesson = course.lessons.find((o) => o._id === idClase);
-    setClaseSumary(lesson)
+    setClaseSumary(lesson);
   }
+
+  let Curso = course;
+  let style = darkTheme;
+
+  const direction = useSelector((store) => store.arrowCourse);
+
+  const arrowDir = () => {
+    if (direction === "down") dispatch(setArrowCourse("up"));
+    if (direction === "up") dispatch(setArrowCourse("down"));
+    setActiveArrow(!activeArrow);
+  };
 
   return (
     <ThemeProvider
@@ -53,75 +59,81 @@ export default function CourseDetail(props) {
       <div className={style.flexContainer}>
         <div className={style.Container}>
           <div className={style.flexContainer2}>
-            <h1 className={style.titulo}>{course.titulo}</h1>
+            <h1 className={style.titulo}>{Curso.titulo}</h1>
             <div className={style.data}>
               <label className={style.label}>
-                Clasificacion: {course.calificacion}
+                Clasificacion: {Curso.calificacion}
               </label>
               <label className={style.label}>
-                Usuarios Inscriptos: {course.userIncript}
+                Usuarios Inscriptos: {Curso.userIncript}
               </label>
               <Stars />
             </div>
-            <img className={style.imagen} alt="" src={course.imagen} />
+            <img className={style.imagen} alt="" src={Curso.imagen} />
           </div>
           <div className={style.flexContainer3}>
             <div className={style.containerDescrip}>
               <h3>Descripcion</h3>
-              <p>{course.description}</p>
-              <h3>Comentarios</h3>
+              <p
+                className={
+                  activeArrow ? style.descriptionActive : style.description
+                }
+              >
+                {Curso.description}
+              </p>
+              <div className={style.arrow} onClick={arrowDir}>
+                <ArrowsCourse />
+              </div>
+              {/* <h3>Comentarios</h3> */}
             </div>
             <div className={style.flexContainer4}>
               <div className={style.flexContainer5}>
-                <p>
-                  {" "}
-                  --------------------------Barra de progreso
-                  aca--------------------------
-                </p>
+                <h3>Clases</h3>
                 <div className={style.progreso}>
                   <div className={style.input}>
-                    {course.lessons && course.lessons.map((e) => (
-                      <div className={style.ClasP}>
-                        {e.isCompleted ? (
-                          <input
-                            key={e.id}
-                            defaultChecked
-                            type="radio"
-                            readOnly
-                            onClick={() => setIdClase(e.id)}
-                          />
-                        ) : e.isLocked ? (
-                          <input
-                            key={e.id}
-                            type="radio"
-                            disabled
-                            onClick={() => setIdClase(e.id)}
-                          />
-                        ) : (
-                          <input
-                            key={e.id}
-                            type="radio"
-                            defaultChecked={false}
-                            onClick={() => setIdClase(e.id)}
-                            className={style.locked}
-                          />
-                        )}
-                      </div>
-                    ))}
+                    {Curso.lessons &&
+                      Curso.lessons.map((e) => (
+                        <div className={style.ClasP}>
+                          {e.isCompleted ? (
+                            <input
+                              key={e._id}
+                              defaultChecked
+                              type="radio"
+                              readOnly
+                              onClick={() => setIdClase(e._id)}
+                            />
+                          ) : e.isLocked ? (
+                            <input
+                              key={e.id}
+                              type="radio"
+                              disabled
+                              onClick={() => setIdClase(e._id)}
+                            />
+                          ) : (
+                            <input
+                              key={e._id}
+                              type="radio"
+                              defaultChecked={false}
+                              onClick={() => setIdClase(e._id)}
+                              className={style.locked}
+                            />
+                          )}
+                        </div>
+                      ))}
                   </div>
                 </div>
                 <div className={style.info}>
-                  <div className={style.input}>
+                  <div className={style.input2}>
                     <input defaultChecked type="radio" id="completada" />
                   </div>
                   <p>Completada</p>
 
-                  <div className={style.input}>
+                  <div className={style.input2}>
                     <input type="radio" id="disponible" />
                   </div>
                   <p>Disponible</p>
 
-                  <div className={style.input}>
+                  <div className={style.input2}>
                     <input type="radio" disabled />
                   </div>
                   <p>Bloqueada</p>

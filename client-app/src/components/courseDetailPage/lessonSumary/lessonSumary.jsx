@@ -3,7 +3,7 @@ import style from "./lessonSumary.module.css";
 import { NavLink } from "react-router-dom";
 
 function LessonSumary({ clase }) {
-  if(clase) {
+  if (clase) {
     var completo = clase.isCompleted === true ? "Completada" : "Disponible";
     return (
       <div className={style.flexContainer}>
@@ -24,11 +24,8 @@ function LessonSumary({ clase }) {
       </div>
     );
   } else {
-    return (
-      <></>
-    )
+    return <></>;
   }
-
 }
 
 export default LessonSumary;

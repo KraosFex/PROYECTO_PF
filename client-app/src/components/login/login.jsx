@@ -121,7 +121,7 @@ function Login() {
             </div>
           </div>
           <div className={style.childContainer}>
-            <h1>Sign In</h1>
+            <h1>Entrar</h1>
             {logError.err && (
               <label className={style.logError}>{logError.err}</label>
             )}
