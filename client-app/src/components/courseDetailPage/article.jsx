@@ -3,8 +3,6 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { findCourse } from "../../../redux/actions";
-
 // components
 import Stars from "./Vote/Vote";
 
@@ -19,17 +17,18 @@ import LessonSumary from "./course/lessonSumary/lessonSumary";
 
 export default function CardD(props) {
   
-  const dispatch =useDispatch()
-  
   const { id } =  useParams()
 
-  dispatch(findCourse(id))
-  
-  const { course } = useSelector(store => store) 
+  const { user } = useSelector(store => store) 
+
+  const courseId = parseInt(id)
+
+  const course = user.courses.find(course => course.id === courseId)
 
   let [idClase, setIdClase] = useState(1);
 
   let claseSumary = course.clases.find((o) => o.id === idClase);
+
   let style = darkTheme;
 
   return (
@@ -116,7 +115,7 @@ export default function CardD(props) {
                 </div>
               </div>
               <div className={style.lessonSumary}>
-                <LessonSumary clase={claseSumary} />
+                <LessonSumary clase={claseSumary} courseId={courseId}/>
               </div>
             </div>
           </div>

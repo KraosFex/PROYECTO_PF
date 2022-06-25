@@ -60,8 +60,7 @@ function App() {
           />
           <Route element={<PrivateRoute isLogged={isLogged} />}>
             <Route path="/perfil" element={<Perfil theme={theme} />} />
-            <Route path="/lesson/:idLesson" element={<LessonPage />} />
-            <Route path="/lesson/:idLesson/Testing" element={<TestPage />} />
+            <Route path="/lesson/:idCouse/:idLesson" element={<LessonPage />} />
           </Route>
           <Route element={<PrivateAdminRoute isAdmin={user.isAdmin} />}>
             <Route path="/users" element={<UsersPage />} />

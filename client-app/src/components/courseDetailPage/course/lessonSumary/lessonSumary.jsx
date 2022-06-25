@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 // styles
 import style from "./lessonSumary.module.css";
 
-export default function LessonSumary({ clase }) {
+export default function LessonSumary({ clase, courseId }) {
   var completo = clase.isCompleted === true ? "Completada" : "Disponible";
   return (
     <div className={style.flexContainer}>
@@ -19,7 +19,7 @@ export default function LessonSumary({ clase }) {
         </div>
         <h1>{clase.descripcion}</h1>
         <div className={style.flexContainer3}>
-          <NavLink to={`/lesson/${clase.vimeoId}`}> Ver clase </NavLink>
+          <NavLink to={`/lesson/${courseId}/${clase.id}`}> Ver clase </NavLink>
         </div>
       </div>
     </div>

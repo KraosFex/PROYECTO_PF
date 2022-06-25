@@ -287,10 +287,10 @@ export const unmarkfavorites = (id) => {
   };
 };
 
+/*A LA ESPERA DE LA CREACION DE LA RUTA??????*/
 export const getLesson = (idLesson) => {
   return async function (dispatch) {
     try {
-      /*A LA ESPERA DE LA CREACION DE LA RUTA*/
       const metaData = await axios(
         `http://localhost:3001/api/cursosprivate/${idLesson}/lesson`
       );
