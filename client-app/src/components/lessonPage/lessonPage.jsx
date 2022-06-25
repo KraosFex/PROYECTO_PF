@@ -1,47 +1,62 @@
-// libraries
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect } from 'react';
+import { useParams, NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import Vimeo from '@u-wave/react-vimeo';
 
-// redux actions 
+// redux actions
 import { getLesson } from '../../../redux/actions';
+
+// Components
+import QuiztCart from './quiztCart';
 
 // style
 import style from './lessonPage.module.css';
 
-function LessonPage() {
+// aqui me traigao la lesson
 
-const dispatch = useDispatch();
+export default function LessonPage() {
+  const [approved, setApproved] = useState(false);
+  
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-const { idCourse, idLesson} = useParams();
+  const { courseId, lessonId } = useParams()
+  
+  const IdOflesson = parseInt(lessonId)
 
-const [lesson, setLesson] = useState({});
-
-useEffect(() => {
-
-  const axiosData = async () => {
-      try {
-        const lessonData = await dispatch(getLesson(idCourse, idLesson));
-        setLesson(lesson);
-      } catch(err) {
-        alert("algo paso pa");
-      }
+  useEffect(() =>{ 
+    const lesson = dispatch(getLesson(lessonId))
+    return console.log(lesson)
+  },[dispatch])
+  
+  const handleApproved = (approved) => {
+    setApproved(approved)
   }
 
-axiosData();
-}, [dispatch]);
+  const handelSubmit = () => {
+    /* 
+     * aqui deberia ir la ruta que actuliza la lesson del user
+     */
+
+    navigate(`/lesson/${IdOfCourse}/${IdOflesson + 1}`)
+  }
 
   return (
     <div className={style.highContainer}>
       {/*ESTA ES TODA LA DATA QUE TRAE EL COMPONENETE DE MOMENTO*/}
       <div className={style.infoContainer}>
-        <h1 className={style.title}>{lesson.title}</h1>
-        <h4 className={style.description}>{lesson.descripcion}</h4>
-      </div>
-      {/*ACA IRIA EL COMPONENTE QUE TIENE QUE CREAR JOHAN CON EL EDITOR DE CODIGO Y EL TEST O GRAFICO*/}
+        <NavLink to={'/home'}> Volver al home </NavLink>
+        <div className={style.video}>
+          <Vimeo video={`${lesson.id}`} responsive />
+        </div>
+        <h4 className={style.description}>Una description</h4>
+        <hr />
+        <QuiztCart questions={questions} handleApproved={handleApproved} approved={approved}/>
+        <button disabled={approved} onClick={handelSubmit}>
+          {" "}
+          Siguiente leccion
+        </button>
+      </div>      
     </div>
   )
 }
-
-
-export default LessonPage
