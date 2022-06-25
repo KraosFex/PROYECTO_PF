@@ -17,22 +17,12 @@ import lightTheme from "./coursesCardLight.module.css";
 let style = darkTheme;
 
 function CoursesCard({ courses, setRefresh, refresh }) {
-<<<<<<< HEAD
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const theme = useSelector((store) => store.theme);
   const isLogged = useSelector((store) => store.isLogged);
-=======
 
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const theme = useSelector(store => store.theme);
-  const isLogged  = useSelector(store => store.isLogged);
-
-  const [button, setButton] = useState()
-
-  const { user } = useSelector(store => store)
->>>>>>> 319a9ea1cbcd70259c535a5159498249d55c8552
+  const { user } = useSelector((store) => store);
 
   const { user } = useSelector((store) => store);
 
