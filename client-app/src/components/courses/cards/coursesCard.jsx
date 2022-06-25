@@ -23,9 +23,8 @@ function CoursesCard({ courses, setRefresh, refresh }) {
   const theme = useSelector(store => store.theme);
   const isLogged  = useSelector(store => store.isLogged);
 
-  const [button, setButton] = useState()
-
   const { user } = useSelector(store => store)
+
 
 
   const handleClick = (id) => {
@@ -41,15 +40,17 @@ function CoursesCard({ courses, setRefresh, refresh }) {
   const isFavorite = (id) => {
     for(const course of user.courses) {
       if(course.course._id === id && course.isFavorite === true) {
-        setButton(<AiFillHeart onClick={() => handleClick(course._id, true)}/>)
+        return (<AiFillHeart onClick={() => handleClick(course._id, true)}/>)
       }
     }
-    setButton(<AiOutlineHeart onClick={() => handleClick(course._id, false)}/>)
+    return (<AiOutlineHeart onClick={() => handleClick(id, false)}/>)
   }
+
 
   return (
     <div>
-      {courses.map((course) => (
+      {courses.map((course) =>
+         (
         <ThemeProvider
           key={course._id}
           theme={theme === "light" ? (style = lightTheme) : (style = darkTheme)}
@@ -64,7 +65,7 @@ function CoursesCard({ courses, setRefresh, refresh }) {
               </NavLink>
               <div className={style.courseStats}>
               {isLogged?
-                  {button}
+                  isFavorite(course._id)
                 :
                   <AiOutlineHeart onClick={() => navigate("/login")}/>
               }

@@ -9,6 +9,6 @@ const {
 
 router.get("/", getCursos);
 router.get("/:name", getCursoName);
-router.get("/:id", getCursoById);
+router.get("/detail/:id", getCursoById);
 
 module.exports = router;
