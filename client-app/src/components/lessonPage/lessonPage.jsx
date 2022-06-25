@@ -33,6 +33,14 @@ export default function LessonPage() {
     setApproved(approved)
   }
 
+  const handelSubmit = () => {
+    /* 
+     * aqui deberia ir la ruta que actuliza la lesson del user
+     */
+
+    navigate(`/lesson/${IdOfCourse}/${IdOflesson + 1}`)
+  }
+
   return (
     <div className={style.highContainer}>
       {/*ESTA ES TODA LA DATA QUE TRAE EL COMPONENETE DE MOMENTO*/}
@@ -44,7 +52,7 @@ export default function LessonPage() {
         <h4 className={style.description}>Una description</h4>
         <hr />
         <QuiztCart questions={questions} handleApproved={handleApproved} approved={approved}/>
-        <button disabled={approved} onClick={() => (navigate(`/lesson/${IdOfCourse}/${IdOflesson + 1}`))}>
+        <button disabled={approved} onClick={handelSubmit}>
           {" "}
           Siguiente leccion
         </button>
