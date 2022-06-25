@@ -1,6 +1,5 @@
 export const SET_COURSES = 'SET_COURSES';
 export const SET_SHOWEDCOURSES = 'SET_SHOWEDCOURSES';
-export const SET_SHOWEDCOURSE = 'SET_SHOWEDCOURSE';
 export const SET_VALIDATEUSER = "SET_VALIDATEUSER";
 export const SET_THEME = "SET_THEME";
 export const LOGOUT = "LOGOUT";

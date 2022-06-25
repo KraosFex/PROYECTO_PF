@@ -33,13 +33,6 @@ export const setShowedCourses = (courses) => {
   };
 };
 
-export const setShowedCourse = (courses) => {
-  return {
-    type: SET_SHOWEDCOURSE,
-    payload: courses
-  }
-}
-
 export const setCourses = (courses) => {
   return {
     type: SET_COURSES,
