@@ -50,7 +50,6 @@ function App() {
     <div className={style.AppBody}>
       <Routes>
         <Route exact path="/" element={<Landing />} />
-        <Route path="/pay" element={<PaymentGateway />} />
         <Route path="/login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route element={<AppLayout />}>
@@ -66,6 +65,7 @@ function App() {
               path="/course/:idCourse/:idLesson"
               element={<LessonPage />}
             />
+            <Route path="/pay" element={<PaymentGateway />} />
           </Route>
           <Route element={<PrivateAdminRoute isAdmin={user.isAdmin} />}>
             <Route path="/users" element={<UsersPage />} />
