@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, NavLink, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Vimeo from '@u-wave/react-vimeo';
 
 // redux actions
@@ -15,20 +15,19 @@ import style from './lessonPage.module.css';
 // aqui me traigao la lesson
 
 export default function LessonPage() {
-
+  const [approved, setApproved] = useState(false);
+  
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [approved, setApproved] = useState(false);
-
   const { courseId, lessonId } = useParams()
-
-  const {user} = useSelector(store => store)
   
-  const IdOfCourse = parseInt(courseId)
   const IdOflesson = parseInt(lessonId)
 
-  const course = user.courses.find(course => course.id === IdOfCourse)
-  const lesson = course.find(lesson = lesson.id === IdOflesson)
+  useEffect(() =>{ 
+    const lesson = dispatch(getLesson(lessonId))
+    return console.log(lesson)
+  },[dispatch])
   
   const handleApproved = (approved) => {
     setApproved(approved)
@@ -44,7 +43,7 @@ export default function LessonPage() {
         </div>
         <h4 className={style.description}>Una description</h4>
         <hr />
-        <QuiztCart questions={questions} handleApproved={handleApproved}/>
+        <QuiztCart questions={questions} handleApproved={handleApproved} approved={approved}/>
         <button disabled={approved} onClick={() => (navigate(`/lesson/${IdOfCourse}/${IdOflesson + 1}`))}>
           {" "}
           Siguiente leccion

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 // style
 import style from './questionsPage.module.css';
 
-export default function QuiztCart( { questions, handleApproved } ) {
+export default function QuiztCart( { questions, handleApproved, approved } ) {
 
   const [preguntaActual, setPreguntaActual] = useState(0);
   const [puntuación, setPuntuación] = useState(0);
@@ -11,7 +11,6 @@ export default function QuiztCart( { questions, handleApproved } ) {
   const [tiempoRestante, setTiempoRestante] = useState(10);
   const [areDisabled, setAreDisabled] = useState(false);
   const [answersShown, setAnswersShown] = useState(false);
-  const [approved, setApproved] = useState(false);
 
   const constApproved = questions.length * 0.5
 
@@ -25,8 +24,7 @@ export default function QuiztCart( { questions, handleApproved } ) {
     setTimeout(() => {
       if (preguntaActual === questions.length - 1) {
         setIsFinished(true);
-        if(constApproved > (puntuación * 100) / questions.length) setApproved(true)
-        handleApproved(approved)
+        if(constApproved > (puntuación * 100) / questions.length) handleApproved(true)
       } else {
         setPreguntaActual(preguntaActual + 1);
         setTiempoRestante(10);
