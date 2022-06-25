@@ -1,5 +1,6 @@
 const Lesson = require('../model/modelLesson')
 const Curso = require('../model/modelCurso')
+const User = require('../model/modelUser')
 const ErrorResponse = require('../utils/errorResponse.js')
 
 const createLesson = async (req, res, next) => {
@@ -8,9 +9,12 @@ const createLesson = async (req, res, next) => {
     const course = await Curso.findById(req.params.id)
     if (!course) return res.send({ info: 'El curso no existe' })
     const newLesson = await Lesson.create({ titulo, descripcion, num })
-    await Curso.findByIdAndUpdate(req.params.id, {
+    const curso = await Curso.findByIdAndUpdate(req.params.id, {
       $push: { lessons: newLesson }
     })
+    if (curso.lessons[0]._id === newLesson._id) {
+      curso.lessons[0].isLocked = false
+    }
     res.send({ info: 'Curso creado exitosamente', newLesson })
   } catch (err) {
     next(new ErrorResponse(err, 500))
@@ -25,6 +29,15 @@ const getLesson = async (req, res, next) => {
     res.send({ info: 'Clase obtenida correctamente', lesson })
   } catch (err) {
     next(new ErrorResponse('Error al obtener la clase', 500))
+  }
+}
+
+const isCompleted = async (req, res) => {
+  const id = req.user._id
+  const idLesson = req.body
+  try {
+    const user = await Course.findById(id)
+
   }
 }
 
