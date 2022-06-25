@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-function ArrowsUpDown() {
-  const direction = useSelector((store) => store.arrowUpDown);
+function ArrowsCourse() {
+  const direction = useSelector((store) => store.arrowCourse);
 
   if (direction === "down") {
     return (
@@ -13,7 +13,11 @@ function ArrowsUpDown() {
         stroke="currentColor"
         strokeWidth="2"
       >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M19 9l-7 7-7-7"
+        />
       </svg>
     );
   } else if (direction === "up") {
@@ -25,10 +29,14 @@ function ArrowsUpDown() {
         stroke="currentColor"
         strokeWidth="2"
       >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M5 15l7-7 7 7"
+        />
       </svg>
     );
   }
 }
 
-export default ArrowsUpDown;
+export default ArrowsCourse;

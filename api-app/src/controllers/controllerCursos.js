@@ -3,14 +3,12 @@ const User = require("../model/modelUser");
 const ErrorResponse = require("../utils/errorResponse.js");
 
 const getCursos = async (req, res, next) => {
-
-  const limit = parseInt(req.query.limit) || 8
-  const page = parseInt(req.query.page) || 1
+  const limit = parseInt(req.query.limit) || 8;
+  const page = parseInt(req.query.page) || 1;
 
   try {
-
-    const courses = await Course.paginate({ estado: true }, { limit, page })
-    res.send(courses)
+    const courses = await Course.paginate({ estado: true }, { limit, page });
+    res.send(courses);
   } catch (err) {
     next(new ErrorResponse("Error al crear el curso", 500, false));
     console.error(err);
@@ -21,7 +19,6 @@ const getCursoById = async (req, res, next) => {
   try {
     const course = await Course.findById(req.params.id);
     res.send(course);
-    return;
   } catch (err) {
     next(new ErrorResponse("Error al crear el curso", 500, false));
     console.error(err);
@@ -56,7 +53,7 @@ const createCurso = async (req, res, next) => {
 };
 
 const addFavorite = async (req, res, next) => {
-  const  id  = req.user._id;
+  const id = req.user._id;
   const { idCurso, isFavorite } = req.body;
   try {
     const user = await User.findByIdAndUpdate(
@@ -78,7 +75,7 @@ const addFavorite = async (req, res, next) => {
 };
 
 const removeFavorite = async (req, res, next) => {
-  const  id  = req.user._id;
+  const id = req.user._id;
   const { idCursoFavorito } = req.body;
 
   try {
@@ -101,7 +98,7 @@ const removeFavorite = async (req, res, next) => {
 };
 
 const addVotes = async (req, res, next) => {
-  const  id  = req.user._id;
+  const id = req.user._id;
   const { idUser, votes } = req.body;
   try {
     const curso = await Course.findByIdAndUpdate(

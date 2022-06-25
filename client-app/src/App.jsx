@@ -17,7 +17,7 @@ import Landing from "./components/landing/landing";
 import Perfil from "./components/perfil/perfil";
 import PrivateRoute from "./components/privateRoute/privateRoute";
 import PrivateAdminRoute from "./components/privateRoute/privateAdminRoute";
-import CourseDetailPage from "./components/courseDetailPage/course/course";
+import CourseDetail from "./components/courseDetailPage/courseDetail";
 import LessonPage from "./components/lessonPage/lessonPage";
 import UsersPage from "./components/adminPages/usersPage/usersPage";
 
@@ -53,10 +53,7 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/home" element={<Home theme={theme} />} />
           <Route path="/courses" element={<Courses />}></Route>
-          <Route
-            path="/course/:id"
-            element={<CourseDetailPage theme={theme} />}
-          />
+          <Route path="/course/:id" element={<CourseDetail theme={theme} />} />
           <Route element={<PrivateRoute isLogged={isLogged} />}>
             <Route path="/perfil" element={<Perfil theme={theme} />} />
             <Route

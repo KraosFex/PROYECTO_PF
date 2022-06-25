@@ -1,8 +1,8 @@
 // libraries
-import { useState } from 'react';
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 // Redux actions
 import { bookmarkCourse, unmarkfavorites } from "../../../../redux/actions";
@@ -20,18 +20,9 @@ function CoursesCard({ courses, setRefresh, refresh }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const theme = useSelector((store) => store.theme);
-  let isLogged = useSelector((store) => store.isLogged);
+  const isLogged = useSelector((store) => store.isLogged);
 
-
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const theme = useSelector(store => store.theme);
-  const isLogged  = useSelector(store => store.isLogged);
-
-  const [button, setButton] = useState()
-
-  const { user } = useSelector(store => store)
-
+  const { user } = useSelector((store) => store);
 
   const handleClick = (id) => {
     if (isFavorite) {
@@ -44,13 +35,13 @@ function CoursesCard({ courses, setRefresh, refresh }) {
 
   //FUNCION PARA SABER SI EL CURSO ES UNO FAVORITO O NO
   const isFavorite = (id) => {
-    for(const course of user.courses) {
-      if(course.course._id === id && course.isFavorite === true) {
-        setButton(<AiFillHeart onClick={() => handleClick(course._id, true)}/>)
+    for (const course of user.courses) {
+      if (course.course._id === id && course.isFavorite === true) {
+        return <AiFillHeart onClick={() => handleClick(course._id, true)} />;
       }
     }
-    setButton(<AiOutlineHeart onClick={() => handleClick(course._id, false)}/>)
-  }
+    return <AiOutlineHeart onClick={() => handleClick(course._id, false)} />;
+  };
 
   return (
     <div>
@@ -68,11 +59,11 @@ function CoursesCard({ courses, setRefresh, refresh }) {
                 {course.titulo}
               </NavLink>
               <div className={style.courseStats}>
-              {isLogged?
-                  {button}
-                :
-                  <AiOutlineHeart onClick={() => navigate("/login")}/>
-              }
+                {isLogged ? (
+                  isFavorite(course._id)
+                ) : (
+                  <AiOutlineHeart onClick={() => navigate("/login")} />
+                )}
                 <span>Rating: {course.calificacion}</span>
               </div>
               <div className={style.descripcion}>
@@ -82,7 +73,6 @@ function CoursesCard({ courses, setRefresh, refresh }) {
             <div className={style.lenguaje}>
               <JSIcon lenguajes={course.lenguaje} />
             </div>
-            <div></div>
           </div>
         </ThemeProvider>
       ))}
