@@ -18,10 +18,10 @@ const getCursos = async (req, res, next) => {
 };
 
 const getCursoById = async (req, res, next) => {
+
   try {
     const course = await Course.findById(req.params.id);
     res.send(course);
-    return;
   } catch (err) {
     next(new ErrorResponse("Error al crear el curso", 500, false));
     console.error(err);
