@@ -124,11 +124,10 @@ export const register = (userData) => {
 export const findCourse = (id) => {
   return async function (dispatch) {
     try {
-      const resp = await axios.get(`http://localhost:3001/api/cursos/${id}`);
+      const resp = await axios.get(`http://localhost:3001/api/cursos/detail/${id}`);
       return resp.data;
     } catch (err) {
-      alert("Ups! Something went wrong...");
-      new Error(err);
+      console.log("se rompio")
     }
   };
 };
@@ -425,7 +424,7 @@ export const Banear = (userId, fecha) => {
           };
 
       const metaData = await axios.post(`http://localhost:3001/api/usersprivate/ban`, {id: userId, fecha: fecha} ,config);
-      
+
       return {successful: true, data:metaData}
     } catch(err) {
       return {successful: false, error: err}

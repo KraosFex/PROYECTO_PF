@@ -16,7 +16,21 @@ const lessonSchema = new Schema({
   isCompleted: {
     type: Boolean,
     default: false
-  }
+  },
+  quiz: [
+    {
+      type: String
+    }
+  ],
+  isLocked: {
+    type: Boolean,
+    default: true
+  },
+  answers: [
+    {
+      type: String
+    }
+  ]
 }, { timestamps: true, versionKey: false })
 
 module.exports = model('Lesson', lessonSchema)
