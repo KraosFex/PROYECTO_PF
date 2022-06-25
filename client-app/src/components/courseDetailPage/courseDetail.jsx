@@ -1,35 +1,48 @@
 // libraries
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState,  useEffect } from "react";
+import { useDispatch } from 'react-redux';
 import { useParams } from "react-router-dom";
 
-// components
-import Stars from "./Vote/Vote";
+//actions
+import { findCourse } from '../../../redux/actions';
 
 // hardDate
-// import { CursoBase } from "./CurssoBase";
+import Stars from "./Vote/Vote";
 
 // styles
 import { ThemeProvider } from "styled-components";
-import darkTheme from "./course/courseDark.module.css";
-import lightTheme from "./course/courseLight.module.css";
-import LessonSumary from "./course/lessonSumary/lessonSumary";
+import darkTheme from "./courseDark.module.css";
+import lightTheme from "./courseLight.module.css";
+import LessonSumary from "./lessonSumary/lessonSumary";
 
-export default function CardD(props) {
-  
-  const { id } =  useParams()
+export default function CourseDetail(props) {
 
-  const { user } = useSelector(store => store) 
+  const { id } = useParams();
 
-  const courseId = parseInt(id)
+  const [ course, setCourse ] = useState({});
 
-  const course = user.courses.find(course => course.id === courseId)
+  const dispatch = useDispatch();
 
-  let [idClase, setIdClase] = useState(1);
 
-  let claseSumary = course.clases.find((o) => o.id === idClase);
+  const [idClase, setIdClase] = useState(1);
+  const [claseSumary, setClaseSumary] = useState({});
+
 
   let style = darkTheme;
+
+  useEffect(() => {
+    async function axionReq() {
+      const data = await dispatch(findCourse(id));
+      setCourse(data)
+    }
+
+    axionReq();
+  }, [dispatch])
+
+  if(course.lesson) {
+    const lesson = course.lessons.find((o) => o._id === idClase);
+    setClaseSumary(lesson)
+  }
 
   return (
     <ThemeProvider
@@ -67,12 +80,12 @@ export default function CardD(props) {
                 </p>
                 <div className={style.progreso}>
                   <div className={style.input}>
-                    {course.clases.map((e) => (
+                    {course.lessons && course.lessons.map((e) => (
                       <div className={style.ClasP}>
                         {e.isCompleted ? (
                           <input
                             key={e.id}
-                            checked
+                            defaultChecked
                             type="radio"
                             readOnly
                             onClick={() => setIdClase(e.id)}
@@ -88,7 +101,7 @@ export default function CardD(props) {
                           <input
                             key={e.id}
                             type="radio"
-                            checked={false}
+                            defaultChecked={false}
                             onClick={() => setIdClase(e.id)}
                             className={style.locked}
                           />
@@ -99,7 +112,7 @@ export default function CardD(props) {
                 </div>
                 <div className={style.info}>
                   <div className={style.input}>
-                    <input checked type="radio" id="completada" />
+                    <input defaultChecked type="radio" id="completada" />
                   </div>
                   <p>Completada</p>
 

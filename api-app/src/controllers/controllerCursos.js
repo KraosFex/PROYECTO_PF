@@ -16,10 +16,10 @@ const getCursos = async (req, res, next) => {
 }
 
 const getCursoById = async (req, res, next) => {
+
   try {
-    const course = await Course.findById(req.params.id)
-    res.send(course)
-    return
+    const course = await Course.findById(req.params.id);
+    res.send(course);
   } catch (err) {
     next(new ErrorResponse('Error al crear el curso', 500, false))
     console.error(err)
@@ -55,11 +55,14 @@ const createCurso = async (req, res, next) => {
 
 const addFavorite = async (req, res, next) => {
   const id = req.user._id
-  const { idCurso, isFavorite } = req.body
+  const { idCurso } = req.body
+
   try {
     const courseFavorite = await User.findById(id)
     const existeCourse = courseFavorite.courses.filter(c => c.course._id == idCurso)
-    if (existeCourse.length) return res.status(500).send({ info: 'El curso ya esta en tus favoritos', success: false })
+    if (existeCourse.length) {
+      existeCourse.isFavorite = true
+    }
     const newCourseFavorite = await User.findByIdAndUpdate(id, {
       $push: {
         courses: {
@@ -97,6 +100,27 @@ const removeFavorite = async (req, res, next) => {
   }
 }
 
+const addCourse = async (req, res) => {
+  const id = req.user._id
+  const { idCurso } = req.body
+  try {
+    const courseFavorite = await User.findById(id)
+    const existeCourse = courseFavorite.courses.filter(c => c.course._id == idCurso)
+    if (existeCourse.length) return
+    const newCourseFavorite = await User.findByIdAndUpdate(id, {
+      $push: {
+        courses: {
+          course: idCurso,
+          isFavorite: false
+        }
+      }
+    }, { new: true })
+    res.send({ info: 'Curso añadido exitosamente', newCourseFavorite, success: true })
+  } catch (err) {
+    res.status(500).send({ info: 'Algo salio mal', success: false })
+  }
+}
+
 const addVotes = async (req, res, next) => {
   const id = req.user._id
   const { idUser, votes } = req.body
@@ -126,5 +150,6 @@ module.exports = {
   getCursoName,
   addFavorite,
   removeFavorite,
-  addVotes
+  addVotes,
+  addCourse
 }
