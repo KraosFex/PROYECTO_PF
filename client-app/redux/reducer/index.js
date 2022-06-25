@@ -58,7 +58,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         showedCourses: payload,
-      };
+      }
     case SET_ALLUSERS:
       return {
         ...state,
