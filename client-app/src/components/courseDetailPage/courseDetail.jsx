@@ -5,7 +5,6 @@ import { findCourse } from "../../../redux/actions";
 import { useParams } from "react-router-dom";
 
 // hardDate
-import { CursoBase } from "./CurssoBase";
 import Stars from "./Vote/Vote";
 
 // styles
@@ -21,9 +20,12 @@ export default function CourseDetail(props) {
 
   let dispatch = useDispatch();
 
-  const [idClase, setIdClase] = useState("");
+  const [idClase, setIdClase] = useState(1);
   const [activeArrow, setActiveArrow] = useState(false);
+
+
   const [course, setCourse] = useState({});
+
   const [claseSumary, setClaseSumary] = useState({});
 
   useEffect(() => {
@@ -39,7 +41,6 @@ export default function CourseDetail(props) {
     setClaseSumary(lesson);
   }
 
-  let Curso = course;
   let style = darkTheme;
 
   const direction = useSelector((store) => store.arrowCourse);
@@ -59,17 +60,17 @@ export default function CourseDetail(props) {
       <div className={style.flexContainer}>
         <div className={style.Container}>
           <div className={style.flexContainer2}>
-            <h1 className={style.titulo}>{Curso.titulo}</h1>
+            <h1 className={style.titulo}>{course.titulo}</h1>
             <div className={style.data}>
               <label className={style.label}>
-                Clasificacion: {Curso.calificacion}
+                Clasificacion: {course.calificacion}
               </label>
               <label className={style.label}>
-                Usuarios Inscriptos: {Curso.userIncript}
+                Usuarios Inscriptos: {course.userIncript}
               </label>
               <Stars />
             </div>
-            <img className={style.imagen} alt="" src={Curso.imagen} />
+            <img className={style.imagen} alt="" src={course.imagen} />
           </div>
           <div className={style.flexContainer3}>
             <div className={style.containerDescrip}>
@@ -79,7 +80,7 @@ export default function CourseDetail(props) {
                   activeArrow ? style.descriptionActive : style.description
                 }
               >
-                {Curso.description}
+                {course.description}
               </p>
               <div className={style.arrow} onClick={arrowDir}>
                 <ArrowsCourse />
@@ -91,8 +92,8 @@ export default function CourseDetail(props) {
                 <h3>Clases</h3>
                 <div className={style.progreso}>
                   <div className={style.input}>
-                    {Curso.lessons &&
-                      Curso.lessons.map((e) => (
+                    {course.lessons &&
+                      course.lessons.map((e) => (
                         <div className={style.ClasP}>
                           {e.isCompleted ? (
                             <input
@@ -140,7 +141,7 @@ export default function CourseDetail(props) {
                 </div>
               </div>
               <div className={style.lessonSumary}>
-                <LessonSumary clase={claseSumary} courseId={courseId}/>
+                <LessonSumary clase={claseSumary}/>
               </div>
             </div>
           </div>
