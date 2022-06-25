@@ -62,6 +62,7 @@ function App() {
               element={<LessonPage />}
             />
             <Route path="/pay" element={<PaymentGateway />} />
+            <Route path="/success" element={<h1>Success</h1>} />
           </Route>
           <Route element={<PrivateAdminRoute isAdmin={user.isAdmin} />}>
             <Route path="/users" element={<UsersPage />} />

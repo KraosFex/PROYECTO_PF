@@ -32,7 +32,7 @@ function Home(props) {
                   Comparativas con otros usuarios y mas.
                 </h1>
                 <div className={style.button}>
-                  <Link to="#">Ver mas</Link>
+                  <Link to="/pay">Ver mas</Link>
                 </div>
               </div>
             </div>
