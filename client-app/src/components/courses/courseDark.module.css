@@ -36,7 +36,7 @@
     border-radius: 0.5em;
     min-width: 25em;
     max-width: 25em;
-    max-height: 70em;
+    min-height: 70em;
     margin-top: 1em;
     box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
     -webkit-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
@@ -181,6 +181,7 @@ justify-items: center;
   display: flex;
   min-width: 23em;
   max-width: 23em;
+  min-height:6em;
   max-height: 30em;
   align-self: center;
 }
@@ -202,7 +203,6 @@ justify-items: center;
 .container2{
   display: flex;
   align-self: center;
-  margin-left: .5em;
 }
 
 .p, .select, .select2{

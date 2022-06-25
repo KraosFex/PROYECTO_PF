@@ -11,6 +11,7 @@ import {
   SET_RANKING,
   SET_ARROW_UPDOWN,
   SET_ARROW_DIRECTION,
+  SET_ARROW_COURSE,
 } from "../actions/actionsTypes/actionTypes";
 
 // index reducers app
@@ -25,6 +26,7 @@ const initialState = {
   theme: "light",
   arrowDirection: "left",
   arrowUpDown: "down",
+  arrowCourse: "down",
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -86,6 +88,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         arrowUpDown: payload,
+      };
+    case SET_ARROW_COURSE:
+      return {
+        ...state,
+        arrowCourse: payload,
       };
     default:
       return state;

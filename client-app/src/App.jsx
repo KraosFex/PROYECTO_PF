@@ -22,7 +22,6 @@ import LessonPage from "./components/lessonPage/lessonPage";
 import UsersPage from "./components/adminPages/usersPage/usersPage";
 import PaymentGateway from "./components/paymentGateway/paymentGateway.jsx";
 
-
 // styles
 import style from "./index.modules.css";
 
@@ -55,10 +54,7 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/home" element={<Home theme={theme} />} />
           <Route path="/courses" element={<Courses />}></Route>
-          <Route
-            path="/course/:id"
-            element={<CourseDetail theme={theme} />}
-          />
+          <Route path="/course/:id" element={<CourseDetail theme={theme} />} />
           <Route element={<PrivateRoute isLogged={isLogged} />}>
             <Route path="/perfil" element={<Perfil theme={theme} />} />
             <Route
