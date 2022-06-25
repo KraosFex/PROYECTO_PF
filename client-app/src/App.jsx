@@ -17,9 +17,10 @@ import Landing from "./components/landing/landing";
 import Perfil from "./components/perfil/perfil";
 import PrivateRoute from "./components/privateRoute/privateRoute";
 import PrivateAdminRoute from "./components/privateRoute/privateAdminRoute";
-import CourseDetail from "./components/courseDetailPage/courseDetail";
+import CourseDetail from "./components/courseDetailPage/courseDetail.jsx";
 import LessonPage from "./components/lessonPage/lessonPage";
 import UsersPage from "./components/adminPages/usersPage/usersPage";
+import PaymentGateway from "./components/paymentGateway/paymentGateway.jsx";
 
 // styles
 import style from "./index.modules.css";
@@ -60,6 +61,7 @@ function App() {
               path="/course/:idCourse/:idLesson"
               element={<LessonPage />}
             />
+            <Route path="/pay" element={<PaymentGateway />} />
           </Route>
           <Route element={<PrivateAdminRoute isAdmin={user.isAdmin} />}>
             <Route path="/users" element={<UsersPage />} />

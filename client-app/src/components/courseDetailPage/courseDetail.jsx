@@ -39,7 +39,6 @@ export default function CourseDetail(props) {
     setClaseSumary(lesson);
   }
 
-  console.log(course);
   let Curso = course;
   let style = darkTheme;
 

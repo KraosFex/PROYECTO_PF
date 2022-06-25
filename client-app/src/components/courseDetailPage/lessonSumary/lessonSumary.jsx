@@ -23,7 +23,9 @@ function LessonSumary({ clase }) {
         </div>
       </div>
     );
-  } else return <></>;
+  } else {
+    return <></>;
+  }
 }
 
 export default LessonSumary;

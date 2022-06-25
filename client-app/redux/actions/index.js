@@ -137,8 +137,7 @@ export const findCourse = (id) => {
       );
       return resp.data;
     } catch (err) {
-      alert("Ups! Something went wrong...");
-      new Error(err);
+      console.log("se rompio");
     }
   };
 };
