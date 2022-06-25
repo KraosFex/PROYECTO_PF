@@ -69,3 +69,31 @@
     background-color: #bbbbbb;
     color: #505050;
 }
+
+
+@media (max-width: 768px) {
+
+    .container{
+        width: 100%;
+    }
+
+    .container h1{
+        margin-left: 1em;
+    }
+    .container h3 {
+        margin-left: 0.5em;
+    }
+
+    .disponible{
+        margin-right: 0.5em;
+        width: 8em;
+
+    }
+
+    .flexContainer3{
+        align-self: center;
+        margin-left: 0em;
+        border:rgb(46, 46, 46) solid 1px;
+    }
+
+}
