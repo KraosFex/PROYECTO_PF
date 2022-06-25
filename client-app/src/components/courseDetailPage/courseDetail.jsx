@@ -10,9 +10,9 @@ import Stars from "./Vote/Vote";
 
 // styles
 import { ThemeProvider } from "styled-components";
-import darkTheme from "./course/courseDark.module.css";
-import lightTheme from "./course/courseLight.module.css";
-import LessonSumary from "./course/lessonSumary/lessonSumary";
+import darkTheme from "./courseDark.module.css";
+import lightTheme from "./courseLight.module.css";
+import LessonSumary from "./lessonSumary/lessonSumary";
 import { setArrowCourse } from "../../../redux/actions";
 import ArrowsCourse from "../../icons/arrowsCourse";
 

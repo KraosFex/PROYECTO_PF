@@ -18,7 +18,6 @@ const lessonSchema = new Schema(
       type: Boolean,
       default: false,
     },
-  },
   descripcion: {
     type: String,
     required: true
