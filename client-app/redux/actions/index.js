@@ -3,19 +3,6 @@ import axios from "axios";
 
 // actions types
 import {
-<<<<<<< HEAD
-        SET_COURSES,
-        SET_SHOWEDCOURSES,
-        SET_SHOWEDCOURSE,
-        SET_VALIDATEUSER,
-        SET_THEME,
-        LOGOUT,
-        SET_UPDATEUSER,
-        SET_ALLUSERS,
-        SET_SHOWEDUSERS,
-        SET_RANKING,
-      } from "./actionsTypes/actionTypes";
-=======
   SET_COURSES,
   SET_SHOWEDCOURSES,
   SET_VALIDATEUSER,
@@ -29,7 +16,6 @@ import {
   SET_ARROW_UPDOWN,
   SET_ARROW_COURSE,
 } from "./actionsTypes/actionTypes";
->>>>>>> main
 
 // synchronous actions
 
@@ -150,8 +136,6 @@ export const register = (userData) => {
   };
 };
 
-<<<<<<< HEAD
-=======
 export const findCourse = (id) => {
   return async function (dispatch) {
     try {
@@ -165,7 +149,6 @@ export const findCourse = (id) => {
   };
 };
 
->>>>>>> main
 export const login = (post) => {
   return async function (dispatch) {
     try {
@@ -251,19 +234,6 @@ export const getCourses = () => {
       alert("Ups! Something went wrong...");
     }
   };
-};
-
-// REVISA SI ESTO ENVIA BIEN LA DATA, NO TENGO COMO TESTEAR
-export const findCourse = (id) => {
-  return async function(dispatch)  {
-    try {
-      const resp = await axios.get(`http://localhost:3001/api/cursos/${id}`)
-      dispatch(setShowedCourse(resp.data))
-    } catch (err) {
-      alert('Ups! Something went wrong...')
-      new Error(err)
-    }
-  }
 };
 
 export const getCourseByName = (name) => {

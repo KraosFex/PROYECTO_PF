@@ -18,11 +18,10 @@ import {
 // index reducers app
 const initialState = {
   user: {},
-  isLogged: true,
+  isLogged: false,
   topTen: [],
   allUsers: [],
   showedUsers: [],
-  course: {},
   courses: [],
   showedCourses: [],
   theme: "light",
@@ -60,11 +59,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         showedCourses: payload,
-      }
-    case SET_SHOWEDCOURSE:
-      return {
-        ...state,
-        course: payload,
       }
     case SET_ALLUSERS:
       return {
