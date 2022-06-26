@@ -20,7 +20,7 @@ import Landing from "./components/landing/landing";
 import Perfil from "./components/perfil/perfil";
 import PrivateRoute from "./components/privateRoute/privateRoute";
 import PrivateAdminRoute from "./components/privateRoute/privateAdminRoute";
-import CourseDetailPage from "./components/courseDetailPage/course/course";
+import CourseDetailPage from "./components/courseDetailPage/courseDetailPage";
 import LessonPage from "./components/lessonPage/lessonPage";
 import UsersPage from "./components/adminPages/usersPage/usersPage";
 
@@ -46,7 +46,7 @@ function App() {
       <Outlet />
     </>
   );
-  
+
   return (
     <div className={style.AppBody}>
       <Routes>

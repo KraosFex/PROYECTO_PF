@@ -325,11 +325,8 @@ export const getAllUsers = () => {
 export const auhtGoogle = (tokenId) => {
   return async function (dispatch) {
     try {
-      const metaData = await axios.post(
-        "/api/auth/googlelogin",
-        { tokenId }
-      );
-      dispatch(setValidateUser({ ...metaData.data.user, Last_Seen: new Date().toDateString().slice(4, 24) }));
+      const metaData = await axios.post("/api/auth/googlelogin", { tokenId });
+      dispatch(setValidateUser(metaData.data));
       return metaData.data;
     } catch (err) {
       return err.response.data;

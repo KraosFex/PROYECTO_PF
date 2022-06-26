@@ -7,11 +7,11 @@ import Stars from "./Vote/Vote";
 
 // styles
 import { ThemeProvider } from "styled-components";
-import darkTheme from "./course/courseDark.module.css";
-import lightTheme from "./course/courseLight.module.css";
-import LessonSumary from "./course/lessonSumary/lessonSumary";
+import darkTheme from "./courseDark.module.css";
+import lightTheme from "./courseLight.module.css";
+import LessonSumary from "./lessonSumary/lessonSumary";
 
-export default function CardD(props) {
+export default function CourseDetailPage(props) {
   const [idClase, setIdClase] = useState(0);
   let { detail, user } = useSelector(state => state)
   let Curso = detail;
@@ -72,7 +72,7 @@ export default function CardD(props) {
                       )}
                     </div>
                   )).reverse() : null}
-              
+
                 </div>
               </div>
               {claseSumary.course.lessons ?<div className={style.lessonSumary}>
