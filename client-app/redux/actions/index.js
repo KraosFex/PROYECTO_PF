@@ -258,7 +258,7 @@ export const bookmarkCourse = (id) => {
         { idCurso: id },
         config
       );
-      dispatch(updateUser(resp.data.newCourseFavorite));
+      dispatch(updateUser(resp.data.updatedUser));
     } catch (err) {
       console.log(err);
     }
@@ -368,9 +368,7 @@ export const getUserRank = (userId) => {
 export const getRanking = () => {
   return async function (dispatch) {
     try {
-      const metaData = await axios.get(
-        "http://localhost:3001/api/users/topFive"
-      );
+      const metaData = await axios.get("http://localhost:3001/api/users/topFive");
       dispatch(setRanking(metaData.data.sorted));
     } catch (err) {
       console.log(err.response.data.info);

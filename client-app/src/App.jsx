@@ -4,7 +4,7 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 //actions redux
-import { getCourses } from "../redux/actions";
+import { getCourses, getRanking } from "../redux/actions";
 
 // compoents
 import Home from "./components/home/home";
@@ -35,6 +35,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getCourses());
+    getRanking()(dispatch);
   });
 
   const AppLayout = () => (
