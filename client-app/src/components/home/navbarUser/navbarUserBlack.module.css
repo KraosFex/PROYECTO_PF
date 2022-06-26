@@ -192,6 +192,20 @@
   color: rgb(226, 31, 73);
 }
 
+.icon5{
+  display: none;
+  margin-top: 1em;
+  margin-left: 1em;
+  padding-left:3em;
+}
+.icon5 svg{
+  display: none;
+  position: absolute;
+  width: 2em;
+  height: 2em;
+  color: rgb(226, 31, 50);
+}
+
 @media (max-width: 768px) {
 
   .containerNotActive{
@@ -290,5 +304,20 @@
   }
   .dropdownmenuActive{
     width:6em;
+  }
+
+  .icon5Active{
+    display: flex;
+    margin-top: 1em;
+    margin-left: 1em;
+    padding-left:3em;
+  }
+
+  .icon5Active svg{
+    display: flex;
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    color: rgb(226, 31, 50);
   }
 }
