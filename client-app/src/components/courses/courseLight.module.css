@@ -120,6 +120,7 @@
   width: 19em;
   height: 2em;
   justify-content: space-around;
+  align-items: center;
 }
 
 .select2 input[type="radio"]{

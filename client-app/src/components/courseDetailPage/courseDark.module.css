@@ -46,10 +46,12 @@
 
 .imagen {
     display: flex;
+    margin-left: auto;
+    margin-right: 1em;
     width: 7em;
     height: 7em;
+    right: 0;
     border-radius: 5px;
-    margin-left: 56em;
     box-shadow: 10px 10px 51px 5px rgba(252,215,9,0.36);
 -webkit-box-shadow: 10px 10px 51px 5px rgba(252,215,9,0.36);
 -moz-box-shadow: 10px 10px 51px 5px rgba(252,215,9,0.36);

@@ -137,10 +137,33 @@
   @media (max-width: 768px) {
     .containerPerfil{
       width: 95%;
+      height: 30em;
     }
 
     .containerImg{
       display: flex;
       margin-top: 0em;
+    }
+  }
+
+  @media (max-width: 520px){
+    .containerPerfil{
+      width: 95%;
+    }
+
+    .containerImg{
+      display: flex;
+      margin-top: 0em;
+    }
+
+    .userFlex{
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+    }
+    .flex{
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
     }
   }

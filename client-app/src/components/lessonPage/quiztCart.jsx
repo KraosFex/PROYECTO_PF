@@ -44,7 +44,7 @@ export default function QuiztCart({ questions, handleApproved, approved }) {
   if (isFinished)
     return (
       <main className={style.quiz}>
-        <div className={style.juego - terminado}>
+        <div className={style.juegoterminado}>
           <span>{approved ? "is approved" : "not approved"}</span>
           <span>
             {" "}
@@ -56,7 +56,7 @@ export default function QuiztCart({ questions, handleApproved, approved }) {
               setAnswersShown(true);
               setPreguntaActual(0);
             }}
-            className={"button"}
+            className={style.button}
           >
             Ver respuestas
           </button>
@@ -82,7 +82,7 @@ export default function QuiztCart({ questions, handleApproved, approved }) {
             }
           </div>
           <button
-            className={"button"}
+            className={style.button}
             onClick={() => {
               if (preguntaActual === questions.length - 1) {
                 window.location.href = "/";
@@ -115,7 +115,7 @@ export default function QuiztCart({ questions, handleApproved, approved }) {
             </span>
           ) : (
             <button
-              className={"button"}
+              className={style.button}
               onClick={() => {
                 setTiempoRestante(10);
                 setAreDisabled(false);
@@ -134,7 +134,7 @@ export default function QuiztCart({ questions, handleApproved, approved }) {
       <div className={style.lado - derecho}>
         {questions[preguntaActual].opciones.map((respuesta) => (
           <button
-            className={"button"}
+            className={style.button}
             disabled={areDisabled}
             key={respuesta.textoRespuesta}
             onClick={(e) => handleAnswerSubmit(respuesta.isCorrect, e)}
