@@ -24,18 +24,22 @@ const getCursoById = async (req, res, next) => {
     console.error(err);
   }
 };
-
-const getCursoName = async (req, res, next) => {
+const getCursoName = async (req, res) => {
   const $regex = req.params.name;
   try {
-    const course = await Course.find({ titulo: { $regex, $options: "i" } });
-    if (!course.length) {
-      next(new ErrorResponse("Error al crear el curso", 500, false));
-    } else {
+    if (!req.params.name.length) {
+      const course = await Course.find();
       res.send(course);
+    } else {
+      const course = await Course.find({ titulo: { $regex, $options: "i" } });
+      if (!course.length) {
+        res.send({ info: "No existe el curso" });
+      } else {
+        res.send(course);
+      }
     }
   } catch (err) {
-    next(new ErrorResponse("Error al crear el curso", 500, false));
+    res.send({ info: "Algo salio mal", err });
     console.error(err);
   }
 };

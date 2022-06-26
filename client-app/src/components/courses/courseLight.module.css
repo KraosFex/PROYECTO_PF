@@ -201,12 +201,12 @@ justify-items: center;
   margin-top: 2em;
   flex-direction: column;
   width: 100%;
-  justify-content: center;
-  justify-items: center;
+  align-items: center;
   align-content: center;
 }
 
 .container2{
+  width: 89%;
   display: flex;
   align-self: center;
 }
