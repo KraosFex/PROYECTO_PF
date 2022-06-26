@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-function ArrowsUpDown() {
-  const direction = useSelector((store) => store.arrowUpDown);
+function ArrowsCourse() {
+  const direction = useSelector((store) => store.arrowCourse);
 
   if (direction === "down") {
     return (
@@ -31,4 +31,4 @@ function ArrowsUpDown() {
   }
 }
 
-export default ArrowsUpDown;
+export default ArrowsCourse;

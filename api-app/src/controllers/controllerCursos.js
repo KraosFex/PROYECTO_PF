@@ -28,18 +28,22 @@ const getCursoById = async (req, res, next) => {
     console.error(err)
   }
 }
-
-const getCursoName = async (req, res, next) => {
+const getCursoName = async (req, res) => {
   const $regex = req.params.name
   try {
     const course = await Course.find({ titulo: { $regex, $options: 'i' } }).populate({ path: 'lessons.lesson', ref: 'Lesson' })
     if (!course.length) {
       next(new ErrorResponse('Error al crear el curso', 500, false))
     } else {
-      res.send(course)
+      const course = await Course.find({ titulo: { $regex, $options: 'i' } })
+      if (!course.length) {
+        res.send({ info: 'No existe el curso' })
+      } else {
+        res.send(course)
+      }
     }
   } catch (err) {
-    next(new ErrorResponse('Error al crear el curso', 500, false))
+    res.send({ info: 'Algo salio mal', err })
     console.error(err)
   }
 }
@@ -110,17 +114,27 @@ const addCourse = async (req, res) => {
   const { idCurso } = req.body
   try {
     const courseFavorite = await User.findById(id)
-    const existeCourse = courseFavorite.courses.filter(c => c.course._id == idCurso)
+    const existeCourse = courseFavorite.courses.filter(
+      (c) => c.course._id == idCurso
+    )
     if (existeCourse.length) return
-    const newCourseFavorite = await User.findByIdAndUpdate(id, {
-      $push: {
-        courses: {
-          course: idCurso,
-          isFavorite: false
+    const newCourseFavorite = await User.findByIdAndUpdate(
+      id,
+      {
+        $push: {
+          courses: {
+            course: idCurso,
+            isFavorite: false
+          }
         }
-      }
-    }, { new: true })
-    res.send({ info: 'Curso añadido exitosamente', newCourseFavorite, success: true })
+      },
+      { new: true }
+    )
+    res.send({
+      info: 'Curso añadido exitosamente',
+      newCourseFavorite,
+      success: true
+    })
   } catch (err) {
     res.status(500).send({ info: 'Algo salio mal', success: false })
   }

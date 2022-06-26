@@ -72,7 +72,6 @@ function NavBarUser() {
       }
     });
   });
-  console.log(activeArrow);
   return (
     <ThemeProvider
       theme={theme === "light" ? (style = lightTheme) : (style = darkTheme)}
@@ -87,10 +86,11 @@ function NavBarUser() {
           </div>
         </div>
         <div className={activeArrow ? style.icon2Active : style.icon2}>
-          <NavLink to="#">
-            <FavoriteIcon />
+          <NavLink to="/courses">
+            <CursoIcon />
           </NavLink>
         </div>
+
         <div className={activeArrow ? style.icon2Active : style.icon2}>
           <NavLink to="#">
             <Notification />

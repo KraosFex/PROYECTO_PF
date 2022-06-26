@@ -14,6 +14,7 @@ import {
   SET_RANKING,
   SET_ARROW_DIRECTION,
   SET_ARROW_UPDOWN,
+  SET_ARROW_COURSE,
 } from "./actionsTypes/actionTypes";
 
 // synchronous actions
@@ -104,6 +105,13 @@ export const setArrowUpDown = (arrowUpDown) => {
     payload: arrowUpDown,
   };
 };
+
+export const setArrowCourse = (arrowCourse) => {
+  return {
+    type: SET_ARROW_COURSE,
+    payload: arrowCourse,
+  };
+};
 // asynchronous actions
 
 export const register = (userData) => {
@@ -124,11 +132,12 @@ export const register = (userData) => {
 export const findCourse = (id) => {
   return async function (dispatch) {
     try {
-      const resp = await axios.get(`http://localhost:3001/api/cursos/${id}`);
+      const resp = await axios.get(
+        `http://localhost:3001/api/cursos/detail/${id}`
+      );
       return resp.data;
     } catch (err) {
-      alert("Ups! Something went wrong...");
-      new Error(err);
+      console.log("se rompio");
     }
   };
 };
@@ -144,20 +153,6 @@ export const login = (post) => {
       return metaData.data;
     } catch (err) {
       return err.response.data;
-    }
-  };
-};
-
-export const getCourseByName = (name) => {
-  return async function (dispatch) {
-    try {
-      const metaData = await axios.get(
-        `http://localhost:3001/api/cursos/${name}`
-      );
-      dispatch(setShowedCourses(metaData.data));
-    } catch (err) {
-      new Error(err);
-      alert("Ups! Something went wrong...");
     }
   };
 };
@@ -225,11 +220,23 @@ export const getCourses = () => {
   return async function (dispatch) {
     try {
       const metaData = await axios.get("http://localhost:3001/api/cursos");
-      console.log(metaData.data.docs);
       dispatch(setCourses(metaData.data.docs));
       dispatch(setShowedCourses(metaData.data.docs));
     } catch (err) {
-      console.log(err);
+      alert("Ups! Something went wrong...");
+    }
+  };
+};
+
+export const getCourseByName = (name) => {
+  return async function (dispatch) {
+    try {
+      const metaData = await axios.get(
+        `http://localhost:3001/api/cursos/${name}`
+      );
+      dispatch(setShowedCourses(metaData.data));
+    } catch (err) {
+      new Error(err);
       alert("Ups! Something went wrong...");
     }
   };
@@ -281,17 +288,24 @@ export const unmarkfavorites = (id) => {
   };
 };
 
-export const getLesson = (idLesson) => {
+/*A LA ESPERA DE LA CREACION DE LA RUTA??????*/
+export const getLesson = (id) => {
   return async function (dispatch) {
     try {
-      /*A LA ESPERA DE LA CREACION DE LA RUTA*/
-      const metaData = await axios(
-        `http://localhost:3001/api/cursosprivate/${idLesson}/lesson`
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      };
+      const metaData = await axios.get(
+        `http://localhost:3001/api/cursosprivate/${id}/lesson`,
+        config
       );
       return metaData.data;
     } catch (err) {
-      alert("Algo no va pa");
-      return err;
+      new Error(err);
+      alert("Ups! Something went wrong...");
     }
   };
 };
@@ -409,26 +423,28 @@ export const isAdminConverter = (userId, boolean) => {
     } catch (err) {
       console.log(err.response.data);
     }
-  }
-}
-
+  };
+};
 
 export const Banear = (userId, fecha) => {
-  return async function() {
+  return async function () {
     try {
-
       let config = {
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("authToken")}`
-            }
-          };
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      };
 
-      const metaData = await axios.post(`http://localhost:3001/api/usersprivate/ban`, {id: userId, fecha: fecha} ,config);
-      
-      return {successful: true, data:metaData}
-    } catch(err) {
-      return {successful: false, error: err}
+      const metaData = await axios.post(
+        `http://localhost:3001/api/usersprivate/ban`,
+        { id: userId, fecha: fecha },
+        config
+      );
+
+      return { successful: true, data: metaData };
+    } catch (err) {
+      return { successful: false, error: err };
     }
-  }
-}
+  };
+};

@@ -36,7 +36,7 @@
     border-radius: 0.5em;
     min-width: 25em;
     max-width: 25em;
-    max-height: 70em;
+    min-height: 70em;
     margin-top: 1em;
     box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
     -webkit-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
@@ -174,15 +174,16 @@ justify-items: center;
     flex-direction: column;
     justify-content: center;
     justify-items: center;
+    align-items: center;
 
   }
 
 .containerSearch{
   display: flex;
-  min-width: 23em;
-  max-width: 23em;
+  min-width: 89%;
+  max-width: 89%;
+  min-height:6em;
   max-height: 30em;
-  align-self: center;
 }
 
 .form{
@@ -190,19 +191,16 @@ justify-items: center;
 }
 
 .flexContainer2{
-  display: flex;
+  width: 100%;
   margin-top: 2em;
   flex-direction: column;
-  width: 100%;
-  justify-content: center;
-  justify-items: center;
-  align-content: center;
+  align-items: center;
 }
 
 .container2{
-  display: flex;
-  align-self: center;
-  margin-left: .5em;
+  width: 89%;
+  align-content: center;
+  align-items: center;
 }
 
 .p, .select, .select2{

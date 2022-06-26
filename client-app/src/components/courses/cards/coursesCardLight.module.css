@@ -1,6 +1,6 @@
 
 .containerCourse{
-    display: inline-flex;
+    display: flex;
     background-color: rgb(250, 250, 250);
     border-radius: 0.5em;
     width: 50em;
@@ -91,7 +91,11 @@
   @media (max-width: 768px) {
 
     .containerCourse{
-        width: 23em;
+        width: 100%;
+        margin-left: 0em;
+        align-self: center;
+        justify-self: center;
+        
     }
 
     .descripcion{
@@ -99,7 +103,8 @@
     }
 
     .lenguaje{
-        margin-right: 2em;
+        margin-left: auto;
+        margin-right: 1em;
     }
   }
 
