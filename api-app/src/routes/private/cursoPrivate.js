@@ -15,7 +15,7 @@ const {
 } = require("../../controllers/controllerLession.js");
 
 router.post("/", protect, createCurso);
-router.get("/:id/lessons", protect, getLesson);
+router.get("/:id/lesson", protect, getLesson);
 router.put("/favorite", protect, addFavorite);
 router.put("/favorite/initcourse", protect, addCourse);
 router.put("/unfavorite", protect, removeFavorite);

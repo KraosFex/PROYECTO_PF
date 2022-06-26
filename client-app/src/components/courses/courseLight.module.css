@@ -180,16 +180,16 @@ justify-items: center;
     flex-direction: column;
     justify-content: center;
     justify-items: center;
+    align-items: center;
 
   }
 
 .containerSearch{
   display: flex;
-  min-width: 23em;
-  max-width: 23em;
+  min-width: 89%;
+  max-width: 89%;
   min-height:6em;
   max-height: 30em;
-  align-self: center;
 }
 
 .form{
@@ -197,18 +197,16 @@ justify-items: center;
 }
 
 .flexContainer2{
-  display: flex;
+  width: 100%;
   margin-top: 2em;
   flex-direction: column;
-  width: 100%;
   align-items: center;
-  align-content: center;
 }
 
 .container2{
   width: 89%;
-  display: flex;
-  align-self: center;
+  align-content: center;
+  align-items: center;
 }
 
 .p, .select, .select2{
