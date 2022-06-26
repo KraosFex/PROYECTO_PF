@@ -65,46 +65,42 @@ const addFavorite = async (req, res, next) => {
   const _id = req.user._id
   const { idCurso } = req.body
   try {
-    const courseFavorite = await User.findById(_id)
-    const existeCourse = courseFavorite.courses.filter(c => c.course._id == idCurso)
+    const user = await User.findById(_id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
+    const currentCourse = user.courses.filter(c => c.course._id == idCurso)
 
-    if (existeCourse.length) {
-      existeCourse.isFavorite = true
-      res.send('Cambio realizado')
-    } else {
-      const newCourseFavorite = await User.findByIdAndUpdate(_id, {
-        $push: {
-          courses: {
-            course: idCurso,
-            isFavorite: true
-          }
-        }
-      }, { new: true })
-      res.send({ info: 'Curso añadido exitosamente', newCourseFavorite, success: true })
+    if (currentCourse.length && currentCourse[0].isFavorite === false) {
+      currentCourse[0].set('isFavorite', true)
+      await user.save()
+      return res.send({ info: 'Cambio realizado', success: true, updateUser: user })
     }
+
+    const updateUser = await User.findByIdAndUpdate(_id, {
+      $push: {
+        courses: {
+          course: idCurso,
+          isFavorite: true
+        }
+      }
+    }, { new: true }).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
+    res.send({ info: 'Curso añadido exitosamente', updateUser, success: true })
   } catch (err) {
-    res.status(500).send({ info: 'Algo salio mal', success: false })
+    res.status(500).send({ info: 'Algo salio mal', success: false, err })
   }
 }
 
 const removeFavorite = async (req, res, next) => {
-  const id = req.user._id
-  const { idCursoFavorito } = req.body
+  const _id = req.user._id
+  const { idCurso } = req.body
 
   try {
-    const eliminado = await User.findByIdAndUpdate(
-      { _id: id },
-      {
-        $pull: {
-          courses: {
-            _id: idCursoFavorito
-          }
-        }
-      },
-      { new: true }
-    )
+    const user = await User.findById(_id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
+    const currentCourse = user.courses.filter(c => c.course._id == idCurso)
 
-    res.send({ info: 'Curso eliminado exitosamente', success: true })
+    if (currentCourse.length && currentCourse[0].isFavorite === true) {
+      currentCourse[0].set('isFavorite', false)
+      await user.save()
+    }
+    res.send({ info: 'Curso eliminado de favoritos exitosamente', success: true, updateUser: user })
   } catch (err) {
     next(new ErrorResponse('Error al eliminar el curso', 500, false))
   }

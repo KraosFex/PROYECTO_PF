@@ -26,6 +26,7 @@ function CoursesCard({ courses, setRefresh, refresh }) {
 
   const handleClick = (id, isFavorite) => {
     if (isFavorite) {
+      console.log("entre aca")
       dispatch(unmarkfavorites(id));
     } else {
       dispatch(bookmarkCourse(id));
@@ -37,7 +38,7 @@ function CoursesCard({ courses, setRefresh, refresh }) {
   const isFavorite = (id) => {
     for (const course of user.courses) {
       if (course.course._id === id && course.isFavorite === true) {
-        return <AiFillHeart onClick={() => handleClick(course._id, true)} />;
+        return <AiFillHeart onClick={() => handleClick(course.course._id, true)} />;
       }
     }
     return <AiOutlineHeart onClick={() => handleClick(id, false)} />;

@@ -258,7 +258,7 @@ export const bookmarkCourse = (id) => {
         { idCurso: id },
         config
       );
-      dispatch(updateUser(resp.data.updatedUser));
+      dispatch(updateUser(resp.data.updateUser));
     } catch (err) {
       console.log(err);
     }
@@ -274,15 +274,13 @@ export const unmarkfavorites = (id) => {
           authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
       };
-
       const resp = await axios.put(
         `http://localhost:3001/api/cursosprivate/unfavorite`,
         { idCurso: id },
         config
       );
-      dispatch(updateUser(resp.data.user));
+      dispatch(updateUser(resp.data.updateUser));
     } catch (err) {
-      alert("Ups! Something went wrong...");
       console.log(err);
     }
   };
