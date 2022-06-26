@@ -24,7 +24,7 @@ function CoursesCard({ courses, setRefresh, refresh }) {
 
   const { user } = useSelector((store) => store);
 
-  const handleClick = (id) => {
+  const handleClick = (id, isFavorite) => {
     if (isFavorite) {
       dispatch(unmarkfavorites(id));
     } else {
@@ -40,7 +40,7 @@ function CoursesCard({ courses, setRefresh, refresh }) {
         return <AiFillHeart onClick={() => handleClick(course._id, true)} />;
       }
     }
-    return <AiOutlineHeart onClick={() => handleClick(course._id, false)} />;
+    return <AiOutlineHeart onClick={() => handleClick(id, false)} />;
   };
 
   return (

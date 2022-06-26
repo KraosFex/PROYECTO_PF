@@ -1,17 +1,7 @@
 * {
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   }
-  
-  body {
-    margin: 0;
-    color: #fff;
-    background-color: #fcfcfc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-  
+
   .quiz {
     background-color: #252d4a;
     max-width: 650px;
@@ -24,7 +14,7 @@
     display: flex;
     justify-content: space-evenly;
   }
-  
+
   /* PREGUNTAS */
   .lado-izquierdo {
     width: 100%;
@@ -33,26 +23,26 @@
     flex-direction: column;
     justify-content: space-around;
   }
-  
+
   .pregunta-numero {
     margin-bottom: 20px;
   }
-  
+
   .pregunta-numero span {
     font-size: 28px;
   }
-  
+
   .pregunta-titulo {
     margin-bottom: 12px;
   }
-  
+
   .lado-derecho {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
-  
+
   /* FINALIZADO */
   .juego-terminado {
     display: flex;
@@ -61,7 +51,7 @@
     font-size: 24px;
     align-items: center;
   }
-  
+
   /* GRAL */
   button {
     width: 100%;
@@ -76,43 +66,42 @@
     border: 5px solid #234668;
     cursor: pointer;
   }
-  
+
   .tiempo-restante {
     font-size: 14px;
     color: #fcbf3d;
     margin-bottom: 20px;
   }
-  
+
   .correct,
   .correct:hover {
     background-color: #2f922f;
   }
-  
+
   .incorrect,
   .incorrect:hover {
     background-color: #ff3333;
   }
-  
+
   .btns-container {
     display: flex;
     justify-content: space-evenly;
   }
-  
+
   button:hover {
     background-color: #234668;
   }
-  
+
   button[disabled] {
     background-color: #555e7d;
     color: #ffffff;
     cursor: not-allowed;
   }
-  
+
   button:focus {
     outline: none;
   }
-  
+
   button svg {
     margin-right: 5px;
   }
-  

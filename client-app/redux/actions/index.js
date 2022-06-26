@@ -256,9 +256,8 @@ export const bookmarkCourse = (id) => {
         { idCurso: id },
         config
       );
-      dispatch(updateUser(resp.data.user));
+      dispatch(updateUser(resp.data.newCourseFavorite));
     } catch (err) {
-      alert("Ups! Something went wrong...");
       console.log(err);
     }
   };
@@ -287,17 +286,20 @@ export const unmarkfavorites = (id) => {
   };
 };
 
-/*A LA ESPERA DE LA CREACION DE LA RUTA??????*/
 export const getLesson = (idLesson) => {
   return async function (dispatch) {
     try {
-      const metaData = await axios(
-        `http://localhost:3001/api/cursosprivate/${idLesson}/lesson`
-      );
-      return metaData.data;
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      };
+      console.log(idLesson)
+      const metaData = await axios.get(`http://localhost:3001/api/cursosprivate/${idLesson}/lesson`,config);
+      return metaData.data.lesson;
     } catch (err) {
-      alert("Algo no va pa");
-      return err;
+      console.log("Este es el erro de getLesson", err);
     }
   };
 };

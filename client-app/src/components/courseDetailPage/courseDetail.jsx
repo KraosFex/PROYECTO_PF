@@ -51,6 +51,8 @@ export default function CourseDetail(props) {
     setActiveArrow(!activeArrow);
   };
 
+  console.log(course)
+
   return (
     <ThemeProvider
       theme={

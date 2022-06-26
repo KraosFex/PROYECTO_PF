@@ -66,22 +66,23 @@ const overallPosition = async (req, res) => {
   const { id } = req.params
   try {
     const allUsers = await User.find()
-    const sorted = allUsers.sort((a, b) => {
+    const sorted = allUsers.filter(element => element.courses.length > 0)
+      .slice(0, 5).sort((a, b) => {
       return (
-        a.courses.map((c) => {
+        a.courses?.map((c) => {
           // cursos
-          return c.lesson.filter((l) => l.isCompleted === true) // lecciones completas
+          return c.lesson?.filter((l) => l.isCompleted === true) // lecciones completas
         }).length +
         34 -
-        (b.courses.map((c) => {
-          return c.lesson.filter((l) => l.isCompleted === true)
+        (b.courses?.map((c) => {
+          return c.lesson?.filter((l) => l.isCompleted === true)
         }).length +
           34)
       )
-    }) // ordenado
+    })
 
     const response = sorted.findIndex((u) => u.id === id) // Posicion dentro del arreglo
-    res.send({ info: 'Proceso completado con exito', response, success: true }) // :D
+    res.send({ info: 'Proceso completado con exito', response, success: true }) // 😄
   } catch (err) {
     res.status(500).send({ info: 'Algo salio mal', success: false })
   }
@@ -90,20 +91,21 @@ const overallPosition = async (req, res) => {
 const topTen = async (req, res) => {
   try {
     const allUsers = await User.find()
-    const sorted = allUsers.slice(0, 5).sort((a, b) => {
+    const sorted = allUsers.filter(element => element.courses.length > 0)
+      .slice(0, 5).sort((a, b) => {
       return (
-        a.courses.map((c) => {
+        a.courses?.map((c) => {
           // cursos
-          return c.lesson.filter((l) => l.isCompleted === true) // lecciones completas
+          return c.lesson?.filter((l) => l.isCompleted === true) // lecciones completas
         }).length +
         34 -
-        (b.courses.map((c) => {
-          return c.lesson.filter((l) => l.isCompleted === true)
+        (b.courses?.map((c) => {
+          return c.lesson?.filter((l) => l.isCompleted === true)
         }).length +
           34)
       )
     })
-    res.send({ info: 'Proceso completado con exito', sorted, success: true }) // :D
+    res.send({ info: 'Proceso completado con exito', sorted, success: true }) // 😄
   } catch (err) {
     res.status(500).send({ info: 'Algo salio mal', success: false })
   }

@@ -6,11 +6,11 @@ const { createCurso, addFavorite, removeFavorite, addVotes, addCourse } = requir
 const { createLesson, getLesson } = require('../../controllers/controllerLession.js')
 
 router.post('/', protect, createCurso)
-router.put('/:id', protect, createLesson)
-router.get('/:id/lessons', protect, getLesson)
 router.put('/favorite', protect, addFavorite)
 router.put('/favorite/initcourse', protect, addCourse)
 router.put('/unfavorite', protect, removeFavorite)
+router.put('/:id', protect, createLesson)
+router.get('/:id/lesson', protect, getLesson)
 router.put('/:id/votes', protect, addVotes)
 
 module.exports = router

@@ -11,6 +11,7 @@ const createLesson = async (req, res, next) => {
     const curso = await Curso.findByIdAndUpdate(req.params.id, {
       $push: { lessons: newLesson },
     });
+    console.log("soy el curso " + course)
     if (curso.lessons[0]._id === newLesson._id) {
       curso.lessons[0].isLocked = false;
     }
@@ -22,12 +23,13 @@ const createLesson = async (req, res, next) => {
 
 const getLesson = async (req, res, next) => {
   const { id } = req.params;
+
   try {
     const lesson = await Lesson.findById(id);
 
-    res.send({ info: "Clase obtenida correctamente", lesson });
+    res.send({ info: "Clase obtenida correctamente", lesson, success: true });
   } catch (err) {
-    next(new ErrorResponse("Error al obtener la clase", 500));
+    res.status(500).send({ info: "Error al obtener la clase", err, success: false });
   }
 };
 

@@ -18,21 +18,9 @@ const lessonSchema = new Schema(
       type: Boolean,
       default: false,
     },
-  descripcion: {
-    type: String,
-    required: true
-  },
-  num: {
-    type: Number,
-    required: true
-  },
-  isCompleted: {
-    type: Boolean,
-    default: false
-  },
   quiz: [
     {
-      type: String
+      type: Object
     }
   ],
   isLocked: {
@@ -41,7 +29,7 @@ const lessonSchema = new Schema(
   },
   answers: [
     {
-      type: String
+      type: Object
     }
   ]
 }, { timestamps: true, versionKey: false })
