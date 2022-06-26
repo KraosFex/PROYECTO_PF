@@ -53,7 +53,7 @@
   }
 
   /* GRAL */
-  button {
+  .button {
     width: 100%;
     font-size: 16px;
     color: #ffffff;
@@ -88,20 +88,20 @@
     justify-content: space-evenly;
   }
 
-  button:hover {
+  .button:hover {
     background-color: #234668;
   }
 
-  button[disabled] {
+  .button[disabled] {
     background-color: #555e7d;
     color: #ffffff;
     cursor: not-allowed;
   }
 
-  button:focus {
+  .button:focus {
     outline: none;
   }
 
-  button svg {
+  .button svg {
     margin-right: 5px;
   }

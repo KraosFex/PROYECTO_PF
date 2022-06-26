@@ -120,6 +120,7 @@
   width: 19em;
   height: 2em;
   justify-content: space-around;
+  align-items: center;
 }
 
 .select2 input[type="radio"]{
@@ -180,16 +181,16 @@ justify-items: center;
     flex-direction: column;
     justify-content: center;
     justify-items: center;
+    align-items: center;
 
   }
 
 .containerSearch{
   display: flex;
-  min-width: 23em;
-  max-width: 23em;
+  min-width: 89%;
+  max-width: 89%;
   min-height:6em;
   max-height: 30em;
-  align-self: center;
 }
 
 .form{
@@ -197,18 +198,16 @@ justify-items: center;
 }
 
 .flexContainer2{
-  display: flex;
+  width: 100%;
   margin-top: 2em;
   flex-direction: column;
-  width: 100%;
-  justify-content: center;
-  justify-items: center;
-  align-content: center;
+  align-items: center;
 }
 
 .container2{
-  display: flex;
-  align-self: center;
+  width: 89%;
+  align-content: center;
+  align-items: center;
 }
 
 .p, .select, .select2{

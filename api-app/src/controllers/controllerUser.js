@@ -9,10 +9,13 @@ const getUsers = async (req, res, next) => {
       success: false
     })
   }
-  const limit = parseInt(req.query.limit) || 8
-  const page = parseInt(req.query.page) || 1
+  const options = {
+    populate: [{ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } }],
+    limit: parseInt(req.query.limit) || 8,
+    page: parseInt(req.query.page) || 1
+  }
   try {
-    const users = await User.paginate({ estado: true }, { limit, page })
+    const users = await User.paginate({ estado: true }, options)
     res.send({
       info: 'Todos lo usuarios enviados',
       users,
@@ -28,7 +31,7 @@ const getUsers = async (req, res, next) => {
 const getUserById = async (req, res, next) => {
   const { id } = req.params
   try {
-    const user = await User.findById(id)
+    const user = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
     if (!user) { return next(new ErrorResponse('Error al obtener el usuario', 500, false)) }
     res.send(user)
   } catch (err) {
@@ -42,7 +45,7 @@ const getUsersByName = async (req, res, next) => {
   try {
     const user = await User.find({
       username: { $regex: username, $options: 'i' }
-    })
+    }).populate({ path: 'courses.course', ref: 'Course' }).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
     if (!user.length) { return next(new ErrorResponse('Error al obtener el usuario', 500, false)) }
     res.send(user)
   } catch (err) {
@@ -88,7 +91,7 @@ const overallPosition = async (req, res) => {
   }
 }
 
-const topTen = async (req, res) => {
+const topFive = async (req, res) => {
   try {
     const allUsers = await User.find()
     const sorted = allUsers.filter(element => element.courses.length > 0)
@@ -191,7 +194,7 @@ module.exports = {
   getUsersByName,
   editUsername,
   overallPosition,
-  topTen,
+  topFive,
   editIsAdmin,
   deleteUser,
   banUsers,

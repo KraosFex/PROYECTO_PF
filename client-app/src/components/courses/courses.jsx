@@ -6,7 +6,7 @@ import {
   setArrowUpDown,
   setShowedCourses,
 } from "../../../redux/actions/index";
-
+import { getCourses } from "../../../redux/actions/index";
 // utils
 import { filter } from "../../utils/filters";
 import { sortByRating } from "../../utils/sorter";
@@ -29,66 +29,69 @@ function Courses() {
 
   const allCourses = useSelector((store) => store.courses);
   const tema = useSelector((store) => store.theme);
-  var showedCourses = allCourses;
+  const courseSearch = useSelector((store) => store.showedCourses);
+  var showedCourses = courseSearch;
   const direction = useSelector((store) => store.arrowUpDown);
 
   //forcing the re-render of the component
   const [refresh, setRefresh] = useState(true);
   const [activeArrow, setActiveArrow] = useState(false);
 
-  const sorted = (event) => {
-    const sortedArray = sortByRating(event, showedCourses, allCourses);
-    dispatch(setShowedCourses(sortedArray));
-    refresh ? setRefresh(false) : setRefresh(true);
-  };
-
-  const filtered = () => {
-    const filterArray = filter(allCourses, showedCourses);
-    dispatch(setShowedCourses(filterArray));
-  };
-
-  //   const search = (e) => {
-  //     // SETEA TODOS LOS FILTROS/SORTS A false
-  //     const selector = [...document.getElementsByName("votes")];
-  //     selector[0].value = 0;
-  //     const radioInputs = [...document.getElementsByName("progreso")];
-  //     for (const input of radioInputs) {
-  //       if (input.value === "Todos") {
-  //         input.checked = true;
-  //       } else {
-  //         input.checked = false;
-  //       }
-  //     }
-  //     const inputsCheckbox = [...document.getElementsByName("languages")];
-  //     for (const input of inputsCheckbox) {
-  //       input.checked = false;
-  //     }
-  //   dispatch(getCourseByName(e.target.value));
-  // };
-
   // AGREGADO  PRUEBA--------------------------------
   const [order, setCourseOrder] = useState("");
-  const [tipo1, setTipo1] = useState("");
-  const [tipo2, setTipo2] = useState("");
+  const [tipo1, setTipo1] = useState("0");
+  const [tipo2, setTipo2] = useState("0");
+  const [tipo3, setTipo3] = useState("0");
 
   const orderBy = (e) => {
     setCourseOrder(e.target.value);
   };
   const byTipo = (e) => {
-    if (tipo1 === "0") {
-      setTipo1(e.target.value);
-    } else {
-      setTipo2(e.target.value);
+    if (e.target.checked === true) {
+      if (tipo1 === "0") setTipo1(e.target.value);
+      else if (tipo2 === "0") setTipo2(e.target.value);
+      else setTipo3(e.target.value);
+    } else if (e.target.checked === false) {
+      if (e.target.value === tipo1) setTipo1("0");
+      if (e.target.value === tipo2) setTipo2("0");
+      if (e.target.value === tipo3) setTipo3("0");
     }
   };
 
   const search = (e) => {
+    // SETEA TODOS LOS FILTROS/SORTS A false
     e.preventDefault();
-    dispatch(getCourseByName(e.target.value));
+    const selector = [...document.getElementsByName("votes")];
+    selector[0].value = 0;
+    const radioInputs = [...document.getElementsByName("progreso")];
+    for (const input of radioInputs) {
+      if (input.value === "Todos") {
+        input.checked = true;
+      } else {
+        input.checked = false;
+      }
+    }
+    const inputsCheckbox = [...document.getElementsByName("languages")];
+    for (const input of inputsCheckbox) {
+      input.checked = false;
+    }
+    if (e.target.value != "") {
+      dispatch(getCourseByName(e.target.value));
+      showedCourses = courseSearch;
+    } else {
+      dispatch(getCourses());
+      showedCourses = courseSearch;
+    }
+    console.log(showedCourses);
   };
 
-  if (order) showedCourses = ordered(order, allCourses);
-  if (tipo1 && tipo1 != "0") showedCourses = lenguaje(tipo1, tipo2, allCourses);
+  if (
+    (tipo1 && tipo1 != "0") ||
+    (tipo2 && tipo2 != "0") ||
+    (tipo3 && tipo3 != "0")
+  )
+    showedCourses = lenguaje(tipo1, tipo2, tipo3, allCourses);
+  if (order) showedCourses = ordered(order, showedCourses);
 
   //---------------------------------------------------
 
@@ -110,6 +113,7 @@ function Courses() {
                 type="search"
                 placeholder="Buscar curso"
                 className={style.input}
+                f
               />
             </form>
             <p className={activeArrow ? style.pActive : style.p}>Ordenar por</p>
@@ -125,7 +129,7 @@ function Courses() {
             <p className={activeArrow ? style.pActive : style.p}>Lenguaje</p>
             <div
               className={activeArrow ? style.select2Active : style.select2}
-              onChange={byTipo}
+              onChange={(e) => byTipo(e)}
             >
               <label>JavaScript</label>
               <input

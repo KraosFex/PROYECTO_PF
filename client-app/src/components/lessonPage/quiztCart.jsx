@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 
 // style
-import style from './questionsPage.module.css';
-
-export default function QuiztCart( { questions, handleApproved, approved } ) {
+import style from "./questionsPage.module.css";
 
 
   if(questions) {
@@ -57,6 +55,7 @@ export default function QuiztCart( { questions, handleApproved, approved } ) {
               Obtuviste {puntuación} de {questions.length}{" "}
             </span>
             <button
+              className={style.button}
               onClick={() => {
                 setIsFinished(false);
                 setAnswersShown(true);

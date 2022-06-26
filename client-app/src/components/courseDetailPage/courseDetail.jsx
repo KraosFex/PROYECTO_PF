@@ -19,14 +19,16 @@ export default function CourseDetail(props) {
   let { id } = useParams();
 
   let dispatch = useDispatch();
-
-  const [idClase, setIdClase] = useState(1);
   const [activeArrow, setActiveArrow] = useState(false);
 
 
   const [course, setCourse] = useState({});
-
-  const [claseSumary, setClaseSumary] = useState({});
+  const direction = useSelector((store) => store.arrowCourse);
+  const user = useSelector((store) => store.user);
+  const isLogged = useSelector((store) => store.isLogged);
+  let Curso = course;
+  const [idClase, setIdClase] = useState("");
+  let style = darkTheme;
 
   useEffect(() => {
     async function axionReq() {
@@ -36,14 +38,12 @@ export default function CourseDetail(props) {
     axionReq();
   }, [dispatch]);
 
-  if (course.lesson) {
-    const lesson = course.lessons.find((o) => o._id === idClase);
-    setClaseSumary(lesson);
+  if (isLogged && idClase) {
+    let userCurso = user.courses.find((o) => o._id === id);
+    var lesson = userCurso.lessons.find((o) => o._id === idClase);
+  } else if (idClase) {
+    lesson = Curso.lessons.find((o) => o._id === idClase);
   }
-
-  let style = darkTheme;
-
-  const direction = useSelector((store) => store.arrowCourse);
 
   const arrowDir = () => {
     if (direction === "down") dispatch(setArrowCourse("up"));
@@ -82,7 +82,7 @@ export default function CourseDetail(props) {
                   activeArrow ? style.descriptionActive : style.description
                 }
               >
-                {course.description}
+                {Curso.descripcion}
               </p>
               <div className={style.arrow} onClick={arrowDir}>
                 <ArrowsCourse />
@@ -143,7 +143,7 @@ export default function CourseDetail(props) {
                 </div>
               </div>
               <div className={style.lessonSumary}>
-                <LessonSumary clase={claseSumary}/>
+                <LessonSumary clase={lesson} />
               </div>
             </div>
           </div>

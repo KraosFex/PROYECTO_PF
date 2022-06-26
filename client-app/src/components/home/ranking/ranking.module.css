@@ -107,4 +107,14 @@
         right: 0;
         height: 30px;
     }
+
+    .contenedor{
+        padding:1px;
+        margin-bottom: 0em;
+    }
+
+    .All{
+        margin-top: 1em;
+        height: 80%;
+    }
 }

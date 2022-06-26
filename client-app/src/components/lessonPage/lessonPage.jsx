@@ -4,13 +4,13 @@ import { useDispatch } from 'react-redux';
 import Vimeo from '@u-wave/react-vimeo';
 
 // redux actions
-import { getLesson } from '../../../redux/actions';
+import { getLesson } from "../../../redux/actions";
 
 // Components
-import QuiztCart from './quiztCart';
+import QuiztCart from "./quiztCart";
 
 // style
-import style from './lessonPage.module.css';
+import style from "./lessonPage.module.css";
 
 // aqui me traigao la lesson
 
@@ -37,16 +37,16 @@ export default function LessonPage() {
 
 
   const handleApproved = (approved) => {
-    setApproved(approved)
-  }
+    setApproved(approved);
+  };
 
   const handelSubmit = () => {
     /*
      * aqui deberia ir la ruta que actuliza la lesson del user
      */
 
-    navigate(`/lesson/${IdOfCourse}/${IdOflesson + 1}`)
-  }
+    navigate(`/lesson/${courseId}/${IdOflesson + 1}`);
+  };
 
 
 console.log(lesson)
@@ -66,5 +66,5 @@ console.log(lesson)
         </button>
       </div>
     </div>
-  )
+  );
 }
