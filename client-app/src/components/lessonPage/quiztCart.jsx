@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 
 // style
-import style from './questionsPage.module.css';
+import style from "./questionsPage.module.css";
 
-export default function QuiztCart( { questions, handleApproved, approved } ) {
-
+export default function QuiztCart({ questions, handleApproved, approved }) {
   const [preguntaActual, setPreguntaActual] = useState(0);
   const [puntuación, setPuntuación] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
@@ -12,7 +11,7 @@ export default function QuiztCart( { questions, handleApproved, approved } ) {
   const [areDisabled, setAreDisabled] = useState(false);
   const [answersShown, setAnswersShown] = useState(false);
 
-  const constApproved = questions.length * 0.5
+  const constApproved = questions.length * 0.5;
 
   function handleAnswerSubmit(isCorrect, e) {
     // añadir puntuación
@@ -24,7 +23,8 @@ export default function QuiztCart( { questions, handleApproved, approved } ) {
     setTimeout(() => {
       if (preguntaActual === questions.length - 1) {
         setIsFinished(true);
-        if(constApproved > (puntuación * 100) / questions.length) handleApproved(true)
+        if (constApproved > (puntuación * 100) / questions.length)
+          handleApproved(true);
       } else {
         setPreguntaActual(preguntaActual + 1);
         setTiempoRestante(10);
@@ -44,11 +44,8 @@ export default function QuiztCart( { questions, handleApproved, approved } ) {
   if (isFinished)
     return (
       <main className={style.quiz}>
-        <div className={style.juego-terminado}>
-          <span>{approved ? 
-                'is approved' :
-                'not approved'  
-          }</span>
+        <div className={style.juego - terminado}>
+          <span>{approved ? "is approved" : "not approved"}</span>
           <span>
             {" "}
             Obtuviste {puntuación} de {questions.length}{" "}
@@ -59,6 +56,7 @@ export default function QuiztCart( { questions, handleApproved, approved } ) {
               setAnswersShown(true);
               setPreguntaActual(0);
             }}
+            className={"button"}
           >
             Ver respuestas
           </button>
@@ -69,11 +67,11 @@ export default function QuiztCart( { questions, handleApproved, approved } ) {
   if (answersShown)
     return (
       <main className={style.quiz}>
-        <div className={style.lado-izquierdo}>
-          <div className={style.numero-pregunta}>
+        <div className={style.lado - izquierdo}>
+          <div className={style.numero - pregunta}>
             <span> Pregunta {preguntaActual + 1} de</span> {questions.length}
           </div>
-          <div className={style.titulo-pregunta}>
+          <div className={style.titulo - pregunta}>
             {questions[preguntaActual].titulo}
           </div>
           <div>
@@ -84,6 +82,7 @@ export default function QuiztCart( { questions, handleApproved, approved } ) {
             }
           </div>
           <button
+            className={"button"}
             onClick={() => {
               if (preguntaActual === questions.length - 1) {
                 window.location.href = "/";
@@ -102,20 +101,21 @@ export default function QuiztCart( { questions, handleApproved, approved } ) {
 
   return (
     <main className={style.quiz}>
-      <div className={style.lado-izquierdo}>
-        <div className={style.numero-pregunta}>
+      <div className={style.lado - izquierdo}>
+        <div className={style.numero - pregunta}>
           <span> Pregunta {preguntaActual + 1} de</span> {questions.length}
         </div>
-        <div className={style.titulo-pregunta}>
+        <div className={style.titulo - pregunta}>
           {questions[preguntaActual].titulo}
         </div>
         <div>
           {!areDisabled ? (
-            <span className={style.tiempo-restante}>
+            <span className={style.tiempo - restante}>
               Tiempo restante: {tiempoRestante}{" "}
             </span>
           ) : (
             <button
+              className={"button"}
               onClick={() => {
                 setTiempoRestante(10);
                 setAreDisabled(false);
@@ -131,9 +131,10 @@ export default function QuiztCart( { questions, handleApproved, approved } ) {
           )}
         </div>
       </div>
-      <div className={style.lado-derecho}>
+      <div className={style.lado - derecho}>
         {questions[preguntaActual].opciones.map((respuesta) => (
           <button
+            className={"button"}
             disabled={areDisabled}
             key={respuesta.textoRespuesta}
             onClick={(e) => handleAnswerSubmit(respuesta.isCorrect, e)}

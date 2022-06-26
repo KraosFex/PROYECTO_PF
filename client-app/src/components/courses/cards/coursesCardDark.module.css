@@ -88,10 +88,12 @@
   }
 
   @media (max-width: 768px) {
-
     .containerCourse{
-        width: 23em;
+        width: 100%;
         margin-left: 0em;
+        align-self: center;
+        justify-self: center;
+        
     }
 
     .descripcion{
@@ -99,6 +101,7 @@
     }
 
     .lenguaje{
-        margin-right: 2em;
+        margin-left: auto;
+        margin-right: 1em;
     }
   }
