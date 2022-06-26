@@ -11,6 +11,9 @@
 .img{
     max-width: 100%;
 }
+.item2{
+    display: flex;
+}
 
 .container {
     max-width: 1100px;
@@ -24,32 +27,31 @@
     justify-content: center;
     align-items: center;
 
-    height: 100vh;
-    width: 100vw;
+    min-height: 100vh;
+    min-width: 100vw;
     background: rgb(255,29,56);
     background: linear-gradient(9deg, rgba(255,29,56,1) 0%, rgba(255,102,108,1) 65%);
 }
 
 .containerMain{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    width: 100%;
-    gap: 8rem;
+    display: flex;
+    justify-content: space-between;
 
 }
-
+.item,.item2 {
+    max-width: 50%;
+    padding: 20px;
+    margin: 20px;
+}
 .item h1{
     font-family: 'Open_sans';
-    font-weight: 700;
-    line-height: 4rem;
     font-size: 2.6rem;
-    text-transform: capitalize;
     color: #FFF;
 }
 
 .item p {
     font-family: 'Open_sans';
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: #FFF;
     line-height: 2rem;
     margin: 2rem 0;
@@ -57,11 +59,12 @@
 
 .item button {
     width: 10rem;
-    height: 3rem;
-    background: transparent;
+    min-height: 3rem;
+    background: #00000063;
     font-family: 'Open_Sans';
     text-transform: uppercase;
     color: #ffffff;
+    margin: 10px;
     border-radius: .5em;
     border: solid 2px #ffffff;
     cursor: pointer;
@@ -71,5 +74,18 @@
 .item .containerButton {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
+}
+
+@media (max-width: 650px) {
+    .containerMain{
+        flex-direction: column;
+    }
+    .item,.item2{
+        max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    }
 }

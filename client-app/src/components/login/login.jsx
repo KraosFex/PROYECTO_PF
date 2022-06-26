@@ -121,7 +121,7 @@ function Login() {
             </div>
           </div>
           <div className={style.childContainer}>
-            <h1>Entrar</h1>
+            <h1>Sign In</h1>
             {logError.err && (
               <label className={style.logError}>{logError.err}</label>
             )}
@@ -180,7 +180,7 @@ function Login() {
           </div>
         </div>
         {/*Codition open popUp or Close popUp*/}
-        {forgotPopUp ? <ForgotPopUp popUpFunction={popUpFunction} /> : null};
+        {forgotPopUp ? <ForgotPopUp popUpFunction={popUpFunction} /> : null}
       </div>
     </div>
   );

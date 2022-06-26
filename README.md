@@ -1,5 +1,10 @@
 # PROYECTO_PF
 
+## INFORMACION:
+
+Para usar localmente la app de creas un .env en el client con la variable VITE_API="http://localhost:3001",
+para el back BORREN los cursos que tenian porque se agregan unos automaticamente al arrancar el front, aun faltan las lessons asi que lo que anda aca es temporal y requiere profundizar, TODO es version pagina web y celular (el detail page aun falta cuando se agregen las lesson de resto lo demas se adapta), si usan el front deploy requiere que tengas el back en "http://localhost:3001" por default hasta deployar   
+
 ## Planteamiento:
 
 Nuestro objetivo principal es fomentar la cultura del mundo TI e interesar tanto a

@@ -134,13 +134,3 @@
     width:20%;
   }
 
-  @media (max-width: 768px) {
-    .containerPerfil{
-      width: 95%;
-    }
-
-    .containerImg{
-      display: flex;
-      margin-top: 0em;
-    }
-  }

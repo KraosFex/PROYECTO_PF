@@ -1,28 +1,37 @@
-
-.containerCourse{
-    display: flex;
+@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@300&display=swap');
+.containerCourse {
+    display: inline-flex;
     background-color: rgb(250, 250, 250);
     border-radius: 0.5em;
-    width: 50em;
+    width: 90%;
     flex-direction: row;
     margin-left: 1em;
     min-height: 10em;
     margin-top: 1em;
-    box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
-    -moz-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
+    box-shadow: 6px 10px 32px -16px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 6px 10px 32px -16px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 6px 10px 32px -16px rgba(0, 0, 0, 0.75);
 }
 
-.courseName{
+.container2 {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+}
+
+.courseName {
     margin-top: .5em;
     display: flex;
+    width: 100%;
     font-size: 1.7em;
     color: rgb(62, 62, 62);
     text-decoration: underline 1px;
     margin-left: 0.5em;
+    font-family: 'Anek Latin', sans-serif;
 }
 
-.courseStats{
+.courseStats {
     display: -webkit-box;
     display: -ms-flexbox;
     display: inline-flex;
@@ -32,79 +41,85 @@
     margin-top: 0.3em;
 }
 
-.courseStats svg{
+.courseStats svg {
     position: relative;
     width: 1.5em;
     height: 1.5em;
     color: rgb(62, 62, 62);
-  }
+}
 
-  .courseStats span{
-      color: rgb(62, 62, 62);
-      font-size: 0.8em;
-      margin-right: 2em;
-      margin-left: 0.4em;
-      margin-top: 0.3em;
-      
-  }
+.courseStats span {
+    color: rgb(62, 62, 62);
+    font-size: 0.8em;
+    margin-right: 2em;
+    margin-left: 0.4em;
+    margin-top: 0.3em;
 
-  .courseStats button{
-      background: none;
-      border: none;
-  }
+}
 
-  .courseStats button svg:hover{
+.courseStats button {
+    background: none;
+    border: none;
+}
+
+.courseStats button svg:hover {
     color: rgb(213, 0, 0);
 }
 
-  .descripcion{
-      display: flex;
-      width: 35em;
-      min-height:4em ;
-  }
 
-  .descripcion span{
-      margin-top: 1em;
-      margin-left: 1em;
-      margin-bottom: 1em;
-      top: 1em;
-      color: rgb(62, 62, 62);
-  }
+.descripcion {
+    display: flex;
+    min-height: 4em;
+}
 
+.descripcion span {
+    margin-top: 1em;
+    margin-left: 1em;
+    margin-bottom: 1em;
+    top: 1em;
+    color: rgb(62, 62, 62);
 
-  .lenguaje{
-      display: flex;
-      margin-left: 5em;
-      width: 4em;
-        height: 4em;
+}
+
+.lenguaje {
+    display: flex;
+    margin-left: 5em;
+    width: 4em;
+    height: 4em;
+    align-self: center;
+}
+
+.lenguaje svg {
+    display: flex;
+}
+
+.flexContainer {
+    display: inline-block;
+    width: 100%;
+}
+.mas{
+    text-decoration: none;
+    color: gray;
+    margin: 5px;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+
+    .containerCourse,
+    .descripcion {
+        width: 90%;
+    }
+
+    .lenguaje {
+        margin-right: 2em;
+    }
+
+    .container2 {
+        display: flex;
         align-self: center;
-  }
-
-  .lenguaje svg{
-      display: flex;
-  }
-
-  .flexContainer{
-      display: inline-block;
-  }
-
-  @media (max-width: 768px) {
-
-    .containerCourse{
+        justify-content: center;
         width: 100%;
-        margin-left: 0em;
-        align-self: center;
-        justify-self: center;
-        
-    }
 
-    .descripcion{
-        width: 120%;
     }
-
-    .lenguaje{
-        margin-left: auto;
-        margin-right: 1em;
-    }
-  }
-
+}

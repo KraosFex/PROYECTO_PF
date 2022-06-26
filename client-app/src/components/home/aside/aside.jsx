@@ -44,16 +44,22 @@ function NavBar(props) {
           />
         </NavLink>
         <div className={style.icon}>
-          <CursoIcon />
+        <NavLink to="/courses"><CursoIcon /></NavLink>
           <NavLink to="/courses" className={style.hide}>
             Cursos
           </NavLink>
         </div>
         <div className={style.icon}>
-          <Discord />
+        <NavLink to="#"><CodeIcon /></NavLink>
           <NavLink to="#" className={style.hide}>
-            Unete a Discord!
+            Ejercicios
           </NavLink>
+        </div>
+        <div className={style.icon}>
+        <a href="https://discord.gg/kwXhPtED"><Discord /></a>
+          <a href="https://discord.gg/kwXhPtED" className={style.hide}>
+            Unete a Discord!
+          </a>
         </div>
       </div>
     </ThemeProvider>

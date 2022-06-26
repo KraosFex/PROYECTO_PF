@@ -11,12 +11,13 @@ import {
   SET_RANKING,
   SET_ARROW_UPDOWN,
   SET_ARROW_DIRECTION,
-  SET_ARROW_COURSE,
 } from "../actions/actionsTypes/actionTypes";
 
 // index reducers app
 const initialState = {
   user: {},
+  lesson:{},
+  detail:{},
   isLogged: false,
   topTen: [],
   allUsers: [],
@@ -26,16 +27,17 @@ const initialState = {
   theme: "light",
   arrowDirection: "left",
   arrowUpDown: "down",
-  arrowCourse: "down",
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     //Para obtener la lista completa de mi api y almacenarla en el estado
     case SET_VALIDATEUSER:
+      var filtar = payload.courses
+      if(payload.courses.length){ filtar = payload.courses.filter(e=> e.course)}
       return {
         ...state,
-        user: payload,
+        user: {...payload, courses: filtar},
         isLogged: true,
       };
     case LOGOUT:
@@ -45,9 +47,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
         isLogged: false,
       };
     case SET_UPDATEUSER:
+      var filtar = payload.courses
+      if(payload.courses.length){ filtar = payload.courses.filter(e=> e.course)}
       return {
         ...state,
-        user: payload,
+        user: {...payload, courses: filtar},
       };
     case SET_COURSES:
       return {
@@ -55,10 +59,16 @@ const rootReducer = (state = initialState, { type, payload }) => {
         courses: payload,
       };
     case SET_SHOWEDCOURSES:
+      if(payload.length === 0){
+        return {
+          ...state,
+          showedCourses: state.courses,
+        };
+      }
       return {
         ...state,
         showedCourses: payload,
-      }
+      };
     case SET_ALLUSERS:
       return {
         ...state,
@@ -89,11 +99,14 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         arrowUpDown: payload,
       };
-    case SET_ARROW_COURSE:
-      return {
-        ...state,
-        arrowCourse: payload,
-      };
+    case  "GET_DETAIL":
+      return{
+        ...state, detail:payload
+      }
+    case "GET_LESSON":
+      return{
+        ...state, lesson:payload
+      }
     default:
       return state;
   }

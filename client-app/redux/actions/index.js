@@ -14,7 +14,6 @@ import {
   SET_RANKING,
   SET_ARROW_DIRECTION,
   SET_ARROW_UPDOWN,
-  SET_ARROW_COURSE,
 } from "./actionsTypes/actionTypes";
 
 // synchronous actions
@@ -68,22 +67,10 @@ export const updateUser = (userObject) => {
   };
 };
 
-export const logout = () => {
-  return {
-    type: LOGOUT,
-  };
+export const logout = (dispatch) => {
+  dispatch({ type: LOGOUT, });
 };
 
-export const addVotes = async function (id, info) {
-  try {
-    const data = await axios.put(
-      `http://localhost:3001/api/cursosprivate/${id}/votes`,
-      info
-    );
-  } catch (err) {
-    new Error(err);
-  }
-};
 
 export const setRanking = (ranking) => {
   return {
@@ -105,20 +92,13 @@ export const setArrowUpDown = (arrowUpDown) => {
     payload: arrowUpDown,
   };
 };
-
-export const setArrowCourse = (arrowCourse) => {
-  return {
-    type: SET_ARROW_COURSE,
-    payload: arrowCourse,
-  };
-};
 // asynchronous actions
 
 export const register = (userData) => {
   return async function (dispatch) {
     try {
       const metaData = await axios.post(
-        "http://localhost:3001/api/auth/register",
+        "/api/auth/register",
         userData
       );
       dispatch(setValidateUser(metaData.data.user));
@@ -128,16 +108,30 @@ export const register = (userData) => {
     }
   };
 };
+export const addVotes = function (id, info) {
+  return async function () {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      };
+      const data = await axios.put(`/api/cursosprivate/${id}/votes`, info, config);
+      dispatch({ type: "GET_DETAIL",payload: data.curso})
+    } catch (err) {
+      new Error(err);
+    }
+  }
+};
 
 export const findCourse = (id) => {
   return async function (dispatch) {
     try {
-      const resp = await axios.get(
-        `http://localhost:3001/api/cursos/detail/${id}`
-      );
-      return resp.data;
+      const resp = await axios.get(`/api/cursos/data/${id}`);
+      dispatch({ type: "GET_DETAIL", payload: resp.data });
     } catch (err) {
-      console.log("se rompio");
+      new Error(err);
     }
   };
 };
@@ -146,13 +140,30 @@ export const login = (post) => {
   return async function (dispatch) {
     try {
       const metaData = await axios.post(
-        "http://localhost:3001/api/auth/login",
+        "/api/auth/login",
         post
       );
-      dispatch(setValidateUser(metaData.data.user));
+      dispatch(setValidateUser({ ...metaData.data.user, Last_Seen: new Date().toDateString().slice(4, 24) }));
       return metaData.data;
     } catch (err) {
       return err.response.data;
+    }
+  };
+};
+
+
+export const getCourseByName = (name) => {
+  return async function (dispatch) {
+    try {
+      const metaData = await axios.get(
+        `/api/cursos/${name}`
+      );
+      metaData.data.length ? dispatch(setShowedCourses(metaData.data)) : dispatch(setShowedCourses([]));
+    } catch (err) {
+      alert("Ups! Este curso no esta en la base de datos, prueba escribirlo nuevamente...");
+      dispatch(setShowedCourses([]));
+
+
     }
   };
 };
@@ -167,7 +178,7 @@ export const findUserByName = (username) => {
         },
       };
       let metaData = await axios.get(
-        `http://localhost:3001/api/usersprivate/username?username=${username}`,
+        `/api/usersprivate/username?username=${username}`,
         config
       );
       dispatch(setShowedUsers(metaData.data));
@@ -188,7 +199,7 @@ export const editUsername = (username, id) => {
 
     try {
       const metaData = await axios.put(
-        `http://localhost:3001/api/usersprivate/${id}/profile`,
+        `/api/usersprivate/${id}/profile`,
         { username: username },
         config
       );
@@ -202,16 +213,16 @@ export const editUsername = (username, id) => {
 };
 
 export const editPassword = (email) => {
-  return async function (dispatch) {
+  return async function () {
     try {
       const metaData = await axios.put(
-        `http://localhost:3001/api/auth/forgotPassword`,
+        `/api/auth/forgotPassword`,
         { email: email }
       );
       return metaData.data;
     } catch (err) {
-      alert("Ups! Something went wrong...");
-      new Error(err);
+      console.log(err.code)
+      return { success: false, data: "Upp, algo salio mal, quizas el correo no existe en la base de datos, intenta nuevamente(" + err.code + ")" }
     }
   };
 };
@@ -219,30 +230,17 @@ export const editPassword = (email) => {
 export const getCourses = () => {
   return async function (dispatch) {
     try {
-      const metaData = await axios.get("http://localhost:3001/api/cursos");
+      const metaData = await axios.get("/api/cursos");
       dispatch(setCourses(metaData.data.docs));
       dispatch(setShowedCourses(metaData.data.docs));
     } catch (err) {
+      console.log(err);
       alert("Ups! Something went wrong...");
     }
   };
 };
 
-export const getCourseByName = (name) => {
-  return async function (dispatch) {
-    try {
-      const metaData = await axios.get(
-        `http://localhost:3001/api/cursos/${name}`
-      );
-      dispatch(setShowedCourses(metaData.data));
-    } catch (err) {
-      new Error(err);
-      alert("Ups! Something went wrong...");
-    }
-  };
-};
-
-export const bookmarkCourse = (id) => {
+export const bookmarkCourse = (idUser, idCurso) => {
   return async function (dispatch) {
     try {
       let config = {
@@ -253,19 +251,18 @@ export const bookmarkCourse = (id) => {
       };
 
       const resp = await axios.put(
-        `http://localhost:3001/api/cursosprivate/favorite`,
-        { idCurso: id },
+        `/api/cursosprivate/favorite`,
+        { idUser, idCurso },
         config
       );
       dispatch(updateUser(resp.data.user));
     } catch (err) {
-      alert("Ups! Something went wrong...");
       console.log(err);
     }
   };
 };
 
-export const unmarkfavorites = (id) => {
+export const unmarkfavorites = (idUser, idCurso) => {
   return async function (dispatch) {
     try {
       let config = {
@@ -276,20 +273,18 @@ export const unmarkfavorites = (id) => {
       };
 
       const resp = await axios.put(
-        `http://localhost:3001/api/cursosprivate/unfavorite`,
-        { idCurso: id },
+        `/api/cursosprivate/unfavorite`,
+        { idUser, idCurso },
         config
       );
       dispatch(updateUser(resp.data.user));
     } catch (err) {
-      alert("Ups! Something went wrong...");
       console.log(err);
     }
   };
 };
 
-/*A LA ESPERA DE LA CREACION DE LA RUTA??????*/
-export const getLesson = (id) => {
+export const getLesson = (idLesson) => {
   return async function (dispatch) {
     try {
       let config = {
@@ -298,14 +293,10 @@ export const getLesson = (id) => {
           authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
       };
-      const metaData = await axios.get(
-        `http://localhost:3001/api/cursosprivate/${id}/lesson`,
-        config
-      );
-      return metaData.data;
+      const metaData = await axios.get(`/api/cursosprivate/${idLesson}/lessons`,config);
+      dispatch({type: "GET_LESSON",payload: metaData.data.lesson2[0]});
     } catch (err) {
-      new Error(err);
-      alert("Ups! Something went wrong...");
+      return err;
     }
   };
 };
@@ -320,7 +311,7 @@ export const getAllUsers = () => {
         },
       };
       const metaData = await axios(
-        `http://localhost:3001/api/usersprivate/`,
+        `/api/usersprivate/all`,
         config
       );
       dispatch(setAllUsers(metaData.data.users.docs));
@@ -335,10 +326,10 @@ export const auhtGoogle = (tokenId) => {
   return async function (dispatch) {
     try {
       const metaData = await axios.post(
-        "http://localhost:3001/api/auth/googlelogin",
+        "/api/auth/googlelogin",
         { tokenId }
       );
-      dispatch(setValidateUser(metaData.data.user));
+      dispatch(setValidateUser({ ...metaData.data.user, Last_Seen: new Date().toDateString().slice(4, 24) }));
       return metaData.data;
     } catch (err) {
       return err.response.data;
@@ -347,7 +338,7 @@ export const auhtGoogle = (tokenId) => {
 };
 
 export const getUserRank = (userId) => {
-  return async function (dispatch) {
+  return async function () {
     try {
       let config = {
         headers: {
@@ -356,7 +347,7 @@ export const getUserRank = (userId) => {
         },
       };
       const metaData = await axios.get(
-        `http://localhost:3001/api/usersprivate/position/${userId}`,
+        `/api/usersprivate/position/${userId}`,
         config
       );
       return metaData.data;
@@ -370,17 +361,17 @@ export const getRanking = () => {
   return async function (dispatch) {
     try {
       const metaData = await axios.get(
-        "http://localhost:3001/api/users/topten"
+        "/api/users/topten"
       );
       dispatch(setRanking(metaData.data.sorted));
     } catch (err) {
-      console.log(err.response.data.info);
+      console.log(err);
     }
   };
 };
 
 export const deleteUser = (userId) => {
-  return async function (dispatch) {
+  return async function () {
     try {
       let config = {
         headers: {
@@ -393,7 +384,7 @@ export const deleteUser = (userId) => {
       };
 
       const metaData = await axios.delete(
-        `http://localhost:3001/api/usersprivate/deleteUser`,
+        `/api/usersprivate/deleteUser`,
         config
       );
       console.log(metaData.data);
@@ -404,29 +395,6 @@ export const deleteUser = (userId) => {
 };
 
 export const isAdminConverter = (userId, boolean) => {
-  return async function (dispatch) {
-    try {
-      let config = {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-      };
-
-      const metaData = await axios.put(
-        `http://localhost:3001/api/usersprivate/isAdmin`,
-        { id: userId, change: boolean },
-        config
-      );
-      console.log(metaData);
-      return metaData.data;
-    } catch (err) {
-      console.log(err.response.data);
-    }
-  };
-};
-
-export const Banear = (userId, fecha) => {
   return async function () {
     try {
       let config = {
@@ -436,15 +404,76 @@ export const Banear = (userId, fecha) => {
         },
       };
 
-      const metaData = await axios.post(
-        `http://localhost:3001/api/usersprivate/ban`,
-        { id: userId, fecha: fecha },
+      const metaData = await axios.put(
+        `/api/usersprivate/isAdmin`,
+        { id: userId, change: boolean },
         config
       );
-
-      return { successful: true, data: metaData };
+      console.log(metaData);
+      return metaData.data;
     } catch (err) {
-      return { successful: false, error: err };
+      console.log(err.response.data);
     }
-  };
-};
+  }
+}
+
+
+export const Banear = (userId, fecha) => {
+  return async function () {
+    try {
+
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`
+        }
+      };
+
+      const metaData = await axios.post(`/api/usersprivate/ban`, { id: userId, fecha: fecha }, config);
+
+      return { successful: true, data: metaData }
+    } catch (err) {
+      return { successful: false, error: err }
+    }
+  }
+}
+export const BanearDef = (userId, estado) => {
+  return async function () {
+    try {
+
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`
+        }
+      };
+
+      const metaData = await axios.post(`/api/usersprivate/permaBan`, { id: userId, estado }, config);
+
+      return { successful: true, data: metaData }
+    } catch (err) {
+      return { successful: false, error: err }
+    }
+  }
+}
+
+export const Create = (data, lessons) => {
+  return async function () {
+    try {
+      await axios.post(`/api/cursosprivate/first/`, {body:data, lessons});
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+export const CreateLesson = (idCurso, data) => {
+  return async function (dispatch) {
+    try {
+      let info = await axios.put(`/api/cursosprivate/new/${idCurso}`, data);
+      dispatch(setCourses(info))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}

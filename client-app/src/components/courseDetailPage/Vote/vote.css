@@ -40,11 +40,3 @@
     color: white;
     cursor: pointer;
 }
-
-
-@media (max-width: 768px) {
-    .Conteiner_rating{
-        justify-content: center;
-    }
-
-}

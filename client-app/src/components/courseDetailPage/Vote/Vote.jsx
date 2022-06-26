@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { addVotes } from "../../../../redux/actions/index";
+import { useDispatch } from "react-redux";
+import { addVotes, getCourses ,findCourse } from "../../../../redux/actions/index";
 import "./vote.css";
-import FavoriteIcon from "../../../icons/Favorite";
 
-export default function Stars({ idCurso, idUser }) {
+export default function Stars({ idCurso, idUser, calificacion }) {
+  const dispatch = useDispatch()
   let [boton, setBoton] = useState(false);
   function Click() {
     setBoton(true);
@@ -30,8 +31,10 @@ export default function Stars({ idCurso, idUser }) {
       }
     }
     if (idCurso && idUser) {
-      addVotes(idCurso, { idUser: idUser, votes: parseInt(max) });
+      addVotes(idCurso, {idCurso, calificacion: calificacion + parseInt(max) , idUser: idUser, votes: parseInt(max) })();
     }
+    getCourses()(dispatch);
+    findCourse(idCurso)(dispatch);
   }
   return (
     <div className="Conteiner_rating">

@@ -4,24 +4,23 @@ import { ThemeProvider } from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import {
   isAdminConverter,
-  deleteUser,
   getAllUsers,
 } from "../../../../../redux/actions";
 import BanearPopUp from "../PopUpBanear/BanearPopUp";
 import { useState } from "react";
+import BanearDefini from "../PopUpBanear/BaneoDefinitivo";
 
 
-function UserCard({ id, name, username, email, isAdmin, image, courses }) {
+function UserCard({ id, name, username, email, isAdmin, image, courses, estado }) {
   const dispatch = useDispatch();
   const [banearPopUp, setBanear] = useState(false);
+  const [banearDefini, setBanearDef] = useState(false);
 
-  const popUpFunction = (change) => {
-    setBanear(change)
-  };
+  const popUpFunction = (change, type) => {
+    if (type === "ban") { setBanear(change) }
+    if (type === "delete") { setBanearDef(change) }
+    dispatch(getAllUsers())
 
-  const deleteFunction = async () => {
-    await dispatch(deleteUser(id));
-    dispatch(getAllUsers());
   };
 
   const adminFunction = async (e) => {
@@ -68,17 +67,17 @@ function UserCard({ id, name, username, email, isAdmin, image, courses }) {
         <div className={style.adminOptions}>
           <button
             className={style.optionButton}
-            onClick={() => popUpFunction(true)}
+            onClick={() => popUpFunction(true, "ban")}
             name="ban"
           >
             Banear
           </button>
           <button
             className={style.optionButton}
-            onClick={() => deleteFunction()}
+            onClick={() => popUpFunction(true, "delete")}
             name="delete"
           >
-            Eliminar
+            {estado? "Baneo Definitivo":"Quitar Baneo"}
           </button>
           {isAdmin ? (
             <button
@@ -97,9 +96,8 @@ function UserCard({ id, name, username, email, isAdmin, image, courses }) {
               Hacer Admin
             </button>
           )}
-          {banearPopUp ? (
-            <BanearPopUp popUpFunction={popUpFunction} id={id} />
-          ) : null}
+          {banearPopUp ? (<BanearPopUp popUpFunction={popUpFunction} id={id} />) : null}
+          {banearDefini ? estado?  <BanearDefini popUpFunction={popUpFunction} id={id} />: <BanearDefini popUpFunction={popUpFunction} id={id} cancel={true} />:null}
         </div>
       </div>
     </ThemeProvider>

@@ -23,6 +23,7 @@ function UserPage() {
           if (actualUser._id !== user._id) {
             return (
               <UserCard
+                estado={user.estado}
                 key={user._id}
                 id={user._id}
                 name={user.name}

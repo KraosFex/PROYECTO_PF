@@ -23,7 +23,6 @@ export const CursoBase = {
         descripcion: "El tipico ejercicio introductorio Hello World",
         isCompleted: true,
         isLocked: false,
-        vimeoId: 76979871
       },
       {
         ...clase,
@@ -32,7 +31,6 @@ export const CursoBase = {
         descripcion: "clase de prueba",
         isCompleted: true,
         isLocked: false,
-        vimeoId: 76979871
       },
       {
         ...clase,
@@ -41,7 +39,6 @@ export const CursoBase = {
         descripcion: "clase de prueba?",
         isCompleted: true,
         isLocked: false,
-        vimeoId: 76979871
       },
       {
         ...clase,
@@ -50,7 +47,6 @@ export const CursoBase = {
         descripcion: "clase de prueba",
         isCompleted: false,
         isLocked: false,
-        vimeoId: 76979871 
       },
       {
         ...clase,
