@@ -82,6 +82,16 @@
     width: 30em;
     height: 13.5em;
     font-size: 1.2em;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.descriptionActive {
+    width: 30em;
+    height: 13.5em;
+    font-size: 1.2em;
+    word-break: break-all;
+    word-wrap: break-word;
 }
 
 .Detail {
@@ -337,11 +347,11 @@ justify-content: center;
     .descriptionActive{
         margin-top: 1em;
         display: flex;
-        width: 100%;
+        width: 85%;
         height: 13.5em;
         font-size: 1.2em;
         align-self: center;
-        margin-left: 1.7em;
+        word-break: break-all;
     }
 
 
