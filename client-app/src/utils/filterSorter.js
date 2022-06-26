@@ -1,5 +1,8 @@
-export const lenguaje = (type, type2, array) => {
-  if (array.length) return array.filter((p) => p.lenguaje === type || type2);
+export const lenguaje = (type, type2, type3, array) => {
+  if (array.length)
+    return array.filter(
+      (p) => p.lenguaje === type || p.lenguaje === type2 || p.lenguaje === type3
+    );
   return [];
 };
 
