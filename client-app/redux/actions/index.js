@@ -234,10 +234,11 @@ export const getCourseByName = (name) => {
       const metaData = await axios.get(
         `http://localhost:3001/api/cursos/${name}`
       );
-      dispatch(setShowedCourses(metaData.data));
+      dispatch(setShowedCourses(metaData.data.course));
+      return metaData.data
     } catch (err) {
-      new Error(err);
-      alert("Ups! Something went wrong...");
+      dispatch(setShowedCourses([]));
+      return err.response.data
     }
   };
 };
@@ -368,7 +369,7 @@ export const getRanking = () => {
   return async function (dispatch) {
     try {
       const metaData = await axios.get(
-        "http://localhost:3001/api/users/topten"
+        "http://localhost:3001/api/users/topFive"
       );
       dispatch(setRanking(metaData.data.sorted));
     } catch (err) {

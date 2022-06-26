@@ -28,25 +28,26 @@ const getCursoById = async (req, res, next) => {
     console.error(err)
   }
 }
+
 const getCursoName = async (req, res) => {
-  const $regex = req.params.name
+  const $regex = req.params.name;
   try {
-    const course = await Course.find({ titulo: { $regex, $options: 'i' } }).populate({ path: 'lessons.lesson', ref: 'Lesson' })
-    if (!course.length) {
-      next(new ErrorResponse('Error al crear el curso', 500, false))
+    if (!req.params.name.length) {
+      const course = await Course.find();
+      res.send({info: "curso encontrado", course, success: true});
     } else {
-      const course = await Course.find({ titulo: { $regex, $options: 'i' } })
+      const course = await Course.find({ titulo: { $regex, $options: "i" } });
       if (!course.length) {
-        res.send({ info: 'No existe el curso' })
+        res.status(404).send({ info: "No existe un curso con ese nombre", success: false  });
       } else {
-        res.send(course)
+        res.send({info: "curso encontrado", course, success: true});
       }
     }
   } catch (err) {
-    res.send({ info: 'Algo salio mal', err })
-    console.error(err)
+    res.send({ info: "Algo salio mal", err, success: false });
+    console.error(err);
   }
-}
+};
 
 const createCurso = async (req, res, next) => {
   const { body } = req

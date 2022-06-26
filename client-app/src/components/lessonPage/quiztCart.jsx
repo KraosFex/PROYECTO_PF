@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import style from "./questionsPage.module.css";
 
 
+export default function QuiztCart({ questions, handleApproved }) {
   if(questions) {
 
     const [preguntaActual, setPreguntaActual] = useState(0);
