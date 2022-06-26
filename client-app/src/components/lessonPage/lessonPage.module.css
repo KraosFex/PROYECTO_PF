@@ -1,13 +1,124 @@
 .highContainer {
-  width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   margin-left: 7em;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .infoContainer {
-  width: 100%;
+  display: flex;
+  min-height: 100vh;
+  padding-left: 40px;
+  padding-top: 60px;
   background-color: rgb(181, 181, 181);
-  padding: 1em;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  min-width: 80%;
+  position: relative;
+  min-height: 500px;
+  background: #555555;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto Slab';
+}
+
+.form h1 {
+  font-size: 70px;
+  margin: 0px 10px;
+  color: white;
+  mix-blend-mode: difference;
+}
+
+.description{
+  margin: 10px 12px;
+  font-size: small;
+  color: white;
+  mix-blend-mode: difference;
+}
+.pregunta{
+  margin: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffffb8;
+  border-radius: 10px;
+}
+.pregunta h3{
+  font-size: small;
+}
+.separar{
+  width: 100%;
+}
+.opciones{
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 7px 0px;
+}
+.input{
+  display: flex;
+    min-height: 25px;
+    align-items: center;
+}
+.input input[type="radio"] {
+  -webkit-appearance: none;
+    appearance: none;
+    background-color: var(--form-background);
+    margin: 0px 10px;
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border-radius: 0.5em;
+    transform: translateY(0);
+    border: 1px solid currentColor;
+}
+
+.input input[type="radio"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 0.5em;
+  color: currentColor;
+  transform: scale(0);
+  transform: translateY(-0.075em);
+  box-shadow: inset 1em 1em var(--form-control-color);
+  background-color: #00ca4a;
+}
+
+.input input[type="radio"]:checked::before {
+  transform: scale(1);
+  display: inline-flex;
+  align-content: center;
+  position: absolute;
+  top: 20%;
+  left: 20%;
+}
+.input input[type="radio"]:focus {
+  outline: max(1px, 1px) solid gray;
+  outline-offset: max(2px, 0.15em);
+}
+.Revisar{
+  background-color: #790e19ba;
+  color: #eee7e7;
+  border-radius: 5px;
+  border: 1px solid;
+  padding: 5px 20px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+@media (max-width: 780px) {
+  .highContainer {
+    margin: 0;
+  }
+
+  .infoContainer {
+    padding-left: 0;
+  }
 }

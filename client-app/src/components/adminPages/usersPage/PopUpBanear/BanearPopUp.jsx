@@ -32,7 +32,7 @@ export default function BanearPopUp({ popUpFunction, id }) {
         <div className={style.overlay}>
             <div className={style.pop_up}>
                 <div className={style.close_and_title}>
-                    <a href='#' id="btn_close_popup" className={style.btn_close_popup} onClick={() => popUpFunction(false)}><AiFillCloseCircle className={style.icon} /></a>
+                    <a href='#' id="btn_close_popup" className={style.btn_close_popup} onClick={() => popUpFunction(false,"ban")}><AiFillCloseCircle className={style.icon} /></a>
                     <h2>Baneo de Usuario</h2>
                 </div>
                 <h4>Introduce la fecha hasta la que se baneara al usuario</h4>

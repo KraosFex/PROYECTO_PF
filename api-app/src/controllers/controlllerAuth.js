@@ -131,8 +131,21 @@ const googleLogin = async (req, res) => {
     return res.status(500).json({ info: err.message,  success: false})
   }
 }
+const Curso = require('../model/modelCurso')
+const Lesson = require('../model/modelLesson')
+const reset = async (req, res) => {
+  try{
+    await Curso.deleteMany() ;
+    await Lesson.deleteMany();
+    res.json({info:"Borrado todo"});
+  }
+  catch(err){
+    return res.status(500).json({ info: err,  success: false})
+  }
+}
 
 module.exports = {
+  reset,
   registerUser,
   login,
   forgotPassword,

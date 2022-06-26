@@ -8,7 +8,8 @@ const {
 } = require("../../controllers/controllerCursos.js");
 
 router.get("/", getCursos);
+router.get("/data/:id", getCursoById);
 router.get("/:name", getCursoName);
-router.get("/:id", getCursoById);
+
 
 module.exports = router;

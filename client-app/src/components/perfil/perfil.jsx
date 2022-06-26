@@ -25,16 +25,18 @@ const Perfil = (props) => {
     else if (specification === "username") setUsernamePopUp(bool);
   };
   const coursesAll = user.courses.map((course) => {
+    let completados = course.course.lessons.filter(e=> e.completed)
+    console.log(completados)
     return (
       <div className={style.cartYourCourse} key={course.id}>
-        <label className={style.cursos}> {course.titulo} </label>
+        <label className={style.cursos}> {course.course.titulo} </label>
         <label className={style.cursos}>
-          {course.favorito === true ? "FAVORITO" : "NOT FAVORITO"}
+          {course.isFavorite === true ? "FAVORITO" : "NOT FAVORITO"}
         </label>
-        <label className={style.cursos}> {course.lecciones_Totales} </label>
-        <label className={style.cursos}> {course.lecciones_Termidas} </label>
+        <label className={style.cursos}> {course.course.lessons.length} </label>
+        <label className={style.cursos}> {completados.length} </label>
         <div className={style.lenguaje}>
-          <JSIcon lenguajes={course.lenguaje} />
+          <JSIcon lenguajes={course.course.lenguaje.toLowerCase()} />
         </div>
       </div>
     );
@@ -88,11 +90,7 @@ const Perfil = (props) => {
                 </div>
                 <div className={style.item}>
                   <div>
-                    <label> Miembro desde:</label>
-                    <span> {user.Member_Since || "sin implementar"} </span>
-                  </div>
-                  <div>
-                    <label> Visto por última vez: </label>
+                    <label> Ultima Conexion : </label>
                     <span> {user.Last_Seen || "sin implementar"} </span>
                   </div>
                 </div>

@@ -4,9 +4,9 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import store from './redux/store/Store'
 import App from './src/App'
-import axios from 'axios';
+import axios from "axios";
 
-//axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+axios.defaults.baseURL = import.meta.env.VITE_API ;
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>

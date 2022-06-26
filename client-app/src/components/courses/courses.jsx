@@ -20,7 +20,8 @@ import lightTheme from "./courseLight.module.css";
 //Icons
 import ArrowsUpDown from "../../icons/arrowsUpDown";
 
-function Courses() {
+function Courses({detail}) {
+  if(detail){detail= detail.filter(e=>e.isFavorite);detail =detail.map(e=>e.course); }
   let style = darkTheme;
 
   const dispatch = useDispatch();
@@ -40,9 +41,10 @@ function Courses() {
     refresh ? setRefresh(false) : setRefresh(true);
   };
 
-  const filtered = () => {
-    const filterArray = filter(allCourses, showedCourses);
-    dispatch(setShowedCourses(filterArray));
+  const filtered = (dato) => {
+    const filterArray = allCourses.filter(e => e.lenguaje.toLowerCase() === dato.target.value);
+    if (dato.target.value === "all") { dispatch(setShowedCourses(allCourses)); }
+    else { dispatch(setShowedCourses(filterArray)); }
   };
 
   const search = (e) => {
@@ -77,7 +79,7 @@ function Courses() {
     >
       <div className={style.heightContainer}>
         <div className={style.flexContainer}>
-          <div className={style.containerSearch}>
+          {detail ?null: <div className={style.containerSearch}>
             <form onChange={(e) => search(e)} className={style.form}>
               <input
                 type="search"
@@ -98,18 +100,20 @@ function Courses() {
             <p className={activeArrow ? style.pActive : style.p}>Lenguaje</p>
             <div
               className={activeArrow ? style.select2Active : style.select2}
-              onChange={() => filtered()}
-            >
+              onChange={(e) => filtered(e)}
+            ><label>Todos</label>
+              <input type="radio" value="all" name="languages" defaultChecked></input>
               <label>JavaScript</label>
               <input
-                type="checkbox"
+                type="radio"
                 value="javascript"
                 name="languages"
               ></input>
               <label>CSS</label>
-              <input type="checkbox" value="css" name="languages"></input>
+              <input type="radio" value="css" name="languages"></input>
               <label>HTML</label>
-              <input type="checkbox" value="html" name="languages"></input>
+              <input type="radio" value="html" name="languages"></input>
+
             </div>
             <p className={activeArrow ? style.pActive : style.p}>Progreso</p>
             <div
@@ -129,14 +133,18 @@ function Courses() {
             <div className={style.icon} onClick={arrowDir}>
               <ArrowsUpDown />
             </div>
-          </div>
+          </div>}
           <div className={style.flexContainer2}>
             <div className={style.container2}>
-              <CoursesCard
-                courses={showedCourses}
+            {detail? detail.length ===0? null:<CoursesCard
+                courses={detail}
                 setRefresh={setRefresh}
                 refresh={refresh}
-              />
+              />: <CoursesCard
+              courses={showedCourses}
+              setRefresh={setRefresh}
+              refresh={refresh}
+            />}
             </div>
           </div>
         </div>

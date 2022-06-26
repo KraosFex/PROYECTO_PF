@@ -43,11 +43,10 @@ const UserRank = () => {
           <img
             src={frame}
             className={style.frame}
-            onError="this.style.display='none'"
           />
         </div>
         <div className={style.userRankContainer}>
-          <label>{user.username}</label>
+          <label>{user.username.split(" ")[0]}</label>
           <div className={style.userRank}>
             <h3> Posicion actual</h3>
             <h1>#{userRank + 1}</h1>

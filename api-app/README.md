@@ -2,26 +2,26 @@
 
 # Rutas para acceder a la Data:
 
-### Hacer register **PUBLICA** **POST** http://localhost:3001/api/auth/register
+### Hacer register **PUBLICA** **POST** /api/auth/register
 
-### Hacer Login **PUBLICA** **POST** http://localhost:3001/api/auth/login
+### Hacer Login **PUBLICA** **POST** /api/auth/login
 
-### Obtener Cursos **PUBLICA** **GET** http://localhost:3001/api/cursos
+### Obtener Cursos **PUBLICA** **GET** /api/cursos
 
-### Obtener Cursos por nombre **PUBLICA** **GET** http://localhost:3001/api/cursos/:name
+### Obtener Cursos por nombre **PUBLICA** **GET** /api/cursos/:name
 
-### Obtener Cursos ID **PUBLICA** **GET** http://localhost:3001/api/cursos/:id
+### Obtener Cursos ID **PUBLICA** **GET** /api/cursos/:id
 
-### Obtener Lista User **PRIVADA** **GET** http://localhost:3001/api/usersprivate/
+### Obtener Lista User **PRIVADA** **GET** /api/usersprivate/
 
-### Crear Cursos **PRIVADA** **POST** http://localhost:3001/api/cursosprivate
+### Crear Cursos **PRIVADA** **POST**/api/cursosprivate
 
-### Crear Lesson para un curso **PRIVADA** **POST** http://localhost:3001/api/cursosprivate/:id
+### Crear Lesson para un curso **PRIVADA** **POST** /api/cursosprivate/:id
 
-### Añadir Favoritos **PRIVADA** **PUT** http://localhost:3001/api/cursosprivate/:id/favorite
+### Añadir Favoritos **PRIVADA** **PUT** /api/cursosprivate/favorite
 
-### Remove Favoritos **PRIVADA** **PUT** http://localhost:3001/api/cursosprivate/:id/unfavorite
+### Remove Favoritos **PRIVADA** **PUT** /api/cursosprivate/unfavorite
 
-### Anadir Voto **PRIVADA** **PUT** http://localhost:3001/api/cursosprivate/:id/votes
+### Anadir Voto **PRIVADA** **PUT** /api/cursosprivate/:id/votes
 
-### Editar Perfil **PRIVADA** **PUT** http://localhost:3001/api/usersprivate/:id/profile
+### Editar Perfil **PRIVADA** **PUT** /api/usersprivate/:id/profile

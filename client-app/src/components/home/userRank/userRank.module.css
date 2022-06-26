@@ -63,6 +63,7 @@
   position: absolute;
   display: flex;
   height: 8em;
+  z-index: 0;
 
 }
 
@@ -77,9 +78,12 @@
 }
 
 @media (max-width: 768px) {
+  .flexContainer{
+    width: 100%;
+  }
 
   .userRank h1{
-    margin-top: 0.4em;
+    font-size: 50px;
   }
 
 }

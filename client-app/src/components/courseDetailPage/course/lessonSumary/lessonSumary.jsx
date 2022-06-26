@@ -2,23 +2,21 @@ import React from "react";
 import style from "./lessonSumary.module.css";
 import { NavLink } from "react-router-dom";
 
-function LessonSumary({ clase }) {
-  var completo = clase.isCompleted === true ? "Completada" : "Disponible";
+function LessonSumary({ clase, idCurse }) {
+  var completo = clase.isComplete === true ? "Completada" : "Disponible";
   return (
     <div className={style.flexContainer}>
       <div className={style.container}>
         <div className={style.flexContainer2}>
-          <h3>
-            Clase {clase.id}: {clase.titulo}
-          </h3>
+          {clase.titulo ? <h3>
+            Clase: {clase.titulo}
+          </h3> : null}
           <div className={style.disponible}>
             <p>{completo}</p>
+            <NavLink to={`/course/${idCurse}/${clase._id}`}> Ver clase </NavLink>
           </div>
         </div>
         <h1>{clase.descripcion}</h1>
-        <div className={style.flexContainer3}>
-          <NavLink to={"#"}> Ver clase </NavLink>
-        </div>
       </div>
     </div>
   );

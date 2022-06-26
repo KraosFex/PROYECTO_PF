@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { themeSwitcher } from "../../../../redux/actions/index.js";
+import { logout, themeSwitcher } from "../../../../redux/actions/index.js";
 
 //  styles
 import { ThemeProvider } from "styled-components";
@@ -12,7 +12,6 @@ import lightTheme from "./navbarUserLight.module.css";
 //  icones
 import FavoriteIcon from "../../../icons/Favorite";
 import Moon from "../../../icons/moon";
-import CodeIcon from "../../../icons/code.jsx";
 import Discord from "../../../icons/Discord.jsx";
 import CursoIcon from "../../../icons/libro.jsx";
 import Notification from "../../../icons/notification";
@@ -63,7 +62,6 @@ function NavBarUser() {
       const isDropdownButton = e.target.matches("[data-dropdown-button]");
       if (!isDropdownButton && e.target.closest("[data-dropdown]") != null)
         return;
-      let currentDropdown;
       if (isDropdownButton) {
         setActive(!active);
       }
@@ -72,7 +70,6 @@ function NavBarUser() {
       }
     });
   });
-  console.log(activeArrow);
   return (
     <ThemeProvider
       theme={theme === "light" ? (style = lightTheme) : (style = darkTheme)}
@@ -87,12 +84,12 @@ function NavBarUser() {
           </div>
         </div>
         <div className={activeArrow ? style.icon2Active : style.icon2}>
-          <NavLink to="#">
+          <NavLink to="/favoritos">
             <FavoriteIcon />
           </NavLink>
         </div>
         <div className={activeArrow ? style.icon2Active : style.icon2}>
-          <NavLink to="#">
+          <NavLink to="/perfil">
             <Notification />
           </NavLink>
         </div>
@@ -107,12 +104,9 @@ function NavBarUser() {
           </NavLink>
         </div>
         <div className={activeArrow ? style.icon4Active : style.icon4}>
-          <NavLink to="#">
+          <a href="https://discord.gg/kwXhPtE">
             <Discord />
-          </NavLink>
-        </div>
-        <div className={style.username}>
-          <h2 className={style.username}>{user.username}</h2>
+          </a>
         </div>
         <div data-dropdown className={style.dropdown}>
           <input
@@ -125,6 +119,7 @@ function NavBarUser() {
             data-dropdown-button
             className={activeArrow ? style.icon3Active : style.icon3}
           />
+          <h2 className={style.username}>{user.username?user.username.split(" ")[0]:"Invitado" }</h2>
           <div
             className={active ? style.dropdownmenuActive : style.dropdownmenu}
           >
@@ -134,7 +129,9 @@ function NavBarUser() {
             <NavLink to="/home" data-dropdown-button>
               Inicio
             </NavLink>
-            {isLogged ? null : (
+            {isLogged ? <NavLink to="#" onClick={()=> logout(dispatch)} data-dropdown-button>
+                  Log Out
+                </NavLink> : (
               <>
                 <NavLink to="/login" data-dropdown-button>
                   Log In

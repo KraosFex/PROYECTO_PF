@@ -13,10 +13,7 @@ const lessonSchema = new Schema({
     type: Number,
     required: true
   },
-  isCompleted: {
-    type: Boolean,
-    default: false
-  }
+  quiz:Object,
 }, { timestamps: true, versionKey: false })
 
 module.exports = model('Lesson', lessonSchema)

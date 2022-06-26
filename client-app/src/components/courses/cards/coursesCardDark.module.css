@@ -1,103 +1,115 @@
-
-.containerCourse{
+@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@300&display=swap');
+.containerCourse {
     display: inline-flex;
     background-color: rgb(54, 54, 54);
     border-radius: 0.5em;
-    width: 50em;
+    width: 90%;
     flex-direction: row;
     margin-left: 1em;
     min-height: 10em;
     margin-top: 1em;
-    box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
-    -moz-box-shadow: 6px 10px 32px -16px rgba(0,0,0,0.75);
+    box-shadow: 6px 10px 32px -16px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 6px 10px 32px -16px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 6px 10px 32px -16px rgba(0, 0, 0, 0.75);
+}
+.container2 {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
 }
 
-.courseName{
+.courseName {
     margin-top: .5em;
     display: flex;
+    width: 100%;
     font-size: 1.7em;
     color: rgb(221, 221, 221);
     text-decoration: underline 1px;
     margin-left: 0.5em;
+    font-family: 'Anek Latin', sans-serif;
 }
 
-.courseStats{
-    display: -webkit-box;
-    display: -ms-flexbox;
+
+.courseStats {
     display: inline-flex;
     flex-wrap: wrap;
     flex-direction: row;
     margin-left: 1em;
 }
 
-.courseStats svg{
+.courseStats svg {
     position: relative;
     width: 1.5em;
     height: 1.5em;
     color: rgb(184, 184, 184);
-  }
+}
 
-  .courseStats span{
-      color: rgb(208, 208, 208);
-      font-size: 0.8em;
-      margin-right: 2em;
-      margin-left: 0.4em;
-      margin-top: 0.3em;
-      
-  }
+.courseStats span {
+    color: rgb(208, 208, 208);
+    font-size: 0.8em;
+    margin-right: 2em;
+    margin-left: 0.4em;
+    margin-top: 0.3em;
 
-  .courseStats button{
+}
+
+.courseStats button {
     background: none;
     border: none;
 }
 
-.courseStats button svg:hover{
-  color: rgb(213, 0, 0);
+.courseStats button svg:hover {
+    color: rgb(213, 0, 0);
 }
 
-  .descripcion{
-      display: flex;
-      width: 35em;
-      min-height:4em ;
-  }
+.descripcion {
+    display: flex;
+    min-height: 4em;
+}
 
-  .descripcion span{
-      margin-top: 1em;
-      margin-left: 1em;
-      margin-bottom: 1em;
-      top: 1em;
-      color: rgb(208, 208, 208);
-  }
+.descripcion span {
+    margin-top: 1em;
+    margin-left: 1em;
+    margin-bottom: 1em;
+    top: 1em;
+    color: rgb(208, 208, 208);
+}
 
 
-  .lenguaje{
-      display: flex;
-      margin-left: 5em;
-      width: 4em;
-        height: 4em;
-        align-self: center;
-  }
+.lenguaje {
+    display: flex;
+    margin-left: 5em;
+    width: 4em;
+    height: 4em;
+    align-self: center;
+}
 
-  .lenguaje svg{
-      display: flex;
-  }
+.lenguaje svg {
+    display: flex;
+}
 
-  .flexContainer{
-      display: inline-block;
-  }
+.flexContainer {
+    display: inline-block;
+    width: 100%;
+}
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
 
-    .containerCourse{
-        width: 23em;
+    .containerCourse,
+    .descripcion {
+        width: 90%;
     }
 
-    .descripcion{
-        width: 120%;
-    }
-
-    .lenguaje{
+    .lenguaje {
         margin-right: 2em;
     }
-  }
+
+    .container2 {
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        width: 100%;
+
+    }
+}

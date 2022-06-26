@@ -29,6 +29,14 @@ const courseSchema = new Schema(
           type: Schema.ObjectId,
           ref: 'Lesson',
           autopopulate: true
+        },
+        isComplete: {
+          type: Boolean,
+          default: false
+        },
+        isLocked: {
+          type: Boolean,
+          default: true
         }
       }
     ],

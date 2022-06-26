@@ -180,7 +180,7 @@ function Login() {
           </div>
         </div>
         {/*Codition open popUp or Close popUp*/}
-        {forgotPopUp ? <ForgotPopUp popUpFunction={popUpFunction} /> : null};
+        {forgotPopUp ? <ForgotPopUp popUpFunction={popUpFunction} /> : null}
       </div>
     </div>
   );

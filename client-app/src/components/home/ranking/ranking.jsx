@@ -43,7 +43,7 @@ export default function Ranking() {
   return (
     <div className={style.flexContainer}>
       <div className={style.All}>
-        <h2> Ranking Top 5</h2>
+        <h2> RANKING</h2>
         <div className={style.Contenedor}>
           {usuarios.length > 0 ? (
             <div className={style.Contenedor2}>

@@ -3,7 +3,8 @@
   background-color: rgb(226, 31, 50);
   position: fixed;
   height: 100%;
-  width: 7em;
+  width: 8em;
+  z-index: 10;
   margin-left: 0;
   -webkit-transition: width 1.6s;
   -o-transition: width 1.6s;

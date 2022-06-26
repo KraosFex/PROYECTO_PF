@@ -1,8 +1,8 @@
 // libraries
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 // hardDate
-import { CursoBase } from "./CurssoBase";
 import Stars from "./Vote/Vote";
 
 // styles
@@ -12,11 +12,13 @@ import lightTheme from "./course/courseLight.module.css";
 import LessonSumary from "./course/lessonSumary/lessonSumary";
 
 export default function CardD(props) {
-  let [idClase, setIdClase] = useState(1);
-  let Curso = CursoBase;
-  let claseSumary = Curso.clases.find((o) => o.id === idClase);
+  const [idClase, setIdClase] = useState(0);
+  let { detail, user } = useSelector(state => state)
+  let Curso = detail;
+  let claseSumary = user.courses ? user.courses.find((o) => o && o.course._id === detail._id) : [];
   let style = darkTheme;
 
+  if (!detail.titulo) { return <div></div> }
   return (
     <ThemeProvider
       theme={
@@ -26,84 +28,57 @@ export default function CardD(props) {
       <div className={style.flexContainer}>
         <div className={style.Container}>
           <div className={style.flexContainer2}>
-            <h1 className={style.titulo}>{Curso.titulo}</h1>
+            <h1 className={style.titulo}>{Curso.titulo.toUpperCase()}</h1>
             <div className={style.data}>
               <label className={style.label}>
-                Clasificacion: {Curso.calificacion}
+                Clasificacion: {Curso.votes.length > 0 ? (Curso.votes.reduce((a, b) => a + b, 0) / Curso.userVotes.length).toFixed(1) : 0}
               </label>
               <label className={style.label}>
-                Usuarios Inscriptos: {Curso.userIncript}
+                Usuarios Inscriptos: {Curso.userInscript}
               </label>
-              <Stars />
+              <Stars idCurso={detail._id} idUser={user._id} calificacion={detail.calificacion} />
             </div>
             <img className={style.imagen} alt="" src={Curso.imagen} />
           </div>
           <div className={style.flexContainer3}>
             <div className={style.containerDescrip}>
               <h3>Descripcion</h3>
-              <p>{Curso.description}</p>
-              <h3>Comentarios</h3>
+              <p>{Curso.descripcion}</p>
             </div>
-            <div className={style.flexContainer4}>
+            {!claseSumary ?null: claseSumary.course ? <div className={style.flexContainer4}>
               <div className={style.flexContainer5}>
-                <p>
-                  {" "}
-                  --------------------------Barra de progreso
-                  aca--------------------------
-                </p>
                 <div className={style.progreso}>
-                  <div className={style.input}>
-                    {Curso.clases.map((e) => (
-                      <div className={style.ClasP}>
-                        {e.isCompleted ? (
-                          <input
-                            key={e.id}
-                            checked
-                            type="radio"
-                            readOnly
-                            onClick={() => setIdClase(e.id)}
-                          />
-                        ) : e.isLocked ? (
-                          <input
-                            key={e.id}
-                            type="radio"
-                            disabled
-                            onClick={() => setIdClase(e.id)}
-                          />
-                        ) : (
-                          <input
-                            key={e.id}
-                            type="radio"
-                            checked={false}
-                            onClick={() => setIdClase(e.id)}
-                            className={style.locked}
-                          />
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className={style.info}>
-                  <div className={style.input}>
-                    <input checked type="radio" id="completada" />
-                  </div>
-                  <p>Completada</p>
+                  {claseSumary.course.lessons ? claseSumary.course.lessons.map((e,index) => (
+                    <div className={style.ClasP} key ={index}>
+                      {e.isComplete ? (
+                        <>
+                          <div className={style.input}>
+                            <input readOnly checked type="radio" name="completada" key={e.id} onClick={() => setIdClase(index)} />
+                          </div>
+                          <p>Completada</p></>
 
-                  <div className={style.input}>
-                    <input type="radio" id="disponible" />
-                  </div>
-                  <p>Disponible</p>
-
-                  <div className={style.input}>
-                    <input type="radio" disabled />
-                  </div>
-                  <p>Bloqueada</p>
+                      ) : e.isLocked ? (
+                        <>
+                          <div className={style.input}>
+                            <input disabled type="radio" name="complbloqueada" key={e.id} className={style.locked} onClick={() => setIdClase(index)} />
+                          </div>
+                          <p>Bloqueada</p></>
+                      ) : (
+                        <>
+                          <div className={style.input}>
+                            <input defaultChecked={false} type="radio" name="disponible" key={e.id} onClick={() => setIdClase(index)} />
+                          </div>
+                          <p>Disponible</p></>
+                      )}
+                    </div>
+                  )).reverse() : null}
+              
                 </div>
               </div>
-              <div className={style.lessonSumary}>
-                <LessonSumary clase={claseSumary} />
-              </div>
-            </div>
+              {claseSumary.course.lessons ?<div className={style.lessonSumary}>
+                <LessonSumary clase={Curso.lessons[idClase].lesson} idCurse={detail._id}  />
+              </div>:null}
+            </div> : null}
           </div>
         </div>
       </div>

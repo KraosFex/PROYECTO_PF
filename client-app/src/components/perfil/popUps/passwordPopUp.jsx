@@ -64,7 +64,7 @@ const PasswordPopUp = ({popUpFunction}) => {
           <a href='#' id="btn_close_popup" className={style.btn_close_popup} onClick={() => popUpFunction("password", false)}><AiFillCloseCircle className={style.icon} /></a>
           <h2>Actualiza tu contraseña</h2>
         </div>
-        <h4>Introduce tu mail para recivir el formulario de cambio de contraseña.</h4>
+        <h4>Introduce tu mail para recibir el formulario de cambio de contraseña.</h4>
         <form className={style.form} onSubmit={(e) => handleSubmit(e)} onChange={(e) => workOnChange(e)}>
           <div className={style.inputs_container}>
             <input type="text" placeholder="Email" name="email"></input>
