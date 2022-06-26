@@ -27,7 +27,6 @@ function Courses() {
 
   const dispatch = useDispatch();
 
-  const allCourses = useSelector((store) => store.courses);
   const tema = useSelector((store) => store.theme);
   const courseSearch = useSelector((store) => store.showedCourses);
   var showedCourses = courseSearch;

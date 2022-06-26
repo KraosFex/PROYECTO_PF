@@ -327,3 +327,23 @@
   }
 
 }
+
+@media (max-width:900px){
+  .parentContainer{
+    width: 80%;
+    height: 20em;
+  }
+  .imgContainer{
+    display: none;
+  }
+
+  .childContainer img{
+    margin-bottom: 0em;
+  }
+
+  .childContainer h1 {
+
+    margin-bottom: -0px;
+
+  }
+}

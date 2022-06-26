@@ -209,3 +209,12 @@ box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.54);
     } 
 
 }
+
+@media (max-width: 900px) {
+
+    .Container{
+        width: 90%;
+        height: 20em;
+    } 
+
+}

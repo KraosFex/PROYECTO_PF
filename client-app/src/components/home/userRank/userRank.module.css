@@ -83,3 +83,11 @@
   }
 
 }
+
+@media (max-width: 900px) {
+
+  .userRank h1{
+    margin-top: 0.5em;
+  }
+
+}

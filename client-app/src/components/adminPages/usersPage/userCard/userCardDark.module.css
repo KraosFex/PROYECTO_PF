@@ -91,3 +91,18 @@
     display: none;
   }
 }
+
+@media (max-width: 900px) {
+  .cardContainer{
+    min-width: 35em;
+    min-height: 15em
+  
+  }
+
+  .dataContainer{
+    margin-left: 0.3em;
+  }
+  .userCourses{
+    display: none;
+  }
+}

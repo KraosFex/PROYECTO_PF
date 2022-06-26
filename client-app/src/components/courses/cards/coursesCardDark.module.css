@@ -70,6 +70,7 @@
     top: 1em;
     color: rgb(241, 241, 241);
     word-wrap: break-word;
+    word-break: break-all;
 }
 
 
@@ -101,4 +102,20 @@
     .descripcion{
         width: 120%;
     }
+  }
+
+  @media (max-width: 900px) {
+
+    .containerCourse{
+        width: 100%;
+        margin-left: 0em;
+        align-self: center;
+        justify-self: center;
+        
+    }
+
+    .descripcion{
+        max-width:17em ;
+    }
+
   }

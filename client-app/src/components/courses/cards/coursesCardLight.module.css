@@ -108,3 +108,19 @@
 
   }
 
+  @media (max-width: 900px) {
+
+    .containerCourse{
+        width: 100%;
+        margin-left: 0em;
+        align-self: center;
+        justify-self: center;
+        
+    }
+
+    .descripcion{
+        max-width:17em ;
+    }
+
+  }
+

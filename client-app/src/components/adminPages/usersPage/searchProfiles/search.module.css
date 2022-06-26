@@ -39,7 +39,7 @@
     outline: 2px solid #b6b6b6;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .search{
         width: 20em;
     }
@@ -59,3 +59,4 @@
     }
     
 }
+

@@ -123,6 +123,71 @@
     color: white;
     font-size: 0.9em;
 }
+ 
+@media (max-width:900px){
+    .flexContainer{
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+    }
+
+    .container{
+        width: 32em;
+        /* height: 20em; */
+        margin-top: 5em;
+        flex-direction: row;
+        min-height: 12em;
+        align-items: center;
+    }
+.flexContainer2{
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+            align-items: center;
+    gap: 1em;
+    margin-top: 2em;
+}
+
+.flexContainer3{
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+            align-items: center;
+    margin-top: 2em;
+}
+
+.container2{
+    width: 32em;
+    height: 20em;
+}
+
+.container3{
+    width: 32em;
+}
+
+.container3Text{
+    width: 32em;
+}
+
+.container3Text h3{
+    font-size: .9em;
+}
+
+.logoCont3{
+    width: 5em;
+    height: 5em;
+}
+
+.container31{
+    width: 32em;
+    min-height: 10em;
+}
+}
 
 
 @media (max-width: 768px) {
