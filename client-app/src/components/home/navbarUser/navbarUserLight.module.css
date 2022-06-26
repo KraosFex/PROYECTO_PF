@@ -184,6 +184,7 @@
   border-bottom: 1px solid;
   border-color: rgb(86, 86, 86);
   padding-top: 0.3em;
+  z-index: 1000;
 }
 
 .arrows{
@@ -294,5 +295,7 @@
   }
   .dropdownmenuActive{
     width:6.5em;
+    display: inline-flex;
+    z-index: 1000;
   }
 }
