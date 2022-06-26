@@ -14,12 +14,12 @@ const {
   getLesson,
 } = require("../../controllers/controllerLession.js");
 
-router.put("/:id", protect, createLesson);
 router.post("/", protect, createCurso);
 router.get("/:id/lessons", protect, getLesson);
 router.put("/favorite", protect, addFavorite);
 router.put("/favorite/initcourse", protect, addCourse);
 router.put("/unfavorite", protect, removeFavorite);
+router.put("/:id", protect, createLesson);
 router.put("/:id/votes", protect, addVotes);
 
 module.exports = router;
