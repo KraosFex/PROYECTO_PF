@@ -27,8 +27,7 @@ const courseSchema = new Schema(
       {
         lesson: {
           type: Schema.ObjectId,
-          ref: 'Lesson',
-          autopopulate: true
+          ref: 'Lesson'
         }
       }
     ],
@@ -54,7 +53,6 @@ const courseSchema = new Schema(
   }
 )
 
-courseSchema.plugin(require('mongoose-autopopulate'))
 courseSchema.plugin(mongoosePaginate)
 
 module.exports = model('Course', courseSchema)
