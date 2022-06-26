@@ -87,7 +87,7 @@ const overallPosition = async (req, res) => {
   }
 }
 
-const topFive = async (_, res) => {
+const topFive = async (req, res) => {
   try {
     const allUsers = await User.find()
     const sorted = allUsers.filter(element => element.courses.length > 0)
