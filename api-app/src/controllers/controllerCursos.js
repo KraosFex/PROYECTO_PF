@@ -3,11 +3,14 @@ const User = require('../model/modelUser')
 const ErrorResponse = require('../utils/errorResponse.js')
 
 const getCursos = async (req, res, next) => {
-  const limit = parseInt(req.query.limit) || 8
-  const page = parseInt(req.query.page) || 1
+  const options = {
+    limit: parseInt(req.query.limit) || 8,
+    page: parseInt(req.query.page) || 1,
+    populate: [{ path: 'lessons.lesson', ref: 'Lesson' }]
+  }
 
   try {
-    const courses = await Course.paginate({ estado: true }, { limit, page })
+    const courses = await Course.paginate({ estado: true }, options)
     res.send(courses)
   } catch (err) {
     next(new ErrorResponse('Error al crear el curso', 500, false))
@@ -17,7 +20,7 @@ const getCursos = async (req, res, next) => {
 
 const getCursoById = async (req, res, next) => {
   try {
-    const course = await Course.findById(req.params.id)
+    const course = await Course.findById(req.params.id).populate({ path: 'lessons.lesson', ref: 'Lesson' })
     res.send(course)
     return
   } catch (err) {
@@ -29,7 +32,7 @@ const getCursoById = async (req, res, next) => {
 const getCursoName = async (req, res, next) => {
   const $regex = req.params.name
   try {
-    const course = await Course.find({ titulo: { $regex, $options: 'i' } })
+    const course = await Course.find({ titulo: { $regex, $options: 'i' } }).populate({ path: 'lessons.lesson', ref: 'Lesson' })
     if (!course.length) {
       next(new ErrorResponse('Error al crear el curso', 500, false))
     } else {
@@ -54,24 +57,26 @@ const createCurso = async (req, res, next) => {
 }
 
 const addFavorite = async (req, res, next) => {
-  const id = req.user._id
+  const _id = req.user._id
   const { idCurso } = req.body
-
   try {
-    const courseFavorite = await User.findById(id)
+    const courseFavorite = await User.findById(_id)
     const existeCourse = courseFavorite.courses.filter(c => c.course._id == idCurso)
+
     if (existeCourse.length) {
       existeCourse.isFavorite = true
-    }
-    const newCourseFavorite = await User.findByIdAndUpdate(id, {
-      $push: {
-        courses: {
-          course: idCurso,
-          isFavorite: true
+      res.send('Cambio realizado')
+    } else {
+      const newCourseFavorite = await User.findByIdAndUpdate(_id, {
+        $push: {
+          courses: {
+            course: idCurso,
+            isFavorite: true
+          }
         }
-      }
-    }, { new: true })
-    res.send({ info: 'Curso añadido exitosamente', newCourseFavorite, success: true })
+      }, { new: true })
+      res.send({ info: 'Curso añadido exitosamente', newCourseFavorite, success: true })
+    }
   } catch (err) {
     res.status(500).send({ info: 'Algo salio mal', success: false })
   }

@@ -44,8 +44,7 @@ const userSchema = new Schema(
       {
         course: {
           type: Schema.ObjectId,
-          ref: 'Course',
-          autopopulate: true
+          ref: 'Course'
         },
         isFavorite: {
           type: Boolean,
@@ -71,7 +70,6 @@ const userSchema = new Schema(
   }
 )
 
-userSchema.plugin(require('mongoose-autopopulate'))
 userSchema.plugin(mongoosePaginate)
 
 userSchema.pre('save', async function (next) {
