@@ -1,0 +1,392 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+
+
+.flexContainer{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.Container {
+    background-color: rgb(54, 54, 54);
+    display: flex;
+    flex-direction: column;
+    color: #f2f2f2;
+    border-radius: .5em;
+    min-height: 50em;
+    width: 80vw;
+    align-self: center;
+    box-shadow: -5px 12px 70px 7px rgba(0,0,0,0.5);
+    -webkit-box-shadow: -5px 12px 70px 7px rgba(0,0,0,0.5);
+    -moz-box-shadow: -5px 12px 70px 7px rgba(0,0,0,0.5);
+}
+
+
+.flexContainer2{
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 10em;
+    background-color: #434343;
+    border-radius: .5em .5em 0em 0em;
+    box-shadow: 0px 7px 12px -1px rgba(0,0,0,0.75);
+-webkit-box-shadow: 0px 7px 12px -1px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 7px 12px -1px rgba(0,0,0,0.75);
+}
+
+.data {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2em;
+    margin-top: 1em;
+}
+
+.imagen {
+    display: flex;
+    margin-left: auto;
+    margin-right: 1em;
+    width: 7em;
+    height: 7em;
+    right: 0;
+    border-radius: 5px;
+    box-shadow: 10px 10px 51px 5px rgba(252,215,9,0.36);
+-webkit-box-shadow: 10px 10px 51px 5px rgba(252,215,9,0.36);
+-moz-box-shadow: 10px 10px 51px 5px rgba(252,215,9,0.36);
+}
+
+.flexContainer3{
+    display:inline-flex;
+    flex-direction: row;
+    height: 40em;
+    width: 100%;
+}
+
+.containerDescrip{
+    display: flex;
+    flex-direction: column;
+    margin-left: 2em;
+    width: 48%;
+    border-right: #505050 solid 2px;
+}
+.containerDescrip h3{
+    font-size: 2em;
+    margin-top: 1em;
+}
+
+.containerDescrip p{
+    width: 30em;    
+    height: 13.5em;
+    font-size: 1.2em;
+}
+
+.Detail {
+    display: flex;
+}
+
+.titulo,
+.h4 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 60px;
+    align-self: center;
+    margin-left: 1em;
+    
+}
+
+
+.label {
+    font-weight: bold;
+    color: #f6f6f6;
+}
+
+
+.clases {
+    margin-left: 1em;
+}
+
+.arrowd {
+    position: absolute;
+    right: -50px;
+    background-color: transparent;
+    border: none;
+    transform: rotate(90deg);
+    cursor: pointer;
+}
+
+.arrowi {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    transform: rotate(-90deg);
+    left: -50px;
+    cursor: pointer;
+}
+
+.ai {
+    max-width: 50px;
+}
+
+.flexContainer4{
+    display: flex;
+    flex-direction: column;
+    width: 52%;
+    height: 100%;
+    align-content: center;
+
+}
+
+.flexContainer5{
+    display: flex;
+    width: 70%;
+    height: 40%;
+    background-color: rgb(46, 46, 46);
+    border-radius: 0.5em;
+    align-self: center;
+    flex-direction: column;
+    text-align:center;
+    margin-top: 3em;
+    box-shadow: 10px 10px 58px -24px rgba(0,0,0,0.75);
+-webkit-box-shadow: 10px 10px 58px -24px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 58px -24px rgba(0,0,0,0.75);
+justify-content: center;
+
+}
+
+.flexContainer5 p{
+    margin-top: 1em;
+}
+
+.progreso{
+    display: flex;
+    width: 100%;
+    height: 60%;
+    justify-content: center;
+    align-self : center;
+}
+
+.clases {
+    font-size: 30px;
+}
+
+.h4 {
+    font-size: 30px;
+}
+
+.input{
+    width: 24em;    
+    height: 100%;
+    display: grid;
+    grid-template-columns: 11% 11% 11% 11% 11% 11% 11% 11% 11% ;
+    
+}
+
+.input2{ 
+    height: 100%;
+    display: grid;
+    grid-template-columns: 11% 11% 11% 11% 11% 11% 11% 11% 11% ;
+    
+}
+
+.input input[type="radio"], .input2 input[type="radio"] {
+    /* Add if not using autoprefixer */
+    -webkit-appearance: none;
+    /* Remove most all native input styles */
+    appearance: none;
+    /* For iOS < 15 */
+    background-color: var(--form-background);
+    /* Not removed via appearance */
+    margin: 0;
+
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid currentColor;
+    border-radius: 0.5em;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+}
+
+.input input[type="radio"]::before, .input2 input[type="radio"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 0.5em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--form-control-color);
+    /* Windows High Contrast Mode */
+    background-color: #00ca4a;
+}
+
+.input input[type="radio"]:checked::before, .input2 input[type="radio"]:checked::before {
+    transform: scale(1);
+}
+
+.input input[type="radio"]:focus, .input2 input[type="radio"]:focus {
+    outline: max(2px, 0.15em) solid currentColor;
+    outline-offset: max(2px, 0.15em);
+}
+.input input[disabled], .input2 input[disabled]{
+
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z' clip-rule='evenodd' /%3E%3C/svg%3E ");
+}
+.input2 input[id="disponible"] {
+    pointer-events: none;
+}
+.input2 input[id="completada"] {
+    pointer-events: none;
+}
+.ClasP{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px;
+}
+.ClasP{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px;
+}
+
+.lessonSumary{
+}
+
+.info{
+    display:inline-flex;
+    flex-direction: row;
+    gap:1.2em;
+    justify-content: center;
+    align-content: center;
+
+}
+
+
+.info p{
+    display: flex;
+
+}
+
+.info input{
+    display: flex;
+    align-self: center;
+}
+
+.arrow{
+    display: none;
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+
+    .Container{
+        width: 100%;
+        height:100%;
+    } 
+
+    .flexContainer2{
+        width: 100%;
+        flex-direction: column;
+        align-content: center;
+        height: 13em;
+        margin-top: 5em;
+        border-radius: 0;
+
+    }
+
+    .titulo, .data{
+        margin-left: 0em;
+    }
+
+    
+
+    .flexContainer3{
+        flex-direction: column;
+    }
+
+    .imagen{
+        display: none;
+    }
+
+    .containerDescrip{
+        display: flex;
+        flex-direction: column;
+        margin-left: 0em;
+        width: 100%;
+        border-right: none;
+        align-items: center;
+        align-content: center;
+    }
+
+    .description{
+        display: none;
+        width: 100%;
+        height: 13.5em;
+        font-size: 1.2em;
+        align-self: center;
+        margin-left: 1.7em;
+    }
+    
+    .descriptionActive{
+        margin-top: 1em;
+        display: flex;
+        width: 100%;
+        height: 13.5em;
+        font-size: 1.2em;
+        align-self: center;
+        margin-left: 1.7em;
+    }
+
+
+    .flexContainer4{
+        width: 100%;
+    }
+    .flexContainer5 {
+        width: 100%;
+        height: 80%;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        justify-items: center;
+    }
+
+    .progreso{
+        height: 80%;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        justify-items: center;
+    }
+
+    .input{
+        justify-self: center;
+        align-self: center;
+        grid-column-gap: 0em;
+    }
+
+    .arrow{
+        display: flex;
+        pointer-events: auto;
+        width: 100%;
+        justify-content: center;
+        pointer-events: auto;
+      
+      }
+      .arrow svg{
+        position: relative;
+        width: 2em;
+        height: 2em;
+        color: rgb(226, 31, 50);
+      }
+
+      .data{
+          justify-content: center;
+          align-items: center;
+          align-content: center;
+          justify-items: center;
+      }
+}

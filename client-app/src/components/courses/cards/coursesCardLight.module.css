@@ -66,11 +66,21 @@
     color: rgb(213, 0, 0);
 }
 
+  .descripcion{
+      display: flex;
+      min-height:4em ;
+      max-width: 35em;
+  }
 
-.descripcion {
-    display: flex;
-    min-height: 4em;
-}
+  .descripcion span{
+      margin-top: 1em;
+      margin-left: 1em;
+      margin-bottom: 1em;
+      max-width: 35em;
+      top: 1em;
+      color: rgb(62, 62, 62);
+      word-wrap: break-word;
+  }
 
 .descripcion span {
     margin-top: 1em;
