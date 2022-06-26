@@ -87,18 +87,19 @@ const overallPosition = async (req, res) => {
   }
 }
 
-const topTen = async (req, res) => {
+const topFive = async (req, res) => {
   try {
     const allUsers = await User.find()
-    const sorted = allUsers.slice(0, 5).sort((a, b) => {
+    const sorted = allUsers.filter(element => element.courses.length > 0)
+      .slice(0, 5).sort((a, b) => {
       return (
-        a.courses.map((c) => {
+        a.courses?.map((c) => {
           // cursos
-          return c.lesson.filter((l) => l.isCompleted === true) // lecciones completas
+          return c.lesson?.filter((l) => l.isCompleted === true) // lecciones completas
         }).length +
         34 -
-        (b.courses.map((c) => {
-          return c.lesson.filter((l) => l.isCompleted === true)
+        (b.courses?.map((c) => {
+          return c.lesson?.filter((l) => l.isCompleted === true)
         }).length +
           34)
       )
@@ -189,7 +190,7 @@ module.exports = {
   getUsersByName,
   editUsername,
   overallPosition,
-  topTen,
+  topFive,
   editIsAdmin,
   deleteUser,
   banUsers,
