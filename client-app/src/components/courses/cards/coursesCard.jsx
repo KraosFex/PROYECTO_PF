@@ -71,7 +71,7 @@ function CoursesCard({ courses, setRefresh, refresh }) {
               </div>
             </div>
             <div className={style.lenguaje}>
-              <JSIcon lenguajes={course.lenguaje} />
+              <JSIcon lenguajes={course.lenguaje.toLowerCase()} />
             </div>
           </div>
         </ThemeProvider>

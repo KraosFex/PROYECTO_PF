@@ -66,3 +66,10 @@
     width: 20%;
   }
 
+  @media (max-width: 520px){
+    .button{
+      width: 7em;
+      margin-top: 7em;
+    }
+
+  }
