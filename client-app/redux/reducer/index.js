@@ -39,9 +39,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
         isLogged: true,
       };
     case LOGOUT:
+      console.log("chau");
       return {
         ...state,
-        user: {},
+        user: payload,
         isLogged: false,
       };
     case SET_UPDATEUSER:
@@ -58,7 +59,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         showedCourses: payload,
-      }
+      };
     case SET_ALLUSERS:
       return {
         ...state,

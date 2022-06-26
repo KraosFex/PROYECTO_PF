@@ -19,6 +19,7 @@ import Notification from "../../../icons/notification";
 import Sun from "../../../icons/sun";
 import Arrows from "../../../icons/arrows.jsx";
 import { setArrowDirection } from "../../../../redux/actions/index.js";
+import Logout from "../../logout/logout.jsx";
 
 function NavBarUser() {
   const dispatch = useDispatch();
@@ -134,7 +135,9 @@ function NavBarUser() {
             <NavLink to="/home" data-dropdown-button>
               Inicio
             </NavLink>
-            {isLogged ? null : (
+            {isLogged ? (
+              <Logout />
+            ) : (
               <>
                 <NavLink to="/login" data-dropdown-button>
                   Log In

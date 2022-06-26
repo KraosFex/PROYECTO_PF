@@ -69,8 +69,10 @@ export const updateUser = (userObject) => {
 };
 
 export const logout = () => {
+  console.log("hola");
   return {
     type: LOGOUT,
+    payload: {},
   };
 };
 
