@@ -12,7 +12,7 @@
 -webkit-box-shadow: 10px 0px 18px -9px rgba(0,0,0,0.75);
 -moz-box-shadow: 10px 0px 18px -9px rgba(0,0,0,0.75);
 }
-.navbar:hover{
+.navbar:hover {
   width:14em;
 }
 
@@ -25,12 +25,16 @@
   background-repeat: no-repeat;
 }
 
+
+
 .icon{
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   margin-left: 2.4em;
   padding-top: 5em;
+  width: 12em;
+  overflow: visible;
 }
 
 
@@ -64,9 +68,9 @@
   margin-left: 3.5em;
   opacity: 100%;
   color: white;
-  -webkit-transition: margin-left 1.5s, opacity 2.5s;
-  -o-transition: margin-left 1.5s, opacity 2.5s;
-  transition: margin-left 1.5s, opacity 2.5s;
+  -webkit-transition: margin-left 1.5s, opacity 2.7s;
+  -o-transition: margin-left 1.5s, opacity 2.7s;
+  transition: margin-left 1.5s, opacity 2.7s;
 }
 
 .navbar:hover  .logo{
