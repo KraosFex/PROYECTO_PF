@@ -31,7 +31,7 @@
   
 .containerListYourCourse {
     min-height: 200px;
-    margin-top: 3em;
+    margin-top: 7em;
     padding: 18px;
     color: rgb(84, 84, 84);
     font-size: 16px;
@@ -60,23 +60,14 @@
     margin-top: 1em;
   }
 
-  .cursos{
+  .cursos, .cursos1{
     text-align: center;
     width: 20%;
   }
 
-  @media (max-width: 520px){
-    .button{
-      width: 7em;
-      margin-top: 7em;
+  @media (max-width: 750px){
+
+    .cursos1{
+      display: none;
     }
-
-  .listDetail{
-    width: 100%;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    background-color: aqua;
-  }
-
   }

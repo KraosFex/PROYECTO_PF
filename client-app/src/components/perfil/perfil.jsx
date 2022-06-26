@@ -18,7 +18,7 @@ const Perfil = (props) => {
   const [usernamePopUp, setUsernamePopUp] = useState(false);
   const [passwordPopUp, setPasswordPopUp] = useState(false);
 
-  const { user } = useSelector(store => store)
+  const { user } = useSelector((store) => store);
 
   const popUpFunction = (specification, bool) => {
     if (specification === "password") setPasswordPopUp(bool);
@@ -31,8 +31,8 @@ const Perfil = (props) => {
         <label className={style.cursos}>
           {course.favorito === true ? "FAVORITO" : "NOT FAVORITO"}
         </label>
-        <label className={style.cursos}> {course.lecciones_Totales} </label>
-        <label className={style.cursos}> {course.lecciones_Termidas} </label>
+        <label className={style.cursos1}> {course.lecciones_Totales} </label>
+        <label className={style.cursos1}> {course.lecciones_Termidas} </label>
         <div className={style.lenguaje}>
           <JSIcon lenguajes={course.lenguaje} />
         </div>
@@ -49,52 +49,56 @@ const Perfil = (props) => {
       <div className={style.containerHeader}>
         <div className={style.containerPerfil}>
           <div className={style.perfilDates}>
-            <div className={style.containerImg}>
-              <img
-                className={style.imgPerfil}
-                src={user.Image}
-                alt="aqui va un imagen"
-                referrerPolicy="no-referrer"
-              />
-            </div>
-            <div className={style.userDetail}>
-              <div className={style.userFlex}>
-                <div className={style.Username}>
-                  <span>{user.username}</span>
-                </div>
-                <button
-                  className={style.popup}
-                  onClick={() => popUpFunction("username", true)}
-                >
-                  Editar
-                </button>
-                <button
-                  className={style.popupPassword}
-                  onClick={() => popUpFunction("password", true)}
-                >
-                  Cambiar Contraseña
-                </button>
+            <div className={style.flexResponsive}>
+              <div className={style.containerImg}>
+                <img
+                  className={style.imgPerfil}
+                  src={user.Image}
+                  alt="aqui va un imagen"
+                  referrerPolicy="no-referrer"
+                />
               </div>
-              <div className={style.flex}>
-                <div className={style.item}>
-                  <div>
-                    <label> Name: </label>
-                    <span> {user.name} </span>
+              <div className={style.userDetail}>
+                <div className={style.userFlex}>
+                  <div className={style.Username}>
+                    <span>{user.username}</span>
                   </div>
-                  <div>
-                    <label> Email: </label>
-                    <span> {user.email} </span>
+                  <div className={style.popupButtons}>
+                    <button
+                      className={style.popup}
+                      onClick={() => popUpFunction("username", true)}
+                    >
+                      Editar usuario
+                    </button>
+                    <button
+                      className={style.popupPassword}
+                      onClick={() => popUpFunction("password", true)}
+                    >
+                      Cambiar Contraseña
+                    </button>
                   </div>
                 </div>
-                <div className={style.item}>
-                  <div>
-                    <label> Miembro desde:</label>
-                    <span> {user.Member_Since || "sin implementar"} </span>
-                  </div>
-                  <div>
-                    <label> Visto por última vez: </label>
-                    <span> {user.Last_Seen || "sin implementar"} </span>
-                  </div>
+              </div>
+            </div>
+            <div className={style.flex}>
+              <div className={style.item}>
+                <div>
+                  <label> Name: </label>
+                  <span> {user.name} </span>
+                </div>
+                <div>
+                  <label> Email: </label>
+                  <span> {user.email} </span>
+                </div>
+              </div>
+              <div className={style.item}>
+                <div>
+                  <label> Miembro desde:</label>
+                  <span> {user.Member_Since || "sin implementar"} </span>
+                </div>
+                <div>
+                  <label> Visto por última vez: </label>
+                  <span> {user.Last_Seen || "sin implementar"} </span>
                 </div>
               </div>
             </div>

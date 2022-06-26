@@ -3,7 +3,6 @@
     margin-top: 5em;
     height: 2em;
     width: 30em;
-    align-items: center ;
     align-content: center;
     background-color: rgb(236, 235, 235);
     border-radius: 0.5em;
@@ -29,6 +28,34 @@
     background:none;
 }
 
+.search form{
+    display: flex;
+    flex-direction: row;
+    width: 30em;
+    align-items: center;
+}
+
 .search:focus-within{
     outline: 2px solid #b6b6b6;
+}
+
+@media (max-width: 768px) {
+    .search{
+        width: 20em;
+    }
+
+    .serch input{
+        display: flex;
+        width: 10em;
+    }
+    
+    .search button{
+        display: flex;
+    }
+    .search form{
+        display: flex;
+        flex-direction: row;
+        width: 20em;
+    }
+    
 }

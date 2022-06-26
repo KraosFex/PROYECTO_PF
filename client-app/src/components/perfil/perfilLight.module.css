@@ -1,5 +1,6 @@
 /* UTILIDADES */
 .imgPerfil {
+  margin-top: 0em;
     width: 7em;
     height: 7em;
     border-radius: 0.2em;
@@ -19,7 +20,6 @@
     align-items: center;
     width: 100vw;
     height: 100vh;
-  
   }
   
   .containerPerfil {
@@ -35,17 +35,24 @@
   
   .perfilDates {
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+  }
+  .flexResponsive{
+    display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
     font-size: 16px;
     color: rgb(84, 84, 84);
+    height: 6em;
   }
   
   .containerImg{
     margin: 22px;
+    width: 7em;
+    height: 7em;
   }
-  
   .userDetail{
     margin: 20px;
   }
@@ -53,6 +60,7 @@
   .flex{
     display: inline-flex;
     gap: 4em;
+    margin-left: 11em;
   }
 
   .item label{
@@ -123,7 +131,7 @@
     height: 2em;
 
   }
-  .cursos{
+  .cursos, .cursos1{
     text-align: center;
     width: 20%;
   }
@@ -134,26 +142,25 @@
     width:20%;
   }
 
+  .YourCourse{
+    margin-top: 5em;
+  }
+
   @media (max-width: 768px) {
     .containerPerfil{
       width: 95%;
       height: 30em;
     }
-
-    .containerImg{
-      display: flex;
-      margin-top: 0em;
+    .cursos1{
+      display: none;
     }
+
   }
 
   @media (max-width: 520px){
     .containerPerfil{
       width: 95%;
-    }
-
-    .containerImg{
-      display: flex;
-      margin-top: 0em;
+      height: 22em;
     }
 
     .userFlex{
@@ -161,9 +168,30 @@
       flex-direction: column;
       align-content: center;
     }
-    .flex{
+    .popupButtons{
       display: flex;
-      flex-direction: column;
-      gap: 1em;
+      flex-direction: row;
+      margin-top: 1em;
+    }
+    .flex{
+      width: 90%;
+      display: flex;
+      flex-direction: row;
+      margin-top: 4em;
+      margin-left: 1em;
+    }
+
+    .popup{
+      margin-left: 0em;
+      align-self: auto;
+      height: 3em;
+    }
+    .popupPassword{
+      margin-left: 0.5em;
+      align-self: auto;
+      height: 3em;
+    }
+    .cursos1{
+      display: none;
     }
   }

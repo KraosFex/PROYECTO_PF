@@ -35,7 +35,7 @@ export default function Ranking() {
       <div key={e._id} className={style.puesto}>
         <img className={style[clase]} alt="" src={imagen} />
         <label className={style.usuario}>
-          {i + 1}.{e.username}
+          {i}.{e.username}
         </label>
       </div>
     );

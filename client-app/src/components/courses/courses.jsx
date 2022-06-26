@@ -48,9 +48,9 @@ function Courses() {
   };
   const byTipo = (e) => {
     if (e.target.checked === true) {
-      if (tipo1 === "0") setTipo1(e.target.value);
-      else if (tipo2 === "0") setTipo2(e.target.value);
-      else setTipo3(e.target.value);
+      if (tipo1 === "0") setTipo1(e.target.value.toLowerCase());
+      else if (tipo2 === "0") setTipo2(e.target.value.toLowerCase());
+      else setTipo3(e.target.value.toLowerCase());
     } else if (e.target.checked === false) {
       if (e.target.value === tipo1) setTipo1("0");
       if (e.target.value === tipo2) setTipo2("0");
@@ -82,7 +82,6 @@ function Courses() {
       dispatch(getCourses());
       showedCourses = courseSearch;
     }
-    console.log(showedCourses);
   };
 
   if (
@@ -90,7 +89,7 @@ function Courses() {
     (tipo2 && tipo2 != "0") ||
     (tipo3 && tipo3 != "0")
   )
-    showedCourses = lenguaje(tipo1, tipo2, tipo3, allCourses);
+    showedCourses = lenguaje(tipo1, tipo2, tipo3, showedCourses);
   if (order) showedCourses = ordered(order, showedCourses);
 
   //---------------------------------------------------

@@ -76,3 +76,18 @@
 .optionButton:hover {
   border: 1px solid #ffffff;
 }
+
+@media (max-width: 768px) {
+  .cardContainer{
+    min-width: 21em;
+    min-height: 15em
+  
+  }
+
+  .dataContainer{
+    margin-left: 0.3em;
+  }
+  .userCourses{
+    display: none;
+  }
+}
