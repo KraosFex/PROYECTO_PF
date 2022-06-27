@@ -74,16 +74,6 @@ export const logout = () => {
   };
 };
 
-export const addVotes = async function (id, info) {
-  try {
-    const data = await axios.put(
-      `http://localhost:3001/api/cursosprivate/${id}/votes`,
-      info
-    );
-  } catch (err) {
-    new Error(err);
-  }
-};
 
 export const setRanking = (ranking) => {
   return {
@@ -113,6 +103,23 @@ export const setArrowCourse = (arrowCourse) => {
   };
 };
 // asynchronous actions
+
+export const addVotes = (info) => {
+  return async function (dispatch) {
+    try {
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        }
+      }
+      const metaData = await axios.put(`http://localhost:3001/api/cursosprivate/votes`, info, config);
+    } catch (err) {
+      console.log(err)
+    }
+  }
+};
 
 export const register = (userData) => {
   return async function (dispatch) {
@@ -296,7 +303,7 @@ export const getLesson = (idLesson) => {
         },
       };
       const metaData = await axios.get(
-        `http://localhost:3001/api/cursosprivate/${id}/lesson`,
+        `http://localhost:3001/api/cursosprivate/${idLesson}/lesson`,
         config
       );
       return metaData.data;

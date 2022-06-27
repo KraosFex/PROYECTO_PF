@@ -139,23 +139,24 @@ const addCourse = async (req, res) => {
 
 const addVotes = async (req, res, next) => {
   const id = req.user._id
-  const { idUser, votes } = req.body
+  const { idCourse, votes } = req.body
   try {
     const curso = await Course.findByIdAndUpdate(
-      { _id: id },
+      { _id: idCourse },
       {
         $push: {
           userVotes: {
-            user: idUser
+            user: id
           },
           votes
         }
       },
       { new: true }
     )
+
     res.send({ info: 'Votacion exitosa', curso, success: true })
   } catch (err) {
-    next(new ErrorResponse('Error al votar el curso', 500, false))
+    res.status(500).send({ info: 'Algo salio mal', success: false })
   }
 }
 

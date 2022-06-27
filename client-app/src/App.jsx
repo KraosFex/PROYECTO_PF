@@ -55,7 +55,7 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/home" element={<Home theme={theme} />} />
           <Route path="/courses" element={<Courses />}></Route>
-          <Route path="/course/:id" element={<CourseDetail theme={theme} />} />
+          <Route path="/course/:idCourse" element={<CourseDetail theme={theme} />} />
           <Route
             path="/course/:idCourse/:idLesson"
             element={<LessonPage />}

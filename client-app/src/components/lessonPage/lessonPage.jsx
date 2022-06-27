@@ -16,6 +16,8 @@ import style from "./lessonPage.module.css";
 
 export default function LessonPage() {
 
+  const [isReady, setIsReady] = useState(false)
+
   const [approved, setApproved] = useState(false);
 
   const [lesson, setLesson] = useState({});
@@ -29,7 +31,7 @@ export default function LessonPage() {
   useEffect(() =>{
     async function axiosReq() {
       const data = await dispatch(getLesson(idLesson))
-      setLesson(data)
+      setLesson(data.lesson)
     }
 
     axiosReq();
@@ -49,17 +51,20 @@ export default function LessonPage() {
   };
 
 
-console.log(lesson)
   return (
     <div className={style.highContainer}>
       <div className={style.infoContainer}>
-        <h1>{lesson.title}</h1>
+        <h1>{lesson.titulo}</h1>
         <h4 className={style.description}>{lesson.descripcion}</h4>
         <NavLink to={'/home'}> Volver al home </NavLink>
         <div className={style.video}>
           {lesson.video && <Vimeo video={`${lesson.video}`} responsive />}
         </div>
-        <QuiztCart questions={lesson.quiz} handleApproved={handleApproved}/>
+        {isReady?
+        <QuiztCart questions={lesson.quiz} handleApproved={handleApproved} approved={approved} idCourse={idCourse} />
+          :
+        <button className={style.isReady} onClick={setIsReady(true)}>Comenzar Test</button>
+        }
         <button disabled={approved} onClick={handelSubmit}>
           {" "}
           Siguiente leccion

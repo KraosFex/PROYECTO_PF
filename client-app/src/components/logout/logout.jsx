@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/actions";
 import style from "./logout.module.css";
 
-const Logout = () => {
+const LogOut = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -21,4 +21,4 @@ const Logout = () => {
   );
 };
 
-export default Logout;
+export default LogOut;

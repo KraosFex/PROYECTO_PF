@@ -4,6 +4,9 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { themeSwitcher } from "../../../../redux/actions/index.js";
 
+//component
+import LogOut from '../../logOut/logOut'
+
 //  styles
 import { ThemeProvider } from "styled-components";
 import darkTheme from "./navbarUserBlack.module.css";
@@ -96,11 +99,6 @@ function NavBarUser() {
             <Notification />
           </NavLink>
         </div>
-        {/* <div className={style.icon4}>
-          <NavLink to="#">
-            <CodeIcon />
-          </NavLink>
-        </div> */}
         <div className={style.icon4}>
           <NavLink to="/courses">
             <CursoIcon />
@@ -134,7 +132,11 @@ function NavBarUser() {
             <NavLink to="/home" data-dropdown-button>
               Inicio
             </NavLink>
-            {isLogged ? null : (
+            {isLogged ?
+                  (
+                    <LogOut />
+                  )
+               : (
               <>
                 <NavLink to="/login" data-dropdown-button>
                   Log In

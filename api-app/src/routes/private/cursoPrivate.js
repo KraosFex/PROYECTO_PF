@@ -10,8 +10,8 @@ router.put('/favorite/initcourse', protect, addCourse)
 router.put('/unfavorite', protect, removeFavorite)
 router.put('/favorite', protect, addFavorite)
 router.put('/iscompleted', protect, isCompleted)
+router.put('/votes', protect, addVotes)
 router.put('/:id', protect, createLesson)
-router.put('/:id/votes', protect, addVotes)
 router.get('/:id/lesson', protect, getLesson)
 
 

@@ -26,12 +26,7 @@ const lessonSchema = new Schema(
   isLocked: {
     type: Boolean,
     default: true
-  },
-  answers: [
-    {
-      type: Object
-    }
-  ]
+  }
 }, { timestamps: true, versionKey: false })
 
 module.exports = model("Lesson", lessonSchema);
