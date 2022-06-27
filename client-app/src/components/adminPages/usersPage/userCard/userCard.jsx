@@ -6,36 +6,36 @@ import {
   isAdminConverter,
   deleteUser,
   getAllUsers,
-} from "../../../../../redux/actions";
+} from "../../../../../redux/actions/index";
 import BanearPopUp from "../PopUpBanear/BanearPopUp";
 import { useState } from "react";
-
 
 function UserCard({ id, name, username, email, isAdmin, image, courses }) {
   const dispatch = useDispatch();
   const [banearPopUp, setBanear] = useState(false);
+  const token = useSelector((state) => state.reducerCompleto.authToken);
 
   const popUpFunction = (change) => {
-    setBanear(change)
+    setBanear(change);
   };
 
   const deleteFunction = async () => {
-    await dispatch(deleteUser(id));
-    dispatch(getAllUsers());
+    await dispatch(deleteUser({ userId: id, token }));
+    dispatch(getAllUsers(token));
   };
 
   const adminFunction = async (e) => {
     if (e.target.name === "add_admin") {
-      await dispatch(isAdminConverter(id, true));
-      dispatch(getAllUsers());
+      await dispatch(isAdminConverter({ userId: id, boolean: true, token }));
+      dispatch(getAllUsers(token));
     } else if (e.target.name === "delete_admin") {
-      await dispatch(isAdminConverter(id, false));
-      dispatch(getAllUsers());
+      await dispatch(isAdminConverter({ userId: id, boolean: false, token }));
+      dispatch(getAllUsers(token));
     }
   };
 
   var style = darkTheme;
-  const theme = useSelector((store) => store.theme);
+  const theme = useSelector((state) => state.reducerCompleto.theme);
 
   //SE TENDRIAN QUE CREAR LOS COMPONENETES POPUP PARA LA OPCION DE BANEAR
 

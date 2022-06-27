@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 function ArrowsUpDown() {
-  const direction = useSelector((store) => store.arrowUpDown);
+  const direction = useSelector((state) => state.reducerCompleto.arrowUpDown);
 
   if (direction === "down") {
     return (

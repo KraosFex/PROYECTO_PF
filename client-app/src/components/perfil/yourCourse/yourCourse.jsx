@@ -4,7 +4,7 @@ import { ThemeProvider } from "styled-components";
 import { useSelector } from "react-redux";
 
 const YourCourse = ({ coursesAll }) => {
-  const theme = useSelector((store) => store.theme);
+  const theme = useSelector((state) => state.reducerCompleto.theme);
 
   var style = theme;
   return (

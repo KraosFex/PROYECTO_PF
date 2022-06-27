@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout } from "../../../redux/actions";
+import { logout, setAuthToken } from "../../../redux/actions/index";
 import style from "./logout.module.css";
 
 const Logout = () => {
@@ -8,7 +8,7 @@ const Logout = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    localStorage.removeItem("authToken");
+    dispatch(setAuthToken(""));
     dispatch(logout());
     navigate("/");
   };

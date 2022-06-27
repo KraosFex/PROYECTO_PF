@@ -18,7 +18,7 @@ const Perfil = (props) => {
   const [usernamePopUp, setUsernamePopUp] = useState(false);
   const [passwordPopUp, setPasswordPopUp] = useState(false);
 
-  const { user } = useSelector((store) => store);
+  const user = useSelector((state) => state.reducerCompleto.user);
 
   const popUpFunction = (specification, bool) => {
     if (specification === "password") setPasswordPopUp(bool);

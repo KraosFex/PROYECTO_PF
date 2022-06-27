@@ -26,15 +26,18 @@ function Courses() {
   let style = darkTheme;
 
   const dispatch = useDispatch();
-
-  const tema = useSelector((store) => store.theme);
-  const courseSearch = useSelector((store) => store.showedCourses);
+  const allCourses = useSelector((state) => state.reducerCompleto.courses);
+  const tema = useSelector((state) => state.reducerCompleto.theme);
+  const courseSearch = useSelector(
+    (state) => state.reducerCompleto.showedCourses
+  );
   var showedCourses = courseSearch;
-  const direction = useSelector((store) => store.arrowUpDown);
+  const direction = useSelector((state) => state.reducerCompleto.arrowUpDown);
 
   //forcing the re-render of the component
   const [refresh, setRefresh] = useState(true);
   const [activeArrow, setActiveArrow] = useState(false);
+  const [searchError, setSerachError] = useState({});
 
   // AGREGADO  PRUEBA--------------------------------
   const [order, setCourseOrder] = useState("");
@@ -57,7 +60,7 @@ function Courses() {
     }
   };
 
-  const search = (e) => {
+  const search = async (e) => {
     // SETEA TODOS LOS FILTROS/SORTS A false
     e.preventDefault();
     const selector = [...document.getElementsByName("votes")];
@@ -75,8 +78,15 @@ function Courses() {
       input.checked = false;
     }
     if (e.target.value != "") {
-      dispatch(getCourseByName(e.target.value));
+      const dis = await dispatch(getCourseByName(e.target.value));
+      const data = dis.payload;
       showedCourses = courseSearch;
+      if (!data.success) {
+        setSerachError({ err: data.info });
+      } else {
+        setSerachError({});
+        showedCourses = courseSearch;
+      }
     } else {
       dispatch(getCourses());
       showedCourses = courseSearch;
@@ -98,7 +108,6 @@ function Courses() {
     if (direction === "up") dispatch(setArrowUpDown("down"));
     setActiveArrow(!activeArrow);
   };
-
   return (
     <ThemeProvider
       theme={tema === "light" ? (style = lightTheme) : (style = darkTheme)}
@@ -111,8 +120,10 @@ function Courses() {
                 type="search"
                 placeholder="Buscar curso"
                 className={style.input}
-                f
               />
+              {searchError.err && (
+                <label className={style.errSearch}>{searchError.err}</label>
+              )}
             </form>
             <p className={activeArrow ? style.pActive : style.p}>Ordenar por</p>
             <select
@@ -160,13 +171,17 @@ function Courses() {
             </div>
           </div>
           <div className={style.flexContainer2}>
-            <div className={style.container2}>
-              <CoursesCard
-                courses={showedCourses}
-                setRefresh={setRefresh}
-                refresh={refresh}
-              />
-            </div>
+            {searchError.err ? (
+              <h1>NOT FOUND</h1>
+            ) : (
+              <div className={style.container2}>
+                <CoursesCard
+                  courses={showedCourses}
+                  setRefresh={setRefresh}
+                  refresh={refresh}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

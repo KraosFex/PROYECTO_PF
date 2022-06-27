@@ -77,9 +77,9 @@
   border: 1px solid #ffffff;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .cardContainer{
-    min-width: 21em;
+    min-width: 35em;
     min-height: 15em
   
   }
@@ -92,9 +92,9 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .cardContainer{
-    min-width: 35em;
+    min-width: 21em;
     min-height: 15em
   
   }

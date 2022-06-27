@@ -1,6 +1,6 @@
 import style from "./forgotPopUp.module.css";
 import { AiFillCloseCircle } from "react-icons/ai";
-import { editPassword } from "../../../../redux/actions";
+import { editPassword } from "../../../../redux/actions/index";
 import { useDispatch } from "react-redux";
 import validator from "../../../utils/updateProfileValidator";
 import { useState } from "react";

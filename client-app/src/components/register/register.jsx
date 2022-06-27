@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { register, auhtGoogle } from "../../../redux/actions";
+import {
+  register,
+  auhtGoogle,
+  setAuthToken,
+} from "../../../redux/actions/index";
 import style from "./register.module.css";
 import validator from "../../utils/validator.js";
 import { useNavigate, Link, NavLink } from "react-router-dom";
@@ -59,7 +63,7 @@ function Register() {
 
       if (response.success) {
         setRegisterError({});
-        localStorage.setItem("authToken", response.token);
+        dispatch(setAuthToken(response.token));
         navigateTo("/home");
       } else {
         setRegisterError({ err: response.info });

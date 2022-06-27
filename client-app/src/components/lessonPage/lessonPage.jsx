@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Vimeo from "@u-wave/react-vimeo";
 
 // redux actions
-import { getLesson } from "../../../redux/actions";
+import { getLesson } from "../../../redux/actions/index";
 
 // Components
 import QuiztCart from "./quiztCart";
@@ -16,50 +16,77 @@ import style from "./lessonPage.module.css";
 
 export default function LessonPage() {
   const [approved, setApproved] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+  const { idCourse, idLesson } = useParams();
+  const [lesson, setLesson] = useState({});
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { courseId, lessonId } = useParams();
-
-  const IdOflesson = parseInt(lessonId);
-
+  const token = useSelector((state) => state.reducerCompleto.authToken);
   useEffect(() => {
-    const lesson = dispatch(getLesson(lessonId));
-    return console.log(lesson);
+    async function axiosReq() {
+      const data = await dispatch(getLesson({ id: idCourse, token }));
+      setLesson(data.payload);
+    }
+    axiosReq();
   }, [dispatch]);
+
+  const handleStart = () => {
+    setIsReady(true);
+  };
 
   const handleApproved = (approved) => {
     setApproved(approved);
   };
 
-  const handelSubmit = () => {
-    /*
-     * aqui deberia ir la ruta que actuliza la lesson del user
-     */
-
-    navigate(`/lesson/${courseId}/${IdOflesson + 1}`);
+  const handleNextLesson = async () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    };
+    const body = { idCourse, idLesson };
+    try {
+      const metaData = await axios.put(
+        "http://localhost:3001/api/cursosprivate/iscompleted",
+        body,
+        config
+      );
+      dispatch(updateUser(metaData.data.updateUser));
+      //navigate(`/course/${idCourse}/${metaData.data.nextLessonId}`)
+    } catch (err) {
+      alert("lesson no se pudo completar correctamente. lessonPage.jsx");
+    }
   };
 
   return (
     <div className={style.highContainer}>
-      {/*ESTA ES TODA LA DATA QUE TRAE EL COMPONENETE DE MOMENTO*/}
       <div className={style.infoContainer}>
+        <h1>{lesson.titulo}</h1>
+        <h4 className={style.description}>{lesson.descripcion}</h4>
         <NavLink to={"/home"}> Volver al home </NavLink>
         <div className={style.video}>
-          <Vimeo video={`${lesson._id}`} responsive />
+          {lesson.video && <Vimeo video={`${lesson.video}`} responsive />}
         </div>
-        <h4 className={style.description}>Una description</h4>
-        <hr />
-        <QuiztCart
-          questions={questions}
-          handleApproved={handleApproved}
-          approved={approved}
-        />
-        <button disabled={approved} onClick={handelSubmit}>
-          {" "}
-          Siguiente leccion
-        </button>
+        {isReady ? (
+          <QuiztCart
+            questions={lesson.quiz}
+            handleApproved={handleApproved}
+            approved={approved}
+            idCourse={idCourse}
+          />
+        ) : (
+          <button className={style.isReady} onClick={handleStart}>
+            Comenzar Test
+          </button>
+        )}
+        {approved ? (
+          <button onClick={handleNextLesson}>Siguiente leccion</button>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

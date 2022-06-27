@@ -4,7 +4,7 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 //actions redux
-import { getCourses } from "../redux/actions";
+import { getCourses, getRanking } from "../redux/actions/index";
 
 // compoents
 import Home from "./components/home/home";
@@ -26,16 +26,17 @@ import PaymentGateway from "./components/paymentGateway/paymentGateway.jsx";
 import style from "./index.modules.css";
 
 function App() {
-  const theme = useSelector((store) => store.theme);
-  const isLogged = useSelector((store) => store.isLogged);
-  const user = useSelector((store) => store.user);
-  console.log(user);
+  const theme = useSelector((state) => state.reducerCompleto.theme);
+  const isLogged = useSelector((state) => state.reducerCompleto.isLogged);
+  const user = useSelector((state) => state.reducerCompleto.user);
+  const courses = useSelector((state) => state.reducerCompleto.showedCourses);
+  const token = useSelector((state) => state.reducerCompleto.authToken);
 
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getCourses());
-  });
+    dispatch(getRanking());
+  }, []);
 
   const AppLayout = () => (
     <>

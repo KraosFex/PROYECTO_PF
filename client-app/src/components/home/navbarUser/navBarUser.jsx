@@ -19,15 +19,17 @@ import Notification from "../../../icons/notification";
 import Sun from "../../../icons/sun";
 import Arrows from "../../../icons/arrows.jsx";
 import { setArrowDirection } from "../../../../redux/actions/index.js";
-import Logout from "../../logout/logout.jsx";
+import LogOut from "../../logout/logout.jsx";
 
 function NavBarUser() {
   const dispatch = useDispatch();
 
-  const isLogged = useSelector((store) => store.isLogged);
-  const user = useSelector((store) => store.user);
-  const theme = useSelector((store) => store.theme);
-  const direction = useSelector((store) => store.arrowDirection);
+  const isLogged = useSelector((state) => state.reducerCompleto.isLogged);
+  const user = useSelector((state) => state.reducerCompleto.user);
+  const theme = useSelector((state) => state.reducerCompleto.theme);
+  const direction = useSelector(
+    (state) => state.reducerCompleto.arrowDirection
+  );
 
   let body;
   let style;
@@ -72,7 +74,7 @@ function NavBarUser() {
         setActive(false);
       }
     });
-  });
+  }, []);
   return (
     <ThemeProvider
       theme={theme === "light" ? (style = lightTheme) : (style = darkTheme)}
@@ -87,16 +89,17 @@ function NavBarUser() {
           </div>
         </div>
         <div className={activeArrow ? style.icon2Active : style.icon2}>
+          <NavLink to="/courses">
+            <CursoIcon />
+          </NavLink>
+        </div>
+
+        <div className={activeArrow ? style.icon2Active : style.icon2}>
           <NavLink to="#">
             <Notification />
           </NavLink>
         </div>
-        {/* <div className={style.icon4}>
-          <NavLink to="#">
-            <CodeIcon />
-          </NavLink>
-        </div> */}
-        <div className={activeArrow ? style.icon5Active : style.icon5}>
+        <div className={style.icon4}>
           <NavLink to="/courses">
             <CursoIcon />
           </NavLink>
@@ -130,7 +133,7 @@ function NavBarUser() {
               Inicio
             </NavLink>
             {isLogged ? (
-              <Logout />
+              <LogOut />
             ) : (
               <>
                 <NavLink to="/login" data-dropdown-button>

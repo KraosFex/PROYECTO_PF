@@ -1,14 +1,15 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { getUserRank } from "../../../../redux/actions";
+import { getUserRank } from "../../../../redux/actions/index";
 
 // styles
 import style from "./userRank.module.css";
 
 const UserRank = () => {
   const dispatch = useDispatch();
-  const isLogged = useSelector((store) => store.isLogged);
-  const user = useSelector((store) => store.user);
+  const isLogged = useSelector((state) => state.reducerCompleto.isLogged);
+  const user = useSelector((state) => state.reducerCompleto.user);
+  const token = useSelector((state) => state.reducerCompleto.authToken);
   const [userRank, setUserRank] = useState();
   const [errorRank, setErrorRank] = useState({});
   const [frame, setFrame] = useState();
@@ -19,7 +20,8 @@ const UserRank = () => {
     if (userRank + 1 === 3) setFrame("img/bronze.png");
 
     async function axiosReq() {
-      const data = await dispatch(getUserRank(user._id));
+      const dis = await dispatch(getUserRank({ token, id: user._id }));
+      const data = dis.payload;
       if (data.success) {
         setUserRank(data.response);
       } else {

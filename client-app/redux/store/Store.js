@@ -1,13 +1,29 @@
 // Store app
-import { legacy_createStore, applyMiddleware, compose } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { combineReducers, applyMiddleware } from "redux";
+import { persistReducer, persistStore } from "redux-persist";
 import thunk from "redux-thunk";
-import rootReducer from "../reducer";
+import reducerAll from "../actions";
+import storage from "redux-persist/lib/storage";
+import { getDefaultMiddleware } from "@reduxjs/toolkit";
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const reducers = combineReducers({
+  reducerCompleto: reducerAll,
+});
 
-const store = legacy_createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(thunk))
-)
+const persistConfig = {
+  key: "main-root",
+  storage,
+};
 
-export default store
+const persistedReducer = persistReducer(persistConfig, reducers);
+
+const store = configureStore({
+  reducer: persistedReducer,
+  applyMiddleware,
+});
+const Persistor = persistStore(store);
+
+export { Persistor };
+export default store;

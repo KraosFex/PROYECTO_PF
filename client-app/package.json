@@ -8,8 +8,13 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@emotion/react": "^11.9.3",
+        "@emotion/styled": "^11.9.3",
         "@monaco-editor/react": "^4.4.5",
+        "@mui/material": "^5.8.5",
+        "@react-native-async-storage/async-storage": "^1.17.7",
         "@reduxjs/toolkit": "^1.8.2",
+        "@stripe/stripe-js": "^1.32.0",
         "@sweetalert2/theme-dark": "5.0.11",
         "@u-wave/react-vimeo": "^0.9.8",
         "axios": "0.27.2",
@@ -21,6 +26,7 @@
         "react-router-dom": "6.3.0",
         "react-stripe-checkout": "^2.6.3",
         "react-tsparticles": "^2.0.6",
+        "redux-persist": "^6.0.0",
         "redux-thunk": "^2.4.1",
         "styled-components": "^5.3.5",
         "sweetalert2": "11.4.17"

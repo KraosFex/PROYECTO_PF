@@ -1,18 +1,19 @@
 import style from "./usersPage.module.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers } from "../../../../redux/actions";
+import { getAllUsers } from "../../../../redux/actions/index";
 import UserCard from "./userCard/userCard.jsx";
 import SearchProfiles from "./searchProfiles/searchProfiles";
 
 function UserPage() {
   const dispatch = useDispatch();
 
-  const showedUsers = useSelector((store) => store.showedUsers);
-  const actualUser = useSelector((store) => store.user);
+  const showedUsers = useSelector((state) => state.reducerCompleto.showedUsers);
+  const actualUser = useSelector((state) => state.reducerCompleto.user);
+  const token = useSelector((state) => state.reducerCompleto.authToken);
 
   useEffect(() => {
-    dispatch(getAllUsers());
+    dispatch(getAllUsers(token));
   }, [dispatch]);
 
   return (
