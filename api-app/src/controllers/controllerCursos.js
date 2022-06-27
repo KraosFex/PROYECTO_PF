@@ -137,24 +137,28 @@ const addCourse = async (req, res) => {
   }
 }
 
-const addVotes = async (req, res, next) => {
-  const id = req.user._id
+const addVotes = async (req, res ) => {
+  const idUser = req.user._id
   const { idCourse, votes } = req.body
+
   try {
-    const curso = await Course.findByIdAndUpdate(
-      { _id: idCourse },
-      {
+    const currentCourse = await Course.find({ 'userVotes.user': idUser }).populate({ path: 'userVotes.user', ref: 'Course', select: '_id userName' })
+    if (!currentCourse.length) {
+      const newCourseVote = await Course.findByIdAndUpdate(idCourse, {
         $push: {
           userVotes: {
-            user: id
+            user: idUser
           },
           votes
         }
-      },
-      { new: true }
-    )
+      })
+      return res.send({ info: 'Votacion exitosa', newCourseVote, success: true })
+    }
 
-    res.send({ info: 'Votacion exitosa', curso, success: true })
+    const currentIndex = currentCourse[0].userVotes.findIndex(v => v.user._id.toString() === idUser.toString())
+    currentCourse[0].votes[currentIndex] = votes
+    currentCourse[0].save()
+    res.send({ info: 'Votacion exitosa', currentCourse, success: true })
   } catch (err) {
     res.status(500).send({ info: 'Algo salio mal', success: false })
   }

@@ -188,6 +188,17 @@ const permaBanUsers = async (req, res) => {
   }
 }
 
+const isPremium = async (req, res) => {
+  const id = req.user._id
+  try {
+    const user = await User.findByIdAndUpdate(id, { isPremium: true })
+    res.send({ info: 'Felicidades ahora eres Premium', updateUser: user, success: true })
+  } catch {
+    res.status(500).send({ info: 'Error al realizar esta accion', success: false })
+  }
+}
+
+
 module.exports = {
   getUsers,
   getUserById,
@@ -198,6 +209,7 @@ module.exports = {
   editIsAdmin,
   deleteUser,
   banUsers,
-  permaBanUsers
+  permaBanUsers,
+  isPremium
 
 }

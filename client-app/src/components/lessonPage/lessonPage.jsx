@@ -62,6 +62,7 @@ export default function LessonPage() {
       //navigate(`/course/${idCourse}/${metaData.data.nextLessonId}`)
     } catch(err){
       alert("lesson no se pudo completar correctamente. lessonPage.jsx")
+      console.log(err)
     }
 
   };

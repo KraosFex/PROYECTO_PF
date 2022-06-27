@@ -227,6 +227,7 @@ export const getCourses = () => {
   return async function (dispatch) {
     try {
       const metaData = await axios.get("http://localhost:3001/api/cursos");
+      console.log(metaData.data)
       dispatch(setCourses(metaData.data.docs));
       dispatch(setShowedCourses(metaData.data.docs));
     } catch (err) {
@@ -424,6 +425,28 @@ export const isAdminConverter = (userId, boolean) => {
       return metaData.data;
     } catch (err) {
       console.log(err.response.data);
+    }
+  };
+};
+
+export const isPremiumConverter = () => {
+  return async function (dispatch) {
+    try {
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      };
+
+      const metaData = await axios.put(
+        `http://localhost:3001/api/usersprivate/isPremium`,
+        config
+      );
+      dispatch(updateUser(metaData.data.updateUser))
+      return metaData.data;
+    } catch (err) {
+      return err.response.data
     }
   };
 };

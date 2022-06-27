@@ -15,7 +15,7 @@ const createLesson = async (req, res, next) => {
         }
       }
     })
-    curso.lessons[0].isLocked = false
+    newLesson.lessons[0].isLocked = false
     res.send({ info: 'Curso creado exitosamente', newLesson })
   } catch (err) {
     next(new ErrorResponse(err, 500))
@@ -37,27 +37,44 @@ const getLesson = async (req, res, next) => {
 const isCompleted = async (req, res) => {
   const id = req.user._id
   const { idLesson, idCourse } = req.body
+
   try {
+    console.log("aca")
     const user = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
+    console.log("aca 1")
     const currentCourse = user.courses.filter(c => c.course._id == idCourse)
-    const currentLesson = currentCourse[0].course.lessons.filter(l => l._id == idLesson)
-    currentLesson.set("isCompleted", true)
+      console.log("aca 2", idLesson)
+    const currentLesson = currentCourse[0].course.lessons.filter(l => l.lesson._id == idLesson)
+    console.log("aca 3", currentLesson[0].lesson)
+    currentLesson[0].lesson.set("isCompleted", true)
 
-    const currentIndex = currentCourse[0].course.lessons.findIndex(l => l._id == idLesson)
-    const nextIndex = currentIndex + 1
-    if (currentIndex < currentCourse[0].course.lessons.length && currentIndex !== 0) {
-      currentCourse[0].course.lessons[nextIndex].set("isLocked", false)
+    console.log("aca 4")
+    const currentIndex = currentCourse[0].course.lessons.findIndex(l => l.lesson._id == idLesson)
+    console.log("aca 5")
+    const nextIndex = currentIndex + 1;
+    console.log("aca 6")
+    if (currentCourse[0].course.lessons[nextIndex].length) {
+      currentCourse[0].course.lessons[nextIndex].lesson.set("isLocked", false)
+      console.log("aca 7")
     }
-
-    if (currentIndex === 0 && currentCourse[0].course.lessons.length === 1) {
+  console.log("aca 8")
+  console.loG()
+    for(const lesson of currentCourse.lessons){
+      console.log("aca 9")
+      if(lesson.lesson.isCompleted === false) {
+        currentCourse[0].course.set("completed", false)
+        await user.save();
+        const updateUser = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } });
+        res.send({info: "curso completado", success: true, updateUser, nextLessonId: currentCourse[0].course.lessons[nextIndex]._id})
+      }
+    }
+    console.log("aca afuera 1")
       currentCourse[0].course.set("completed", true)
-    }
+      await user.save();
+      const updateUser = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } });
+      res.send({info: "curso completado", success: true, updateUser, nextLessonId: currentCourse[0].course.lessons[nextIndex]._id})
 
-    //await user.save()
 
-    const updateUser = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
-
-    res.send({info: "curso completado", success: true, updateUser, nextLessonId: currentCourse[0].course.lessons[nextIndex]._id})
   } catch (err) {
     res
       .status(500)
