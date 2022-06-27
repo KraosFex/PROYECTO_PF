@@ -41,18 +41,23 @@ const isCompleted = async (req, res) => {
     const user = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
     const currentCourse = user.courses.filter(c => c.course._id == idCourse)
     const currentLesson = currentCourse[0].course.lessons.filter(l => l._id == idLesson)
-    currentLesson.isCompleted = true
+    currentLesson.set("isCompleted", true)
+
     const currentIndex = currentCourse[0].course.lessons.findIndex(l => l._id == idLesson)
     const nextIndex = currentIndex + 1
     if (currentIndex < currentCourse[0].course.lessons.length && currentIndex !== 0) {
-      currentCourse[0].course.lessons[nextIndex].isLocked = false
+      currentCourse[0].course.lessons[nextIndex].set("isLocked", false)
     }
 
     if (currentIndex === 0 && currentCourse[0].course.lessons.length === 1) {
-      currentCourse[0].course.completed = true
+      currentCourse[0].course.set("completed", true)
     }
 
-    res.send(user)
+    //await user.save()
+
+    const updateUser = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
+
+    res.send({info: "curso completado", success: true, updateUser, nextLessonId: currentCourse[0].course.lessons[nextIndex]._id})
   } catch (err) {
     res
       .status(500)

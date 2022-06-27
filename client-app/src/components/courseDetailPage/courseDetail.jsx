@@ -75,7 +75,7 @@ export default function CourseDetail(props) {
 
   }
 
-
+console.log(course.lessons)
   return (
     <ThemeProvider
       theme={

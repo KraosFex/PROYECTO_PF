@@ -6,21 +6,25 @@ import style from "./questionsPage.module.css";
 
 export default function QuiztCart({ questions, handleApproved, approved, idCourse }) {
 
+
+
  if(questions) {
+
+   const estandarTime = 10; //en segundos
+
    const navigate = useNavigate();
 
    const [preguntaActual, setPreguntaActual] = useState(0);
-   const [puntuación, setPuntuación] = useState(0);
+   const [puntuacion, setpuntuacion] = useState(0);
    const [isFinished, setIsFinished] = useState(false);
-   const [tiempoRestante, setTiempoRestante] = useState(10);
+   const [tiempoRestante, setTiempoRestante] = useState(estandarTime);
    const [areDisabled, setAreDisabled] = useState(false);
    const [answersShown, setAnswersShown] = useState(false);
 
-   const constApproved = questions.length * 0.5;
 
    function handleAnswerSubmit(isCorrect, e) {
-     // añadir puntuación
-     if (isCorrect) setPuntuación(puntuación + 1);
+     // añadir puntuacion
+     if (isCorrect) {setpuntuacion(puntuacion + 1);}
      // añadir estilos de pregunta
      e.target.classList.add(isCorrect ? "correct" : "incorrect");
      // cambiar a la siguiente pregunta
@@ -28,11 +32,13 @@ export default function QuiztCart({ questions, handleApproved, approved, idCours
      setTimeout(() => {
        if (preguntaActual === questions.length - 1) {
          setIsFinished(true);
-         if (constApproved > (puntuación * 100) / questions.length)
+
+         if (((100 * puntuacion) / (questions.length * .5)) >= 80) {
            handleApproved(true);
+         }
        } else {
          setPreguntaActual(preguntaActual + 1);
-         setTiempoRestante(10);
+         setTiempoRestante(estandarTime);
        }
      }, 1500);
    }
@@ -55,7 +61,7 @@ export default function QuiztCart({ questions, handleApproved, approved, idCours
            <span>{approved ? "is approved" : "not approved"}</span>
            <span>
              {" "}
-             Obtuviste {puntuación} de {questions.length}{" "}
+             Obtuviste {puntuacion} de {questions.length}{" "}
            </span>
            <button
              onClick={() => {

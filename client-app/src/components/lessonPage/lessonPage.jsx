@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { useParams, NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Vimeo from '@u-wave/react-vimeo';
+import axios from 'axios';
 
 // redux actions
-import { getLesson } from "../../../redux/actions";
+import { getLesson, updateUser } from "../../../redux/actions";
 
 // Components
 import QuiztCart from "./quiztCart";
@@ -42,12 +43,27 @@ export default function LessonPage() {
     setApproved(approved);
   };
 
-  const handelSubmit = () => {
-    /*
-     * aqui deberia ir la ruta que actuliza la lesson del user
-     */
+  const handleStart = () => {
+    setIsReady(true)
+  }
 
-    navigate(`/lesson/${courseId}/${IdOflesson + 1}`);
+  const handleNextLesson = async () => {
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      }
+    }
+    const body = {idCourse, idLesson}
+    try {
+      const metaData = await axios.put("http://localhost:3001/api/cursosprivate/iscompleted", body, config)
+      dispatch(updateUser(metaData.data.updateUser))
+      //navigate(`/course/${idCourse}/${metaData.data.nextLessonId}`)
+    } catch(err){
+      alert("lesson no se pudo completar correctamente. lessonPage.jsx")
+    }
+
   };
 
 
@@ -61,14 +77,15 @@ export default function LessonPage() {
           {lesson.video && <Vimeo video={`${lesson.video}`} responsive />}
         </div>
         {isReady?
-        <QuiztCart questions={lesson.quiz} handleApproved={handleApproved} approved={approved} idCourse={idCourse} />
+          <QuiztCart questions={lesson.quiz} handleApproved={handleApproved} approved={approved} idCourse={idCourse} />
           :
-        <button className={style.isReady} onClick={setIsReady(true)}>Comenzar Test</button>
+          <button className={style.isReady} onClick={handleStart}>Comenzar Test</button>
         }
-        <button disabled={approved} onClick={handelSubmit}>
-          {" "}
-          Siguiente leccion
-        </button>
+        {approved?
+          <button onClick={handleNextLesson}>Siguiente leccion</button>
+          :
+          <></>
+        }
       </div>
     </div>
   );

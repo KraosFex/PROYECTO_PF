@@ -26,6 +26,10 @@ const lessonSchema = new Schema(
   isLocked: {
     type: Boolean,
     default: true
+  },
+  video: {
+    type: Number,
+    required: true
   }
 }, { timestamps: true, versionKey: false })
 
