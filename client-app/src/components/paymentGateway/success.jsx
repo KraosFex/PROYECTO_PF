@@ -25,7 +25,9 @@ axiosReq();
     <div className={style.hightContainer}>
       <h1>{response.info}</h1>
       <NavLink to="/home">Volver al Inicio</NavLink>
-      {//SE PODRIA PONER UNA IMAGEN O UN FONDO LINDO PARA QUE NO QUEDE TAN VACIO}
+      {/*SE PODRIA PONER UNA IMAGEN O UN FONDO LINDO PARA QUE NO QUEDE TAN VACIO*/}
     </div>
   )
 }
+
+export default Success;
