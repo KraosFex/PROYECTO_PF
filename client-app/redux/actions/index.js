@@ -74,7 +74,6 @@ export const logout = () => {
   };
 };
 
-
 export const setRanking = (ranking) => {
   return {
     type: SET_RANKING,
@@ -102,6 +101,7 @@ export const setArrowCourse = (arrowCourse) => {
     payload: arrowCourse,
   };
 };
+
 // asynchronous actions
 
 export const addVotes = (info) => {
@@ -246,13 +246,14 @@ export const editImage = (url) => {
   };
 };
 
-export const getCourses = () => {
+export const getCourses = (page) => {
+
   return async function (dispatch) {
     try {
-      const metaData = await axios.get("/api/cursos");
-      console.log(metaData.data)
+      const metaData = await axios.get(`/api/cursos/?limit=8&page=${page}`);
       dispatch(setCourses(metaData.data.docs));
       dispatch(setShowedCourses(metaData.data.docs));
+      return metaData.data
     } catch (err) {
       alert("Ups! Something went wrong...");
     }
@@ -338,7 +339,7 @@ export const getLesson = (idLesson) => {
   };
 };
 
-export const getAllUsers = () => {
+export const getAllUsers = (page) => {
   return async function (dispatch) {
     try {
       let config = {
@@ -348,11 +349,12 @@ export const getAllUsers = () => {
         },
       };
       const metaData = await axios(
-        `/api/usersprivate/`,
+        `/api/usersprivate/?limit=8&page=${page}`,
         config
       );
       dispatch(setAllUsers(metaData.data.users.docs));
       dispatch(setShowedUsers(metaData.data.users.docs));
+      return metaData.data
     } catch (err) {
       return err.response.data;
     }
