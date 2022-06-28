@@ -31,7 +31,7 @@ function Courses() {
 
   const tema = useSelector((store) => store.theme);
   const courseSearch = useSelector((store) => store.showedCourses);
-  let showedCourses = courseSearch.docs;
+  let showedCourses = courseSearch;
   const direction = useSelector((store) => store.arrowUpDown);
 
   //forcing the re-render of the component
@@ -100,13 +100,13 @@ function Courses() {
         setSerachError({err: data.info});
     } else {
       setSerachError({});
-      showedCourses = courseSearch.docs;
+      showedCourses = courseSearch;
     }
     } else {
       // ahora esto solo deberia hacer un # setPage(1), en vez de un dispatch
       dispatch(getCourses());
       setSerachError({});
-      showedCourses = courseSearch.docs;
+      showedCourses = courseSearch;
     }
   };
 
