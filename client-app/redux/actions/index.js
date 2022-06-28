@@ -101,6 +101,7 @@ export const setArrowCourse = (arrowCourse) => {
     payload: arrowCourse,
   };
 };
+
 // asynchronous actions
 
 export const addVotes = (info) => {
@@ -222,10 +223,10 @@ export const editPassword = (email) => {
   };
 };
 
-export const getCourses = () => {
+export const getCourses = (page) => {
   return async function (dispatch) {
     try {
-      const metaData = await axios.get("/api/cursos");
+      const metaData = await axios.get(`/api/cursos/?page=${page}`);
       dispatch(setCourses(metaData.data.docs));
       dispatch(setShowedCourses(metaData.data.docs));
     } catch (err) {
