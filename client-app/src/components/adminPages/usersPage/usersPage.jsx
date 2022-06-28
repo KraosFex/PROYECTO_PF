@@ -16,6 +16,7 @@ import style from "./usersPage.module.css";
 function UserPage() {
 
   const [ page, setPage ] = useState(1);
+  const [ totalPages, setTotalPages ] =  useState()
 
   const dispatch = useDispatch();
 
@@ -25,7 +26,8 @@ function UserPage() {
    // Este Handle es el paginado
    const handleChange = async (e, value) => {
     setPage(value);
-    const { totalPages } = await dispatch(getAllUsers(page))
+    const dataPages = await dispatch(getAllUsers(page))
+    setTotalPages(dataPages.totalPages)
   };
 
   return (
@@ -49,7 +51,7 @@ function UserPage() {
           }
         })}
         <div>
-          <Pagination count={showedUsers.totalPages} page={page} onChange={handleChange} variant="outlined" color="secondary" />
+          <Pagination count={totalPages} page={page} onChange={handleChange} variant="outlined" color="secondary" />
         </div>
       </div>
     </div>
