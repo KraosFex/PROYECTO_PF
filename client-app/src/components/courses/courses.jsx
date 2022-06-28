@@ -5,8 +5,9 @@ import {
   getCourseByName,
   setArrowUpDown,
   setShowedCourses,
+  getCourses
 } from "../../../redux/actions/index";
-import { getCourses } from "../../../redux/actions/index";
+
 // utils
 import { filter } from "../../utils/filters";
 import { sortByRating } from "../../utils/sorter";

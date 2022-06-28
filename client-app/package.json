@@ -8,7 +8,12 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@emotion/react": "^11.9.3",
+        "@emotion/styled": "^11.9.3",
         "@monaco-editor/react": "^4.4.5",
+        "@mui/icons-material": "^5.8.4",
+        "@mui/material": "^5.8.6",
+        "@mui/styled-engine-sc": "^5.8.0",
         "@reduxjs/toolkit": "^1.8.2",
         "@sweetalert2/theme-dark": "5.0.11",
         "@u-wave/react-vimeo": "^0.9.8",
