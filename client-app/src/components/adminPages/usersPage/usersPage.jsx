@@ -23,9 +23,9 @@ function UserPage() {
   const actualUser = useSelector((store) => store.user);
 
    // Este Handle es el paginado
-   const handleChange = (e, value) => {
+   const handleChange = async (e, value) => {
     setPage(value);
-    dispatch(getAllUsers(page))
+    const { totalPages } = await dispatch(getAllUsers(page))
   };
 
   return (
