@@ -314,7 +314,7 @@ export const getLesson = (idLesson) => {
   };
 };
 
-export const getAllUsers = () => {
+export const getAllUsers = (page) => {
   return async function (dispatch) {
     try {
       let config = {
@@ -324,7 +324,7 @@ export const getAllUsers = () => {
         },
       };
       const metaData = await axios(
-        `/api/usersprivate/`,
+        `/api/usersprivate/?limit=8&page=${page}`,
         config
       );
       dispatch(setAllUsers(metaData.data.users.docs));

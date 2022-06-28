@@ -1,19 +1,32 @@
-import style from "./usersPage.module.css";
-import { useEffect } from "react";
+//libraries 
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Pagination from '@mui/material/Pagination';
+
+// actions redux
 import { getAllUsers } from "../../../../redux/actions";
+
+// components
 import UserCard from "./userCard/userCard.jsx";
 import SearchProfiles from "./searchProfiles/searchProfiles";
 
+// style
+import style from "./usersPage.module.css";
+
 function UserPage() {
+
+  const [ page, setPage ] = useState(1);
+
   const dispatch = useDispatch();
 
   const showedUsers = useSelector((store) => store.showedUsers);
   const actualUser = useSelector((store) => store.user);
 
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
+   // Este Handle es el paginado
+   const handleChange = (e, value) => {
+    setPage(value);
+    dispatch(getAllUsers(page))
+  };
 
   return (
     <div className={style.flexContainer}>
@@ -35,6 +48,9 @@ function UserPage() {
             );
           }
         })}
+        <div>
+          <Pagination count={courses.length} page={page} onChange={handleChange} variant="outlined" color="secondary" />
+        </div>
       </div>
     </div>
   );
