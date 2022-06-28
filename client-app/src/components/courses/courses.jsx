@@ -1,5 +1,5 @@
 // libraries
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCourseByName,
@@ -43,12 +43,8 @@ function Courses() {
   // Este Handle es el paginado
   const handleChange = (e, value) => {
     setPage(value);
-  };
-
-  // Desde aqui se iran llamando a los cursos, segun la pagina donde se esta.
-  useEffect(() => {
     dispatch(getCourses(page))
-  }, [dispatch])
+  };
 
   // AGREGADO  PRUEBA--------------------------------
   const [order, setCourseOrder] = useState("");
