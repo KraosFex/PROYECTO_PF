@@ -48,7 +48,7 @@ export const findCourse = createAsyncThunk("/cursos/detail", async (id) => {
     const resp = await axios.get(`/api/cursos/detail/${id}`);
     return resp.data;
   } catch (err) {
-    console.log("se rompio");
+    return err.response.data
   }
 });
 
