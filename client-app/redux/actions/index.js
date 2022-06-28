@@ -48,7 +48,7 @@ export const findCourse = createAsyncThunk("/cursos/detail", async (id) => {
     const resp = await axios.get(`/api/cursos/detail/${id}`);
     return resp.data;
   } catch (err) {
-    console.log("se rompio");
+    return err.response.data
   }
 });
 
@@ -59,7 +59,7 @@ export const login = createAsyncThunk("/auth/login", async (post, thunkAPI) => {
     thunkAPI.dispatch(setAuthToken(metaData.data.token));
     return metaData.data;
   } catch (err) {
-    console.log("error");
+    return err.response.data
   }
 });
 
