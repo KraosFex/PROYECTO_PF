@@ -40,7 +40,7 @@ function UserPage() {
     <div className={style.flexContainer}>
       <div className={style.highContainer}>
         <SearchProfiles />
-        {showedUsers.docs.map((user) => {
+        {showedUsers.map((user) => {
           if (actualUser._id !== user._id) {
             return (
               <UserCard
