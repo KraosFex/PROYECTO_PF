@@ -59,7 +59,7 @@ export const login = createAsyncThunk("/auth/login", async (post, thunkAPI) => {
     thunkAPI.dispatch(setAuthToken(metaData.data.token));
     return metaData.data;
   } catch (err) {
-    console.log("error");
+    return err.response.data;
   }
 });
 
@@ -80,7 +80,7 @@ export const findUserByName = createAsyncThunk(
       thunkAPI.dispatch(setShowedUsers(metaData.data));
     } catch (err) {
       alert("Ups! Something went wrong... FINDUSERBYNAME");
-      console.log(err);
+      return err.response.data;
     }
   }
 );

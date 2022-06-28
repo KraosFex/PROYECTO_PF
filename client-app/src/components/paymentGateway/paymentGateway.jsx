@@ -65,8 +65,13 @@ function PaymentGateway() {
 
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import lightTheme from "./paymentGateway.module.css";
+import codeLearnGold from "../../icons/codelearngold.png";
+import CreditCard from "../../icons/creditCard";
 
 let stripePromise;
+
+var style = lightTheme;
 
 const getStripe = () => {
   if (!stripePromise) {
@@ -107,28 +112,34 @@ const PaymentGateway = () => {
   if (stripeError) alert(stripeError);
 
   return (
-    <div className="checkout">
-      <h1>Stripe Checkout</h1>
-      <p className="checkout-title">Design+Code React Hooks Course</p>
-      <p className="checkout-description">
-        Learn how to build a website with React Hooks
-      </p>
-      <h1 className="checkout-price">$19</h1>
-      <img className="checkout-product-image" src="#" alt="Product" />
-      <button
-        className="checkout-button"
-        onClick={redirectToCheckout}
-        disabled={isLoading}
-      >
-        <div className="grey-circle">
-          <div className="purple-circle">
-            <img className="icon" src="#" alt="credit-card-icon" />
+    <div className={style.flexContainer}>
+      <div className={style.checkout}>
+        <h1>Pagar con Stripe</h1>
+        <p className={style.checkoutTitle}>Subscripcion CodeLearn Gold</p>
+        <p className={style.checkoutDescription}>
+          Desbloquea todos las clases y ayuda a CodeLearn
+        </p>
+        <h1 className={style.checkoutPrice}>u$s20</h1>
+        <img
+          className={style.checkoutProductImage}
+          src={codeLearnGold}
+          alt="Product"
+        />
+        <button
+          className={style.checkoutButton}
+          onClick={redirectToCheckout}
+          disabled={isLoading}
+        >
+          <div className={style.greyCircle}>
+            <div className={style.purpleCircle}>
+              <CreditCard />
+            </div>
           </div>
-        </div>
-        <div className="text-container">
-          <p className="text">{isLoading ? "Loading..." : "Buy"}</p>
-        </div>
-      </button>
+          <div className={style.textContainer}>
+            <p className={style.text}>{isLoading ? "Cargando..." : "Pagar"}</p>
+          </div>
+        </button>
+      </div>
     </div>
   );
 };
