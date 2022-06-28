@@ -59,7 +59,7 @@ export const login = createAsyncThunk("/auth/login", async (post, thunkAPI) => {
     thunkAPI.dispatch(setAuthToken(metaData.data.token));
     return metaData.data;
   } catch (err) {
-    console.log("error");
+    return err.response.data
   }
 });
 
