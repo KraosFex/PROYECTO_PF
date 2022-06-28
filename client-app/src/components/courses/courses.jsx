@@ -1,5 +1,5 @@
 // libraries
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCourseByName,
@@ -38,13 +38,21 @@ function Courses() {
   const [ refresh, setRefresh ] = useState(true);
   const [ activeArrow, setActiveArrow ] = useState(false);
   const [ searchError, setSerachError ] = useState({});
+  const [ totalPages, setTotalPages ] =  useState(0)
   const [ page, setPage ] = useState(1);
   
   // Este Handle es el paginado
   const handleChange = (e, value) => {
     setPage(value);
-    dispatch(getCourses(page))
   };
+
+  useEffect(() => {
+    const axiosReq = async () => {
+      const data = await dispatch(getCourses(page));
+      setTotalPages(data.totalPages)
+    }
+    axiosReq()
+  }, [dispatch])
 
   // AGREGADO  PRUEBA--------------------------------
   const [order, setCourseOrder] = useState("");
@@ -192,7 +200,7 @@ function Courses() {
           }
           </div>
           <div>
-            <Pagination count={courseSearch.totalPages} page={page} onChange={handleChange} variant="outlined" color="secondary" />
+            <Pagination count={totalPages} page={page} onChange={handleChange} variant="outlined" color="secondary" />
           </div>
         </div>
       </div>

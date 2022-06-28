@@ -16,7 +16,7 @@ import style from "./usersPage.module.css";
 function UserPage() {
 
   const [ page, setPage ] = useState(1);
-  const [ totalPages, setTotalPages ] =  useState()
+  const [ totalPages, setTotalPages ] =  useState(0)
 
   const dispatch = useDispatch();
 
@@ -24,11 +24,17 @@ function UserPage() {
   const actualUser = useSelector((store) => store.user);
 
    // Este Handle es el paginado
-   const handleChange = async (e, value) => {
+  const handleChange = (e, value) => {
     setPage(value);
-    const dataPages = await dispatch(getAllUsers(page))
-    setTotalPages(dataPages.totalPages)
   };
+
+  useEffect(() => {
+    const axiosReq = async () => {
+      const data = await dispatch(getAllUsers(page))
+      setTotalPages(data.totalPages)
+    }
+    axiosReq()
+  }, [dispatch])
 
   return (
     <div className={style.flexContainer}>
