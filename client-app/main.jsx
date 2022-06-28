@@ -11,9 +11,9 @@ axios.defaults.baseURL = import.meta.env.VITE_BACK_ROUTE || "http://localhost:30
 ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <BrowserRouter>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
       </BrowserRouter>
     </Provider>
 )

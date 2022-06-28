@@ -1,12 +1,14 @@
 // libraries
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCourseByName,
   setArrowUpDown,
   setShowedCourses,
+  getCourses
 } from "../../../redux/actions/index";
-import { getCourses } from "../../../redux/actions/index";
+import Pagination from '@mui/material/Pagination';
+
 // utils
 import { filter } from "../../utils/filters";
 import { sortByRating } from "../../utils/sorter";
@@ -33,9 +35,24 @@ function Courses() {
   const direction = useSelector((store) => store.arrowUpDown);
 
   //forcing the re-render of the component
-  const [refresh, setRefresh] = useState(true);
-  const [activeArrow, setActiveArrow] = useState(false);
+  const [ refresh, setRefresh ] = useState(true);
+  const [ activeArrow, setActiveArrow ] = useState(false);
   const [ searchError, setSerachError ] = useState({});
+  const [ totalPages, setTotalPages ] =  useState(0)
+  const [ page, setPage ] = useState(1);
+  
+  // Este Handle es el paginado
+  const handleChange = (e, value) => {
+    setPage(value);
+  };
+
+  useEffect(() => {
+    const axiosReq = async () => {
+      const data = await dispatch(getCourses(page));
+      setTotalPages(data.totalPages)
+    }
+    axiosReq()
+  }, [dispatch])
 
   // AGREGADO  PRUEBA--------------------------------
   const [order, setCourseOrder] = useState("");
@@ -86,6 +103,7 @@ function Courses() {
       showedCourses = courseSearch;
     }
     } else {
+      // ahora esto solo deberia hacer un # setPage(1), en vez de un dispatch
       dispatch(getCourses());
       setSerachError({});
       showedCourses = courseSearch;
@@ -180,6 +198,9 @@ function Courses() {
               />
             </div>
           }
+          </div>
+          <div>
+            <Pagination count={totalPages} page={page} onChange={handleChange} variant="outlined" color="secondary" />
           </div>
         </div>
       </div>
