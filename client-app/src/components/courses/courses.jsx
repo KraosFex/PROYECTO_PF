@@ -46,9 +46,9 @@ function Courses() {
   };
 
   // Desde aqui se iran llamando a los cursos, segun la pagina donde se esta.
-  useEffect(() => {
+  /*useEffect(() => {
     dispatch(getCourses(page))
-  }, [dispatch])
+  }, [dispatch])*/ ESTO NO SE DEBERIA HACER ASI
 
   // AGREGADO  PRUEBA--------------------------------
   const [order, setCourseOrder] = useState("");
