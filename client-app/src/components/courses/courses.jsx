@@ -33,25 +33,23 @@ function Courses() {
   const courseSearch = useSelector((store) => store.showedCourses);
   let showedCourses = courseSearch;
   const direction = useSelector((store) => store.arrowUpDown);
+  const paginationObj = useSelector((store) => store.paginateCourses);
 
   //forcing the re-render of the component
   const [ refresh, setRefresh ] = useState(true);
   const [ activeArrow, setActiveArrow ] = useState(false);
   const [ searchError, setSerachError ] = useState({});
-  const [ totalPages, setTotalPages ] =  useState(0)
+
   const [ page, setPage ] = useState(1);
-  
+
   // Este Handle es el paginado
   const handleChange = (e, value) => {
     setPage(value);
+    dispatch(getCourses(value));
   };
 
   useEffect(() => {
-    const axiosReq = async () => {
-      const data = await dispatch(getCourses(page));
-      setTotalPages(data.totalPages)
-    }
-    axiosReq()
+      dispatch(getCourses(page));
   }, [dispatch])
 
   // AGREGADO  PRUEBA--------------------------------
@@ -200,7 +198,7 @@ function Courses() {
           }
           </div>
           <div>
-            <Pagination count={totalPages} page={page} onChange={handleChange} variant="outlined" color="secondary" />
+            <Pagination count={paginationObj.totalPages} page={page} onChange={handleChange} variant="outlined" color="secondary" />
           </div>
         </div>
       </div>

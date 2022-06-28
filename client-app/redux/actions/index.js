@@ -15,6 +15,8 @@ import {
   SET_ARROW_DIRECTION,
   SET_ARROW_UPDOWN,
   SET_ARROW_COURSE,
+  SET_PAGINATE_USERS,
+  SET_PAGINATE_COURSES
 } from "./actionsTypes/actionTypes";
 
 // synchronous actions
@@ -37,6 +39,20 @@ export const setCourses = (courses) => {
   return {
     type: SET_COURSES,
     payload: courses,
+  };
+};
+
+export const setPaginateCourses = (paginateObj) => {
+  return {
+    type: SET_PAGINATE_COURSES,
+    payload: paginateObj,
+  };
+};
+
+export const setPaginateUsers = (paginateObj) => {
+  return {
+    type: SET_PAGINATE_USERS,
+    payload: paginateObj,
   };
 };
 
@@ -253,7 +269,7 @@ export const getCourses = (page) => {
       const metaData = await axios.get(`/api/cursos/?limit=8&page=${page}`);
       dispatch(setCourses(metaData.data.docs));
       dispatch(setShowedCourses(metaData.data.docs));
-      return metaData.data
+      dispatch(setPaginateCourses(metaData.data));
     } catch (err) {
       alert("Ups! Something went wrong...");
     }
@@ -352,9 +368,10 @@ export const getAllUsers = (page) => {
         `/api/usersprivate/?limit=8&page=${page}`,
         config
       );
+      console.log("DATA ", metaData.data.users)
       dispatch(setAllUsers(metaData.data.users.docs));
       dispatch(setShowedUsers(metaData.data.users.docs));
-      return metaData.data
+      dispatch(setPaginateUsers(metaData.data.users));
     } catch (err) {
       return err.response.data;
     }

@@ -12,6 +12,8 @@ import {
   SET_ARROW_UPDOWN,
   SET_ARROW_DIRECTION,
   SET_ARROW_COURSE,
+  SET_PAGINATE_USERS,
+  SET_PAGINATE_COURSES
 } from "../actions/actionsTypes/actionTypes";
 
 // index reducers app
@@ -27,6 +29,8 @@ const initialState = {
   arrowDirection: "left",
   arrowUpDown: "down",
   arrowCourse: "down",
+  paginateCourses: {},
+  paginateUsers: {}
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
@@ -37,6 +41,16 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         user: payload,
         isLogged: true,
+      };
+    case SET_PAGINATE_USERS:
+      return {
+        ...state,
+        paginateUsers: payload,
+      };
+    case SET_PAGINATE_COURSES:
+      return {
+        ...state,
+        paginateCourses: payload,
       };
     case LOGOUT:
       return {

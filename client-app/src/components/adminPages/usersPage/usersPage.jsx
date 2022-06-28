@@ -1,4 +1,4 @@
-//libraries 
+//libraries
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from '@mui/material/Pagination';
@@ -16,25 +16,29 @@ import style from "./usersPage.module.css";
 function UserPage() {
 
   const [ page, setPage ] = useState(1);
-  const [ totalPages, setTotalPages ] =  useState(0)
+
+
+  //Forcing the re-render
+  const [ refresh, setRefresh ] = useState(true)
 
   const dispatch = useDispatch();
 
   const showedUsers = useSelector((store) => store.showedUsers);
   const actualUser = useSelector((store) => store.user);
+  const paginateObj = useSelector((store) => store.paginateUsers);
 
    // Este Handle es el paginado
-  const handleChange = (e, value) => {
-    setPage(value);
+  const handleChange = async (e, value) => {
+    await setPage(value);
+    await dispatch(getAllUsers(value))
+    refresh? setRefresh(false) : setRefresh(true);
   };
 
-  useEffect(() => {
-    const axiosReq = async () => {
-      const data = await dispatch(getAllUsers(page))
-      setTotalPages(data.totalPages)
-    }
-    axiosReq()
-  }, [dispatch])
+useEffect(() => {
+  dispatch(getAllUsers(page))
+}, [dispatch])
+
+
 
   return (
     <div className={style.flexContainer}>
@@ -57,7 +61,7 @@ function UserPage() {
           }
         })}
         <div>
-          <Pagination count={totalPages} page={page} onChange={handleChange} variant="outlined" color="secondary" />
+          <Pagination count={paginateObj.totalPages} page={page} onChange={handleChange} variant="outlined" color="secondary" />
         </div>
       </div>
     </div>
