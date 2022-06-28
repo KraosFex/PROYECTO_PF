@@ -65,13 +65,14 @@ const addFavorite = async (req, res, next) => {
   const _id = req.user._id
   const { idCurso } = req.body
   try {
-    const user = await User.findById(_id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
+    const user = await User.findById(_id)
     const currentCourse = user.courses.filter(c => c.course._id == idCurso)
 
     if (currentCourse.length && currentCourse[0].isFavorite === false) {
       currentCourse[0].set('isFavorite', true)
       await user.save()
-      return res.send({ info: 'Cambio realizado', success: true, updateUser: user })
+      const updateUser = await User.findById(_id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
+      return res.send({info:'Cambio realizado', updateUser, success: true})
     }
 
     const updateUser = await User.findByIdAndUpdate(_id, {
@@ -82,9 +83,14 @@ const addFavorite = async (req, res, next) => {
         }
       }
     }, { new: true }).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
+
+    const inscripUser = await Course.findByIdAndUpdate(idCurso, {
+      $inc: { userInscript: 1 }
+    }, { new: true })
+
     res.send({ info: 'Curso añadido exitosamente', updateUser, success: true })
   } catch (err) {
-    res.status(500).send({ info: 'Algo salio mal', success: false, err })
+    res.status(500).send({ info: 'Algo salio mal', success: false })
   }
 }
 
@@ -115,7 +121,7 @@ const addCourse = async (req, res) => {
       (c) => c.course._id == idCurso
     )
     if (existeCourse.length) return
-    const newCourseFavorite = await User.findByIdAndUpdate(
+    const updateUser = await User.findByIdAndUpdate(
       id,
       {
         $push: {
@@ -125,11 +131,16 @@ const addCourse = async (req, res) => {
           }
         }
       },
-      { new: true }
+      { new: true }.populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
     )
+
+    const inscripUser = await Course.findByIdAndUpdate(idCurso, {
+      $inc: { userInscript: 1 }
+    }, { new: true })
+
     res.send({
       info: 'Curso añadido exitosamente',
-      newCourseFavorite,
+      updateUser,
       success: true
     })
   } catch (err) {

@@ -58,8 +58,9 @@ export default function LessonPage() {
     const body = {idCourse, idLesson}
     try {
       const metaData = await axios.put("http://localhost:3001/api/cursosprivate/iscompleted", body, config)
+      console.log("yo soy la data", metaData.data)
       dispatch(updateUser(metaData.data.updateUser))
-      //navigate(`/course/${idCourse}/${metaData.data.nextLessonId}`)
+      navigate(`/course/${idCourse}/${metaData.data.nextLessonId}`)
     } catch(err){
       alert("lesson no se pudo completar correctamente. lessonPage.jsx")
       console.log(err)
