@@ -5,8 +5,7 @@ import { findCourse } from "../../../redux/actions";
 import { useParams } from "react-router-dom";
 
 // hardDate
-import { CursoBase } from "./CurssoBase";
-import Stars from "./Vote/Vote";
+import RatingB from "./rating/rating";
 
 // styles
 import { ThemeProvider } from "styled-components";
@@ -17,31 +16,43 @@ import { setArrowCourse } from "../../../redux/actions";
 import ArrowsCourse from "../../icons/arrowsCourse";
 
 export default function CourseDetail(props) {
-  let { id } = useParams();
+  let { idCourse } = useParams();
 
   let dispatch = useDispatch();
   const [activeArrow, setActiveArrow] = useState(false);
+
+
+ //forcing the re-render of the component
+  const [refresh, setRefresh] = useState(false)
+
   const [course, setCourse] = useState({});
   const direction = useSelector((store) => store.arrowCourse);
   const user = useSelector((store) => store.user);
   const isLogged = useSelector((store) => store.isLogged);
-  let Curso = course;
+
   const [idClase, setIdClase] = useState("");
   let style = darkTheme;
 
   useEffect(() => {
     async function axionReq() {
-      const data = await dispatch(findCourse(id));
+      const data = await dispatch(findCourse(idCourse));
       setCourse(data);
     }
     axionReq();
   }, [dispatch]);
 
+
   if (isLogged && idClase) {
-    let userCurso = user.courses.find((o) => o._id === id);
-    var lesson = userCurso.lessons.find((o) => o._id === idClase);
+    let usercourse = user.courses.find((o) => o.course._id === idCourse);
+    if(usercourse) {
+      var lesson = usercourse.course.lessons.find((o) => o.lesson._id === idClase);
+    } else {
+      lesson = course.lessons.find((o) => o.lesson._id === idClase);
+    }
+
   } else if (idClase) {
-    lesson = Curso.lessons.find((o) => o._id === idClase);
+    lesson = course.lessons.find((o) => o.lesson._id === idClase);
+
   }
 
   const arrowDir = () => {
@@ -50,6 +61,21 @@ export default function CourseDetail(props) {
     setActiveArrow(!activeArrow);
   };
 
+
+  const createCalification = () => {
+    if(course.votes && course.votes.length){
+      let calification = 0;
+      for(const vote of course.votes) {
+        calification += vote;
+      }
+      return Math.ceil(calification / course.votes.length);
+    } else {
+      return 0;
+    }
+
+  }
+
+console.log(course.lessons)
   return (
     <ThemeProvider
       theme={
@@ -59,17 +85,17 @@ export default function CourseDetail(props) {
       <div className={style.flexContainer}>
         <div className={style.Container}>
           <div className={style.flexContainer2}>
-            <h1 className={style.titulo}>{Curso.titulo}</h1>
+            <h1 className={style.titulo}>{course.titulo}</h1>
             <div className={style.data}>
               <label className={style.label}>
-                Clasificacion: {Curso.calificacion}
+                Clasificacion: {createCalification()}
               </label>
               <label className={style.label}>
-                Usuarios Inscriptos: {Curso.userIncript}
+                Usuarios Inscriptos: {course.userIncript}
               </label>
-              <Stars />
+              <RatingB  idCourse={idCourse} setRefresh={setRefresh} refresh={refresh}/>
             </div>
-            <img className={style.imagen} alt="" src={Curso.imagen} />
+            <img className={style.imagen} alt="" src={course.imagen} />
           </div>
           <div className={style.flexContainer3}>
             <div className={style.containerDescrip}>
@@ -79,7 +105,7 @@ export default function CourseDetail(props) {
                   activeArrow ? style.descriptionActive : style.description
                 }
               >
-                {Curso.descripcion}
+                {course.descripcion}
               </p>
               <div className={style.arrow} onClick={arrowDir}>
                 <ArrowsCourse />
@@ -93,28 +119,28 @@ export default function CourseDetail(props) {
                   <div className={style.input}>
                     {course.lessons &&
                       course.lessons.map((e) => (
-                        <div className={style.ClasP}>
-                          {e.isCompleted ? (
+                        <div className={style.ClasP} key={e._id}>
+                          {e.lesson.isCompleted ? (
                             <input
                               key={e._id}
-                              defaultChecked
+                              defaultChecked={false}
                               type="radio"
                               readOnly
-                              onClick={() => setIdClase(e._id)}
+                              onClick={() => setIdClase(e.lesson._id)}
                             />
-                          ) : e.isLocked ? (
+                          ) : e.lesson.isLocked ? (
                             <input
                               key={e.id}
                               type="radio"
                               disabled
-                              onClick={() => setIdClase(e._id)}
+                              onClick={() => setIdClase(e.lesson._id)}
                             />
                           ) : (
                             <input
                               key={e._id}
                               type="radio"
                               defaultChecked={false}
-                              onClick={() => setIdClase(e._id)}
+                              onClick={() => setIdClase(e.lesson._id)}
                               className={style.locked}
                             />
                           )}
@@ -140,7 +166,7 @@ export default function CourseDetail(props) {
                 </div>
               </div>
               <div className={style.lessonSumary}>
-                <LessonSumary clase={lesson} />
+                <LessonSumary lessons={lesson} idCourse={idCourse} isLogged={isLogged}/>
               </div>
             </div>
           </div>

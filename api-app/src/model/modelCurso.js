@@ -12,10 +12,6 @@ const courseSchema = new Schema(
       type: String,
       required: [true, 'La descripcion es requerida']
     },
-    calificacion: {
-      type: Number,
-      required: false
-    },
     imagen: {
       type: String,
       required: [true, 'La imagen es requerida']

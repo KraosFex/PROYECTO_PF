@@ -18,34 +18,19 @@ const lessonSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    descripcion: {
-      type: String,
-      required: true,
-    },
-    num: {
-      type: Number,
-      required: true,
-    },
-    isCompleted: {
-      type: Boolean,
-      default: false,
-    },
-    quiz: [
-      {
-        type: String,
-      },
-    ],
-    isLocked: {
-      type: Boolean,
-      default: true,
-    },
-    answers: [
-      {
-        type: String,
-      },
-    ],
+  quiz: [
+    {
+      type: Object
+    }
+  ],
+  isLocked: {
+    type: Boolean,
+    default: true
   },
-  { timestamps: true, versionKey: false }
-);
+  video: {
+    type: Number,
+    required: true
+  }
+}, { timestamps: true, versionKey: false })
 
 module.exports = model("Lesson", lessonSchema);

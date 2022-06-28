@@ -1,16 +1,24 @@
-import { NavLink } from 'react-router-dom'
-import { useDispatch } from "react-redux"
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/actions";
+import style from "./logout.module.css";
 
-const Logout = () => {
+const LogOut = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const dispatch = useDispatch()
+  const handleClick = () => {
+    localStorage.removeItem("authToken");
+    dispatch(logout());
+    navigate("/");
+  };
 
-    const handleClick = () => dispatch(logout())
+  return (
+    <button onClick={handleClick} className={style.button}>
+      {" "}
+      logout{" "}
+    </button>
+  );
+};
 
-    return(
-        <NavLink to='/'><button onClick={() => handleClick }> logout </button></NavLink>
-    )
-}
-
-export default Logout;
+export default LogOut;

@@ -28,25 +28,26 @@ const getCursoById = async (req, res, next) => {
     console.error(err)
   }
 }
+
 const getCursoName = async (req, res) => {
-  const $regex = req.params.name
+  const $regex = req.params.name;
   try {
-    const course = await Course.find({ titulo: { $regex, $options: 'i' } }).populate({ path: 'lessons.lesson', ref: 'Lesson' })
-    if (!course.length) {
-      next(new ErrorResponse('Error al crear el curso', 500, false))
+    if (!req.params.name.length) {
+      const course = await Course.find();
+      res.send({info: "curso encontrado", course, success: true});
     } else {
-      const course = await Course.find({ titulo: { $regex, $options: 'i' } })
+      const course = await Course.find({ titulo: { $regex, $options: "i" } });
       if (!course.length) {
-        res.send({ info: 'No existe el curso' })
+        res.status(404).send({ info: "No existe un curso con ese nombre", success: false  });
       } else {
-        res.send(course)
+        res.send({info: "curso encontrado", course, success: true});
       }
     }
   } catch (err) {
-    res.send({ info: 'Algo salio mal', err })
-    console.error(err)
+    res.send({ info: "Algo salio mal", err, success: false });
+    console.error(err);
   }
-}
+};
 
 const createCurso = async (req, res, next) => {
   const { body } = req
@@ -64,46 +65,48 @@ const addFavorite = async (req, res, next) => {
   const _id = req.user._id
   const { idCurso } = req.body
   try {
-    const courseFavorite = await User.findById(_id)
-    const existeCourse = courseFavorite.courses.filter(c => c.course._id == idCurso)
+    const user = await User.findById(_id)
+    const currentCourse = user.courses.filter(c => c.course._id == idCurso)
 
-    if (existeCourse.length) {
-      existeCourse.isFavorite = true
-      res.send('Cambio realizado')
-    } else {
-      const newCourseFavorite = await User.findByIdAndUpdate(_id, {
-        $push: {
-          courses: {
-            course: idCurso,
-            isFavorite: true
-          }
-        }
-      }, { new: true })
-      res.send({ info: 'Curso añadido exitosamente', newCourseFavorite, success: true })
+    if (currentCourse.length && currentCourse[0].isFavorite === false) {
+      currentCourse[0].set('isFavorite', true)
+      await user.save()
+      const updateUser = await User.findById(_id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
+      return res.send({info:'Cambio realizado', updateUser, success: true})
     }
+
+    const updateUser = await User.findByIdAndUpdate(_id, {
+      $push: {
+        courses: {
+          course: idCurso,
+          isFavorite: true
+        }
+      }
+    }, { new: true }).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
+
+    const inscripUser = await Course.findByIdAndUpdate(idCurso, {
+      $inc: { userInscript: 1 }
+    }, { new: true })
+
+    res.send({ info: 'Curso añadido exitosamente', updateUser, success: true })
   } catch (err) {
     res.status(500).send({ info: 'Algo salio mal', success: false })
   }
 }
 
 const removeFavorite = async (req, res, next) => {
-  const id = req.user._id
-  const { idCursoFavorito } = req.body
+  const _id = req.user._id
+  const { idCurso } = req.body
 
   try {
-    const eliminado = await User.findByIdAndUpdate(
-      { _id: id },
-      {
-        $pull: {
-          courses: {
-            _id: idCursoFavorito
-          }
-        }
-      },
-      { new: true }
-    )
+    const user = await User.findById(_id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
+    const currentCourse = user.courses.filter(c => c.course._id == idCurso)
 
-    res.send({ info: 'Curso eliminado exitosamente', success: true })
+    if (currentCourse.length && currentCourse[0].isFavorite === true) {
+      currentCourse[0].set('isFavorite', false)
+      await user.save()
+    }
+    res.send({ info: 'Curso eliminado de favoritos exitosamente', success: true, updateUser: user })
   } catch (err) {
     next(new ErrorResponse('Error al eliminar el curso', 500, false))
   }
@@ -118,7 +121,7 @@ const addCourse = async (req, res) => {
       (c) => c.course._id == idCurso
     )
     if (existeCourse.length) return
-    const newCourseFavorite = await User.findByIdAndUpdate(
+    const updateUser = await User.findByIdAndUpdate(
       id,
       {
         $push: {
@@ -128,11 +131,16 @@ const addCourse = async (req, res) => {
           }
         }
       },
-      { new: true }
+      { new: true }.populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
     )
+
+    const inscripUser = await Course.findByIdAndUpdate(idCurso, {
+      $inc: { userInscript: 1 }
+    }, { new: true })
+
     res.send({
       info: 'Curso añadido exitosamente',
-      newCourseFavorite,
+      updateUser,
       success: true
     })
   } catch (err) {
@@ -140,25 +148,30 @@ const addCourse = async (req, res) => {
   }
 }
 
-const addVotes = async (req, res, next) => {
-  const id = req.user._id
-  const { idUser, votes } = req.body
+const addVotes = async (req, res ) => {
+  const idUser = req.user._id
+  const { idCourse, votes } = req.body
+
   try {
-    const curso = await Course.findByIdAndUpdate(
-      { _id: id },
-      {
+    const currentCourse = await Course.find({ 'userVotes.user': idUser }).populate({ path: 'userVotes.user', ref: 'Course', select: '_id userName' })
+    if (!currentCourse.length) {
+      const newCourseVote = await Course.findByIdAndUpdate(idCourse, {
         $push: {
           userVotes: {
             user: idUser
           },
           votes
         }
-      },
-      { new: true }
-    )
-    res.send({ info: 'Votacion exitosa', curso, success: true })
+      })
+      return res.send({ info: 'Votacion exitosa', newCourseVote, success: true })
+    }
+
+    const currentIndex = currentCourse[0].userVotes.findIndex(v => v.user._id.toString() === idUser.toString())
+    currentCourse[0].votes[currentIndex] = votes
+    currentCourse[0].save()
+    res.send({ info: 'Votacion exitosa', currentCourse, success: true })
   } catch (err) {
-    next(new ErrorResponse('Error al votar el curso', 500, false))
+    res.status(500).send({ info: 'Algo salio mal', success: false })
   }
 }
 

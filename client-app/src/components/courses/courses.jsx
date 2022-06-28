@@ -27,15 +27,15 @@ function Courses() {
 
   const dispatch = useDispatch();
 
-  const allCourses = useSelector((store) => store.courses);
   const tema = useSelector((store) => store.theme);
   const courseSearch = useSelector((store) => store.showedCourses);
-  var showedCourses = courseSearch;
+  let showedCourses = courseSearch;
   const direction = useSelector((store) => store.arrowUpDown);
 
   //forcing the re-render of the component
   const [refresh, setRefresh] = useState(true);
   const [activeArrow, setActiveArrow] = useState(false);
+  const [ searchError, setSerachError ] = useState({});
 
   // AGREGADO  PRUEBA--------------------------------
   const [order, setCourseOrder] = useState("");
@@ -58,7 +58,7 @@ function Courses() {
     }
   };
 
-  const search = (e) => {
+  const search = async (e) => {
     // SETEA TODOS LOS FILTROS/SORTS A false
     e.preventDefault();
     const selector = [...document.getElementsByName("votes")];
@@ -75,14 +75,21 @@ function Courses() {
     for (const input of inputsCheckbox) {
       input.checked = false;
     }
+
     if (e.target.value != "") {
-      dispatch(getCourseByName(e.target.value));
-      showedCourses = courseSearch;
+      const data = await dispatch(getCourseByName(e.target.value));
+      console.log(data)
+      if(!data.success) {
+        setSerachError({err: data.info});
     } else {
-      dispatch(getCourses());
+      setSerachError({});
       showedCourses = courseSearch;
     }
-    console.log(showedCourses);
+    } else {
+      dispatch(getCourses());
+      setSerachError({});
+      showedCourses = courseSearch;
+    }
   };
 
   if (
@@ -90,7 +97,7 @@ function Courses() {
     (tipo2 && tipo2 != "0") ||
     (tipo3 && tipo3 != "0")
   )
-    showedCourses = lenguaje(tipo1, tipo2, tipo3, allCourses);
+    showedCourses = lenguaje(tipo1, tipo2, tipo3, showedCourses);
   if (order) showedCourses = ordered(order, showedCourses);
 
   //---------------------------------------------------
@@ -113,8 +120,8 @@ function Courses() {
                 type="search"
                 placeholder="Buscar curso"
                 className={style.input}
-                f
               />
+              {searchError.err && <label className={style.errSearch}>{searchError.err}</label>}
             </form>
             <p className={activeArrow ? style.pActive : style.p}>Ordenar por</p>
             <select
@@ -162,6 +169,9 @@ function Courses() {
             </div>
           </div>
           <div className={style.flexContainer2}>
+          {searchError.err?
+            <h1>NOT FOUND</h1>
+            :
             <div className={style.container2}>
               <CoursesCard
                 courses={showedCourses}
@@ -169,6 +179,7 @@ function Courses() {
                 refresh={refresh}
               />
             </div>
+          }
           </div>
         </div>
       </div>

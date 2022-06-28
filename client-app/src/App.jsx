@@ -4,7 +4,7 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 //actions redux
-import { getCourses } from "../redux/actions";
+import { getCourses, getRanking } from "../redux/actions";
 
 // compoents
 import Home from "./components/home/home";
@@ -21,6 +21,7 @@ import CourseDetail from "./components/courseDetailPage/courseDetail.jsx";
 import LessonPage from "./components/lessonPage/lessonPage";
 import UsersPage from "./components/adminPages/usersPage/usersPage";
 import PaymentGateway from "./components/paymentGateway/paymentGateway.jsx";
+import Success from "./components/paymentGateway/success.jsx";
 
 // styles
 import style from "./index.modules.css";
@@ -35,6 +36,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getCourses());
+    getRanking()(dispatch);
   });
 
   const AppLayout = () => (
@@ -54,14 +56,16 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/home" element={<Home theme={theme} />} />
           <Route path="/courses" element={<Courses />}></Route>
-          <Route path="/course/:id" element={<CourseDetail theme={theme} />} />
+          <Route path="/course/:idCourse" element={<CourseDetail theme={theme} />} />
+          <Route
+            path="/course/:idCourse/:idLesson"
+            element={<LessonPage />}
+          />
           <Route element={<PrivateRoute isLogged={isLogged} />}>
             <Route path="/perfil" element={<Perfil theme={theme} />} />
-            <Route
-              path="/course/:idCourse/:idLesson"
-              element={<LessonPage />}
-            />
+
             <Route path="/pay" element={<PaymentGateway />} />
+            <Route path="/success" element={<Success />} />
           </Route>
           <Route element={<PrivateAdminRoute isAdmin={user.isAdmin} />}>
             <Route path="/users" element={<UsersPage />} />

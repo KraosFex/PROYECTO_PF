@@ -74,16 +74,6 @@ export const logout = () => {
   };
 };
 
-export const addVotes = async function (id, info) {
-  try {
-    const data = await axios.put(
-      `http://localhost:3001/api/cursosprivate/${id}/votes`,
-      info
-    );
-  } catch (err) {
-    new Error(err);
-  }
-};
 
 export const setRanking = (ranking) => {
   return {
@@ -114,11 +104,28 @@ export const setArrowCourse = (arrowCourse) => {
 };
 // asynchronous actions
 
+export const addVotes = (info) => {
+  return async function (dispatch) {
+    try {
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        }
+      }
+      const metaData = await axios.put(`/api/cursosprivate/votes`, info, config);
+    } catch (err) {
+      console.log(err)
+    }
+  }
+};
+
 export const register = (userData) => {
   return async function (dispatch) {
     try {
       const metaData = await axios.post(
-        "http://localhost:3001/api/auth/register",
+        "/api/auth/register",
         userData
       );
       dispatch(setValidateUser(metaData.data.user));
@@ -133,7 +140,7 @@ export const findCourse = (id) => {
   return async function (dispatch) {
     try {
       const resp = await axios.get(
-        `http://localhost:3001/api/cursos/detail/${id}`
+        `/api/cursos/detail/${id}`
       );
       return resp.data;
     } catch (err) {
@@ -146,7 +153,7 @@ export const login = (post) => {
   return async function (dispatch) {
     try {
       const metaData = await axios.post(
-        "http://localhost:3001/api/auth/login",
+        "/api/auth/login",
         post
       );
       dispatch(setValidateUser(metaData.data.user));
@@ -167,7 +174,7 @@ export const findUserByName = (username) => {
         },
       };
       let metaData = await axios.get(
-        `http://localhost:3001/api/usersprivate/username?username=${username}`,
+        `/api/usersprivate/username?username=${username}`,
         config
       );
       dispatch(setShowedUsers(metaData.data));
@@ -188,7 +195,7 @@ export const editUsername = (username, id) => {
 
     try {
       const metaData = await axios.put(
-        `http://localhost:3001/api/usersprivate/${id}/profile`,
+        `/api/usersprivate/${id}/profile`,
         { username: username },
         config
       );
@@ -205,7 +212,7 @@ export const editPassword = (email) => {
   return async function (dispatch) {
     try {
       const metaData = await axios.put(
-        `http://localhost:3001/api/auth/forgotPassword`,
+        `/api/auth/forgotPassword`,
         { email: email }
       );
       return metaData.data;
@@ -219,7 +226,8 @@ export const editPassword = (email) => {
 export const getCourses = () => {
   return async function (dispatch) {
     try {
-      const metaData = await axios.get("http://localhost:3001/api/cursos");
+      const metaData = await axios.get("/api/cursos");
+      console.log(metaData.data)
       dispatch(setCourses(metaData.data.docs));
       dispatch(setShowedCourses(metaData.data.docs));
     } catch (err) {
@@ -232,12 +240,13 @@ export const getCourseByName = (name) => {
   return async function (dispatch) {
     try {
       const metaData = await axios.get(
-        `http://localhost:3001/api/cursos/${name}`
+        `/api/cursos/${name}`
       );
-      dispatch(setShowedCourses(metaData.data));
+      dispatch(setShowedCourses(metaData.data.course));
+      return metaData.data
     } catch (err) {
-      new Error(err);
-      alert("Ups! Something went wrong...");
+      dispatch(setShowedCourses([]));
+      return err.response.data
     }
   };
 };
@@ -253,13 +262,12 @@ export const bookmarkCourse = (id) => {
       };
 
       const resp = await axios.put(
-        `http://localhost:3001/api/cursosprivate/favorite`,
+        `/api/cursosprivate/favorite`,
         { idCurso: id },
         config
       );
-      dispatch(updateUser(resp.data.user));
+      dispatch(updateUser(resp.data.updateUser));
     } catch (err) {
-      alert("Ups! Something went wrong...");
       console.log(err);
     }
   };
@@ -274,22 +282,19 @@ export const unmarkfavorites = (id) => {
           authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
       };
-
       const resp = await axios.put(
-        `http://localhost:3001/api/cursosprivate/unfavorite`,
+        `/api/cursosprivate/unfavorite`,
         { idCurso: id },
         config
       );
-      dispatch(updateUser(resp.data.user));
+      dispatch(updateUser(resp.data.updateUser));
     } catch (err) {
-      alert("Ups! Something went wrong...");
       console.log(err);
     }
   };
 };
 
-/*A LA ESPERA DE LA CREACION DE LA RUTA??????*/
-export const getLesson = (id) => {
+export const getLesson = (idLesson) => {
   return async function (dispatch) {
     try {
       let config = {
@@ -299,7 +304,7 @@ export const getLesson = (id) => {
         },
       };
       const metaData = await axios.get(
-        `http://localhost:3001/api/cursosprivate/${id}/lesson`,
+        `/api/cursosprivate/${idLesson}/lesson`,
         config
       );
       return metaData.data;
@@ -320,7 +325,7 @@ export const getAllUsers = () => {
         },
       };
       const metaData = await axios(
-        `http://localhost:3001/api/usersprivate/`,
+        `/api/usersprivate/`,
         config
       );
       dispatch(setAllUsers(metaData.data.users.docs));
@@ -335,7 +340,7 @@ export const auhtGoogle = (tokenId) => {
   return async function (dispatch) {
     try {
       const metaData = await axios.post(
-        "http://localhost:3001/api/auth/googlelogin",
+        "/api/auth/googlelogin",
         { tokenId }
       );
       dispatch(setValidateUser(metaData.data.user));
@@ -356,7 +361,7 @@ export const getUserRank = (userId) => {
         },
       };
       const metaData = await axios.get(
-        `http://localhost:3001/api/usersprivate/position/${userId}`,
+        `/api/usersprivate/position/${userId}`,
         config
       );
       return metaData.data;
@@ -369,9 +374,7 @@ export const getUserRank = (userId) => {
 export const getRanking = () => {
   return async function (dispatch) {
     try {
-      const metaData = await axios.get(
-        "http://localhost:3001/api/users/topten"
-      );
+      const metaData = await axios.get("/api/users/topFive");
       dispatch(setRanking(metaData.data.sorted));
     } catch (err) {
       console.log(err.response.data.info);
@@ -393,7 +396,7 @@ export const deleteUser = (userId) => {
       };
 
       const metaData = await axios.delete(
-        `http://localhost:3001/api/usersprivate/deleteUser`,
+        `/api/usersprivate/deleteUser`,
         config
       );
       console.log(metaData.data);
@@ -414,7 +417,7 @@ export const isAdminConverter = (userId, boolean) => {
       };
 
       const metaData = await axios.put(
-        `http://localhost:3001/api/usersprivate/isAdmin`,
+        `/api/usersprivate/isAdmin`,
         { id: userId, change: boolean },
         config
       );
@@ -422,6 +425,28 @@ export const isAdminConverter = (userId, boolean) => {
       return metaData.data;
     } catch (err) {
       console.log(err.response.data);
+    }
+  };
+};
+
+export const isPremiumConverter = () => {
+  return async function (dispatch) {
+    try {
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      };
+
+      const metaData = await axios.put(
+        `/api/usersprivate/isPremium`,
+        config
+      );
+      dispatch(updateUser(metaData.data.updateUser))
+      return metaData.data;
+    } catch (err) {
+      return err.response.data
     }
   };
 };
@@ -437,7 +462,7 @@ export const Banear = (userId, fecha) => {
       };
 
       const metaData = await axios.post(
-        `http://localhost:3001/api/usersprivate/ban`,
+        `/api/usersprivate/ban`,
         { id: userId, fecha: fecha },
         config
       );
