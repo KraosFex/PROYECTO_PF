@@ -1,86 +1,15 @@
-import { createSlice, createAsyncThunk, nanoid } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-const initialState = {
-  user: {}, // anda
-  isLogged: false, // anda
-  topTen: [],
-  allUsers: [],
-  showedUsers: [],
-  courses: [],
-  showedCourses: [],
-  theme: "light", //anda
-  arrowDirection: "left", //anda
-  arrowUpDown: "down", //anda
-  arrowCourse: "down", //anda
-  authToken: "", //anda
-};
-
-export const appSlice = createSlice({
-  name: "reducerAll",
-  initialState,
-  reducers: {
-    themeSwitcher: (state, action) => {
-      state.theme = action.payload;
-    },
-    setShowedCourses: (state, action) => {
-      state.showedCourses = action.payload;
-    },
-    setCourses: (state, action) => {
-      state.courses = action.payload;
-    },
-    setAllUsers: (state, action) => {
-      state.allUsers = action.payload;
-    },
-    setValidateUser: (state, action) => {
-      state.user = action.payload;
-      state.isLogged = true;
-    },
-    setShowedUsers: (state, action) => {
-      state.showedUsers = action.payload;
-    },
-    updateUser: (state, action) => {
-      state.user = action.payload;
-    },
-    logout: (state, action) => {
-      state.user = {};
-      state.isLogged = false;
-    },
-    setRanking: (state, action) => {
-      state.topTen = action.payload;
-    },
-    setArrowUpDown: (state, action) => {
-      state.arrowUpDown = action.payload;
-    },
-    setArrowDirection: (state, action) => {
-      state.arrowDirection = action.payload;
-    },
-    setArrowCourse: (state, action) => {
-      state.arrowCourse = action.payload;
-    },
-    setAuthToken: (state, action) => {
-      state.authToken = action.payload;
-    },
-  },
-});
-
-export const {
-  themeSwitcher,
+import {
   setShowedCourses,
   setCourses,
   setAllUsers,
   setValidateUser,
   setShowedUsers,
   updateUser,
-  logout,
   setRanking,
-  setArrowUpDown,
-  setArrowDirection,
-  setArrowCourse,
   setAuthToken,
-} = appSlice.actions;
-
-export default appSlice.reducer;
+} from "../reducer/index";
 
 export const addVotes = createAsyncThunk("/votes", async (obj) => {
   try {
@@ -91,6 +20,7 @@ export const addVotes = createAsyncThunk("/votes", async (obj) => {
         authorization: `Bearer ${obj.token}`,
       },
     };
+    console.log("hola");
     const data = await axios.put(
       `http://localhost:3001/api/cursosprivate/votes`,
       obj.info,
@@ -214,6 +144,7 @@ export const getCourses = createAsyncThunk(
       const metaData = await axios.get("http://localhost:3001/api/cursos");
       thunkAPI.dispatch(setCourses(metaData.data.docs));
       thunkAPI.dispatch(setShowedCourses(metaData.data.docs));
+      return metaData.data;
     } catch (err) {
       alert("Ups! Something went wrong...");
     }
@@ -227,7 +158,6 @@ export const getCourseByName = createAsyncThunk(
       const metaData = await axios.get(
         `http://localhost:3001/api/cursos/${name}`
       );
-      console.log(metaData);
       thunkAPI.dispatch(setShowedCourses(metaData.data.course));
       return metaData.data;
     } catch (err) {
@@ -377,7 +307,6 @@ export const getRanking = createAsyncThunk(
         "http://localhost:3001/api/users/topFive"
       );
       thunkAPI.dispatch(setRanking(metaData.data.sorted));
-      console.log(metaData.data.sorted);
     } catch (err) {
       console.log(err);
     }
@@ -429,6 +358,28 @@ export const isAdminConverter = createAsyncThunk(
       return metaData.data;
     } catch (err) {
       console.log(err.response.data);
+    }
+  }
+);
+
+export const isPremiumConverter = createAsyncThunk(
+  "/usersprivate/isPremium",
+  async (obj, thunkAPI) => {
+    try {
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${obj.token}`,
+        },
+      };
+      const metaData = await axios.put(
+        `http://localhost:3001/api/usersprivate/isPremium`,
+        { hola: "" },
+        config
+      );
+    } catch (err) {
+      console.log(err);
+      return err.response.data;
     }
   }
 );

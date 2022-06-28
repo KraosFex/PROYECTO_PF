@@ -1,7 +1,7 @@
 import style from "./popUp.module.css";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { editUsername } from "../../../../redux/actions/index";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import validator from "../../../utils/updateProfileValidator";
 import { useState } from "react";
 

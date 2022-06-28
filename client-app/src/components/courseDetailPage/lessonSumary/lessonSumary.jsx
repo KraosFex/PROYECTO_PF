@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 
 function LessonSumary({ lessons, idCourse, isLogged }) {
   if (lessons) {
-    console.log(lessons.lesson);
     var completo =
       lessons.lesson.isCompleted === true ? "Completada" : "Disponible";
     return (

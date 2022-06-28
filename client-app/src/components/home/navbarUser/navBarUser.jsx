@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { themeSwitcher } from "../../../../redux/actions/index.js";
+import { themeSwitcher } from "../../../../redux/reducer/index.js";
 
 //  styles
 import { ThemeProvider } from "styled-components";
@@ -18,7 +18,7 @@ import CursoIcon from "../../../icons/libro.jsx";
 import Notification from "../../../icons/notification";
 import Sun from "../../../icons/sun";
 import Arrows from "../../../icons/arrows.jsx";
-import { setArrowDirection } from "../../../../redux/actions/index.js";
+import { setArrowDirection } from "../../../../redux/reducer/index.js";
 import LogOut from "../../logout/logout.jsx";
 
 function NavBarUser() {

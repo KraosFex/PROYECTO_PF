@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout, setAuthToken } from "../../../redux/actions/index";
+import { logout, setAuthToken } from "../../../redux/reducer/index";
 import style from "./logout.module.css";
 
 const Logout = () => {

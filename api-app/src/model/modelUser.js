@@ -35,6 +35,10 @@ const userSchema = new Schema(
       type: Boolean,
       default: false
     },
+    isPremium: {
+      type: Boolean,
+      default: false
+    },
     Image: {
       type: String,
       default:

@@ -1,5 +1,5 @@
 .quiz {
-  background-color: #252d4a;
+  background-color: #e8e8e8;
   max-width: 650px;
   min-width: 450px;
   height: min-content;
@@ -53,14 +53,14 @@
 .button {
   width: 100%;
   font-size: 16px;
-  color: #ffffff;
-  background-color: #252d4a;
+  color: #4e4e4e;
+  background-color: #f1f1f1;
   border-radius: 15px;
   display: flex;
   padding: 5px;
   justify-content: flex-start;
   align-items: center;
-  border: 5px solid #234668;
+  border: 2px solid #a30036;
   cursor: pointer;
 }
 
@@ -86,11 +86,11 @@
 }
 
 .button:hover {
-  background-color: #234668;
+  background-color: #ff1d43;
 }
 
 .button[disabled] {
-  background-color: #555e7d;
+  background-color: #ff284c;
   color: #ffffff;
   cursor: not-allowed;
 }

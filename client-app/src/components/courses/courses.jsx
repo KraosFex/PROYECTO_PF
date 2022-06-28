@@ -1,11 +1,9 @@
 // libraries
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getCourseByName,
-  setArrowUpDown,
-  setShowedCourses,
-} from "../../../redux/actions/index";
+import { getCourseByName } from "../../../redux/actions/index";
+
+import { setArrowUpDown } from "../../../redux/reducer/index";
 import { getCourses } from "../../../redux/actions/index";
 // utils
 import { filter } from "../../utils/filters";
@@ -80,6 +78,7 @@ function Courses() {
     if (e.target.value != "") {
       const dis = await dispatch(getCourseByName(e.target.value));
       const data = dis.payload;
+      console.log(data);
       showedCourses = courseSearch;
       if (!data.success) {
         setSerachError({ err: data.info });

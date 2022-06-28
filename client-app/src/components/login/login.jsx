@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // redux actions
-import { login, auhtGoogle, setAuthToken } from "../../../redux/actions/index";
+import { login, auhtGoogle } from "../../../redux/actions/index";
+import { setAuthToken } from "../../../redux/reducer";
 
 // childrend component
 import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";

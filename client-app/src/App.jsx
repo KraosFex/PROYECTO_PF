@@ -21,6 +21,7 @@ import CourseDetail from "./components/courseDetailPage/courseDetail.jsx";
 import LessonPage from "./components/lessonPage/lessonPage";
 import UsersPage from "./components/adminPages/usersPage/usersPage";
 import PaymentGateway from "./components/paymentGateway/paymentGateway.jsx";
+import Success from "../src/components/paymentGateway/success/success";
 
 // styles
 import style from "./index.modules.css";
@@ -29,14 +30,12 @@ function App() {
   const theme = useSelector((state) => state.reducerCompleto.theme);
   const isLogged = useSelector((state) => state.reducerCompleto.isLogged);
   const user = useSelector((state) => state.reducerCompleto.user);
-  const courses = useSelector((state) => state.reducerCompleto.showedCourses);
-  const token = useSelector((state) => state.reducerCompleto.authToken);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCourses());
     dispatch(getRanking());
-  }, []);
+  }, [dispatch]);
 
   const AppLayout = () => (
     <>
@@ -63,6 +62,7 @@ function App() {
               element={<LessonPage />}
             />
             <Route path="/pay" element={<PaymentGateway />} />
+            <Route path="/success" element={<Success />} />
           </Route>
           <Route element={<PrivateAdminRoute isAdmin={user.isAdmin} />}>
             <Route path="/users" element={<UsersPage />} />

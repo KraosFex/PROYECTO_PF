@@ -26,8 +26,8 @@ export default function LessonPage() {
   const token = useSelector((state) => state.reducerCompleto.authToken);
   useEffect(() => {
     async function axiosReq() {
-      const data = await dispatch(getLesson({ id: idCourse, token }));
-      setLesson(data.payload);
+      const data = await dispatch(getLesson({ id: idLesson, token }));
+      setLesson(data.payload.lesson);
     }
     axiosReq();
   }, [dispatch]);
@@ -66,27 +66,28 @@ export default function LessonPage() {
       <div className={style.infoContainer}>
         <h1>{lesson.titulo}</h1>
         <h4 className={style.description}>{lesson.descripcion}</h4>
-        <NavLink to={"/home"}> Volver al home </NavLink>
         <div className={style.video}>
           {lesson.video && <Vimeo video={`${lesson.video}`} responsive />}
         </div>
-        {isReady ? (
-          <QuiztCart
-            questions={lesson.quiz}
-            handleApproved={handleApproved}
-            approved={approved}
-            idCourse={idCourse}
-          />
-        ) : (
-          <button className={style.isReady} onClick={handleStart}>
-            Comenzar Test
-          </button>
-        )}
-        {approved ? (
-          <button onClick={handleNextLesson}>Siguiente leccion</button>
-        ) : (
-          <></>
-        )}
+        <div className={style.flexContainerDescrip}>
+          {isReady ? (
+            <QuiztCart
+              questions={lesson.quiz}
+              handleApproved={handleApproved}
+              approved={approved}
+              idCourse={idCourse}
+            />
+          ) : (
+            <button className={style.isReady} onClick={handleStart}>
+              Comenzar Test
+            </button>
+          )}
+          {approved ? (
+            <button onClick={handleNextLesson}>Siguiente leccion</button>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </div>
   );

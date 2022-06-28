@@ -12,7 +12,7 @@ import { ThemeProvider } from "styled-components";
 import darkTheme from "./courseDark.module.css";
 import lightTheme from "./courseLight.module.css";
 import LessonSumary from "./lessonSumary/lessonSumary";
-import { setArrowCourse } from "../../../redux/actions/index";
+import { setArrowCourse } from "../../../redux/reducer/index";
 import ArrowsCourse from "../../icons/arrowsCourse";
 
 export default function CourseDetail(props) {
