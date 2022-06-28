@@ -1,10 +1,11 @@
-import { useEffect } from "react";
-import { useParams, NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import Vimeo from "@u-wave/react-vimeo";
+import { useEffect, useState } from 'react';
+import { useParams, NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import Vimeo from '@u-wave/react-vimeo';
+import axios from 'axios';
 
 // redux actions
-import { getLesson } from "../../../redux/actions";
+import { getLesson, updateUser } from "../../../redux/actions";
 
 // Components
 import QuiztCart from "./quiztCart";
@@ -15,51 +16,78 @@ import style from "./lessonPage.module.css";
 // aqui me traigao la lesson
 
 export default function LessonPage() {
+
+  const [isReady, setIsReady] = useState(false)
+
   const [approved, setApproved] = useState(false);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [lesson, setLesson] = useState({});
 
-  const { courseId, lessonId } = useParams();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const IdOflesson = parseInt(lessonId);
+  const { idCourse, idLesson } = useParams()
 
-  useEffect(() => {
-    const lesson = dispatch(getLesson(lessonId));
-    return console.log(lesson);
-  }, [dispatch]);
+
+  useEffect(() =>{
+    async function axiosReq() {
+      const data = await dispatch(getLesson(idLesson))
+      setLesson(data.lesson)
+    }
+
+    axiosReq();
+  },[dispatch])
+
 
   const handleApproved = (approved) => {
     setApproved(approved);
   };
 
-  const handelSubmit = () => {
-    /*
-     * aqui deberia ir la ruta que actuliza la lesson del user
-     */
+  const handleStart = () => {
+    setIsReady(true)
+  }
 
-    navigate(`/lesson/${courseId}/${IdOflesson + 1}`);
+  const handleNextLesson = async () => {
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      }
+    }
+    const body = {idCourse, idLesson}
+    try {
+      const metaData = await axios.put("http://localhost:3001/api/cursosprivate/iscompleted", body, config)
+      console.log("yo soy la data", metaData.data)
+      dispatch(updateUser(metaData.data.updateUser))
+      navigate(`/course/${idCourse}/${metaData.data.nextLessonId}`)
+    } catch(err){
+      alert("lesson no se pudo completar correctamente. lessonPage.jsx")
+      console.log(err)
+    }
+
   };
+
 
   return (
     <div className={style.highContainer}>
-      {/*ESTA ES TODA LA DATA QUE TRAE EL COMPONENETE DE MOMENTO*/}
       <div className={style.infoContainer}>
-        <NavLink to={"/home"}> Volver al home </NavLink>
+        <h1>{lesson.titulo}</h1>
+        <h4 className={style.description}>{lesson.descripcion}</h4>
+        <NavLink to={'/home'}> Volver al home </NavLink>
         <div className={style.video}>
-          <Vimeo video={`${lesson._id}`} responsive />
+          {lesson.video && <Vimeo video={`${lesson.video}`} responsive />}
         </div>
-        <h4 className={style.description}>Una description</h4>
-        <hr />
-        <QuiztCart
-          questions={questions}
-          handleApproved={handleApproved}
-          approved={approved}
-        />
-        <button disabled={approved} onClick={handelSubmit}>
-          {" "}
-          Siguiente leccion
-        </button>
+        {isReady?
+          <QuiztCart questions={lesson.quiz} handleApproved={handleApproved} approved={approved} idCourse={idCourse} />
+          :
+          <button className={style.isReady} onClick={handleStart}>Comenzar Test</button>
+        }
+        {approved?
+          <button onClick={handleNextLesson}>Siguiente leccion</button>
+          :
+          <></>
+        }
       </div>
     </div>
   );

@@ -27,7 +27,7 @@ const login = async (req, res, next) => {
   if (!email || !password) return next(new ErrorResponse('Por favor provea un email y contraseña', 400, false))
 
   try {
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email }).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
     if (!user) return res.status(401).send({ info: 'Credenciales Invalidas', success: false })// return next(new ErrorResponse('Credenciales Invalidas', 401, false))
     if (!user.estado) return res.status(401).send({ info: 'Usuario baneado permanentemente', success: false })
     if (new Date().toString().slice(4, 24) < user.timeBanned) return res.send({ info: `Usuario baneado hasta ${user.timeBanned}`, success: false, user })
@@ -105,7 +105,7 @@ const googleLogin = async (req, res) => {
 
     if (!email_verified) return res.status(400).json({ info: 'Email verification failed.', success: false })
 
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email }).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
 
     if (user) {
       const match = await user.matchPassword(password)

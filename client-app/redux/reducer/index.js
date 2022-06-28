@@ -18,7 +18,7 @@ import {
 const initialState = {
   user: {},
   isLogged: false,
-  topTen: [],
+  topFive: [],
   allUsers: [],
   showedUsers: [],
   courses: [],
@@ -77,7 +77,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case SET_RANKING:
       return {
         ...state,
-        topTen: payload,
+        topFive: payload,
       };
     case SET_ARROW_DIRECTION:
       return {

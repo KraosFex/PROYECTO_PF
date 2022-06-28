@@ -59,14 +59,17 @@
 
   .descripcion{
       display: flex;
-      width: 35em;
       min-height:4em ;
+      max-width: 35em;
+      word-wrap: break-word;
+      word-break: break-all;
   }
 
   .descripcion span{
       margin-top: 1em;
       margin-left: 1em;
       margin-bottom: 1em;
+      max-width: 35em;
       top: 1em;
       color: rgb(62, 62, 62);
   }
@@ -99,7 +102,7 @@
     }
 
     .descripcion{
-        width: 120%;
+        max-width:17em ;
     }
 
     .lenguaje{

@@ -8,10 +8,11 @@ const { createLesson, getLesson, isCompleted } = require('../../controllers/cont
 router.post('/', protect, createCurso)
 router.put('/favorite/initcourse', protect, addCourse)
 router.put('/unfavorite', protect, removeFavorite)
+router.put('/favorite', protect, addFavorite)
 router.put('/iscompleted', protect, isCompleted)
-router.put('/:id/votes', protect, addVotes)
+router.put('/votes', protect, addVotes)
 router.put('/:id', protect, createLesson)
-router.get('/:id/lessons', protect, getLesson)
-router.put('/:id/favorite', protect, addFavorite)
+router.get('/:id/lesson', protect, getLesson)
+
 
 module.exports = router

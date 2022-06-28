@@ -64,3 +64,19 @@
     text-align: center;
     width: 20%;
   }
+
+  @media (max-width: 520px){
+    .button{
+      width: 7em;
+      margin-top: 7em;
+    }
+
+  .listDetail{
+    width: 100%;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background-color: aqua;
+  }
+
+  }

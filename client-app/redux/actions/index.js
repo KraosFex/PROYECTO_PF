@@ -74,17 +74,6 @@ export const logout = () => {
   };
 };
 
-export const addVotes = async function (id, info) {
-  try {
-    const data = await axios.put(
-      `/api/cursosprivate/${id}/votes`,
-      info
-    );
-  } catch (err) {
-    new Error(err);
-  }
-};
-
 export const setRanking = (ranking) => {
   return {
     type: SET_RANKING,
@@ -113,6 +102,23 @@ export const setArrowCourse = (arrowCourse) => {
   };
 };
 // asynchronous actions
+
+export const addVotes = (info) => {
+  return async function (dispatch) {
+    try {
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        }
+      }
+      const metaData = await axios.put(`/api/cursosprivate/votes`, info, config);
+    } catch (err) {
+      console.log(err)
+    }
+  }
+};
 
 export const register = (userData) => {
   return async function (dispatch) {
@@ -234,10 +240,11 @@ export const getCourseByName = (name) => {
       const metaData = await axios.get(
         `/api/cursos/${name}`
       );
-      dispatch(setShowedCourses(metaData.data));
+      dispatch(setShowedCourses(metaData.data.course));
+      return metaData.data
     } catch (err) {
-      new Error(err);
-      alert("Ups! Something went wrong...");
+      dispatch(setShowedCourses([]));
+      return err.response.data
     }
   };
 };
@@ -257,9 +264,8 @@ export const bookmarkCourse = (id) => {
         { idCurso: id },
         config
       );
-      dispatch(updateUser(resp.data.user));
+      dispatch(updateUser(resp.data.updateUser));
     } catch (err) {
-      alert("Ups! Something went wrong...");
       console.log(err);
     }
   };
@@ -274,22 +280,19 @@ export const unmarkfavorites = (id) => {
           authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
       };
-
       const resp = await axios.put(
         `/api/cursosprivate/unfavorite`,
         { idCurso: id },
         config
       );
-      dispatch(updateUser(resp.data.user));
+      dispatch(updateUser(resp.data.updateUser));
     } catch (err) {
-      alert("Ups! Something went wrong...");
       console.log(err);
     }
   };
 };
 
-/*A LA ESPERA DE LA CREACION DE LA RUTA??????*/
-export const getLesson = (id) => {
+export const getLesson = (idLesson) => {
   return async function (dispatch) {
     try {
       let config = {
@@ -299,7 +302,7 @@ export const getLesson = (id) => {
         },
       };
       const metaData = await axios.get(
-        `/api/cursosprivate/${id}/lesson`,
+        `/api/cursosprivate/${idLesson}/lesson`,
         config
       );
       return metaData.data;
@@ -369,9 +372,7 @@ export const getUserRank = (userId) => {
 export const getRanking = () => {
   return async function (dispatch) {
     try {
-      const metaData = await axios.get(
-        "/api/users/topten"
-      );
+      const metaData = await axios.get("/api/users/topFive");
       dispatch(setRanking(metaData.data.sorted));
     } catch (err) {
       console.log(err.response.data.info);
@@ -422,6 +423,28 @@ export const isAdminConverter = (userId, boolean) => {
       return metaData.data;
     } catch (err) {
       console.log(err.response.data);
+    }
+  };
+};
+
+export const isPremiumConverter = () => {
+  return async function (dispatch) {
+    try {
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      };
+
+      const metaData = await axios.put(
+        `/api/usersprivate/isPremium`,
+        config
+      );
+      dispatch(updateUser(metaData.data.updateUser))
+      return metaData.data;
+    } catch (err) {
+      return err.response.data
     }
   };
 };
