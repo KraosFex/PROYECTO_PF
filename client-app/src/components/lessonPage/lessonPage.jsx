@@ -10,11 +10,13 @@ import { getLesson } from "../../../redux/actions/index";
 import QuiztCart from "./quiztCart";
 
 // style
-import style from "./lessonPage.module.css";
+import lightTheme from "./lessonPageLight.module.css";
+import darkTheme from "./lessonPageDark.module.css";
+import { ThemeProvider } from "styled-components";
 
 // aqui me traigao la lesson
 
-export default function LessonPage() {
+export default function LessonPage(props) {
   const [approved, setApproved] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const { idCourse, idLesson } = useParams();
@@ -22,7 +24,7 @@ export default function LessonPage() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  var style = darkTheme;
   const token = useSelector((state) => state.reducerCompleto.authToken);
   const refresh = useSelector((state) => state.reducerCompleto.refresh);
   useEffect(() => {
@@ -75,34 +77,40 @@ export default function LessonPage() {
   };
   console.log();
   return (
-    <div className={style.highContainer}>
-      <div className={style.infoContainer}>
-        <h1>{lesson.titulo}</h1>
-        <h4 className={style.description}>{lesson.descripcion}</h4>
-        <div className={style.video}>
-          {lesson.video && <Vimeo video={`${lesson.video}`} responsive />}
-        </div>
-        <div className={style.flexContainerDescrip}>
-          {isReady ? (
-            <QuiztCart
-              questions={lesson.quiz}
-              handleApproved={handleApproved}
-              approved={approved}
-              idCourse={idCourse}
-              key={refresh}
-            />
-          ) : (
-            <button className={style.isReady} onClick={startClick}>
-              Comenzar Test
-            </button>
-          )}
-          {approved ? (
-            <button onClick={handleNextLesson}>Siguiente leccion</button>
-          ) : (
-            <></>
-          )}
+    <ThemeProvider
+      theme={
+        props.theme === "light" ? (style = lightTheme) : (style = darkTheme)
+      }
+    >
+      <div className={style.highContainer}>
+        <div className={style.infoContainer}>
+          <h1>{lesson.titulo}</h1>
+          <h4 className={style.description}>{lesson.descripcion}</h4>
+          <div className={style.video}>
+            {lesson.video && <Vimeo video={`${lesson.video}`} responsive />}
+          </div>
+          <div className={style.flexContainerDescrip}>
+            {isReady ? (
+              <QuiztCart
+                questions={lesson.quiz}
+                handleApproved={handleApproved}
+                approved={approved}
+                idCourse={idCourse}
+                key={refresh}
+              />
+            ) : (
+              <button className={style.isReady} onClick={startClick}>
+                Comenzar Test
+              </button>
+            )}
+            {approved ? (
+              <button onClick={handleNextLesson}>Siguiente leccion</button>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 }

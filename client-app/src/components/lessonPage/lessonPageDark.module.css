@@ -14,11 +14,16 @@
   padding: 1em;
   flex-direction: column;
   border-radius: .5em;
-  background-color: rgb(250, 250, 250) ;
+  color: rgb(172, 172, 172);
+  background-color: rgb(54, 54, 54) ;
   -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11); 
   box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
   margin-bottom: 5em;
 
+}
+
+.infoContainer h1{
+  color: rgb(226, 226, 226);
 }
 
 .video{
@@ -43,8 +48,9 @@ margin-top: 3em;
   justify-content: center;
   align-items: center;
   height: 2em;
-  background-color: rgb(240, 240, 240);
-  border: 1px solid rgb(198, 198, 198);
+  color: rgb(206, 206, 206);
+  background-color: rgb(54, 54, 54);
+  border: 1px solid rgb(80, 80, 80);
   border-radius: .3em;
   margin-bottom: 2em;
 }
@@ -60,4 +66,14 @@ margin-top: 3em;
 
 .description{
   margin-left: 1.1em;
+}
+
+
+@media (max-width: 768px) {
+  .infoContainer{
+    width: 96%;
+  }
+  .video{
+    width: 105%;
+  }
 }
