@@ -226,7 +226,7 @@ export const editPassword = (email) => {
 export const getCourses = (page) => {
   return async function (dispatch) {
     try {
-      const metaData = await axios.get(`/api/cursos/?page=${page}`);
+      const metaData = await axios.get(`/api/cursos/?limit=8&page=${page}`);
       dispatch(setCourses(metaData.data.docs));
       dispatch(setShowedCourses(metaData.data.docs));
     } catch (err) {
