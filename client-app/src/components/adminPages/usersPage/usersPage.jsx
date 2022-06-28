@@ -1,44 +1,32 @@
-//libraries
+import style from "./usersPage.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Pagination from '@mui/material/Pagination';
-
-// actions redux
-import { getAllUsers } from "../../../../redux/actions";
-
-// components
+import { getAllUsers } from "../../../../redux/actions/index";
 import UserCard from "./userCard/userCard.jsx";
 import SearchProfiles from "./searchProfiles/searchProfiles";
-
-// style
-import style from "./usersPage.module.css";
+import Pagination from "@mui/material/Pagination";
 
 function UserPage() {
-
-  const [ page, setPage ] = useState(1);
-
-
-  //Forcing the re-render
-  const [ refresh, setRefresh ] = useState(true)
-
   const dispatch = useDispatch();
 
-  const showedUsers = useSelector((store) => store.showedUsers);
-  const actualUser = useSelector((store) => store.user);
-  const paginateObj = useSelector((store) => store.paginateUsers);
+  const showedUsers = useSelector((state) => state.reducerCompleto.showedUsers);
+  const actualUser = useSelector((state) => state.reducerCompleto.user);
+  const token = useSelector((state) => state.reducerCompleto.authToken);
+  const paginateObj = useSelector(
+    (state) => state.reducerCompleto.paginateUsers
+  );
+  const [page, setPage] = useState(1);
+  const [refresh, setRefresh] = useState(false);
 
-   // Este Handle es el paginado
+  useEffect(() => {
+    dispatch(getAllUsers({ token, page }));
+  }, [dispatch]);
+
   const handleChange = async (e, value) => {
     await setPage(value);
-    await dispatch(getAllUsers(value))
-    refresh? setRefresh(false) : setRefresh(true);
+    await dispatch(getAllUsers({ token, page: value }));
+    refresh ? setRefresh(false) : setRefresh(true);
   };
-
-useEffect(() => {
-  dispatch(getAllUsers(page))
-}, [dispatch])
-
-
 
   return (
     <div className={style.flexContainer}>
@@ -61,7 +49,13 @@ useEffect(() => {
           }
         })}
         <div>
-          <Pagination count={paginateObj.totalPages} page={page} onChange={handleChange} variant="outlined" color="secondary" />
+          <Pagination
+            count={paginateObj.totalPages}
+            page={page}
+            onChange={handleChange}
+            variant="outlined"
+            color="secondary"
+          />
         </div>
       </div>
     </div>

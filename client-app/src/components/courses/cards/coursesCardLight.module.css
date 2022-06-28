@@ -77,7 +77,8 @@
 
   .lenguaje{
       display: flex;
-      margin-left: 5em;
+        margin-left: auto;
+        margin-right: 1em;
       width: 4em;
         height: 4em;
         align-self: center;
@@ -105,9 +106,21 @@
         max-width:17em ;
     }
 
-    .lenguaje{
-        margin-left: auto;
-        margin-right: 1em;
+  }
+
+  @media (max-width: 900px) {
+
+    .containerCourse{
+        width: 100%;
+        margin-left: 0em;
+        align-self: center;
+        justify-self: center;
+        
     }
+
+    .descripcion{
+        max-width:17em ;
+    }
+
   }
 

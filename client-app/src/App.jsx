@@ -4,7 +4,7 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 //actions redux
-import { getCourses, getRanking } from "../redux/actions";
+import { getCourses, getRanking } from "../redux/actions/index";
 
 // compoents
 import Home from "./components/home/home";
@@ -21,23 +21,20 @@ import CourseDetail from "./components/courseDetailPage/courseDetail.jsx";
 import LessonPage from "./components/lessonPage/lessonPage";
 import UsersPage from "./components/adminPages/usersPage/usersPage";
 import PaymentGateway from "./components/paymentGateway/paymentGateway.jsx";
-import Success from "./components/paymentGateway/success.jsx";
+import Success from "../src/components/paymentGateway/success/success";
 
 // styles
 import style from "./index.modules.css";
 
 function App() {
-  const theme = useSelector((store) => store.theme);
-  const isLogged = useSelector((store) => store.isLogged);
-  const user = useSelector((store) => store.user);
-  console.log(user);
+  const theme = useSelector((state) => state.reducerCompleto.theme);
+  const isLogged = useSelector((state) => state.reducerCompleto.isLogged);
+  const user = useSelector((state) => state.reducerCompleto.user);
 
   const dispatch = useDispatch();
-
   useEffect(() => {
-    //dispatch(getCourses());
-    getRanking()(dispatch);
-  });
+    dispatch(getRanking());
+  }, [dispatch]);
 
   const AppLayout = () => (
     <>
@@ -56,14 +53,13 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/home" element={<Home theme={theme} />} />
           <Route path="/courses" element={<Courses />}></Route>
-          <Route path="/course/:idCourse" element={<CourseDetail theme={theme} />} />
-          <Route
-            path="/course/:idCourse/:idLesson"
-            element={<LessonPage />}
-          />
+          <Route path="/course/:id" element={<CourseDetail theme={theme} />} />
           <Route element={<PrivateRoute isLogged={isLogged} />}>
             <Route path="/perfil" element={<Perfil theme={theme} />} />
-
+            <Route
+              path="/course/:idCourse/:idLesson"
+              element={<LessonPage />}
+            />
             <Route path="/pay" element={<PaymentGateway />} />
             <Route path="/success" element={<Success />} />
           </Route>

@@ -1,14 +1,14 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout } from "../../../redux/actions";
+import { logout, setAuthToken } from "../../../redux/reducer/index";
 import style from "./logout.module.css";
 
-const LogOut = () => {
+const Logout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleClick = () => {
-    localStorage.removeItem("authToken");
+    dispatch(setAuthToken(""));
     dispatch(logout());
     navigate("/");
   };
@@ -21,4 +21,4 @@ const LogOut = () => {
   );
 };
 
-export default LogOut;
+export default Logout;

@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 function ArrowsCourse() {
-  const direction = useSelector((store) => store.arrowCourse);
+  const direction = useSelector((state) => state.reducerCompleto.arrowCourse);
 
   if (direction === "down") {
     return (

@@ -1,439 +1,314 @@
-// import methods
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
-// actions types
 import {
-  SET_COURSES,
-  SET_SHOWEDCOURSES,
-  SET_VALIDATEUSER,
-  SET_THEME,
-  LOGOUT,
-  SET_UPDATEUSER,
-  SET_ALLUSERS,
-  SET_SHOWEDUSERS,
-  SET_RANKING,
-  SET_ARROW_DIRECTION,
-  SET_ARROW_UPDOWN,
-  SET_ARROW_COURSE,
-  SET_PAGINATE_USERS,
-  SET_PAGINATE_COURSES
-} from "./actionsTypes/actionTypes";
+  setShowedCourses,
+  setCourses,
+  setAllUsers,
+  setValidateUser,
+  setShowedUsers,
+  updateUser,
+  setRanking,
+  setAuthToken,
+  setPaginateCourses,
+  setPaginateUsers,
+} from "../reducer/index";
 
-// synchronous actions
-
-export const themeSwitcher = (theme) => {
-  return {
-    type: SET_THEME,
-    payload: theme,
-  };
-};
-
-export const setShowedCourses = (courses) => {
-  return {
-    type: SET_SHOWEDCOURSES,
-    payload: courses,
-  };
-};
-
-export const setCourses = (courses) => {
-  return {
-    type: SET_COURSES,
-    payload: courses,
-  };
-};
-
-export const setPaginateCourses = (paginateObj) => {
-  return {
-    type: SET_PAGINATE_COURSES,
-    payload: paginateObj,
-  };
-};
-
-export const setPaginateUsers = (paginateObj) => {
-  return {
-    type: SET_PAGINATE_USERS,
-    payload: paginateObj,
-  };
-};
-
-export const setShowedUsers = (users) => {
-  return {
-    type: SET_SHOWEDUSERS,
-    payload: users,
-  };
-};
-
-export const setAllUsers = (users) => {
-  return {
-    type: SET_ALLUSERS,
-    payload: users,
-  };
-};
-
-export const setValidateUser = (userObject) => {
-  return {
-    type: SET_VALIDATEUSER,
-    payload: userObject,
-  };
-};
-
-export const updateUser = (userObject) => {
-  return {
-    type: SET_UPDATEUSER,
-    payload: userObject,
-  };
-};
-
-export const logout = () => {
-  return {
-    type: LOGOUT,
-  };
-};
-
-export const setRanking = (ranking) => {
-  return {
-    type: SET_RANKING,
-    payload: ranking,
-  };
-};
-
-export const setArrowDirection = (arrow) => {
-  return {
-    type: SET_ARROW_DIRECTION,
-    payload: arrow,
-  };
-};
-
-export const setArrowUpDown = (arrowUpDown) => {
-  return {
-    type: SET_ARROW_UPDOWN,
-    payload: arrowUpDown,
-  };
-};
-
-export const setArrowCourse = (arrowCourse) => {
-  return {
-    type: SET_ARROW_COURSE,
-    payload: arrowCourse,
-  };
-};
-
+export const addVotes = createAsyncThunk("/votes", async (obj) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${obj.token}`,
+      },
+    };
+    const data = await axios.put(`/api/cursosprivate/votes`, obj.info, config);
+    console.log(data);
+  } catch (err) {
+    console.log(err);
+    new Error(err);
+  }
+});
 // asynchronous actions
 
-export const addVotes = (info) => {
-  return async function (dispatch) {
+export const register = createAsyncThunk(
+  "/auth/register",
+  async (userData, thunkAPI) => {
     try {
-
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        }
-      }
-      const metaData = await axios.put(`/api/cursosprivate/votes`, info, config);
+      const metaData = await axios.post("/api/auth/register", userData);
+      thunkAPI.dispatch(setValidateUser(metaData.data.user));
+      return metaData.data;
     } catch (err) {
-      console.log(err)
+      return err.response.data;
     }
   }
-};
+);
 
-export const register = (userData) => {
-  return async function (dispatch) {
-    try {
-      const metaData = await axios.post(
-        "/api/auth/register",
-        userData
-      );
-      dispatch(setValidateUser(metaData.data.user));
-      return metaData.data;
-    } catch (err) {
-      return err.response.data;
-    }
-  };
-};
+export const findCourse = createAsyncThunk("/cursos/detail", async (id) => {
+  try {
+    const resp = await axios.get(`/api/cursos/detail/${id}`);
+    return resp.data;
+  } catch (err) {
+    console.log("se rompio");
+  }
+});
 
-export const findCourse = (id) => {
-  return async function (dispatch) {
-    try {
-      const resp = await axios.get(
-        `/api/cursos/detail/${id}`
-      );
-      return resp.data;
-    } catch (err) {
-      console.log("se rompio");
-    }
-  };
-};
+export const login = createAsyncThunk("/auth/login", async (post, thunkAPI) => {
+  try {
+    const metaData = await axios.post("/api/auth/login", post);
+    thunkAPI.dispatch(setValidateUser(metaData.data.user));
+    thunkAPI.dispatch(setAuthToken(metaData.data.token));
+    return metaData.data;
+  } catch (err) {
+    console.log("error");
+  }
+});
 
-export const login = (post) => {
-  return async function (dispatch) {
-    try {
-      const metaData = await axios.post(
-        "/api/auth/login",
-        post
-      );
-      dispatch(setValidateUser(metaData.data.user));
-      return metaData.data;
-    } catch (err) {
-      return err.response.data;
-    }
-  };
-};
-
-export const findUserByName = (username) => {
-  return async function (dispatch) {
+export const findUserByName = createAsyncThunk(
+  "/usersprivate/username",
+  async (obj, thunkAPI) => {
     try {
       const config = {
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          authorization: `Bearer ${obj.token}`,
         },
       };
       let metaData = await axios.get(
-        `/api/usersprivate/username?username=${username}`,
+        `/api/usersprivate/username?username=${obj.input}`,
         config
       );
-      dispatch(setShowedUsers(metaData.data));
+      thunkAPI.dispatch(setShowedUsers(metaData.data));
     } catch (err) {
-      alert("Ups! Something went wrong...");
-    }
-  };
-};
-
-export const editUsername = (username, id) => {
-  return async function (dispatch) {
-    let config = {
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("authToken")}`,
-      },
-    };
-
-    try {
-      const metaData = await axios.put(
-        `/api/usersprivate/${id}/profile`,
-        { username: username },
-        config
-      );
-      dispatch(updateUser(metaData.data));
-      return metaData.data;
-    } catch (err) {
-      alert("Ups! Something went wrong...");
-      new Error(err);
-    }
-  };
-};
-
-export const editPassword = (email) => {
-  return async function (dispatch) {
-    try {
-      const metaData = await axios.put(
-        `/api/auth/forgotPassword`,
-        { email: email }
-      );
-      return metaData.data;
-    } catch (err) {
-      alert("Ups! Something went wrong...");
-      new Error(err);
-    }
-  };
-};
-
-export const editImage = (url) => {
-  return async function (dispatch) {
-    let config = {
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("authToken")}`,
-      },
-    };
-
-    try {
-      const metaData = await axios.put(
-        `/api/usersprivate/editImage/profile`,
-        { url: url },
-        config
-      );
-      dispatch(updateUser(metaData.data.updateUser));
-      return metaData.data;
-    } catch (err) {
-      return err.response.data
-    }
-  };
-};
-
-export const getCourses = (page) => {
-
-  return async function (dispatch) {
-    try {
-      const metaData = await axios.get(`/api/cursos/?limit=8&page=${page}`);
-      dispatch(setCourses(metaData.data.docs));
-      dispatch(setShowedCourses(metaData.data.docs));
-      dispatch(setPaginateCourses(metaData.data));
-    } catch (err) {
-      alert("Ups! Something went wrong...");
-    }
-  };
-};
-
-export const getCourseByName = (name) => {
-  return async function (dispatch) {
-    try {
-      const metaData = await axios.get(
-        `/api/cursos/${name}`
-      );
-      dispatch(setShowedCourses(metaData.data.course));
-      return metaData.data
-    } catch (err) {
-      dispatch(setShowedCourses([]));
-      return err.response.data
-    }
-  };
-};
-
-export const bookmarkCourse = (id) => {
-  return async function (dispatch) {
-    try {
-      let config = {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-      };
-
-      const resp = await axios.put(
-        `/api/cursosprivate/favorite`,
-        { idCurso: id },
-        config
-      );
-      dispatch(updateUser(resp.data.updateUser));
-    } catch (err) {
+      alert("Ups! Something went wrong... FINDUSERBYNAME");
       console.log(err);
     }
-  };
-};
+  }
+);
 
-export const unmarkfavorites = (id) => {
-  return async function (dispatch) {
+export const editUsername = createAsyncThunk(
+  "/:id/profile",
+  async (obj, thunkAPI) => {
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${obj.token}`,
+      },
+    };
+
+    try {
+      const metaData = await axios.put(
+        `/api/usersprivate/${obj.id}/profile`,
+        { username: obj.username },
+        config
+      );
+      thunkAPI.dispatch(updateUser(metaData.data));
+      return metaData.data;
+    } catch (err) {
+      alert("Ups! Something went wrong...EDITUSERNAME");
+      new Error(err);
+    }
+  }
+);
+
+export const editPassword = createAsyncThunk(
+  "/auth/forgotPassword",
+  async (email) => {
+    try {
+      const metaData = await axios.put(`/api/auth/forgotPassword`, {
+        email: email,
+      });
+      return metaData.data;
+    } catch (err) {
+      alert("Ups! Something went wrong...EDITPASSWORD");
+      new Error(err);
+    }
+  }
+);
+
+export const getCourses = createAsyncThunk(
+  "/api/cursos",
+  async (obj, thunkAPI) => {
+    try {
+      const metaData = await axios.get(`/api/cursos?limit=8&page=${obj.page}`);
+      thunkAPI.dispatch(setCourses(metaData.data.docs));
+      thunkAPI.dispatch(setShowedCourses(metaData.data.docs));
+      thunkAPI.dispatch(setPaginateCourses(metaData.data));
+      return metaData.data;
+    } catch (err) {
+      console.log(err);
+      alert("Ups! Something went wrong... GETCOURSES");
+    }
+  }
+);
+
+export const getCourseByName = createAsyncThunk(
+  "/cursos/:name",
+  async (name, thunkAPI) => {
+    try {
+      const metaData = await axios.get(`/api/cursos/${name}`);
+      thunkAPI.dispatch(setShowedCourses(metaData.data.course));
+      return metaData.data;
+    } catch (err) {
+      thunkAPI.dispatch(setShowedCourses([]));
+      return err.response.data;
+    }
+  }
+);
+
+export const bookmarkCourse = createAsyncThunk(
+  "/cursosprivate/favorite",
+  async (obj, thunkAPI) => {
     try {
       let config = {
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          authorization: `Bearer ${obj.token}`,
         },
       };
+      const resp = await axios.put(
+        `/api/cursosprivate/favorite`,
+        { idCurso: obj.id },
+        config
+      );
+      console.log(resp);
+      thunkAPI.dispatch(updateUser(resp.data.updateUser));
+    } catch (err) {
+      alert("Ups! Something went wrong ...BOOKMARKCOURSE");
+      console.log(err);
+    }
+  }
+);
+
+export const unmarkfavorites = createAsyncThunk(
+  "/cursosprivate/unfavorite",
+  async (obj, thunkAPI) => {
+    try {
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${obj.token}`,
+        },
+      };
+
       const resp = await axios.put(
         `/api/cursosprivate/unfavorite`,
-        { idCurso: id },
+        { idCurso: obj.id },
         config
       );
-      dispatch(updateUser(resp.data.updateUser));
+      thunkAPI.dispatch(updateUser(resp.data.updateUser));
+      console.log(resp);
     } catch (err) {
+      alert("Ups! Something went wrong... UNMARKFAVORITE");
       console.log(err);
     }
-  };
-};
-
-export const getLesson = (idLesson) => {
-  return async function (dispatch) {
+  }
+);
+/*A LA ESPERA DE LA CREACION DE LA RUTA??????*/
+export const getLesson = createAsyncThunk(
+  "/:id/lesson",
+  async (obj, thunkAPI) => {
     try {
       let config = {
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          authorization: `Bearer ${obj.token}`,
         },
       };
       const metaData = await axios.get(
-        `/api/cursosprivate/${idLesson}/lesson`,
+        `/api/cursosprivate/${obj.id}/lesson`,
         config
       );
+      console.log("asda", metaData);
       return metaData.data;
     } catch (err) {
       new Error(err);
-      alert("Ups! Something went wrong...");
+      alert("Ups! Something went wrong... GETLESSON");
+      console.log(err);
     }
-  };
-};
+  }
+);
 
-export const getAllUsers = (page) => {
-  return async function (dispatch) {
+export const getAllUsers = createAsyncThunk(
+  "/api/usersprivate",
+  async (obj, thunkAPI) => {
     try {
       let config = {
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          authorization: `Bearer ${obj.token}`,
         },
       };
       const metaData = await axios(
-        `/api/usersprivate/?limit=8&page=${page}`,
+        `/api/usersprivate/?limit=8&page=${obj.page}`,
         config
       );
-      console.log("DATA ", metaData.data.users)
-      dispatch(setAllUsers(metaData.data.users.docs));
-      dispatch(setShowedUsers(metaData.data.users.docs));
-      dispatch(setPaginateUsers(metaData.data.users));
+      console.log(metaData.data);
+      thunkAPI.dispatch(setAllUsers(metaData.data.users.docs));
+      thunkAPI.dispatch(setShowedUsers(metaData.data.users.docs));
+      thunkAPI.dispatch(setPaginateUsers(metaData.data.users));
     } catch (err) {
-      return err.response.data;
+      console.log(err);
     }
-  };
-};
+  }
+);
 
-export const auhtGoogle = (tokenId) => {
-  return async function (dispatch) {
+export const auhtGoogle = createAsyncThunk(
+  "/auth/googlelogin",
+  async (tokenId, thunkAPI) => {
     try {
-      const metaData = await axios.post(
-        "/api/auth/googlelogin",
-        { tokenId }
-      );
-      dispatch(setValidateUser(metaData.data.user));
+      const metaData = await axios.post("/api/auth/googlelogin", { tokenId });
+      thunkAPI.dispatch(setValidateUser(metaData.data.user));
       return metaData.data;
     } catch (err) {
       return err.response.data;
     }
-  };
-};
+  }
+);
 
-export const getUserRank = (userId) => {
-  return async function (dispatch) {
+export const getUserRank = createAsyncThunk(
+  "position:userid",
+  async (obj, thunkAPI) => {
     try {
       let config = {
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          authorization: `Bearer ${obj.token}`,
         },
       };
       const metaData = await axios.get(
-        `/api/usersprivate/position/${userId}`,
+        `/api/usersprivate/position/${obj.id}`,
         config
       );
       return metaData.data;
     } catch (err) {
-      return err.response.data;
+      console.log(err);
     }
-  };
-};
+  }
+);
 
-export const getRanking = () => {
-  return async function (dispatch) {
+export const getRanking = createAsyncThunk(
+  "/users/top",
+  async (args, thunkAPI) => {
     try {
       const metaData = await axios.get("/api/users/topFive");
-      dispatch(setRanking(metaData.data.sorted));
+      thunkAPI.dispatch(setRanking(metaData.data.sorted));
     } catch (err) {
-      console.log(err.response.data.info);
+      console.log(err);
     }
-  };
-};
+  }
+);
 
-export const deleteUser = (userId) => {
-  return async function (dispatch) {
+export const deleteUser = createAsyncThunk(
+  "/usersprivate/deleteuser",
+  async (obj) => {
     try {
       let config = {
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          authorization: `Bearer ${obj.token}`,
         },
         data: {
-          id: userId,
+          id: obj.userId,
         },
       };
 
@@ -445,22 +320,23 @@ export const deleteUser = (userId) => {
     } catch (err) {
       console.log(err.response.data);
     }
-  };
-};
+  }
+);
 
-export const isAdminConverter = (userId, boolean) => {
-  return async function (dispatch) {
+export const isAdminConverter = createAsyncThunk(
+  "/usersprivate/isAdmin",
+  async (obj) => {
     try {
       let config = {
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          authorization: `Bearer ${obj.token}`,
         },
       };
 
       const metaData = await axios.put(
         `/api/usersprivate/isAdmin`,
-        { id: userId, change: boolean },
+        { id: obj.userId, change: obj.boolean },
         config
       );
       console.log(metaData);
@@ -468,50 +344,75 @@ export const isAdminConverter = (userId, boolean) => {
     } catch (err) {
       console.log(err.response.data);
     }
-  };
-};
+  }
+);
 
-export const isPremiumConverter = () => {
-  return async function (dispatch) {
+export const isPremiumConverter = createAsyncThunk(
+  "/usersprivate/isPremium",
+  async (obj, thunkAPI) => {
     try {
       let config = {
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          authorization: `Bearer ${obj.token}`,
         },
       };
-
       const metaData = await axios.put(
         `/api/usersprivate/isPremium`,
+        { hola: "" },
         config
       );
-      dispatch(updateUser(metaData.data.updateUser))
+    } catch (err) {
+      console.log(err);
+      return err.response.data;
+    }
+  }
+);
+
+export const Banear = createAsyncThunk("/usersprivate/ban", async (obj) => {
+  try {
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${obj.token}`,
+      },
+    };
+
+    const metaData = await axios.post(
+      `/api/usersprivate/ban`,
+      { id: obj.userId, fecha: obj.date },
+      config
+    );
+
+    return { successful: true, data: metaData };
+  } catch (err) {
+    return { successful: false, error: err };
+  }
+});
+
+export const editImage = createAsyncThunk(
+  "/editImage/profile",
+  async (obj, thunkAPI) => {
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${obj.token}`,
+      },
+    };
+
+    try {
+      const metaData = await axios.put(
+        "/api/usersprivate/editImage/profile",
+        { url: obj.url },
+        config
+      );
+      console.log(obj.url);
+      thunkAPI.dispatch(updateUser(metaData.data.updateUser));
+      console.log("hola");
       return metaData.data;
     } catch (err) {
-      return err.response.data
+      console.log(err);
+      return err.response.data;
     }
-  };
-};
-
-export const Banear = (userId, fecha) => {
-  return async function () {
-    try {
-      let config = {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("authToken")}`,
-        },
-      };
-
-      const metaData = await axios.post(
-        `/api/usersprivate/ban`,
-        { id: userId, fecha: fecha },
-        config
-      );
-
-      return { successful: true, data: metaData };
-    } catch (err) {
-      return { successful: false, error: err };
-    }
-  };
-};
+  }
+);

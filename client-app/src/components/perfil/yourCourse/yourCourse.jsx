@@ -4,7 +4,7 @@ import { ThemeProvider } from "styled-components";
 import { useSelector } from "react-redux";
 
 const YourCourse = ({ coursesAll }) => {
-  const theme = useSelector((store) => store.theme);
+  const theme = useSelector((state) => state.reducerCompleto.theme);
 
   var style = theme;
   return (
@@ -12,7 +12,7 @@ const YourCourse = ({ coursesAll }) => {
       theme={theme === "light" ? (style = lightTheme) : (style = darkTheme)}
     >
       <div className={style.container}>
-        <div className={style.listDetail}>
+        {/* <div className={style.listDetail}>
           <button className={style.button} onClick={() => handleClick()}>
             {" "}
             Cursos{" "}
@@ -22,14 +22,14 @@ const YourCourse = ({ coursesAll }) => {
             Favoritos{" "}
           </button>
           <button className={style.button}> Completados </button>
-        </div>
+        </div> */}
 
         <div className={style.containerListYourCourse}>
           <div className={style.List}>
             <span className={style.cursos}>Nombre</span>
             <span className={style.cursos}>Favorito</span>
-            <span className={style.cursos}>Clases totales</span>
-            <span className={style.cursos}>Clases completas</span>
+            <span className={style.cursos1}>Clases totales</span>
+            <span className={style.cursos1}>Clases completas</span>
             <span className={style.cursos}>Lenguaje</span>
           </div>
           <div>{coursesAll}</div>

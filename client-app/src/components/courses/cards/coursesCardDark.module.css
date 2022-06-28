@@ -70,17 +70,18 @@
     top: 1em;
     color: rgb(241, 241, 241);
     word-wrap: break-word;
+    word-break: break-all;
 }
 
 
-  .lenguaje{
-      display: flex;
-      margin-left: 5em;
-      width: 4em;
-        height: 4em;
-        align-self: center;
-  }
-
+.lenguaje{
+    display: flex;
+      margin-left: auto;
+      margin-right: 1em;
+    width: 4em;
+      height: 4em;
+      align-self: center;
+}
   .lenguaje svg{
       display: flex;
   }
@@ -101,9 +102,20 @@
     .descripcion{
         width: 120%;
     }
+  }
 
-    .lenguaje{
-        margin-left: auto;
-        margin-right: 1em;
+  @media (max-width: 900px) {
+
+    .containerCourse{
+        width: 100%;
+        margin-left: 0em;
+        align-self: center;
+        justify-self: center;
+        
     }
+
+    .descripcion{
+        max-width:17em ;
+    }
+
   }

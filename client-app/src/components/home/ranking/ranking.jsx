@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
+import { getRanking } from "../../../../redux/actions/index";
 import UserRank from "../userRank/userRank";
 import style from "./ranking.module.css";
 
 export default function Ranking() {
   const dispatch = useDispatch();
 
-  const { topTen } = useSelector((store) => store);
+  const topTen = useSelector((state) => state.reducerCompleto.topTen);
+  const usuarios = topTen;
 
   let divs = function (e, i) {
     if (i >= 0 && i < 3) {
@@ -34,8 +36,7 @@ export default function Ranking() {
       </div>
     );
   };
-
-  if(topTen.length) {
+  if (topTen.length) {
     return (
       <div className={style.flexContainer}>
         <div className={style.All}>
@@ -68,5 +69,4 @@ export default function Ranking() {
       </div>
     );
   }
-
 }

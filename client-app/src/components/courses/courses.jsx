@@ -1,14 +1,10 @@
 // libraries
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getCourseByName,
-  setArrowUpDown,
-  setShowedCourses,
-  getCourses
-} from "../../../redux/actions/index";
-import Pagination from '@mui/material/Pagination';
-
+import { getCourseByName } from "../../../redux/actions/index";
+import Pagination from "@mui/material/Pagination";
+import { setArrowUpDown } from "../../../redux/reducer/index";
+import { getCourses } from "../../../redux/actions/index";
 // utils
 import { filter } from "../../utils/filters";
 import { sortByRating } from "../../utils/sorter";
@@ -28,44 +24,36 @@ function Courses() {
   let style = darkTheme;
 
   const dispatch = useDispatch();
-
-  const tema = useSelector((store) => store.theme);
-  const courseSearch = useSelector((store) => store.showedCourses);
-  let showedCourses = courseSearch;
-  const direction = useSelector((store) => store.arrowUpDown);
-  const paginationObj = useSelector((store) => store.paginateCourses);
+  const allCourses = useSelector((state) => state.reducerCompleto.courses);
+  const tema = useSelector((state) => state.reducerCompleto.theme);
+  const courseSearch = useSelector(
+    (state) => state.reducerCompleto.showedCourses
+  );
+  var showedCourses = courseSearch;
+  const direction = useSelector((state) => state.reducerCompleto.arrowUpDown);
+  const token = useSelector((state) => state.reducerCompleto.authToken);
+  const paginateObj = useSelector(
+    (state) => state.reducerCompleto.paginateCourses
+  );
 
   //forcing the re-render of the component
-  const [ refresh, setRefresh ] = useState(true);
-  const [ activeArrow, setActiveArrow ] = useState(false);
-  const [ searchError, setSerachError ] = useState({});
-
-  const [ page, setPage ] = useState(1);
-
-  // Este Handle es el paginado
-  const handleChange = (e, value) => {
-    setPage(value);
-    dispatch(getCourses(value));
-  };
-
-  useEffect(() => {
-      dispatch(getCourses(page));
-  }, [dispatch])
-
-  // AGREGADO  PRUEBA--------------------------------
+  const [refresh, setRefresh] = useState(true);
+  const [activeArrow, setActiveArrow] = useState(false);
+  const [searchError, setSerachError] = useState({});
   const [order, setCourseOrder] = useState("");
   const [tipo1, setTipo1] = useState("0");
   const [tipo2, setTipo2] = useState("0");
   const [tipo3, setTipo3] = useState("0");
+  const [page, setPage] = useState(1);
 
   const orderBy = (e) => {
     setCourseOrder(e.target.value);
   };
   const byTipo = (e) => {
     if (e.target.checked === true) {
-      if (tipo1 === "0") setTipo1(e.target.value);
-      else if (tipo2 === "0") setTipo2(e.target.value);
-      else setTipo3(e.target.value);
+      if (tipo1 === "0") setTipo1(e.target.value.toLowerCase());
+      else if (tipo2 === "0") setTipo2(e.target.value.toLowerCase());
+      else setTipo3(e.target.value.toLowerCase());
     } else if (e.target.checked === false) {
       if (e.target.value === tipo1) setTipo1("0");
       if (e.target.value === tipo2) setTipo2("0");
@@ -90,20 +78,19 @@ function Courses() {
     for (const input of inputsCheckbox) {
       input.checked = false;
     }
-
     if (e.target.value != "") {
-      const data = await dispatch(getCourseByName(e.target.value));
-      console.log(data)
-      if(!data.success) {
-        setSerachError({err: data.info});
-    } else {
-      setSerachError({});
+      const dis = await dispatch(getCourseByName(e.target.value));
+      const data = dis.payload;
+      console.log(data);
       showedCourses = courseSearch;
-    }
+      if (!data.success) {
+        setSerachError({ err: data.info });
+      } else {
+        setSerachError({});
+        showedCourses = courseSearch;
+      }
     } else {
-      // ahora esto solo deberia hacer un # setPage(1), en vez de un dispatch
-      dispatch(getCourses());
-      setSerachError({});
+      dispatch(getCourses({}));
       showedCourses = courseSearch;
     }
   };
@@ -116,6 +103,16 @@ function Courses() {
     showedCourses = lenguaje(tipo1, tipo2, tipo3, showedCourses);
   if (order) showedCourses = ordered(order, showedCourses);
 
+  useEffect(() => {
+    dispatch(getCourses({ page }));
+  }, [dispatch]);
+
+  const handleChange = async (e, value) => {
+    await setPage(value);
+    await dispatch(getCourses({ page: value }));
+    refresh ? setRefresh(false) : setRefresh(true);
+  };
+
   //---------------------------------------------------
 
   const arrowDir = () => {
@@ -123,7 +120,6 @@ function Courses() {
     if (direction === "up") dispatch(setArrowUpDown("down"));
     setActiveArrow(!activeArrow);
   };
-
   return (
     <ThemeProvider
       theme={tema === "light" ? (style = lightTheme) : (style = darkTheme)}
@@ -137,7 +133,9 @@ function Courses() {
                 placeholder="Buscar curso"
                 className={style.input}
               />
-              {searchError.err && <label className={style.errSearch}>{searchError.err}</label>}
+              {searchError.err && (
+                <label className={style.errSearch}>{searchError.err}</label>
+              )}
             </form>
             <p className={activeArrow ? style.pActive : style.p}>Ordenar por</p>
             <select
@@ -180,25 +178,31 @@ function Courses() {
               <label>En Progreso</label>
               <input type="radio" value="En progreso" name="progreso"></input>
             </div>
+            <div className={style.pagination}>
+              <Pagination
+                count={paginateObj.totalPages}
+                page={page}
+                onChange={handleChange}
+                variant="outlined"
+                color="secondary"
+              />
+            </div>
             <div className={style.icon} onClick={arrowDir}>
               <ArrowsUpDown />
             </div>
           </div>
           <div className={style.flexContainer2}>
-          {searchError.err?
-            <h1>NOT FOUND</h1>
-            :
-            <div className={style.container2}>
-              <CoursesCard
-                courses={showedCourses}
-                setRefresh={setRefresh}
-                refresh={refresh}
-              />
-            </div>
-          }
-          </div>
-          <div>
-            <Pagination count={paginationObj.totalPages} page={page} onChange={handleChange} variant="outlined" color="secondary" />
+            {searchError.err ? (
+              <h1>NOT FOUND</h1>
+            ) : (
+              <div className={style.container2}>
+                <CoursesCard
+                  courses={showedCourses}
+                  setRefresh={setRefresh}
+                  refresh={refresh}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

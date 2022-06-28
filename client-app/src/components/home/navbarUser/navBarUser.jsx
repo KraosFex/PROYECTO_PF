@@ -2,10 +2,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { themeSwitcher } from "../../../../redux/actions/index.js";
-
-//component
-import LogOut from '../../logOut/logOut'
+import { themeSwitcher } from "../../../../redux/reducer/index.js";
 
 //  styles
 import { ThemeProvider } from "styled-components";
@@ -21,15 +18,18 @@ import CursoIcon from "../../../icons/libro.jsx";
 import Notification from "../../../icons/notification";
 import Sun from "../../../icons/sun";
 import Arrows from "../../../icons/arrows.jsx";
-import { setArrowDirection } from "../../../../redux/actions/index.js";
+import { setArrowDirection } from "../../../../redux/reducer/index.js";
+import LogOut from "../../logout/logout.jsx";
 
 function NavBarUser() {
   const dispatch = useDispatch();
 
-  const isLogged = useSelector((store) => store.isLogged);
-  const user = useSelector((store) => store.user);
-  const theme = useSelector((store) => store.theme);
-  const direction = useSelector((store) => store.arrowDirection);
+  const isLogged = useSelector((state) => state.reducerCompleto.isLogged);
+  const user = useSelector((state) => state.reducerCompleto.user);
+  const theme = useSelector((state) => state.reducerCompleto.theme);
+  const direction = useSelector(
+    (state) => state.reducerCompleto.arrowDirection
+  );
 
   let body;
   let style;
@@ -74,7 +74,7 @@ function NavBarUser() {
         setActive(false);
       }
     });
-  });
+  }, []);
   return (
     <ThemeProvider
       theme={theme === "light" ? (style = lightTheme) : (style = darkTheme)}
@@ -132,11 +132,9 @@ function NavBarUser() {
             <NavLink to="/home" data-dropdown-button>
               Inicio
             </NavLink>
-            {isLogged ?
-                  (
-                    <LogOut />
-                  )
-               : (
+            {isLogged ? (
+              <LogOut />
+            ) : (
               <>
                 <NavLink to="/login" data-dropdown-button>
                   Log In

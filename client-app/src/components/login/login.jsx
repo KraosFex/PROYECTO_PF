@@ -1,10 +1,11 @@
 // libraries
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // redux actions
 import { login, auhtGoogle } from "../../../redux/actions/index";
+import { setAuthToken } from "../../../redux/reducer";
 
 // childrend component
 import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";
@@ -59,12 +60,11 @@ function Login() {
     } else {
       event.preventDefault();
 
-      const response = await dispatch(
+      const dis = await dispatch(
         login({ email: input.email, password: input.password })
       );
-
-      if (response.success) {
-        localStorage.setItem("authToken", response.token);
+      var response = dis.payload;
+      if (response.success === true) {
         setLogError({});
         navigateTo("/home");
       } else {
@@ -74,10 +74,9 @@ function Login() {
   };
 
   const handleCallBackResponse = async (response) => {
-    const data = await dispatch(auhtGoogle(response.credential));
-
+    const dis = await dispatch(auhtGoogle(response.credential));
+    const data = dis.payload;
     if (data.success) {
-      localStorage.setItem("authToken", data.token);
       setLogError({});
       navigateTo("/home");
     } else {

@@ -1,58 +1,53 @@
 // libraries
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { findCourse } from "../../../redux/actions";
+import { findCourse } from "../../../redux/actions/index";
 import { useParams } from "react-router-dom";
 
 // hardDate
+import { CursoBase } from "./CurssoBase";
 import RatingB from "./rating/rating";
-
 // styles
 import { ThemeProvider } from "styled-components";
 import darkTheme from "./courseDark.module.css";
 import lightTheme from "./courseLight.module.css";
 import LessonSumary from "./lessonSumary/lessonSumary";
-import { setArrowCourse } from "../../../redux/actions";
+import { setArrowCourse } from "../../../redux/reducer/index";
 import ArrowsCourse from "../../icons/arrowsCourse";
 
 export default function CourseDetail(props) {
-  let { idCourse } = useParams();
+  let { id } = useParams();
 
   let dispatch = useDispatch();
+  const [refresh, setRefresh] = useState(false);
   const [activeArrow, setActiveArrow] = useState(false);
-
-
- //forcing the re-render of the component
-  const [refresh, setRefresh] = useState(false)
-
   const [course, setCourse] = useState({});
-  const direction = useSelector((store) => store.arrowCourse);
-  const user = useSelector((store) => store.user);
-  const isLogged = useSelector((store) => store.isLogged);
-
+  const direction = useSelector((state) => state.reducerCompleto.arrowCourse);
+  const user = useSelector((state) => state.reducerCompleto.user);
+  const isLogged = useSelector((state) => state.reducerCompleto.isLogged);
+  let Curso = course;
   const [idClase, setIdClase] = useState("");
   let style = darkTheme;
 
   useEffect(() => {
     async function axionReq() {
-      const data = await dispatch(findCourse(idCourse));
-      setCourse(data);
+      const data = await dispatch(findCourse(id));
+      setCourse(data.payload);
     }
     axionReq();
   }, [dispatch]);
 
-
   if (isLogged && idClase) {
-    let usercourse = user.courses.find((o) => o.course._id === idCourse);
-    if(usercourse) {
-      var lesson = usercourse.course.lessons.find((o) => o.lesson._id === idClase);
+    let usercourse = user.courses.find((o) => o.course._id === id);
+    if (usercourse) {
+      var lesson = usercourse.course.lessons.find(
+        (o) => o.lesson._id === idClase
+      );
     } else {
       lesson = course.lessons.find((o) => o.lesson._id === idClase);
     }
-
   } else if (idClase) {
     lesson = course.lessons.find((o) => o.lesson._id === idClase);
-
   }
 
   const arrowDir = () => {
@@ -61,21 +56,18 @@ export default function CourseDetail(props) {
     setActiveArrow(!activeArrow);
   };
 
-
   const createCalification = () => {
-    if(course.votes && course.votes.length){
+    if (course.votes && course.votes.length) {
       let calification = 0;
-      for(const vote of course.votes) {
+      for (const vote of course.votes) {
         calification += vote;
       }
       return Math.ceil(calification / course.votes.length);
     } else {
       return 0;
     }
+  };
 
-  }
-
-console.log(course.lessons)
   return (
     <ThemeProvider
       theme={
@@ -93,7 +85,11 @@ console.log(course.lessons)
               <label className={style.label}>
                 Usuarios Inscriptos: {course.userIncript}
               </label>
-              <RatingB  idCourse={idCourse} setRefresh={setRefresh} refresh={refresh}/>
+              <RatingB
+                idCourse={id}
+                setRefresh={setRefresh}
+                refresh={refresh}
+              />
             </div>
             <img className={style.imagen} alt="" src={course.imagen} />
           </div>
@@ -166,7 +162,11 @@ console.log(course.lessons)
                 </div>
               </div>
               <div className={style.lessonSumary}>
-                <LessonSumary lessons={lesson} idCourse={idCourse} isLogged={isLogged}/>
+                <LessonSumary
+                  lessons={lesson}
+                  idCourse={id}
+                  isLogged={isLogged}
+                />
               </div>
             </div>
           </div>

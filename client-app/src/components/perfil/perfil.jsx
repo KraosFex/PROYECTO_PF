@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-// import children components
+// import shildren components
 import YourCourse from "./yourCourse/yourCourse";
 import UsernamePopUp from "./popUps/usernamePopUp.jsx";
 import PasswordPopUp from "./popUps/passwordPopUp.jsx";
-import ImagePopUp from "./popUps/imagePopUp.jsx";
-
+import ImagePopUp from "./popUps/imagePopUp";
 
 // import stiles
 import darkTheme from "./perfilDark.module.css";
@@ -16,14 +15,12 @@ import JSIcon from "../../icons/javascript";
 import { ThemeProvider } from "styled-components";
 
 const Perfil = (props) => {
-
   var style = darkTheme;
-
   const [usernamePopUp, setUsernamePopUp] = useState(false);
   const [passwordPopUp, setPasswordPopUp] = useState(false);
   const [imagePopUp, setImagePopUp] = useState(false);
 
-  const { user } = useSelector(store => store)
+  const user = useSelector((state) => state.reducerCompleto.user);
 
   const popUpFunction = (specification, bool) => {
     if (specification === "password") setPasswordPopUp(bool);
@@ -36,10 +33,10 @@ const Perfil = (props) => {
       <div className={style.cartYourCourse} key={course.id}>
         <label className={style.cursos}> {course.titulo} </label>
         <label className={style.cursos}>
-          {course.isFavorito === true ? "FAVORITO" : "NOT FAVORITO"}
+          {course.favorito === true ? "FAVORITO" : "NOT FAVORITO"}
         </label>
-        <label className={style.cursos}> {course.lecciones_Totales} </label>
-        <label className={style.cursos}> {course.lecciones_Termidas} </label>
+        <label className={style.cursos1}> {course.lecciones_Totales} </label>
+        <label className={style.cursos1}> {course.lecciones_Termidas} </label>
         <div className={style.lenguaje}>
           <JSIcon lenguajes={course.lenguaje} />
         </div>
@@ -56,53 +53,62 @@ const Perfil = (props) => {
       <div className={style.containerHeader}>
         <div className={style.containerPerfil}>
           <div className={style.perfilDates}>
-            <div className={style.containerImg}>
-              <img
-                className={style.imgPerfil}
-                src={user.Image}
-                alt="aqui va un imagen"
-                referrerPolicy="no-referrer"
-              />
-              <button className={style.imgChanger} onClick={() => popUpFunction("image", true)}>cambiar</button>
-            </div>
-            <div className={style.userDetail}>
-              <div className={style.userFlex}>
-                <div className={style.Username}>
-                  <span>{user.username}</span>
-                </div>
+            <div className={style.flexResponsive}>
+              <div className={style.containerImg}>
+                <img
+                  className={style.imgPerfil}
+                  src={user.Image}
+                  alt="aqui va un imagen"
+                  referrerPolicy="no-referrer"
+                />
                 <button
-                  className={style.popup}
-                  onClick={() => popUpFunction("username", true)}
+                  className={style.imgChanger}
+                  onClick={() => popUpFunction("image", true)}
                 >
-                  Editar
-                </button>
-                <button
-                  className={style.popupPassword}
-                  onClick={() => popUpFunction("password", true)}
-                >
-                  Cambiar Contraseña
+                  cambiar
                 </button>
               </div>
-              <div className={style.flex}>
-                <div className={style.item}>
-                  <div>
-                    <label> Name: </label>
-                    <span> {user.name} </span>
+              <div className={style.userDetail}>
+                <div className={style.userFlex}>
+                  <div className={style.Username}>
+                    <span>{user.username}</span>
                   </div>
-                  <div>
-                    <label> Email: </label>
-                    <span> {user.email} </span>
+                  <div className={style.popupButtons}>
+                    <button
+                      className={style.popup}
+                      onClick={() => popUpFunction("username", true)}
+                    >
+                      Editar usuario
+                    </button>
+                    <button
+                      className={style.popupPassword}
+                      onClick={() => popUpFunction("password", true)}
+                    >
+                      Cambiar Contraseña
+                    </button>
                   </div>
                 </div>
-                <div className={style.item}>
-                  <div>
-                    <label> Miembro desde:</label>
-                    <span> {user.Member_Since || "sin implementar"} </span>
-                  </div>
-                  <div>
-                    <label> Visto por última vez: </label>
-                    <span> {user.Last_Seen || "sin implementar"} </span>
-                  </div>
+              </div>
+            </div>
+            <div className={style.flex}>
+              <div className={style.item}>
+                <div>
+                  <label> Name: </label>
+                  <span> {user.name} </span>
+                </div>
+                <div>
+                  <label> Email: </label>
+                  <span> {user.email} </span>
+                </div>
+              </div>
+              <div className={style.item}>
+                <div>
+                  <label> Miembro desde:</label>
+                  <span> {user.Member_Since || "sin implementar"} </span>
+                </div>
+                <div>
+                  <label> Visto por última vez: </label>
+                  <span> {user.Last_Seen || "sin implementar"} </span>
                 </div>
               </div>
             </div>

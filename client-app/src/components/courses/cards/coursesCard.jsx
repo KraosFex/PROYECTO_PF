@@ -5,7 +5,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 // Redux actions
-import { bookmarkCourse, unmarkfavorites } from "../../../../redux/actions";
+import {
+  bookmarkCourse,
+  unmarkfavorites,
+} from "../../../../redux/actions/index";
 
 // styles
 import { ThemeProvider } from "styled-components";
@@ -19,31 +22,31 @@ let style = darkTheme;
 function CoursesCard({ courses, setRefresh, refresh }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const theme = useSelector((store) => store.theme);
-  const isLogged = useSelector((store) => store.isLogged);
-
-  const { user } = useSelector((store) => store);
+  const theme = useSelector((state) => state.reducerCompleto.theme);
+  const isLogged = useSelector((state) => state.reducerCompleto.isLogged);
+  const token = useSelector((state) => state.reducerCompleto.authToken);
+  const { user } = useSelector((state) => state.reducerCompleto);
 
   const handleClick = (id, isFavorite) => {
     if (isFavorite) {
-      console.log("entre aca")
-      dispatch(unmarkfavorites(id));
+      dispatch(unmarkfavorites({ id, token }));
     } else {
-      dispatch(bookmarkCourse(id));
+      dispatch(bookmarkCourse({ id, token }));
     }
     refresh ? setRefresh(false) : setRefresh(true);
   };
 
-  //FUNCION PARA SABER SI EL CURSO ES UNO FAVORITO O NO
+  // FUNCION PARA SABER SI EL CURSO ES UNO FAVORITO O NO
   const isFavorite = (id) => {
     for (const course of user.courses) {
       if (course.course._id === id && course.isFavorite === true) {
-        return <AiFillHeart onClick={() => handleClick(course.course._id, true)} />;
+        return (
+          <AiFillHeart onClick={() => handleClick(course.course._id, true)} />
+        );
       }
     }
     return <AiOutlineHeart onClick={() => handleClick(id, false)} />;
   };
-
   return (
     <div>
       {courses.map((course) => (

@@ -63,9 +63,8 @@ function PaymentGateway() {
 
 //despues cuando procesa llega un objeto con mucha instanceOf, alli si me lo regresas para entonces hacer lo del premium, q estoy en eso..
 
-
 import { useState } from "react";
-import {loadStripe} from '@stripe/stripe-js';
+import { loadStripe } from "@stripe/stripe-js";
 
 let stripePromise;
 
@@ -78,21 +77,19 @@ const getStripe = () => {
 };
 
 const PaymentGateway = () => {
-
-
   const [stripeError, setStripeError] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
   const item = {
     price: "price_1LEK25Kjg0F9xTQTeGbXFs86",
-    quantity: 1
+    quantity: 1,
   };
 
   const checkoutOptions = {
     lineItems: [item],
     mode: "payment",
-    successUrl: `${window.location.origin}/success`,
-    cancelUrl: `${window.location.origin}/Home`
+    successUrl: `http://127.0.0.1:3000/success`,
+    cancelUrl: `http://127.0.0.1:3000/home`,
   };
 
   const redirectToCheckout = async () => {
@@ -117,11 +114,7 @@ const PaymentGateway = () => {
         Learn how to build a website with React Hooks
       </p>
       <h1 className="checkout-price">$19</h1>
-      <img
-        className="checkout-product-image"
-        src="#"
-        alt="Product"
-      />
+      <img className="checkout-product-image" src="#" alt="Product" />
       <button
         className="checkout-button"
         onClick={redirectToCheckout}
