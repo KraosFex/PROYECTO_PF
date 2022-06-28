@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "star": "node ./index.js",
     "dev": "nodemon ./index.js"
   },
   "keywords": [],
