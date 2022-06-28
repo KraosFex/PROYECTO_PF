@@ -65,6 +65,22 @@ const editUsername = async (req, res, next) => {
   }
 }
 
+const editImage = async (req, res, next) => {
+
+  const  id  = req.user._id
+  const { url } = req.body
+
+  try {
+    const user = await User.findByIdAndUpdate(id, { Image: url }, { new: true })
+
+    if (!user) { return res.status(404).send({info: "usuario no encontrado", success: false}) }
+    const updateUser = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
+    res.send({info: "imagen de perfil actualizado", success: true, updateUser})
+  } catch (err) {
+    res.status(500).send({info: "Algo salio mal", success: false, err})
+  }
+}
+
 const overallPosition = async (req, res) => {
   const { id } = req.params
   try {
@@ -210,6 +226,7 @@ module.exports = {
   deleteUser,
   banUsers,
   permaBanUsers,
-  isPremium
+  isPremium,
+  editImage
 
 }

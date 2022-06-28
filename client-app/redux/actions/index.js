@@ -223,6 +223,29 @@ export const editPassword = (email) => {
   };
 };
 
+export const editImage = (url) => {
+  return async function (dispatch) {
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+    };
+
+    try {
+      const metaData = await axios.put(
+        `/api/usersprivate/editImage/profile`,
+        { url: url },
+        config
+      );
+      dispatch(updateUser(metaData.data.updateUser));
+      return metaData.data;
+    } catch (err) {
+      return err.response.data
+    }
+  };
+};
+
 export const getCourses = () => {
   return async function (dispatch) {
     try {

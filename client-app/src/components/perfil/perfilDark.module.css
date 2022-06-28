@@ -3,14 +3,14 @@
     width: 7em;
     height: 7em;
     border-radius: 0.2em;
-  
+
   }
-  
+
   .container {
     max-width: 100vw;
     width: 95%;
   }
-    
+
   /* STYLES COMPONENT */
   .containerHeader {
     display: flex;
@@ -19,9 +19,9 @@
     align-items: center;
     width: 100vw;
     height: 100vh;
-  
+
   }
-  
+
   .containerPerfil {
     width: 70%;
     height: 15em;
@@ -29,10 +29,10 @@
     margin-bottom: 45px;
     background: rgb(54, 54, 54);
     border-radius: 0.5em;
-    -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11); 
+    -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
     box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
   }
-  
+
   .perfilDates {
     display: flex;
     flex-direction: row;
@@ -41,11 +41,11 @@
     font-size: 16px;
     color: #fff;
   }
-  
+
   .containerImg{
     margin: 22px;
   }
-  
+
   .userDetail{
     margin: 20px;
   }
@@ -60,7 +60,7 @@
     margin-top: 0.5em;
     color: #a5a5a5;
   }
-  
+
   .Username {
     display: flex;
     align-items: center;
@@ -70,9 +70,9 @@
     background-color: rgb(41, 41, 41);
     border-radius: 6px 30px 30px 6px;
     border: 1px solid #474747;
-    -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11); 
+    -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
     box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
-  
+
   }
 
   .Username span{
@@ -112,7 +112,7 @@
     flex-direction: row;
     align-content: center;
   }
-  
+
   .popup{
     margin-left: 4em;
     height: 2em;
@@ -134,4 +134,12 @@
     background: rgb(54, 54, 54);
     color: #fff;
 
+  }
+
+  .imgChanger {
+    position: relative;
+    right: 4.45em;
+    bottom: .3em;
+    border: none;
+    border-radius: 0 0 1px 0;
   }
