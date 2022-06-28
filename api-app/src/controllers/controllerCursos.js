@@ -28,6 +28,7 @@ const getCursoById = async (req, res, next) => {
     console.error(err)
   }
 }
+
 const getCursoName = async (req, res) => {
   const $regex = req.params.name
   try {
