@@ -17,6 +17,17 @@ else if (specification === "email") {
 }
 
 
+else if (specification === "URL") {
+  if (!input.URL) {
+    error.URL = 'URL is required'
+  } else if (!/^[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/.test(input.URL)) {
+    error.URL = 'URL is invalid'
+  }
+}
+
+
+
+
 
 
   return error

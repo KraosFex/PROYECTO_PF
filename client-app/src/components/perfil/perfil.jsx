@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-// import shildren components
+// import children components
 import YourCourse from "./yourCourse/yourCourse";
 import UsernamePopUp from "./popUps/usernamePopUp.jsx";
 import PasswordPopUp from "./popUps/passwordPopUp.jsx";
+import ImagePopUp from "./popUps/imagePopUp.jsx";
+
 
 // import stiles
 import darkTheme from "./perfilDark.module.css";
@@ -14,22 +16,27 @@ import JSIcon from "../../icons/javascript";
 import { ThemeProvider } from "styled-components";
 
 const Perfil = (props) => {
+
   var style = darkTheme;
+
   const [usernamePopUp, setUsernamePopUp] = useState(false);
   const [passwordPopUp, setPasswordPopUp] = useState(false);
+  const [imagePopUp, setImagePopUp] = useState(false);
 
   const { user } = useSelector(store => store)
 
   const popUpFunction = (specification, bool) => {
     if (specification === "password") setPasswordPopUp(bool);
     else if (specification === "username") setUsernamePopUp(bool);
+    else if (specification === "image") setImagePopUp(bool);
   };
+
   const coursesAll = user.courses.map((course) => {
     return (
       <div className={style.cartYourCourse} key={course.id}>
         <label className={style.cursos}> {course.titulo} </label>
         <label className={style.cursos}>
-          {course.favorito === true ? "FAVORITO" : "NOT FAVORITO"}
+          {course.isFavorito === true ? "FAVORITO" : "NOT FAVORITO"}
         </label>
         <label className={style.cursos}> {course.lecciones_Totales} </label>
         <label className={style.cursos}> {course.lecciones_Termidas} </label>
@@ -56,6 +63,7 @@ const Perfil = (props) => {
                 alt="aqui va un imagen"
                 referrerPolicy="no-referrer"
               />
+              <button className={style.imgChanger} onClick={() => popUpFunction("image", true)}>cambiar</button>
             </div>
             <div className={style.userDetail}>
               <div className={style.userFlex}>
@@ -109,6 +117,9 @@ const Perfil = (props) => {
           ) : null}
           {passwordPopUp ? (
             <PasswordPopUp popUpFunction={popUpFunction} email={user.email} />
+          ) : null}
+          {imagePopUp ? (
+            <ImagePopUp popUpFunction={popUpFunction} email={user.email} />
           ) : null}
         </div>
       </div>
