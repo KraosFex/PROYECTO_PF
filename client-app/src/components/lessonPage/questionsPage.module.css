@@ -105,3 +105,12 @@
 .button svg {
   margin-right: 5px;
 }
+
+
+@media (max-width: 768px) {
+  .quiz{
+    max-width: 25em;
+    min-width: 16em;
+  }
+
+}
