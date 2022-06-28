@@ -228,7 +228,7 @@ export const getCourses = (page) => {
     try {
       const metaData = await axios.get(`/api/cursos/?limit=8&page=${page}`);
       dispatch(setCourses(metaData.data.docs));
-      dispatch(setShowedCourses(metaData.data.docs));
+      dispatch(setShowedCourses(metaData.data));
     } catch (err) {
       alert("Ups! Something went wrong...");
     }
@@ -327,8 +327,8 @@ export const getAllUsers = (page) => {
         `/api/usersprivate/?limit=8&page=${page}`,
         config
       );
-      dispatch(setAllUsers(metaData.data.users.docs));
-      dispatch(setShowedUsers(metaData.data.users.docs));
+      dispatch(setAllUsers(metaData.data.users));
+      dispatch(setShowedUsers(metaData.data.users));
     } catch (err) {
       return err.response.data;
     }

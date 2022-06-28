@@ -32,7 +32,7 @@ function UserPage() {
     <div className={style.flexContainer}>
       <div className={style.highContainer}>
         <SearchProfiles />
-        {showedUsers.map((user) => {
+        {showedUsers.docs.map((user) => {
           if (actualUser._id !== user._id) {
             return (
               <UserCard
@@ -49,7 +49,7 @@ function UserPage() {
           }
         })}
         <div>
-          <Pagination count={courses.length} page={page} onChange={handleChange} variant="outlined" color="secondary" />
+          <Pagination count={showedUsers.totalPages} page={page} onChange={handleChange} variant="outlined" color="secondary" />
         </div>
       </div>
     </div>

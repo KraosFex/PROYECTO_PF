@@ -31,7 +31,7 @@ function Courses() {
 
   const tema = useSelector((store) => store.theme);
   const courseSearch = useSelector((store) => store.showedCourses);
-  let showedCourses = courseSearch;
+  let showedCourses = courseSearch.docs;
   const direction = useSelector((store) => store.arrowUpDown);
 
   //forcing the re-render of the component
@@ -92,13 +92,13 @@ function Courses() {
         setSerachError({err: data.info});
     } else {
       setSerachError({});
-      showedCourses = courseSearch;
+      showedCourses = courseSearch.docs;
     }
     } else {
       // ahora esto solo deberia hacer un # setPage(1), en vez de un dispatch
       dispatch(getCourses());
       setSerachError({});
-      showedCourses = courseSearch;
+      showedCourses = courseSearch.docs;
     }
   };
 
@@ -192,7 +192,7 @@ function Courses() {
           }
           </div>
           <div>
-            <Pagination count={courses.length} page={page} onChange={handleChange} variant="outlined" color="secondary" />
+            <Pagination count={courseSearch.totalPages} page={page} onChange={handleChange} variant="outlined" color="secondary" />
           </div>
         </div>
       </div>
