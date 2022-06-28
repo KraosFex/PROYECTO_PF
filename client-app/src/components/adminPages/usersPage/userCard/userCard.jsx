@@ -14,23 +14,22 @@ function UserCard({ id, name, username, email, isAdmin, image, courses }) {
   const dispatch = useDispatch();
   const [banearPopUp, setBanear] = useState(false);
   const token = useSelector((state) => state.reducerCompleto.authToken);
-
   const popUpFunction = (change) => {
     setBanear(change);
   };
 
   const deleteFunction = async () => {
     await dispatch(deleteUser({ userId: id, token }));
-    dispatch(getAllUsers(token));
+    dispatch(getAllUsers({ token }));
   };
 
   const adminFunction = async (e) => {
     if (e.target.name === "add_admin") {
       await dispatch(isAdminConverter({ userId: id, boolean: true, token }));
-      dispatch(getAllUsers(token));
+      dispatch(getAllUsers({ token }));
     } else if (e.target.name === "delete_admin") {
       await dispatch(isAdminConverter({ userId: id, boolean: false, token }));
-      dispatch(getAllUsers(token));
+      dispatch(getAllUsers({ token }));
     }
   };
 

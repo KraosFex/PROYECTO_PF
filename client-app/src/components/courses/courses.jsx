@@ -1,8 +1,8 @@
 // libraries
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCourseByName } from "../../../redux/actions/index";
-
+import Pagination from "@mui/material/Pagination";
 import { setArrowUpDown } from "../../../redux/reducer/index";
 import { getCourses } from "../../../redux/actions/index";
 // utils
@@ -31,17 +31,20 @@ function Courses() {
   );
   var showedCourses = courseSearch;
   const direction = useSelector((state) => state.reducerCompleto.arrowUpDown);
+  const token = useSelector((state) => state.reducerCompleto.authToken);
+  const paginateObj = useSelector(
+    (state) => state.reducerCompleto.paginateCourses
+  );
 
   //forcing the re-render of the component
   const [refresh, setRefresh] = useState(true);
   const [activeArrow, setActiveArrow] = useState(false);
   const [searchError, setSerachError] = useState({});
-
-  // AGREGADO  PRUEBA--------------------------------
   const [order, setCourseOrder] = useState("");
   const [tipo1, setTipo1] = useState("0");
   const [tipo2, setTipo2] = useState("0");
   const [tipo3, setTipo3] = useState("0");
+  const [page, setPage] = useState(1);
 
   const orderBy = (e) => {
     setCourseOrder(e.target.value);
@@ -87,7 +90,7 @@ function Courses() {
         showedCourses = courseSearch;
       }
     } else {
-      dispatch(getCourses());
+      dispatch(getCourses({}));
       showedCourses = courseSearch;
     }
   };
@@ -99,6 +102,16 @@ function Courses() {
   )
     showedCourses = lenguaje(tipo1, tipo2, tipo3, showedCourses);
   if (order) showedCourses = ordered(order, showedCourses);
+
+  useEffect(() => {
+    dispatch(getCourses({ page }));
+  }, [dispatch]);
+
+  const handleChange = async (e, value) => {
+    await setPage(value);
+    await dispatch(getCourses({ page: value }));
+    refresh ? setRefresh(false) : setRefresh(true);
+  };
 
   //---------------------------------------------------
 
@@ -164,6 +177,15 @@ function Courses() {
               ></input>
               <label>En Progreso</label>
               <input type="radio" value="En progreso" name="progreso"></input>
+            </div>
+            <div className={style.pagination}>
+              <Pagination
+                count={paginateObj.totalPages}
+                page={page}
+                onChange={handleChange}
+                variant="outlined"
+                color="secondary"
+              />
             </div>
             <div className={style.icon} onClick={arrowDir}>
               <ArrowsUpDown />

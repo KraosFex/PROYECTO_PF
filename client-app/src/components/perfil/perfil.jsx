@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import YourCourse from "./yourCourse/yourCourse";
 import UsernamePopUp from "./popUps/usernamePopUp.jsx";
 import PasswordPopUp from "./popUps/passwordPopUp.jsx";
+import ImagePopUp from "./popUps/imagePopUp";
 
 // import stiles
 import darkTheme from "./perfilDark.module.css";
@@ -17,13 +18,16 @@ const Perfil = (props) => {
   var style = darkTheme;
   const [usernamePopUp, setUsernamePopUp] = useState(false);
   const [passwordPopUp, setPasswordPopUp] = useState(false);
+  const [imagePopUp, setImagePopUp] = useState(false);
 
   const user = useSelector((state) => state.reducerCompleto.user);
 
   const popUpFunction = (specification, bool) => {
     if (specification === "password") setPasswordPopUp(bool);
     else if (specification === "username") setUsernamePopUp(bool);
+    else if (specification === "image") setImagePopUp(bool);
   };
+
   const coursesAll = user.courses.map((course) => {
     return (
       <div className={style.cartYourCourse} key={course.id}>
@@ -57,6 +61,12 @@ const Perfil = (props) => {
                   alt="aqui va un imagen"
                   referrerPolicy="no-referrer"
                 />
+                <button
+                  className={style.imgChanger}
+                  onClick={() => popUpFunction("image", true)}
+                >
+                  cambiar
+                </button>
               </div>
               <div className={style.userDetail}>
                 <div className={style.userFlex}>
@@ -113,6 +123,9 @@ const Perfil = (props) => {
           ) : null}
           {passwordPopUp ? (
             <PasswordPopUp popUpFunction={popUpFunction} email={user.email} />
+          ) : null}
+          {imagePopUp ? (
+            <ImagePopUp popUpFunction={popUpFunction} email={user.email} />
           ) : null}
         </div>
       </div>

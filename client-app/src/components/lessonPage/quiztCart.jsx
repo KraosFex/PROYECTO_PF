@@ -1,5 +1,7 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { setRefresh } from "../../../redux/reducer";
+import { useSelector, useDispatch } from "react-redux";
 
 // style
 import style from "./questionsPage.module.css";
@@ -14,7 +16,7 @@ export default function QuiztCart({
     const estandarTime = 10; //en segundos
 
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
     const [preguntaActual, setPreguntaActual] = useState(0);
     const [puntuacion, setpuntuacion] = useState(0);
     const [isFinished, setIsFinished] = useState(false);
@@ -44,7 +46,6 @@ export default function QuiztCart({
         }
       }, 1500);
     }
-
     useEffect(() => {
       const intervalo = setInterval(() => {
         if (tiempoRestante > 0) setTiempoRestante((prev) => prev - 1);
@@ -58,7 +59,7 @@ export default function QuiztCart({
       return (
         <main className={style.quiz}>
           <div className={style.juego_terminado}>
-            <span>{approved ? "is approved" : "not approved"}</span>
+            <span>{approved ? "Aprobado" : "Vuelve a intentarlo"}</span>
             <span>
               {" "}
               Obtuviste {puntuacion} de {questions.length}{" "}
@@ -66,12 +67,12 @@ export default function QuiztCart({
             <button
               onClick={() => {
                 setIsFinished(false);
-                setAnswersShown(true);
+                setAnswersShown(false);
                 setPreguntaActual(0);
               }}
               className={style.button}
             >
-              Ver respuestas
+              Volver a intentar
             </button>
           </div>
         </main>
@@ -82,7 +83,10 @@ export default function QuiztCart({
         <main className={style.quiz}>
           <div className={`${style.lado_izquierdo}`}>
             <div className={`${style.pregunta_numero}`}>
-              <span> Pregunta {preguntaActual + 1} de</span> {questions.length}
+              <span>
+                {" "}
+                Pregunta {preguntaActual + 1} de {questions.length}
+              </span>
             </div>
             <div className={`${style.titulo_pregunta}`}>
               {questions[preguntaActual].titulo}
@@ -98,7 +102,7 @@ export default function QuiztCart({
               className={style.button}
               onClick={() => {
                 if (preguntaActual === questions.length - 1) {
-                  navigate(`/course/${idCourse}`);
+                  dispatch(setRefresh(Math.random()));
                 } else {
                   setPreguntaActual(preguntaActual + 1);
                 }
@@ -116,7 +120,10 @@ export default function QuiztCart({
       <main className={style.quiz}>
         <div className={style.lado_izquierdo}>
           <div className={`${style.pregunta_numero}`}>
-            <span> Pregunta {preguntaActual + 1} de</span> {questions.length}
+            <span>
+              {" "}
+              Pregunta {preguntaActual + 1} de {questions.length}
+            </span>
           </div>
           <div className={`${style.titulo_pregunta}`}>
             {questions[preguntaActual].titulo}

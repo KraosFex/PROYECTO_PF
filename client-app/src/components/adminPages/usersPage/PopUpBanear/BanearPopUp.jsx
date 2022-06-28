@@ -2,7 +2,7 @@ import style from "./popUp.module.css";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { useState } from "react";
 import { Banear } from "../../../../../redux/actions/index";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function BanearPopUp({ popUpFunction, id }) {
   let today1 = new Date();
@@ -27,7 +27,6 @@ export default function BanearPopUp({ popUpFunction, id }) {
     date = `${date[1]} ${1 + parseInt(date[2])} ${date[3]}`;
     let errores = await dispatch(Banear({ userId: id, date, token }));
     setError(errores);
-    console.log(errores);
   }
 
   return (

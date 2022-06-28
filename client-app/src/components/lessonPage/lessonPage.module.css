@@ -1,21 +1,23 @@
 .highContainer {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
+
 }
 
 .infoContainer {
-  align-self: center;
+  margin-top: 5em;
   display: flex;
   width: 70%;
-  min-height: 85%;
+  min-height: 30%;
   padding: 1em;
   flex-direction: column;
   border-radius: .5em;
   background-color: rgb(250, 250, 250) ;
   -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11); 
   box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
+  margin-bottom: 5em;
 
 }
 
@@ -23,7 +25,6 @@
   width: 900px;
   margin-top: 3em;
   align-self: center;
-  background-color: aqua;
 }
 
 .flexContainerDescrip{
@@ -45,6 +46,7 @@ margin-top: 3em;
   background-color: rgb(240, 240, 240);
   border: 1px solid rgb(198, 198, 198);
   border-radius: .3em;
+  margin-bottom: 2em;
 }
 
 .isReady:hover{

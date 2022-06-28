@@ -33,7 +33,6 @@ function App() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getCourses());
     dispatch(getRanking());
   }, [dispatch]);
 

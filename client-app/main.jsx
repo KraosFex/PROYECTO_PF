@@ -5,8 +5,10 @@ import { BrowserRouter } from "react-router-dom";
 import store, { Persistor } from "./redux/store/Store";
 import App from "./src/App";
 import { PersistGate } from "redux-persist/integration/react";
+import axios from "axios";
 
-//axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:3001";
+axios.defaults.baseURL =
+  import.meta.env.VITE_BACK_ROUTE || "http://localhost:3001/";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>

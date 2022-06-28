@@ -144,6 +144,9 @@
   height: 2em;
   color: rgb(226, 31, 50);
 }
+.pagination{
+  margin-top: 1em;
+}
 
 @media (max-width: 900px) {
 

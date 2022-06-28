@@ -24,6 +24,7 @@ export default function LessonPage() {
   const navigate = useNavigate();
 
   const token = useSelector((state) => state.reducerCompleto.authToken);
+  const refresh = useSelector((state) => state.reducerCompleto.refresh);
   useEffect(() => {
     async function axiosReq() {
       const data = await dispatch(getLesson({ id: idLesson, token }));
@@ -36,10 +37,22 @@ export default function LessonPage() {
     setIsReady(true);
   };
 
+  const goBottom = () => {
+    window.scrollTo({
+      top: document.body.offsetHeight,
+      behavior: "smooth",
+    });
+  };
+
+  console.log(refresh);
+  const startClick = (e) => {
+    handleStart();
+    setTimeout(() => goBottom(), 50);
+  };
+
   const handleApproved = (approved) => {
     setApproved(approved);
   };
-
   const handleNextLesson = async () => {
     const config = {
       headers: {
@@ -60,7 +73,7 @@ export default function LessonPage() {
       alert("lesson no se pudo completar correctamente. lessonPage.jsx");
     }
   };
-
+  console.log();
   return (
     <div className={style.highContainer}>
       <div className={style.infoContainer}>
@@ -76,9 +89,10 @@ export default function LessonPage() {
               handleApproved={handleApproved}
               approved={approved}
               idCourse={idCourse}
+              key={refresh}
             />
           ) : (
-            <button className={style.isReady} onClick={handleStart}>
+            <button className={style.isReady} onClick={startClick}>
               Comenzar Test
             </button>
           )}

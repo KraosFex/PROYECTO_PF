@@ -1,9 +1,10 @@
 import style from "./usersPage.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../../../../redux/actions/index";
 import UserCard from "./userCard/userCard.jsx";
 import SearchProfiles from "./searchProfiles/searchProfiles";
+import Pagination from "@mui/material/Pagination";
 
 function UserPage() {
   const dispatch = useDispatch();
@@ -11,10 +12,21 @@ function UserPage() {
   const showedUsers = useSelector((state) => state.reducerCompleto.showedUsers);
   const actualUser = useSelector((state) => state.reducerCompleto.user);
   const token = useSelector((state) => state.reducerCompleto.authToken);
+  const paginateObj = useSelector(
+    (state) => state.reducerCompleto.paginateUsers
+  );
+  const [page, setPage] = useState(1);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    dispatch(getAllUsers(token));
+    dispatch(getAllUsers({ token, page }));
   }, [dispatch]);
+
+  const handleChange = async (e, value) => {
+    await setPage(value);
+    await dispatch(getAllUsers({ token, page: value }));
+    refresh ? setRefresh(false) : setRefresh(true);
+  };
 
   return (
     <div className={style.flexContainer}>
@@ -36,6 +48,15 @@ function UserPage() {
             );
           }
         })}
+        <div>
+          <Pagination
+            count={paginateObj.totalPages}
+            page={page}
+            onChange={handleChange}
+            variant="outlined"
+            color="secondary"
+          />
+        </div>
       </div>
     </div>
   );

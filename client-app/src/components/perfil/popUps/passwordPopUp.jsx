@@ -79,6 +79,7 @@ const PasswordPopUp = ({ popUpFunction }) => {
           className={style.form}
           onSubmit={(e) => handleSubmit(e)}
           onChange={(e) => workOnChange(e)}
+          autoComplete="off"
         >
           <div className={style.inputs_container}>
             <input type="text" placeholder="Email" name="email"></input>

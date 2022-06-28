@@ -10,6 +10,7 @@
   display: flex;
   justify-content: space-evenly;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin-bottom: 2em;
 }
 
 /* PREGUNTAS */
@@ -38,6 +39,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-left: 3em;
 }
 
 /* FINALIZADO */
@@ -58,7 +60,7 @@
   border-radius: 15px;
   display: flex;
   padding: 5px;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   border: 2px solid #a30036;
   cursor: pointer;
@@ -66,7 +68,7 @@
 
 .tiempo_restante {
   font-size: 14px;
-  color: #fcbf3d;
+  color: #fc3d40;
   margin-bottom: 20px;
 }
 
@@ -87,6 +89,7 @@
 
 .button:hover {
   background-color: #ff1d43;
+  color: #ffffff;
 }
 
 .button[disabled] {

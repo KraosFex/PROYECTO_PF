@@ -1,17 +1,18 @@
 import style from "./popUp.module.css";
 import { AiFillCloseCircle } from "react-icons/ai";
-import { editUsername } from "../../../../redux/actions/index";
+import { editImage } from "../../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import validator from "../../../utils/updateProfileValidator";
 import { useState } from "react";
 
-const UsernamePopUp = ({ popUpFunction, id }) => {
+const ImagePopUp = ({ popUpFunction }) => {
+  const token = useSelector((state) => state.reducerCompleto.authToken);
+
   const dispatch = useDispatch();
 
   const [input, setInput] = useState({});
   const [error, setError] = useState({});
   const [updateError, setUpdateError] = useState({});
-  const token = useSelector((state) => state.reducerCompleto.authToken);
 
   const workOnChange = (event) => {
     setInput({
@@ -20,7 +21,7 @@ const UsernamePopUp = ({ popUpFunction, id }) => {
     });
 
     setError(
-      validator("username", {
+      validator("URL", {
         ...input,
         [event.target.name]: event.target.value,
       })
@@ -39,16 +40,16 @@ const UsernamePopUp = ({ popUpFunction, id }) => {
       event.preventDefault();
 
       setError(
-        validator("username", {
+        validator("URL", {
           ...input,
           [event.target.name]: event.target.value,
         })
       );
     } else {
       event.preventDefault();
-      const response = await dispatch(
-        editUsername({ username: input.username, id, token })
-      );
+      const response = await dispatch(editImage({ token, url: input.URL }));
+      console.log(input.url);
+
       if (response.success) {
         setInput({
           ...input,
@@ -68,13 +69,15 @@ const UsernamePopUp = ({ popUpFunction, id }) => {
             href="#"
             id="btn_close_popup"
             className={style.btn_close_popup}
-            onClick={() => popUpFunction("username", false)}
+            onClick={() => popUpFunction("image", false)}
           >
             <AiFillCloseCircle className={style.icon} />
           </a>
-          <h2>Cambia tu nombre de usuario</h2>
+          <h2>Cambia la imagen de tu perfil</h2>
         </div>
-        <h4>Introduce un nuevo nombre de usuario</h4>
+        <h4>
+          Introduce una URL de una imagen que quieras que aparezca en tu perfil.
+        </h4>
         <form
           className={style.form}
           onSubmit={(e) => handleSubmit(e)}
@@ -82,14 +85,8 @@ const UsernamePopUp = ({ popUpFunction, id }) => {
           autoComplete="off"
         >
           <div className={style.inputs_container}>
-            <input
-              type="text"
-              placeholder="New username"
-              name="username"
-            ></input>
-            {error.username && (
-              <label className={style.error}>{error.username}</label>
-            )}
+            <input type="text" placeholder="URL" name="URL"></input>
+            {error.URL && <label className={style.error}>{error.URL}</label>}
           </div>
           <input type="submit" value="Listo"></input>
           {input.success && (
@@ -104,4 +101,4 @@ const UsernamePopUp = ({ popUpFunction, id }) => {
   );
 };
 
-export default UsernamePopUp;
+export default ImagePopUp;

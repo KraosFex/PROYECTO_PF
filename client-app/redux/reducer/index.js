@@ -12,6 +12,10 @@ const initialState = {
   arrowUpDown: "down", //anda
   arrowCourse: "down", //anda
   authToken: "", //anda
+  refresh: false,
+  rankBorder: "",
+  paginateCourses: {},
+  paginateUsers: {},
 };
 
 export const appSlice = createSlice({
@@ -59,6 +63,18 @@ export const appSlice = createSlice({
     setAuthToken: (state, action) => {
       state.authToken = action.payload;
     },
+    setRefresh: (state, action) => {
+      state.refresh = action.payload;
+    },
+    setRankBorder: (state, action) => {
+      state.rankBorder = action.payload;
+    },
+    setPaginateCourses: (state, action) => {
+      state.paginateCourses = action.payload;
+    },
+    setPaginateUsers: (state, action) => {
+      state.paginateUsers = action.payload;
+    },
   },
 });
 
@@ -76,6 +92,10 @@ export const {
   setArrowDirection,
   setArrowCourse,
   setAuthToken,
+  setRefresh,
+  setRankBorder,
+  setPaginateCourses,
+  setPaginateUsers,
 } = appSlice.actions;
 
 export default appSlice.reducer;
