@@ -13,6 +13,7 @@ import QuiztCart from "./quiztCart";
 import lightTheme from "./lessonPageLight.module.css";
 import darkTheme from "./lessonPageDark.module.css";
 import { ThemeProvider } from "styled-components";
+import YouTube from "react-youtube";
 
 // aqui me traigao la lesson
 
@@ -87,7 +88,7 @@ export default function LessonPage(props) {
           <h1>{lesson.titulo}</h1>
           <h4 className={style.description}>{lesson.descripcion}</h4>
           <div className={style.video}>
-            {lesson.video && <Vimeo video={`${lesson.video}`} responsive />}
+            {lesson.video && <YouTube videoId={`${lesson.video}`} />}
           </div>
           <div className={style.flexContainerDescrip}>
             {isReady ? (

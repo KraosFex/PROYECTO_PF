@@ -42,6 +42,7 @@ function UserPage() {
                 username={user.username}
                 email={user.email}
                 isAdmin={user.isAdmin}
+                premium={user.isPremium}
                 image={user.Image}
                 courses={user.courses}
               />
