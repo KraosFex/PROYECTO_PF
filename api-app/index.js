@@ -3,12 +3,14 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
-const router = require('./src/routes/index.js')
+//const router = require('./src/routes/index.js')
 const errorHandler = require('./src/middleware/error.js')
 
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+
+
 
 
 // config
@@ -36,10 +38,11 @@ app.use((req, res, next) => {
 
 // routes
 //app.use('/api/', router)
-
-app.use("/", (req, res) => {
-  res.send("ESTAS EN EL HOME");
+app.get('/', (req, res) => {
+  res.send("ESTOY EN EL HOME")
 })
+
+
 
 // connect to DB & listen
 
