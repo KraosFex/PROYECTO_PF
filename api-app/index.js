@@ -22,9 +22,9 @@ const db = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cursos_db'
 app.use(cors())
 app.use(errorHandler)
 
-app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+/*app.use(cookieParser());
 app.use(morgan('dev'));
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
@@ -32,7 +32,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, authorization');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   next();
-});
+});*/
 
 // routes
 app.use('/api/', router)
