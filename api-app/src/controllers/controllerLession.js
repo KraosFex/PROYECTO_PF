@@ -11,11 +11,11 @@ const createLesson = async (req, res, next) => {
     const updateCourse = await Curso.findByIdAndUpdate(req.params.id, {
       $push: { lessons: newLesson },
     });
-    updateCourse.lessons[0].lesson.isLocked = false;
-    await Curso.save();
+  /*  updateCourse.lessons[0].lesson.isLocked = false;
+    await Curso.save();*/
     res.send({ info: "Curso creado exitosamente", newLesson });
   } catch (err) {
-    next(new ErrorResponse(err, 500));
+    res.status(500).send({info: "error del server", err, success: false})
   }
 };
 
