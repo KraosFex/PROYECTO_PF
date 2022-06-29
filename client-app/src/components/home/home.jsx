@@ -7,7 +7,7 @@ import { Link, NavLink } from "react-router-dom";
 import Ranking from "./ranking/ranking";
 import UserRank from "./userRank/userRank";
 import { useSelector } from "react-redux";
-import JSIcon from "../../../../../PF/client/src/icons/javascript";
+import JSIcon from "../../PF/client/src/icons/javascript";
 
 
 function Home(props) {
