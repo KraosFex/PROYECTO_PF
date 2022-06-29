@@ -5,7 +5,6 @@ import { findCourse } from "../../../redux/actions/index";
 import { useParams } from "react-router-dom";
 
 // hardDate
-import { CursoBase } from "./CurssoBase";
 import RatingB from "./rating/rating";
 // styles
 import { ThemeProvider } from "styled-components";
@@ -16,17 +15,20 @@ import { setArrowCourse } from "../../../redux/reducer/index";
 import ArrowsCourse from "../../icons/arrowsCourse";
 
 export default function CourseDetail(props) {
-  let { id } = useParams();
 
+  let { id } = useParams();
   let dispatch = useDispatch();
+
   const [refresh, setRefresh] = useState(false);
   const [activeArrow, setActiveArrow] = useState(false);
   const [course, setCourse] = useState({});
+
   const direction = useSelector((state) => state.reducerCompleto.arrowCourse);
   const user = useSelector((state) => state.reducerCompleto.user);
   const isLogged = useSelector((state) => state.reducerCompleto.isLogged);
-  let Curso = course;
+
   const [idClase, setIdClase] = useState("");
+  
   let style = darkTheme;
 
   useEffect(() => {
@@ -67,6 +69,8 @@ export default function CourseDetail(props) {
       return 0;
     }
   };
+
+  console.log("COURSE ", course)
 
   return (
     <ThemeProvider
