@@ -45,13 +45,7 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server on port ${port} and connected to DB 🔌`)
-})
-} catch (err) {
-console.log('Error al conectar a la db 🚫')
-console.error(err.message)
-process.exit(1)
-}
-}
+}) 
 
 
 
