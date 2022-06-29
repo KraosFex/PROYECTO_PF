@@ -18,10 +18,18 @@ function Success() {
     axiosReq();
   }, []);
   return (
-    <div className={style.hightContainer}>
-      <h1></h1>
-      <NavLink to="/home">Volver al Inicio</NavLink>
-      {/*SE PODRIA PONER UNA IMAGEN O UN FONDO LINDO PARA QUE NO QUEDE TAN VACIO*/}
+    <div className={style.flexContainer}>
+      <div className={style.container}>
+        <h1>Felicidades ya eres Premium!</h1>
+        <h2> Gracias por ayudar a CodeLearn</h2>
+        <img
+          src="https://s8.gifyu.com/images/check-greenadc54c8c906856d6.gif"
+          alt="gif"
+          className={style.gif}
+        />
+        <NavLink to="/home">Volver al Inicio</NavLink>
+        {/*SE PODRIA PONER UNA IMAGEN O UN FONDO LINDO PARA QUE NO QUEDE TAN VACIO*/}
+      </div>
     </div>
   );
 }
