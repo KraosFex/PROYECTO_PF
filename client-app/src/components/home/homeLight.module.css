@@ -2,7 +2,7 @@
 .flexContainer{
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex;;
+    display: flex;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     -webkit-box-pack: center;
@@ -39,6 +39,21 @@
         -ms-flex-pack: center;
 }
 
+.flexContainer4{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+
+}
+
+.tit{
+    margin-top: 20px;
+    color: rgb(26, 26, 26);
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
 .container{
     display: flex;
     flex-direction: row;
@@ -65,8 +80,7 @@
     background: linear-gradient(90deg, rgba(207,207,207,1) 0%, rgba(247,247,247,1) 100%);
     border-radius: 0.5em;
     width: 33.5em;
-    height: 9em;
-
+    min-height: 9em;
     gap:1em;
 }
 
@@ -77,7 +91,6 @@
     border-radius: 0.5em;
     width: 33.5em;
     height: 9em;
-    margin-top: 1.5em;
     -webkit-box-shadow: -4px 5px 15px 5px rgba(0, 0, 0, 0.11);
     box-shadow: -4px 5px 15px 5px rgba(0, 0, 0, 0.11);
     gap: 1em;
@@ -173,13 +186,7 @@
     color: white;
     font-size: 0.9em;
 }
-.tit{
-    margin-top: 20px;
-    /* color: white; */
-    mix-blend-mode: exclusion;
-    font-weight: 300;
-    text-transform: uppercase;
-}
+
 
 .container3Text{
     width: 20em;
@@ -314,6 +321,8 @@
             align-items: center;
     margin-top: 2em;
 }
+
+
 
 .container2{
     width: 20em;

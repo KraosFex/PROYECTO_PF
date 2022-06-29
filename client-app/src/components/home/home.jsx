@@ -44,7 +44,7 @@ function Home(props) {
                 </div>
               </div>
             </div>
-            <div>
+            <div className={style.flexContainer4}>
               {favoritos.length ? (
                 <h1 className={style.tit}>Favoritos</h1>
               ) : null}

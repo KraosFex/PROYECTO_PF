@@ -40,8 +40,6 @@ function App() {
     </>
   );
 
-  console.log(token);
-
   return (
     <div className={style.AppBody}>
       <Routes>
