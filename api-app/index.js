@@ -35,7 +35,11 @@ app.use((req, res, next) => {
 });*/
 
 // routes
-app.use('/api/', router)
+//app.use('/api/', router)
+
+app.use("/", (req, res) => {
+  res.send("ESTAS EN EL HOME");
+})
 
 // connect to DB & listen
 
