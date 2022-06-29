@@ -70,17 +70,146 @@
     gap:1em;
 }
 
-.container3{
+.container3 {
     display: flex;
     flex-direction: row;
-    background-color: rgb(54, 54, 54);
+    background-color: rgba(54, 54, 54, 1);
     border-radius: 0.5em;
     width: 33.5em;
     height: 9em;
     margin-top: 1.5em;
-    -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11); 
-    box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
-    gap:1em;
+    -webkit-box-shadow: -4px 5px 15px 5px rgba(0, 0, 0, 0.11);
+    box-shadow: -4px 5px 15px 5px rgba(0, 0, 0, 0.11);
+    gap: 1em;
+    position: relative;
+}
+
+.logoCont3 {
+    right: 0em;
+    width: 7em;
+    height: 7em;
+    margin-top: 1em;
+    margin-left: 1em;
+}
+
+.container3Text {
+    width: 20em;
+    height: 8em;
+
+}
+
+.container3Text h3 {
+    color: rgb(204, 204, 204);
+    margin-top: 1em;
+}
+
+.container3Text h1 {
+    color: rgb(204, 204, 204);
+    font-size: 0.8em;
+    font-weight: 100;
+}
+
+.button {
+    margin-left: 5em;
+    background-color: rgb(31, 31, 31);
+    width: 6em;
+    border-radius: 0.5em;
+    text-align: center;
+    height: 1.8em;
+    margin-top: 1em;
+
+}
+
+.button a {
+    text-decoration: none;
+    color: white;
+    font-size: 0.9em;
+}
+
+.courseName {
+    margin-top: .5em;
+    display: flex;
+    width: 100%;
+    font-size: 1.7em;
+    color: white;
+    text-decoration: underline 1px;
+    margin-left: 0.5em;
+    font-family: 'Anek Latin', sans-serif;
+}
+.courseStats {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: inline-flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-left: 1em;
+    margin-top: 0.3em;
+}
+
+.courseStats svg {
+    position: relative;
+    width: 1.5em;
+    height: 1.5em;
+    color: rgb(149 0 0);
+}
+
+.courseStats span {
+    color: white;
+    font-size: 0.8em;
+    margin-right: 2em;
+    margin-top: 0.3em;
+
+}
+
+.courseStats button {
+    background: none;
+    border: none;
+}
+.descripcion {
+    display: flex;
+    min-height: 4em;
+}
+
+.descripcion span {
+    color: white;
+
+}
+
+.lenguaje {
+    width: 4em;
+    position: absolute;
+    height: 4em;
+    right: 0;
+    top: 10px;
+}
+
+.lenguaje svg {
+    width: 4em;
+    position: absolute;
+    right: 0;
+    height: 4em;
+    align-self: center;
+}
+.flexContainerCard {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+}
+.mas{
+    text-decoration: none;
+    color: white;
+    margin: 5px;
+}
+/* .corazon{
+    display: flex;
+} */
+.tit{
+    margin-top: 20px;
+    color: white;
+    mix-blend-mode: exclusion;
+    font-weight: bold;
+    font-family: 'Roboto Slab', serif;
+    text-transform: uppercase;
 }
 
 .logoCont3{
