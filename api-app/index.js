@@ -43,15 +43,13 @@ app.get('/', (req, res) => {
   res.send("HOME ESTOY ACA")
 })
 
-app.listen(port, () => {
-  console.log(`Server on port ${port} and connected to DB 🔌`)
-}) 
+
 
 
 
 // connect to DB & listen
 
-/*const connectDB = () => {
+const connectDB = () => {
   try {
     mongoose.connect(db, {
       useNewUrlParser: true,
@@ -68,6 +66,6 @@ app.listen(port, () => {
   }
 }
 
-connectDB()*/
+connectDB()
 
 //
