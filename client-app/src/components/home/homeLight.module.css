@@ -24,6 +24,7 @@
             justify-content: center;
     gap: 3em;
     margin-top: 2em;
+    margin-bottom: 4em;
 }
 
 .flexContainer3{
@@ -36,7 +37,6 @@
             flex-direction:column;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
-            justify-content: center;
 }
 
 .container{
