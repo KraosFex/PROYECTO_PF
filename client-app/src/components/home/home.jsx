@@ -57,7 +57,7 @@ function Home(props) {
                             to={`/course/${course._id}`}
                             className={style.courseName}
                           >
-                            {course.titulo.toUpperCase()}
+                            {course.titulo}
                           </NavLink>
 
                           <div className={darkTheme.lenguaje}>
@@ -88,8 +88,6 @@ function Home(props) {
                               </span>
                             </div>
                           </div>
-
-                          <div></div>
                         </div>
                       </div>
                     ))

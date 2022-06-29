@@ -54,7 +54,7 @@
     background-color: rgb(250, 250, 250);
     border-radius: 0.5em;
     width: 33.5em;
-    height: 30em;
+    min-height: 30em;
     -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11); 
     box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
 }
@@ -91,7 +91,6 @@
     color: rgb(62, 62, 62);
     text-decoration: underline 1px;
     margin-left: 0.5em;
-    font-family: 'Anek Latin', sans-serif;
 }
 .courseStats {
     display: -webkit-box;
@@ -178,8 +177,7 @@
     margin-top: 20px;
     /* color: white; */
     mix-blend-mode: exclusion;
-    font-weight: bold;
-    font-family: 'Roboto Slab', serif;
+    font-weight: 300;
     text-transform: uppercase;
 }
 
