@@ -48,8 +48,8 @@
     height: 6em;
   }
   .containerImg{
-    margin: 22px;
-  }
+    margin: 20px;
+    width: 7em;}
   
   .userDetail{
     margin: 20px;
@@ -97,6 +97,8 @@
     padding: 5px;
     border: solid 1px #474747;
     margin-bottom: 1em;
+    justify-content: space-around;
+    align-items: center;
   }
 
   .cartYourCourse svg{
@@ -148,7 +150,6 @@
 
   .imgChanger {
     position: relative;
-    right: 4.45em;
     bottom: .3em;
     border: none;
     border-radius: 0 0 1px 0;

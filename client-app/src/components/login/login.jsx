@@ -128,6 +128,7 @@ function Login() {
               className={style.form}
               onChange={(e) => workOnChange(e)}
               onSubmit={(e) => handleSubmit(e)}
+              autoComplete="off"
             >
               <div className={style.input}>
                 <label className={style.title}>Email</label>

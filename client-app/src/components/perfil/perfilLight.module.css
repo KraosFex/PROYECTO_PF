@@ -46,7 +46,8 @@
     height: 6em;
   }
   .containerImg{
-    margin: 22px;
+    margin: 20px;
+    width: 7em;
   }
   .userDetail{
     margin: 20px;
@@ -144,7 +145,6 @@
   
   .imgChanger {
     position: relative;
-    right: 4.45em;
     bottom: .3em;
     border: none;
     border-radius: 0 0 1px 0;
@@ -198,5 +198,9 @@
     }
     .cursos1{
       display: none;
+    }
+    .cartYourCourse{
+      display: flex;
+      justify-content: space-around;
     }
   }
