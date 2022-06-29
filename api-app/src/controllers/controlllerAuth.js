@@ -8,18 +8,22 @@ const { OAuth2 } = google.auth
 const client = new OAuth2(process.env.MAILING_SERVICE_CLIENT_ID)
 
 const registerUser = async (req, res, next) => {
-
-
   try {
     const user = await User.create(req.body)
-
     await user.save()
 
     const token = user.generateToken()
 
+    const message = `Bienvenido ${user.username}, ya formas parte de la gran familia de CodeLearn!`
+    await sendMail({
+      to: user.email,
+      subject: 'Bienvenida a CodeLearn!',
+      text: message
+    })
+
     res.status(201).send({ info: 'Usuario creado exitosamente', success: true, token, user })
   } catch (err) {
-    return res.status(500).send({ info: 'Ya existe una cuenta con ese gmail', success: false, err })
+    return res.status(500).send({ info: 'Ya existe una cuenta con ese gmail', success: false })
     // next(err);
   }
 }
@@ -65,7 +69,7 @@ const forgotPassword = async (req, res, next) => {
     `
     try {
       await sendMail({
-        email: user.email,
+        to: user.email,
         subject: 'Reseteo de contraseña',
         text: message
       })
