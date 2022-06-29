@@ -4,20 +4,33 @@ const User = require('../model/modelUser')
 const ErrorResponse = require('../utils/errorResponse.js')
 
 const createLesson = async (req, res, next) => {
-  try {
-    const course = await Curso.findById(req.params.id);
-    if (!course) return res.send({ info: "El curso no existe" });
-    const newLesson = await Lesson.create(req.body);
-    const updateCourse = await Curso.findByIdAndUpdate(req.params.id, {
-      $push: { lessons: newLesson },
-    });
-    updateCourse.lessons[0].lesson.isLocked = false;
-    await Curso.save();
-    res.send({ info: "Curso creado exitosamente", newLesson });
-  } catch (err) {
-    next(new ErrorResponse(err, 500));
-  }
-};
+   try {
+     const course = await Curso.findById(req.params.id)
+     if (!course) return res.send({ info: 'El curso no existe' })
+     const newLesson = await Lesson.create(req.body)
+     const updateCurso = await Curso.findByIdAndUpdate(req.params.id, {
+      $push: {
+         lessons: {
+           lesson: newLesson
+        }
+     }
+   }, {new: true}).populate({ path: 'lessons.lesson', ref: 'Lesson' })
+
+    if(updateCurso.lessons[0].lesson.isLocked === true) {
+      const firstLessonId = updateCurso.lessons[0].lesson._id.toString();
+      const updateLesson = await Lesson.findByIdAndUpdate(firstLessonId, {
+        $set: {
+           isLocked: false
+       }
+     }, {new: true})
+    }
+
+
+     res.send({ info: 'Curso creado exitosamente', updateCurso })
+   } catch (err) {
+     next(new ErrorResponse(err, 500))
+   }
+}
 
 const getLesson = async (req, res, next) => {
   const { id } = req.params;

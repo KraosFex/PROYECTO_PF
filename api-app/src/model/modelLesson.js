@@ -12,7 +12,6 @@ const lessonSchema = new Schema(
     },
     num: {
       type: Number,
-      required: true,
     },
     isCompleted: {
       type: Boolean,
