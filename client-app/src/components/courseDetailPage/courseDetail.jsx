@@ -38,6 +38,12 @@ export default function CourseDetail(props) {
     axionReq();
   }, [dispatch]);
 
+  var isLocked = true;
+
+  if (user.isPremium) {
+    isLocked = false;
+  }
+
   if (isLogged && idClase) {
     let usercourse = user.courses.find((o) => o.course._id === id);
     if (usercourse) {
@@ -131,7 +137,7 @@ export default function CourseDetail(props) {
                             <input
                               key={e.id}
                               type="radio"
-                              disabled
+                              disabled={isLocked}
                               onClick={() => setIdClase(e.lesson._id)}
                             />
                           ) : (

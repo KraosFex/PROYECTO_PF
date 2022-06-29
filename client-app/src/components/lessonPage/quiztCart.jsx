@@ -2,19 +2,22 @@ import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { setRefresh } from "../../../redux/reducer";
 import { useSelector, useDispatch } from "react-redux";
+import { ThemeProvider } from "styled-components";
 
 // style
-import style from "./questionsPage.module.css";
+import lightTheme from "./questionsPageLight.module.css";
+import darkTheme from "./questionsPageDark.module.css";
 
 export default function QuiztCart({
   questions,
   handleApproved,
   approved,
   idCourse,
+  theme,
 }) {
   if (questions) {
     const estandarTime = 10; //en segundos
-
+    var style = darkTheme;
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [preguntaActual, setPreguntaActual] = useState(0);
@@ -57,31 +60,76 @@ export default function QuiztCart({
 
     if (isFinished)
       return (
-        <main className={style.quiz}>
-          <div className={style.juego_terminado}>
-            <span>{approved ? "Aprobado" : "Vuelve a intentarlo"}</span>
-            <span>
-              {" "}
-              Obtuviste {puntuacion} de {questions.length}{" "}
-            </span>
-            <button
-              onClick={() => {
-                setIsFinished(false);
-                setAnswersShown(false);
-                setPreguntaActual(0);
-              }}
-              className={style.button}
-            >
-              Volver a intentar
-            </button>
-          </div>
-        </main>
+        <ThemeProvider
+          theme={theme === "light" ? (style = lightTheme) : (style = darkTheme)}
+        >
+          <main className={style.quiz}>
+            <div className={style.juego_terminado}>
+              <span>{approved ? "Aprobado" : "Vuelve a intentarlo"}</span>
+              <span>
+                {" "}
+                Obtuviste {puntuacion} de {questions.length}{" "}
+              </span>
+              <button
+                onClick={() => {
+                  setIsFinished(false);
+                  setAnswersShown(false);
+                  setPreguntaActual(0);
+                }}
+                className={style.button}
+              >
+                Volver a intentar
+              </button>
+            </div>
+          </main>
+        </ThemeProvider>
       );
-
     if (answersShown)
       return (
+        <ThemeProvider
+          theme={theme === "light" ? (style = lightTheme) : (style = darkTheme)}
+        >
+          <main className={style.quiz}>
+            <div className={style.lado_izquierdo}>
+              <div className={style.pregunta_numero}>
+                <span>
+                  Pregunta {preguntaActual + 1} de {questions.length}
+                </span>
+              </div>
+              <div className={style.preguntaTitulo}>
+                {questions[preguntaActual].titulo}
+              </div>
+              <div>
+                {
+                  questions[preguntaActual].opciones.filter(
+                    (opcion) => opcion.isCorrect
+                  )[0].textoRespuesta
+                }
+              </div>
+              <button
+                className={style.button}
+                onClick={() => {
+                  if (preguntaActual === questions.length - 1) {
+                    dispatch(setRefresh(Math.random()));
+                  } else {
+                    setPreguntaActual(preguntaActual + 1);
+                  }
+                }}
+              >
+                {preguntaActual === questions.length - 1
+                  ? "Volver a intentar"
+                  : "Siguiente"}
+              </button>
+            </div>
+          </main>
+        </ThemeProvider>
+      );
+    return (
+      <ThemeProvider
+        theme={theme === "light" ? (style = lightTheme) : (style = darkTheme)}
+      >
         <main className={style.quiz}>
-          <div className={`${style.lado_izquierdo}`}>
+          <div className={style.lado_izquierdo}>
             <div className={`${style.pregunta_numero}`}>
               <span>
                 {" "}
@@ -92,78 +140,42 @@ export default function QuiztCart({
               {questions[preguntaActual].titulo}
             </div>
             <div>
-              {
-                questions[preguntaActual].opciones.filter(
-                  (opcion) => opcion.isCorrect
-                )[0].textoRespuesta
-              }
+              {!areDisabled ? (
+                <span className={style.tiempo_restante}>
+                  Tiempo restante: {tiempoRestante}{" "}
+                </span>
+              ) : (
+                <button
+                  className={style.button}
+                  onClick={() => {
+                    setTiempoRestante(10);
+                    setAreDisabled(false);
+                    if (preguntaActual === questions.length - 1) {
+                      setIsFinished(true);
+                    } else {
+                      setPreguntaActual(preguntaActual + 1);
+                    }
+                  }}
+                >
+                  Continuar
+                </button>
+              )}
             </div>
-            <button
-              className={style.button}
-              onClick={() => {
-                if (preguntaActual === questions.length - 1) {
-                  dispatch(setRefresh(Math.random()));
-                } else {
-                  setPreguntaActual(preguntaActual + 1);
-                }
-              }}
-            >
-              {preguntaActual === questions.length - 1
-                ? "Volver a intentar"
-                : "Siguiente"}
-            </button>
           </div>
-        </main>
-      );
-
-    return (
-      <main className={style.quiz}>
-        <div className={style.lado_izquierdo}>
-          <div className={`${style.pregunta_numero}`}>
-            <span>
-              {" "}
-              Pregunta {preguntaActual + 1} de {questions.length}
-            </span>
-          </div>
-          <div className={`${style.titulo_pregunta}`}>
-            {questions[preguntaActual].titulo}
-          </div>
-          <div>
-            {!areDisabled ? (
-              <span className={style.tiempo_restante}>
-                Tiempo restante: {tiempoRestante}{" "}
-              </span>
-            ) : (
+          <div className={style.lado_derecho}>
+            {questions[preguntaActual].opciones.map((respuesta) => (
               <button
                 className={style.button}
-                onClick={() => {
-                  setTiempoRestante(10);
-                  setAreDisabled(false);
-                  if (preguntaActual === questions.length - 1) {
-                    setIsFinished(true);
-                  } else {
-                    setPreguntaActual(preguntaActual + 1);
-                  }
-                }}
+                disabled={areDisabled}
+                key={respuesta.textoRespuesta}
+                onClick={(e) => handleAnswerSubmit(respuesta.isCorrect, e)}
               >
-                Continuar
+                {respuesta.textoRespuesta}
               </button>
-            )}
+            ))}
           </div>
-        </div>
-        <div className={style.lado_derecho}>
-          {questions[preguntaActual].opciones.map((respuesta) => (
-            <button
-              className={style.button}
-              disabled={areDisabled}
-              key={respuesta.textoRespuesta}
-              onClick={(e) => handleAnswerSubmit(respuesta.isCorrect, e)}
-            >
-              {respuesta.textoRespuesta}
-            </button>
-          ))}
-        </div>
-      </main>
+        </main>
+      </ThemeProvider>
     );
   } else {
     return (
