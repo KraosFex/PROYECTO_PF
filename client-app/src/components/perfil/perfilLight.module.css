@@ -199,4 +199,8 @@
     .cursos1{
       display: none;
     }
+    .cartYourCourse{
+      display: flex;
+      justify-content: space-around;
+    }
   }

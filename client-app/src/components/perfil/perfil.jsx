@@ -30,20 +30,26 @@ const Perfil = (props) => {
 
   const coursesAll = user.courses.map((courseObj) => {
     return (
-      <div className={style.cartYourCourse} key={courseObj.course._id}>
-        <label className={style.cursos}> {courseObj.course.titulo} </label>
-        <label className={style.cursos}>
-          {courseObj.favorito === true ? "FAVORITO" : "NO AGREGADO"}
-        </label>
-        {/* <label className={style.cursos1}> {courseObj.lessons.length} </label> */}
-        <label className={style.cursos1}>
-          {/* {courseObj.lessons.filter((lesson) => lesson.isCompleted === true)}
+      <ThemeProvider
+        theme={
+          props.theme === "light" ? (style = lightTheme) : (style = darkTheme)
+        }
+      >
+        <div className={style.cartYourCourse} key={courseObj.course._id}>
+          <label className={style.cursos}> {courseObj.course.titulo} </label>
+          <label className={style.cursos}>
+            {courseObj.favorito === true ? "FAVORITO" : "NO AGREGADO"}
+          </label>
+          {/* <label className={style.cursos1}> {courseObj.lessons.length} </label> */}
+          <label className={style.cursos1}>
+            {/* {courseObj.lessons.filter((lesson) => lesson.isCompleted === true)}
           .length; */}
-        </label>
-        <div className={style.lenguaje}>
-          <JSIcon lenguajes={courseObj.course.lenguaje} />
+          </label>
+          <div className={style.lenguaje}>
+            <JSIcon lenguajes={courseObj.course.lenguaje} />
+          </div>
         </div>
-      </div>
+      </ThemeProvider>
     );
   });
 

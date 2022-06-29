@@ -97,6 +97,8 @@
     padding: 5px;
     border: solid 1px #474747;
     margin-bottom: 1em;
+    justify-content: space-around;
+    align-items: center;
   }
 
   .cartYourCourse svg{
