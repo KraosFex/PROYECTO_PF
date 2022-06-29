@@ -38,15 +38,26 @@ app.use((req, res, next) => {
 
 // routes
 //app.use('/api/', router)
+
 app.get('/', (req, res) => {
-  res.send("ESTOY EN EL HOME")
+  res.send("HOME ESTOY ACA")
 })
+
+app.listen(port, () => {
+  console.log(`Server on port ${port} and connected to DB 🔌`)
+})
+} catch (err) {
+console.log('Error al conectar a la db 🚫')
+console.error(err.message)
+process.exit(1)
+}
+}
 
 
 
 // connect to DB & listen
 
-const connectDB = () => {
+/*const connectDB = () => {
   try {
     mongoose.connect(db, {
       useNewUrlParser: true,
@@ -63,6 +74,6 @@ const connectDB = () => {
   }
 }
 
-connectDB()
+connectDB()*/
 
 //
