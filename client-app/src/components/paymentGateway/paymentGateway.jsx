@@ -93,8 +93,8 @@ const PaymentGateway = () => {
   const checkoutOptions = {
     lineItems: [item],
     mode: "payment",
-    successUrl: `/success`,
-    cancelUrl: `/home`,
+    successUrl: `${window.location.origin}/success`,
+    cancelUrl: `${window.location.origin}/home`,
   };
 
   const redirectToCheckout = async () => {
