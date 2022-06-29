@@ -30,6 +30,7 @@ function App() {
   const theme = useSelector((state) => state.reducerCompleto.theme);
   const isLogged = useSelector((state) => state.reducerCompleto.isLogged);
   const user = useSelector((state) => state.reducerCompleto.user);
+  const token = useSelector((state) => state.reducerCompleto.authToken);
 
   const AppLayout = () => (
     <>
@@ -38,6 +39,8 @@ function App() {
       <Outlet />
     </>
   );
+
+  console.log(token);
 
   return (
     <div className={style.AppBody}>

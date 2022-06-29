@@ -29,6 +29,7 @@
         "react-router-dom": "6.3.0",
         "react-stripe-checkout": "^2.6.3",
         "react-tsparticles": "^2.0.6",
+        "react-youtube": "^9.0.2",
         "redux-persist": "^6.0.0",
         "redux-thunk": "^2.4.1",
         "styled-components": "^5.3.5",

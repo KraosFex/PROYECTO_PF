@@ -28,17 +28,20 @@ const Perfil = (props) => {
     else if (specification === "image") setImagePopUp(bool);
   };
 
-  const coursesAll = user.courses.map((course) => {
+  const coursesAll = user.courses.map((courseObj) => {
     return (
-      <div className={style.cartYourCourse} key={course.id}>
-        <label className={style.cursos}> {course.titulo} </label>
+      <div className={style.cartYourCourse} key={courseObj.course._id}>
+        <label className={style.cursos}> {courseObj.course.titulo} </label>
         <label className={style.cursos}>
-          {course.favorito === true ? "FAVORITO" : "NOT FAVORITO"}
+          {courseObj.favorito === true ? "FAVORITO" : "NO AGREGADO"}
         </label>
-        <label className={style.cursos1}> {course.lecciones_Totales} </label>
-        <label className={style.cursos1}> {course.lecciones_Termidas} </label>
+        {/* <label className={style.cursos1}> {courseObj.lessons.length} </label> */}
+        <label className={style.cursos1}>
+          {/* {courseObj.lessons.filter((lesson) => lesson.isCompleted === true)}
+          .length; */}
+        </label>
         <div className={style.lenguaje}>
-          <JSIcon lenguajes={course.lenguaje} />
+          <JSIcon lenguajes={courseObj.course.lenguaje} />
         </div>
       </div>
     );
@@ -64,7 +67,6 @@ const Perfil = (props) => {
                 <button
                   className={style.imgChanger}
                   onClick={() => popUpFunction("image", true)}
-                  className={style.buttonImage}
                 >
                   cambiar
                 </button>
