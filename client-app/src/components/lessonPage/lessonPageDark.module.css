@@ -27,10 +27,10 @@
 }
 
 .video{
-  width: 900px;
   margin-top: 3em;
   align-self: center;
 }
+
 
 .flexContainerDescrip{
   display: flex;

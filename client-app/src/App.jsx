@@ -56,7 +56,7 @@ function App() {
             <Route path="/perfil" element={<Perfil theme={theme} />} />
             <Route
               path="/course/:idCourse/:idLesson"
-              element={<LessonPage />}
+              element={<LessonPage theme={theme} />}
             />
             <Route path="/pay" element={<PaymentGateway />} />
             <Route path="/success" element={<Success />} />
