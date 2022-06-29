@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getRanking } from "../../../../redux/actions/index";
-import UserRank from "../userRank/userRank";
 import style from "./ranking.module.css";
 
 export default function Ranking() {
   const dispatch = useDispatch();
 
   const topTen = useSelector((state) => state.reducerCompleto.topTen);
-  const usuarios = topTen;
+
+  useEffect(() => {
+    dispatch(getRanking());
+  }, [dispatch]);
 
   let divs = function (e, i) {
     if (i >= 0 && i < 3) {
