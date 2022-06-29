@@ -4,8 +4,7 @@ export default function validator(specification, input) {
   if (specification === "login") {
     if (!input.email) {
       error.email = "Email requerido";
-    } else if (
-      !/^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$/.test(input.email)
+    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input.email)
     ) {
       error.email = "Email invalido";
     }
@@ -21,21 +20,21 @@ export default function validator(specification, input) {
   } else if (specification === "register") {
     if (!input.name) {
       error.name = "Nombre requerido";
-    } else if (!/[\w ]$/.test(input.name)) {
-      error.name = "Nombre invalido";
+    } else if (!/[\w ]{4,}$/.test(input.name)) {
+      error.name = "Nombre invalido (minimo 4 caracteres)";
     }
 
     if (!input.username) {
       error.username = "Usuario requerido";
-    } else if (!/[\w $&#@]$/.test(input.username)) {
+    } else if (!/[\w $&#@]{4,}$/.test(input.username)) {
       error.username =
-        "Usuario inválido. Solo estos caracteres especiales están permitidos: [$ & # @]";
+        "Usuario inválido (minimo 4 caracteres). Solo estos caracteres especiales están permitidos: [$ & # @]";
     }
 
     if (!input.email) {
       error.email = "Email requerido";
     } else if (
-      !/^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$/.test(input.email)
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input.email)
     ) {
       error.email = "Email invalido";
     }
@@ -58,4 +57,3 @@ export default function validator(specification, input) {
 
   return error;
 };
-
