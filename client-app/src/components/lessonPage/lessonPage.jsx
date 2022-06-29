@@ -88,7 +88,7 @@ export default function LessonPage(props) {
           <h1>{lesson.titulo}</h1>
           <h4 className={style.description}>{lesson.descripcion}</h4>
           <div className={style.video}>
-            {lesson.video && <YouTube videId={`${lesson.video}`} />}
+            {lesson.video && <YouTube videoId={`${lesson.video}`} />}
           </div>
           <div className={style.flexContainerDescrip}>
             {isReady ? (
