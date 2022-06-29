@@ -49,3 +49,15 @@
 
 
 }
+
+@media (max-width: 768px) {
+    .checkout{
+        width: 80%;
+    }
+    .checkoutDescription{
+        width: 70%;
+        justify-self: center;
+        text-align: center;
+    }
+
+}
