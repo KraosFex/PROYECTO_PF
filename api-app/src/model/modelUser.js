@@ -57,7 +57,8 @@ const userSchema = new Schema(
         completed: {
           type: Boolean,
           default: false
-        }
+        },
+        lessons: []
       }
     ],
     password: {
