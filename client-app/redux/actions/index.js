@@ -170,7 +170,6 @@ export const bookmarkCourse = createAsyncThunk(
         { idCurso: obj.id },
         config
       );
-      console.log(resp);
       thunkAPI.dispatch(updateUser(resp.data.updateUser));
     } catch (err) {
       alert("Ups! Something went wrong ...BOOKMARKCOURSE");

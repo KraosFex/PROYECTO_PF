@@ -20,17 +20,14 @@ const getCursos = async (req, res, next) => {
 
 const getCursoById = async (req, res, next) => {
   try {
-    const course = await Course.findById(req.params.id).populate({
-      path: "lessons.lesson",
-      ref: "Lesson",
-    });
-    res.send(course);
-    return;
+    const course = await Course.findById(req.params.id).populate({ path: 'lessons.lesson', ref: 'Lesson' })
+    res.send(course)
+    return
   } catch (err) {
-    next(new ErrorResponse("Error al crear el curso", 500, false));
-    console.error(err);
+    next(new ErrorResponse('Error al crear el curso', 500, false))
+    console.error(err)
   }
-};
+}
 
 const getCursoName = async (req, res) => {
   const $regex = req.params.name;
@@ -67,53 +64,42 @@ const createCurso = async (req, res, next) => {
 };
 
 const addFavorite = async (req, res, next) => {
-  const _id = req.user._id;
-  const { idCurso } = req.body;
+  const _id = req.user._id
+  const { idCurso } = req.body
   try {
-    const user = await User.findById(_id);
-    const currentCourse = user.courses.filter((c) => c.course._id == idCurso);
+    const user = await User.findById(_id)
+    const currentCourse = user.courses.filter(c => c.course._id == idCurso)
 
     if (currentCourse.length && currentCourse[0].isFavorite === false) {
-      currentCourse[0].set("isFavorite", true);
-      await user.save();
-      const updateUser = await User.findById(_id).populate({
-        path: "courses.course",
-        ref: "Course",
-        populate: { path: "lessons.lesson", ref: "Lesson" },
-      });
-      return res.send({ info: "Cambio realizado", updateUser, success: true });
+      currentCourse[0].set('isFavorite', true)
+      await user.save()
+      return res.send({info: 'Cambio realizado', updateUser: user})
     }
 
-    const updateUser = await User.findByIdAndUpdate(
-      _id,
-      {
-        $push: {
-          courses: {
-            course: idCurso,
-            isFavorite: true,
-          },
-        },
-      },
-      { new: true }
-    ).populate({
-      path: "courses.course",
-      ref: "Course",
-      populate: { path: "lessons.lesson", ref: "Lesson" },
-    });
+    if (currentCourse.length && currentCourse[0].isFavorite === true) {
 
-    const inscripUser = await Course.findByIdAndUpdate(
-      idCurso,
-      {
-        $inc: { userInscript: 1 },
-      },
-      { new: true }
-    );
+      return res.send({info: 'El curso ya esta en favoritos', updateUser: user})
+    }
 
-    res.send({ info: "Curso añadido exitosamente", updateUser, success: true });
+    const course = await Course.findById(idCurso)
+    const currentLessons = course.lessons.map((l) => {
+      const item = { lesson: l.lesson, isCompleted: false, isLocked: true }
+      return item
+    })
+    currentLessons[0].isLocked = false
+
+    const updateUser = await User.findByIdAndUpdate(_id,
+      { $push: { courses: { course: idCurso, isFavorite: true, lessons: currentLessons } } }, { new: true })
+
+    const inscripUser = await Course.findByIdAndUpdate(idCurso,
+      { $inc: { userInscript: 1 } }, { new: true })
+    await updateUser.save()
+
+    res.send({ info: 'Curso añadido exitosamente', updateUser, success: true })
   } catch (err) {
-    res.status(500).send({ info: "Algo salio mal", success: false });
+    res.status(500).send({ info: 'Algo salio mal', success: false, err })
   }
-};
+}
 
 const removeFavorite = async (req, res, next) => {
   const _id = req.user._id;
@@ -141,49 +127,39 @@ const removeFavorite = async (req, res, next) => {
   }
 };
 
+
 const addCourse = async (req, res) => {
-  const id = req.user._id;
-  const { idCurso } = req.body;
+  const id = req.user._id
+  const { idCurso } = req.body
   try {
-    const courseFavorite = await User.findById(id);
+    const courseFavorite = await User.findById(id)
     const existeCourse = courseFavorite.courses.filter(
       (c) => c.course._id == idCurso
-    );
-    if (existeCourse.length) return;
-    const updateUser = await User.findByIdAndUpdate(
-      id,
-      {
-        $push: {
-          courses: {
-            course: idCurso,
-            isFavorite: false,
-          },
-        },
-      },
-      { new: true }.populate({
-        path: "courses.course",
-        ref: "Course",
-        populate: { path: "lessons.lesson", ref: "Lesson" },
-      })
-    );
+    )
+    if (existeCourse.length) return
+    const course = await Course.findById(idCurso)
+    const currentLessons = course.lessons.map((l) => {
+      const item = { lesson: l.lesson, isCompleted: false, isLocked: true }
+      return item
+    })
+    currentLessons[0].isLocked = false
 
-    const inscripUser = await Course.findByIdAndUpdate(
-      idCurso,
-      {
-        $inc: { userInscript: 1 },
-      },
-      { new: true }
-    );
+    const newCourseFavorite = await User.findByIdAndUpdate(id,
+      { $push: { courses: { course: idCurso, isFavorite: true, lessons: currentLessons } } }, { new: true })
+
+    const inscripUser = await Course.findByIdAndUpdate(idCurso, {
+      $inc: { userInscript: 1 }
+    }, { new: true })
 
     res.send({
-      info: "Curso añadido exitosamente",
-      updateUser,
-      success: true,
-    });
+      info: 'Curso añadido exitosamente',
+      newCourseFavorite,
+      success: true
+    })
   } catch (err) {
-    res.status(500).send({ info: "Algo salio mal", success: false });
+    res.status(500).send({ info: 'Algo salio mal', success: false })
   }
-};
+}
 
 const addVotes = async (req, res) => {
   const idUser = req.user._id;
