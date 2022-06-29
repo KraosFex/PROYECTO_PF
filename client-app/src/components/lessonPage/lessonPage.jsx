@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Vimeo from "@u-wave/react-vimeo";
+import axios from 'axios'
 
 // redux actions
 import { getLesson } from "../../../redux/actions/index";
+
+import { updateUser } from "../../../redux/reducer/index";
 
 // Components
 import QuiztCart from "./quiztCart";
@@ -56,6 +59,7 @@ export default function LessonPage(props) {
   const handleApproved = (approved) => {
     setApproved(approved);
   };
+
   const handleNextLesson = async () => {
     const config = {
       headers: {
@@ -64,19 +68,18 @@ export default function LessonPage(props) {
       },
     };
     const body = { idCourse, idLesson };
+
     try {
-      const metaData = await axios.put(
-        "http://localhost:3001/api/cursosprivate/iscompleted",
-        body,
-        config
-      );
+      const metaData = await axios.put("/api/cursosprivate/iscompleted", body, config);
+      console.log(metaData.data)
       dispatch(updateUser(metaData.data.updateUser));
       //navigate(`/course/${idCourse}/${metaData.data.nextLessonId}`)
     } catch (err) {
+      console.log(err)
       alert("lesson no se pudo completar correctamente. lessonPage.jsx");
     }
   };
-  console.log();
+
   return (
     <ThemeProvider
       theme={

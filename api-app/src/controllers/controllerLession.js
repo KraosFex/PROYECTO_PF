@@ -45,39 +45,43 @@ const getLesson = async (req, res, next) => {
 }
 
 const isCompleted = async (req, res) => {
+
+
   const id = req.user._id
   const { idLesson, idCourse } = req.body
 
+
+
   try {
-    const user = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
-    const currentCourse = user.courses.filter(c => c.course._id == idCourse)
-    const currentLesson = currentCourse[0].course.lessons.filter(l => l.lesson._id == idLesson)
-    console.log("currentLesson", currentLesson)
-    currentLesson[0].lesson.set('isCompleted', true)
+
+    const user = await User.findById(id)
+
+    const currentCourse = user.courses.filter(c => c.course == idCourse)
+    console.log("currentCourse", currentCourse)
+    const currentLesson = currentCourse[0].lessons.filter(l => l.lesson == idLesson)
+      console.log("currentLesson", currentLesson)
+    currentLesson[0].isCompleted = true
     await user.save()
 
-    const currentIndex = currentCourse[0].course.lessons.findIndex(l => l.lesson._id == idLesson)
-    const nextIndex = currentIndex + 1
+    console.log("PASE CHECKPOINT")
 
-    if (currentCourse[0].course.lessons[nextIndex]) {
-      currentCourse[0].course.lessons[nextIndex].lesson.set('isLocked', false)
-      await user.save()
-    }
-
-    const lessonInFalse = currentCourse[0].course.lessons.filter(l => l.lesson.isCompleted === false)
+    const lessonInFalse = currentCourse[0].lessons.filter(l => l.isCompleted === false)
+    console.log("lessonInFalse", lessonInFalse)
 
     if (lessonInFalse.length) {
-      currentCourse[0].course.set('completed', false)
+      console.log("ADENTRO PA", currentCourse[0])
+      currentCourse[0].completed = false;
       await user.save()
     }
+
     if (!lessonInFalse.length) {
-      currentCourse[0].course.set('completed', true)
+      urrentCourse[0].completed = true;
       await user.save()
     }
 
-    const updateUser = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
-
-    res.send({info: "clase completada", updateUser, success: true, nextLessonId: currentCourse[0].course.lessons[nextIndex].lesson._id  })
+    await user.save()
+    console.log("AFUERA PA", user.courses[0].lessons)
+    res.send({ info: 'lesson completada', success: true, updateUser: user, nextLessonId: null })
   } catch (err) {
     res
       .status(500)
