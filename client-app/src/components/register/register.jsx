@@ -84,6 +84,7 @@ function Register() {
           onSubmit={(e) => handleSubmit(e)}
           onChange={(e) => workOnChange(e)}
           id="formul"
+          autoComplete="off"
         >
           <h1 className={style.h1}>Registrate</h1>
           <label className={style.label1}>Es facil y rapido</label>
