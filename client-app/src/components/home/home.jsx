@@ -8,6 +8,7 @@ import Ranking from "./ranking/ranking";
 import UserRank from "./userRank/userRank";
 import { useSelector } from "react-redux";
 import JSIcon from "../../icons/javascript.jsx";
+import { AiFillHeart } from "react-icons/ai";
 
 function Home(props) {
   const { courses, user } = useSelector((store) => store.reducerCompleto);
