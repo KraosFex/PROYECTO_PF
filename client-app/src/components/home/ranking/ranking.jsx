@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getRanking } from "../../../../redux/actions/index";
+import { useEffect } from "react";
 import style from "./ranking.module.css";
 
 export default function Ranking() {
