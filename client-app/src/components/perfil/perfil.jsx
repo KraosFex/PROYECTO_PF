@@ -64,6 +64,7 @@ const Perfil = (props) => {
                 <button
                   className={style.imgChanger}
                   onClick={() => popUpFunction("image", true)}
+                  className={style.buttonImage}
                 >
                   cambiar
                 </button>

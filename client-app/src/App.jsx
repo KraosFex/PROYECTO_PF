@@ -31,11 +31,6 @@ function App() {
   const isLogged = useSelector((state) => state.reducerCompleto.isLogged);
   const user = useSelector((state) => state.reducerCompleto.user);
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getRanking());
-  }, [dispatch]);
-
   const AppLayout = () => (
     <>
       <Aside theme={theme} />

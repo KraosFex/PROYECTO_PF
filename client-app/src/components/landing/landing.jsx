@@ -26,7 +26,7 @@ const Landing = () => {
         <div className={style.item}>
           <img
             className={style.img}
-            src="../../../public/img/Landing_Draw.svg"
+            src="img/Landing_Draw.svg"
             alt="Landing"
             referrerPolicy="no-referrer"
           />
