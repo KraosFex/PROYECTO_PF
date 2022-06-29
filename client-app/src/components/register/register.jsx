@@ -58,6 +58,7 @@ function Register() {
         })
       );
       var response = dis.payload;
+      
 
       if (response.success) {
         setRegisterError({});
