@@ -153,7 +153,7 @@ const addCourse = async (req, res) => {
 
     res.send({
       info: 'Curso añadido exitosamente',
-      newCourseFavorite,
+      updateUser: newCourseFavorite,
       success: true
     })
   } catch (err) {
