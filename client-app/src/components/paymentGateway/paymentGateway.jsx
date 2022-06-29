@@ -93,8 +93,8 @@ const PaymentGateway = () => {
   const checkoutOptions = {
     lineItems: [item],
     mode: "payment",
-    successUrl: `http://127.0.0.1:3000/success`,
-    cancelUrl: `http://127.0.0.1:3000/home`,
+    successUrl: `/success`,
+    cancelUrl: `/home`,
   };
 
   const redirectToCheckout = async () => {
