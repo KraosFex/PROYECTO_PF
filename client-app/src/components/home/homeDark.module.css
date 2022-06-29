@@ -134,7 +134,6 @@
     color: white;
     text-decoration: underline 1px;
     margin-left: 0.5em;
-    font-family: 'Anek Latin', sans-serif;
 }
 .courseStats {
     display: -webkit-box;
@@ -207,8 +206,7 @@
     margin-top: 20px;
     color: white;
     mix-blend-mode: exclusion;
-    font-weight: bold;
-    font-family: 'Roboto Slab', serif;
+    font-weight: 300;
     text-transform: uppercase;
 }
 

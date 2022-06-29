@@ -8,6 +8,7 @@ import Ranking from "./ranking/ranking";
 import UserRank from "./userRank/userRank";
 import { useSelector } from "react-redux";
 import JSIcon from "../../icons/javascript.jsx";
+import { AiFillHeart } from "react-icons/ai";
 
 function Home(props) {
   const { courses, user } = useSelector((store) => store.reducerCompleto);
@@ -56,7 +57,7 @@ function Home(props) {
                             to={`/course/${course._id}`}
                             className={style.courseName}
                           >
-                            {course.titulo.toUpperCase()}
+                            {course.titulo}
                           </NavLink>
 
                           <div className={darkTheme.lenguaje}>
@@ -87,8 +88,6 @@ function Home(props) {
                               </span>
                             </div>
                           </div>
-
-                          <div></div>
                         </div>
                       </div>
                     ))

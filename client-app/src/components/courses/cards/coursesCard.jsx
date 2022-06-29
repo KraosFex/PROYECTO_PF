@@ -39,8 +39,7 @@ function CoursesCard({ courses, setRefresh, refresh }) {
   // FUNCION PARA SABER SI EL CURSO ES UNO FAVORITO O NO
   const isFavorite = (id) => {
     for (const course of user.courses) {
-
-      if (course.course === id && course.isFavorite === true) {
+      if (course.course._id === id && course.isFavorite === true) {
         return (
           <AiFillHeart onClick={() => handleClick(course.course._id, true)} />
         );
@@ -48,7 +47,6 @@ function CoursesCard({ courses, setRefresh, refresh }) {
     }
     return <AiOutlineHeart onClick={() => handleClick(id, false)} />;
   };
-
 
   return (
     <div>

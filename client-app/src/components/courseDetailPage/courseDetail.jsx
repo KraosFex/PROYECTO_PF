@@ -15,7 +15,6 @@ import { setArrowCourse } from "../../../redux/reducer/index";
 import ArrowsCourse from "../../icons/arrowsCourse";
 
 export default function CourseDetail(props) {
-
   let { id } = useParams();
   let dispatch = useDispatch();
 
@@ -28,7 +27,7 @@ export default function CourseDetail(props) {
   const isLogged = useSelector((state) => state.reducerCompleto.isLogged);
 
   const [idClase, setIdClase] = useState("");
-  
+
   let style = darkTheme;
 
   useEffect(() => {
@@ -70,7 +69,7 @@ export default function CourseDetail(props) {
     }
   };
 
-  console.log("COURSE ", course)
+  console.log("COURSE ", course);
 
   return (
     <ThemeProvider

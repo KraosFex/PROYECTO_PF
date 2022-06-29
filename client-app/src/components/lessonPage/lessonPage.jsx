@@ -13,7 +13,6 @@ import lightTheme from "./lessonPageLight.module.css";
 import darkTheme from "./lessonPageDark.module.css";
 import { ThemeProvider } from "styled-components";
 import YouTube from "react-youtube";
-import { syncIndexes } from "../../../../api-app/src/model/modelUser";
 
 // aqui me traigao la lesson
 
@@ -66,7 +65,7 @@ export default function LessonPage(props) {
     const body = { idCourse, idLesson };
     try {
       const metaData = await axios.put(
-        "http://localhost:3001/api/cursosprivate/iscompleted",
+        "/api/cursosprivate/iscompleted",
         body,
         config
       );
