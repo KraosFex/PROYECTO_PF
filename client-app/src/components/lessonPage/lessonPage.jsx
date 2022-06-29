@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Vimeo from "@u-wave/react-vimeo";
 
 // redux actions
 import { getLesson } from "../../../redux/actions/index";
@@ -14,6 +13,7 @@ import lightTheme from "./lessonPageLight.module.css";
 import darkTheme from "./lessonPageDark.module.css";
 import { ThemeProvider } from "styled-components";
 import YouTube from "react-youtube";
+import { syncIndexes } from "../../../../api-app/src/model/modelUser";
 
 // aqui me traigao la lesson
 
@@ -25,7 +25,7 @@ export default function LessonPage(props) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  var style = darkTheme;
+  var style = lightTheme;
   const token = useSelector((state) => state.reducerCompleto.authToken);
   const refresh = useSelector((state) => state.reducerCompleto.refresh);
   useEffect(() => {
