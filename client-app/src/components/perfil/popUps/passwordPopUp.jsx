@@ -45,8 +45,8 @@ const PasswordPopUp = ({ popUpFunction }) => {
       );
     } else {
       event.preventDefault();
-      const response = await dispatch(editPassword(input.email));
-
+      const dis = await dispatch(editPassword(input.email));
+      const response = dis.payload
       if (response.success) {
         setInput({
           ...input,

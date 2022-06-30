@@ -120,7 +120,7 @@ export const editPassword = createAsyncThunk(
       return metaData.data;
     } catch (err) {
       alert("Ups! Something went wrong...EDITPASSWORD");
-      new Error(err);
+      console.log("err", err)
     }
   }
 );
