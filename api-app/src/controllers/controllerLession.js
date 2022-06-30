@@ -1,74 +1,110 @@
-const Lesson = require('../model/modelLesson')
 const Curso = require('../model/modelCurso')
 const User = require('../model/modelUser')
+const Lesson = require('../model/modelLesson')
 const ErrorResponse = require('../utils/errorResponse.js')
 
 const createLesson = async (req, res, next) => {
   try {
-    const course = await Curso.findById(req.params.id);
-    if (!course) return res.send({ info: "El curso no existe" });
-    const newLesson = await Lesson.create(req.body);
-    const updateCourse = await Curso.findByIdAndUpdate(req.params.id, {
-      $push: { lessons: newLesson },
-    });
-    updateCourse.lessons[0].lesson.isLocked = false;
-    await Curso.save();
-    res.send({ info: "Curso creado exitosamente", newLesson });
+    const course = await Curso.findById(req.params.id)
+    if (!course) return res.send({ info: 'El curso no existe' })
+    const newLesson = await Lesson.create(req.body)
+    const curso = await Curso.findByIdAndUpdate(req.params.id, {
+      $push: { lessons: newLesson }
+    })
+    if (curso.lessons[0] === newLesson) {
+      curso.lessons[0].isLocked = false
+    }
+    const all = await Curso.find()
+    res.send({ info: 'Curso creado exitosamente', all })
   } catch (err) {
-    next(new ErrorResponse(err, 500));
-  }
-};
-
-const getLesson = async (req, res, next) => {
-  const { id } = req.params;
-
-  try {
-    const lesson = await Lesson.findById(id)
-
-    res.send({ info: "Clase obtenida correctamente", lesson, success: true });
-  } catch (err) {
-    res.status(500).send({ info: "Error al obtener la clase", err, success: false });
+    next(new ErrorResponse(err, 500))
   }
 }
-
-const isCompleted = async (req, res) => {
-  const id = req.user._id
-  const { idLesson, idCourse } = req.body
-
+const getLesson = async (req, res, next) => {
+  let id = req.params.id
   try {
-    const user = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
-    const currentCourse = user.courses.filter(c => c.course._id == idCourse)
-    const currentLesson = currentCourse[0].course.lessons.filter(l => l.lesson._id == idLesson)
-    console.log("currentLesson", currentLesson)
-    currentLesson[0].lesson.set('isCompleted', true)
-    await user.save()
-
-    const currentIndex = currentCourse[0].course.lessons.findIndex(l => l.lesson._id == idLesson)
-    const nextIndex = currentIndex + 1
-
-    if (currentCourse[0].course.lessons[nextIndex]) {
-      currentCourse[0].course.lessons[nextIndex].lesson.set('isLocked', false)
-      await user.save()
-    }
-
-    const lessonInFalse = currentCourse[0].course.lessons.filter(l => l.lesson.isCompleted === false)
-
-    if (lessonInFalse.length) {
-      currentCourse[0].course.set('completed', false)
-      await user.save()
-    }
-    if (!lessonInFalse.length) {
-      currentCourse[0].course.set('completed', true)
-      await user.save()
-    }
-
-    const updateUser = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
-
-    res.send({info: "clase completada", updateUser, success: true, nextLessonId: currentCourse[0].course.lessons[nextIndex].lesson._id  })
+    const lesson2 = await Lesson.find({ num: id })
+    res.send({ info: 'Clase obtenida correctamente', lesson2 })
   } catch (err) {
-    res
-      .status(500)
-      .send({ info: 'Error al obtener la consulta', err, success: false })
+    console.log(err)
+    next(new ErrorResponse('Error al obtener la clase', 500))
+  }
+}
+const isCompleted = async (req, res) => {
+  const { idLesson, idUser, num } = req.body
+  try {
+    const usuario = await User.findById({ _id: idUser });
+    let filter = usuario.lessons.filter(e => e.lesson !== null)
+    let find = filter.length ? filter.find(e => e.lesson.num === num) : null;
+    if (find) {
+
+      let correccion = filter.map((e, i) => {
+        if (e.lesson.num === num) {
+          e.isComplete = true;
+          e.isLocked = false;
+          return e
+        }
+        if (e.lesson.num === num + 1) { e.isLocked = false; return e }
+        return e
+      })
+      var user = await User.findByIdAndUpdate(
+        { _id: idUser },
+        { lessons: correccion },
+        { new: true }
+      );
+      let Lewlesson = await Lesson.find({ num: num + 1 })
+      if(Lewlesson.length){
+        user = await User.findByIdAndUpdate(
+          { _id: idUser },
+          {
+            $push: {
+              lessons: {
+                lesson: { _id: Lewlesson[0]._id },
+                isLocked: false,
+              }
+            }
+          },
+          { new: true }
+        );
+      }
+      res.send({ info: "Lesson modificado exitosamente", user, success: true }).end();
+    }
+    if (!find) {
+      var user = await User.findByIdAndUpdate(
+        { _id: idUser },
+        {
+          $push: {
+            lessons: {
+              lesson: { _id: idLesson },
+              isComplete: true,
+              isLocked: false,
+            }
+          }
+        },
+        { new: true }
+      );
+      let lesson2 = await Lesson.find({ num: num + 1 })
+      if (lesson2.length) {
+        user = await User.findByIdAndUpdate(
+          { _id: idUser },
+          {
+            $push: {
+              lessons: {
+                lesson: { _id: lesson2[0]._id },
+                isLocked: false,
+              }
+            }
+          },
+          { new: true }
+        );
+      }
+      res.send({ info: "Lesson añadido y modificada exitosamente", user: user, success: true });
+    }
+
+
+  } catch (err) {
+    console.log(err)
+    next(new ErrorResponse("Error al añadir el complete", 500, false));
   }
 }
 

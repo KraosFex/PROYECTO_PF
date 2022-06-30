@@ -12,6 +12,10 @@ const courseSchema = new Schema(
       type: String,
       required: [true, 'La descripcion es requerida']
     },
+    calificacion: {
+      type: Number,
+      required: false
+    },
     imagen: {
       type: String,
       required: [true, 'La imagen es requerida']
@@ -23,8 +27,9 @@ const courseSchema = new Schema(
       {
         lesson: {
           type: Schema.ObjectId,
-          ref: 'Lesson'
-        }
+          ref: 'Lesson',
+          autopopulate: true
+        },
       }
     ],
     userVotes: [
@@ -49,6 +54,7 @@ const courseSchema = new Schema(
   }
 )
 
+courseSchema.plugin(require('mongoose-autopopulate'))
 courseSchema.plugin(mongoosePaginate)
 
 module.exports = model('Course', courseSchema)

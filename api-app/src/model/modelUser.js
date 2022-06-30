@@ -35,10 +35,6 @@ const userSchema = new Schema(
       type: Boolean,
       default: false
     },
-    isPremium: {
-      type: Boolean,
-      default: false
-    },
     Image: {
       type: String,
       default:
@@ -48,7 +44,8 @@ const userSchema = new Schema(
       {
         course: {
           type: Schema.ObjectId,
-          ref: 'Course'
+          ref: 'Course',
+          autopopulate: true
         },
         isFavorite: {
           type: Boolean,
@@ -60,10 +57,35 @@ const userSchema = new Schema(
         }
       }
     ],
+    lessons: [
+      {
+        lesson: {
+          type: Schema.ObjectId,
+          ref: 'Lesson',
+          autopopulate: true
+        },
+        isComplete: {
+          type: Boolean,
+          default: false
+        },
+        isLocked: {
+          type: Boolean,
+          default: true
+        }
+      }
+    ],
     password: {
       type: String,
       required: [true, 'La contraseña es requerida'],
       minlength: [6, 'La contraseña debe tener al menos 8 caracteres']
+    },
+    Vencimiento: {
+      type: String,
+      default: null
+    },
+    isPremium: {
+      type: Boolean,
+      default: false
     },
     resetPasswordToken: String,
     resetPasswordExpire: Date
@@ -74,6 +96,7 @@ const userSchema = new Schema(
   }
 )
 
+userSchema.plugin(require('mongoose-autopopulate'))
 userSchema.plugin(mongoosePaginate)
 
 userSchema.pre('save', async function (next) {

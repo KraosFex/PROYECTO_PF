@@ -1,36 +1,24 @@
-const { model, Schema } = require("mongoose");
+const { model, Schema } = require('mongoose')
 
-const lessonSchema = new Schema(
-  {
-    titulo: {
-      type: String,
-      required: true,
-    },
-    descripcion: {
-      type: String,
-      required: true,
-    },
-    num: {
-      type: Number,
-      required: true,
-    },
-    isCompleted: {
-      type: Boolean,
-      default: false,
-    },
-  quiz: [
-    {
-      type: Object
-    }
-  ],
-  isLocked: {
-    type: Boolean,
-    default: true
-  },
-  video: {
+const lessonSchema = new Schema({
+  num: {
     type: Number,
     required: true
-  }
+  },
+  titulo: {
+    type: String,
+    required: true
+  },
+  descripcion: {
+    type: String,
+    required: true
+  },
+  video: String,
+  quiz:  Object,
+  last: {
+          type: Boolean,
+          default: false
+        },
 }, { timestamps: true, versionKey: false })
 
-module.exports = model("Lesson", lessonSchema);
+module.exports = model('Lesson', lessonSchema)
