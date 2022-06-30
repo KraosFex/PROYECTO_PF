@@ -20,6 +20,7 @@ const getCursos = async (req, res, next) => {
 
 const getCursoById = async (req, res, next) => {
   try {
+
     const course = await Course.findById(req.params.id).populate({
       path: "lessons.lesson",
       ref: "Lesson",

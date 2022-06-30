@@ -30,6 +30,7 @@ export default function CourseDetail(props) {
 
   let style = darkTheme;
 
+
   useEffect(() => {
     async function axionReq() {
       const data = await dispatch(findCourse(id));
@@ -75,7 +76,6 @@ export default function CourseDetail(props) {
     }
   };
 
-  console.log("COURSE ", course);
 
   return (
     <ThemeProvider

@@ -59,54 +59,45 @@ const isCompleted = async (req, res) => {
   const { idLesson, idCourse } = req.body;
 
   try {
-    const user = await User.findById(id).populate({
-      path: "courses.course",
-      ref: "Course",
-      populate: { path: "lessons.lesson", ref: "Lesson" },
-    });
-    const currentCourse = user.courses.filter((c) => c.course._id == idCourse);
-    const currentLesson = currentCourse[0].course.lessons.filter(
-      (l) => l.lesson._id == idLesson
-    );
-    console.log("currentLesson", currentLesson);
-    currentLesson[0].lesson.set("isCompleted", true);
-    await user.save();
 
-    const currentIndex = currentCourse[0].course.lessons.findIndex(
-      (l) => l.lesson._id == idLesson
-    );
-    const nextIndex = currentIndex + 1;
+    const user = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
+    const currentCourse = user.courses.filter(c => c.course == idCourse)
+    const currentLesson = currentCourse[0].lessons.filter(l => l.lesson == idLesson)
+    currentLesson[0].isCompleted = true
 
-    if (currentCourse[0].course.lessons[nextIndex]) {
-      currentCourse[0].course.lessons[nextIndex].lesson.set("isLocked", false);
-      await user.save();
+    const currentIndex = currentCourse[0].lessons.findIndex(l => l.lesson._id == idLesson)
+    const nextIndex = currentIndex + 1
+
+    if (currentCourse[0].lessons[nextIndex]) {
+      currentCourse[0].lessons[nextIndex].isLocked = false
+      user.markModified('courses')
+      user.markModified('lessons')
+      await user.save()
     }
 
-    const lessonInFalse = currentCourse[0].course.lessons.filter(
-      (l) => l.lesson.isCompleted === false
-    );
+    const lessonInFalse = currentCourse[0].lessons.filter(l => l.isCompleted === false)
 
     if (lessonInFalse.length) {
-      currentCourse[0].course.set("completed", false);
-      await user.save();
+      currentCourse[0].completed = false
+      user.markModified('courses')
+      user.markModified('lessons')
+      await user.save()
+
     }
+
     if (!lessonInFalse.length) {
-      currentCourse[0].course.set("completed", true);
-      await user.save();
+      currentCourse[0].completed = true
+      user.markModified('courses')
+      user.markModified('lessons')
+      await user.save()
     }
 
-    const updateUser = await User.findById(id).populate({
-      path: "courses.course",
-      ref: "Course",
-      populate: { path: "lessons.lesson", ref: "Lesson" },
-    });
+    user.markModified('courses')
+    user.markModified('lessons')
+    await user.save()
 
-    res.send({
-      info: "clase completada",
-      updateUser,
-      success: true,
-      nextLessonId: currentCourse[0].course.lessons[nextIndex].lesson._id,
-    });
+    res.send({ info: 'lesson completada', success: true, updateUser: user, nextLessonId: null })
+
   } catch (err) {
     res
       .status(500)
