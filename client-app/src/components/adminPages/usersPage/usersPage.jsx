@@ -44,7 +44,6 @@ function UserPage() {
                 isAdmin={user.isAdmin}
                 premium={user.isPremium}
                 image={user.Image}
-                courses={user.courses}
               />
             );
           }
