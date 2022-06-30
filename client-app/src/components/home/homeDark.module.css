@@ -334,7 +334,7 @@
 
 .container2{
     width: 32em;
-    height: 20em;
+    min-height: 20em;
 }
 
 .container3{
@@ -400,7 +400,7 @@
 
 .container2{
     width: 20em;
-    height: 20em;
+    min-height: 20em;
 }
 
 .container3{
