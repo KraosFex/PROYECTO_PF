@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 const initialState = {
   user: {}, // anda
   isLogged: false, // anda
@@ -16,6 +17,7 @@ const initialState = {
   rankBorder: "",
   paginateCourses: {},
   paginateUsers: {},
+  aleatoryString: "hola",
 };
 
 export const appSlice = createSlice({
@@ -75,6 +77,9 @@ export const appSlice = createSlice({
     setPaginateUsers: (state, action) => {
       state.paginateUsers = action.payload;
     },
+    setAleatoryString: (state, action) => {
+      state.aleatoryString = action.payload;
+    },
   },
 });
 
@@ -96,6 +101,7 @@ export const {
   setRankBorder,
   setPaginateCourses,
   setPaginateUsers,
+  setAleatoryString,
 } = appSlice.actions;
 
 export default appSlice.reducer;

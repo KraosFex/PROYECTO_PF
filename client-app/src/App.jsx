@@ -57,7 +57,7 @@ function App() {
               element={<LessonPage theme={theme} />}
             />
             <Route path="/pay" element={<PaymentGateway />} />
-            <Route path="/success" element={<Success />} />
+            <Route path="/success/:id" element={<Success />} />
           </Route>
           <Route element={<PrivateAdminRoute isAdmin={user.isAdmin} />}>
             <Route path="/users" element={<UsersPage />} />
