@@ -65,6 +65,7 @@ function Login() {
       );
       var response = dis.payload;
       if (response.success === true) {
+        setAuthToken(response.token);
         setLogError({});
         navigateTo("/home");
       } else {
@@ -77,6 +78,7 @@ function Login() {
     const dis = await dispatch(auhtGoogle(response.credential));
     const data = dis.payload;
     if (data.success) {
+      setAuthToken(data.token);
       setLogError({});
       navigateTo("/home");
     } else {
