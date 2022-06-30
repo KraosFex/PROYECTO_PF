@@ -78,12 +78,13 @@ export default function CourseDetail(props) {
       for (const vote of course.votes) {
         calification += vote;
       }
-      return Math.ceil(calification / course.votes.length);
+      return (calification / course.votes.length).toFixed(1)
     } else {
       return 0;
     }
   };
 
+console.log("soy yo, ", course)
 
   return (
     <ThemeProvider
@@ -100,7 +101,7 @@ export default function CourseDetail(props) {
                 Clasificacion: {createCalification()}
               </label>
               <label className={style.label}>
-                Usuarios Inscriptos: {course.userIncript}
+                Usuarios Inscriptos: {course.userInscript}
               </label>
               <RatingB
                 idCourse={id}

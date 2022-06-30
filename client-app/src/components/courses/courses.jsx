@@ -49,6 +49,7 @@ function Courses() {
   const orderBy = (e) => {
     setCourseOrder(e.target.value);
   };
+
   const byTipo = (e) => {
     if (e.target.checked === true) {
       if (tipo1 === "0") setTipo1(e.target.value.toLowerCase());
@@ -81,7 +82,7 @@ function Courses() {
     if (e.target.value != "") {
       const dis = await dispatch(getCourseByName(e.target.value));
       const data = dis.payload;
-      console.log(data);
+
       showedCourses = courseSearch;
       if (!data.success) {
         setSerachError({ err: data.info });

@@ -57,7 +57,7 @@ const editUsername = async (req, res, next) => {
   const { id } = req.params
   const { username } = req.body
   try {
-    const user = await User.findByIdAndUpdate(id, { username }, { new: true })
+    const user = await User.findByIdAndUpdate(id, { username }, { new: true }).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
     if (!user) { return next(new ErrorResponse('Error al obtener el usuario', 500, false)) }
     res.send(user)
   } catch (err) {
@@ -71,7 +71,7 @@ const editImage = async (req, res, next) => {
   const { url } = req.body
 
   try {
-    const user = await User.findByIdAndUpdate(id, { Image: url }, { new: true })
+    const user = await User.findByIdAndUpdate(id, { Image: url }, { new: true }).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
 
     if (!user) { return res.status(404).send({info: "usuario no encontrado", success: false}) }
     const updateUser = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
