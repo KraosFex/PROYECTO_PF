@@ -6,7 +6,7 @@ const { createCurso, addFavorite, removeFavorite, addVotes, addCourse } = requir
 const { createLesson, getLesson, isCompleted } = require('../../controllers/controllerLession.js')
 
 router.post('/', protect, createCurso)
-router.put('/favorite/initcourse', protect, addCourse)
+router.put('/addcourse', protect, addCourse)
 router.put('/unfavorite', protect, removeFavorite)
 router.put('/favorite', protect, addFavorite)
 router.put('/iscompleted', protect, isCompleted)

@@ -48,6 +48,18 @@ function CoursesCard({ courses, setRefresh, refresh }) {
     return <AiOutlineHeart onClick={() => handleClick(id, false)} />;
   };
 
+  const createCalification = (course) => {
+    if (course.votes && course.votes.length) {
+      let calification = 0;
+      for (const vote of course.votes) {
+        calification += vote;
+      }
+      return (calification / course.votes.length).toFixed(1)
+    } else {
+      return 0;
+    }
+  };
+
   return (
     <div>
       {courses.map((course) => (
@@ -69,7 +81,7 @@ function CoursesCard({ courses, setRefresh, refresh }) {
                 ) : (
                   <AiOutlineHeart onClick={() => navigate("/login")} />
                 )}
-                <span>Rating: {course.calificacion}</span>
+                <span>Rating: {createCalification(course)}</span>
               </div>
               <div className={style.descripcion}>
                 <span>Descripcion: {course.descripcion}</span>
