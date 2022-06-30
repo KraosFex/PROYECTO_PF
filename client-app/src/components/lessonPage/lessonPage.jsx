@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
 
 
 // redux actions

@@ -26,6 +26,7 @@ function Home(props) {
 
   let favoritos = user.courses ? user.courses.filter(e => e.isFavorite).map(e => e.course) : []
   let style = props;
+
   return (
     <ThemeProvider
       theme={
@@ -56,9 +57,11 @@ function Home(props) {
                 </div>
               </div>
             </div>
+
             <div>
               {favoritos.length ? <h1 className={style.tit}>Favoritos</h1> : null}
               {favoritos.length ? favoritos.map((course, i) => <div key={i} className={style.container3}>
+
 
                 <div className={style.flexContainerCard}>
                   <NavLink
