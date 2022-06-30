@@ -86,19 +86,14 @@ const overallPosition = async (req, res) => {
   try {
     const allUsers = await User.find()
     const sorted = allUsers.filter(element => element.courses.length > 0)
-      .slice(0, 5).sort((a, b) => {
-      return (
-        a.courses?.map((c) => {
-          // cursos
-          return c.lesson?.filter((l) => l.isCompleted === true) // lecciones completas
-        }).length +
-        34 -
-        (b.courses?.map((c) => {
-          return c.lesson?.filter((l) => l.isCompleted === true)
-        }).length +
-          34)
-      )
-    })
+      .sort((a, b) => {
+        const aa = a.courses?.map((c) => { return c.lessons?.filter((l) => l.isCompleted === true).length}).reduce((a,b) => a + b)
+        const bb = b.courses?.map((c) => { return c.lessons?.filter((l) => l.isCompleted === true).length}).reduce((a,b) => a + b)
+
+        return (
+         bb - aa
+        )
+      })
 
     const response = sorted.findIndex((u) => u.id === id) // Posicion dentro del arreglo
     res.send({ info: 'Proceso completado con exito', response, success: true }) // 😄
@@ -111,24 +106,23 @@ const topFive = async (req, res) => {
   try {
     const allUsers = await User.find()
     const sorted = allUsers.filter(element => element.courses.length > 0)
-      .slice(0, 5).sort((a, b) => {
-      return (
-        a.courses?.map((c) => {
-          // cursos
-          return c.lesson?.filter((l) => l.isCompleted === true) // lecciones completas
-        }).length +
-        34 -
-        (b.courses?.map((c) => {
-          return c.lesson?.filter((l) => l.isCompleted === true)
-        }).length +
-          34)
-      )
-    })
-    res.send({ info: 'Proceso completado con exito', sorted, success: true }) // 😄
+      .sort((a, b) => {
+        const aa = a.courses?.map((c) => { return c.lessons?.filter((l) => l.isCompleted === true).length}).reduce((a,b) => a + b)
+        const bb = b.courses?.map((c) => { return c.lessons?.filter((l) => l.isCompleted === true).length}).reduce((a,b) => a + b)
+
+        return (
+         bb - aa
+        )
+      })
+
+    const sortedTopFive = sorted.slice(0, 5)
+
+    res.send({ info: 'Proceso completado con exito', sorted: sortedTopFive, success: true }) // :D
   } catch (err) {
     res.status(500).send({ info: 'Algo salio mal', success: false })
   }
 }
+
 
 const editIsAdmin = async (req, res) => {
   const { isAdmin } = req.user
