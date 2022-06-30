@@ -27,7 +27,7 @@
   margin-bottom: 20px;
 }
 
-.pregunta_numero span {
+.pregunta_numero > span {
   font-size: 28px;
 }
 
