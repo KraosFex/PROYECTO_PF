@@ -4,12 +4,15 @@ const {
   registerUser,
   login,
   forgotPassword,
-  googleLogin
+  googleLogin,
+  resetPassword
 } = require('../../controllers/controlllerAuth')
 
 router.post('/register', registerUser)
 router.post('/login', login)
 router.put('/forgotPassword', forgotPassword)
+router.put('/resetpassword/:token', resetPassword)
 router.post('/googlelogin', googleLogin)
+
 
 module.exports = router

@@ -60,13 +60,14 @@ const forgotPassword = async (req, res, next) => {
     const resetToken = user.generateTokenResetPassword()
     await user.save()
 
-    const resetURL = `http://localhost:${process.env.PORT}/passwordreset/${resetToken}`
+    const resetURL = `http://localhost:3000/resetpassword/${resetToken}`
 
     const message = `
-      <h1>HAz solicitado un reseteo de contraseña</h1>
-      <p>Para resetear la contraseña, haga click en el siguiente enlace:</p>
-      <a href="${resetURL}" clicktracking=off>${resetURL}</a>
+      Haz solicitado un reseteo de contraseña
+      Para resetear la contraseña, haga click en el siguiente enlace:
+      ${resetURL}
     `
+
     try {
       await sendMail({
         to: user.email,
@@ -87,14 +88,17 @@ const forgotPassword = async (req, res, next) => {
 }
 
 const resetPassword = async (req, res, next) => {
+
+  console.log("entre pa")
   const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex')
   try {
     const user = await User.findOne({ resetPasswordToken, resetPasswordExpire: { $gt: Date.now() } })
-    if (!user) return next(new ErrorResponse('Token invalido', 400, false))
+    if (!user) res.status(400).send({info: 'Token invalido', success: false})
     user.password = req.body.password
     user.resetPasswordToken = undefined
     user.resetPasswordExpire = undefined
     await user.save()
+    res.send({info: "contraseña cambiada", updateUser: user, success: true})
   } catch (err) {
     next(new ErrorResponse('Error al resetear la contraseña', 500, false))
   }
