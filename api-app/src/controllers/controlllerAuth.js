@@ -61,7 +61,7 @@ const forgotPassword = async (req, res, next) => {
     const resetToken = user.generateTokenResetPassword()
     await user.save()
 
-    const resetURL = `http://localhost:3000/resetpassword/${resetToken}`
+    const resetURL = `https://proyecto-pf.vercel.app/resetpassword/${resetToken}`
 
     const message = `
       Haz solicitado un reseteo de contraseña
