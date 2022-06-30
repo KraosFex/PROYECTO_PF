@@ -10,16 +10,7 @@ import {
 import BanearPopUp from "../PopUpBanear/BanearPopUp";
 import { useState } from "react";
 
-function UserCard({
-  id,
-  name,
-  username,
-  email,
-  isAdmin,
-  premium,
-  image,
-  courses,
-}) {
+function UserCard({ id, name, username, email, isAdmin, premium, image }) {
   const dispatch = useDispatch();
   const [banearPopUp, setBanear] = useState(false);
   const token = useSelector((state) => state.reducerCompleto.authToken);
@@ -67,12 +58,12 @@ function UserCard({
           </div>
         </div>
         <div className={style.userCourses}>
-          <h2>Cursos:</h2>
+          {/* <h2>Cursos:</h2>
           <div className={style.coursesContainer}>
             {courses.map((course) => (
               <h5 key={course.title}>{course.title}</h5>
             ))}
-          </div>
+          </div> */}
         </div>
         <div className={style.adminOptions}>
           <button
