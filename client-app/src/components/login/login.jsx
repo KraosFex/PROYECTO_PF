@@ -92,7 +92,7 @@ function Login() {
     /* global google */
     google.accounts.id.initialize({
       client_id:
-        "878930447732-k38pjg5vqoc125gmbivv7jfka64pnt64.apps.googleusercontent.com",
+        "869158533196-7vba7jr6h3127qb0o6mk3r752u5p243s.apps.googleusercontent.com",
       callback: handleCallBackResponse,
     });
 
