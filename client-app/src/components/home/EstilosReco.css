@@ -1,0 +1,25 @@
+.css{
+    background-color: #0e7a7a;
+    padding: 3px 10px;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 5px;
+}
+.js{
+    background-color: #7a770e;
+    font-size: small;
+    padding: 3px 10px;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 5px;
+}
+.html{
+    background-color: #9f4419;;
+    padding: 3px 10px;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 5px;
+}

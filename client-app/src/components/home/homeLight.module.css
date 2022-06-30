@@ -65,13 +65,25 @@
     -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11); 
     box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
 }
-.container2{
+
+.container2 {
+    display: flex;
+    padding: 20px;
     background-color: rgb(250, 250, 250);
     border-radius: 0.5em;
     width: 33.5em;
-    min-height: 30em;
-    -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11); 
-    box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
+    -webkit-box-shadow: -4px 5px 15px 5px rgb(0 0 0 / 11%);
+    box-shadow: -4px 5px 15px 5px rgb(0 0 0 / 11%);
+    flex-direction: column;
+    align-items: center;
+}
+
+.container2 h1 {
+    mix-blend-mode: exclusion;
+    color: white;
+    font-size: 25px;
+    align-self: center;
+    font-family: 'Roboto Slab', serif;
 }
 
 .container31{
@@ -185,6 +197,35 @@
     text-decoration: none;
     color: white;
     font-size: 0.9em;
+}
+.recos {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+    border-radius: 10px;
+    font-family: 'Roboto Slab', serif;
+    background: #d7d7d7;
+    margin: 10px;
+    padding: 5px;
+}
+
+.recos h2 {
+    mix-blend-mode: exclusion;
+    width: 50%;
+    color: white;
+    font-size: 20px;
+    align-self: center;
+    font-family: 'Roboto Slab', serif;
+}
+
+.recos a {
+    text-decoration: none;
+    mix-blend-mode: exclusion;
+    color: white;
+    padding: 3px 10px;
+    background-color: #2e2e2e;
+    border-radius: 8px;
 }
 
 
