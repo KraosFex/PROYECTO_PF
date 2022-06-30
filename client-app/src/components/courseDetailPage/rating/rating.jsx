@@ -31,7 +31,6 @@ export default function RatingB({ idCourse, setRefresh, refresh }) {
         "& > legend": { mt: 2 },
       }}
     >
-      <Typography component="legend">Controlled</Typography>
       <Rating
         name="simple-controlled"
         value={value}
