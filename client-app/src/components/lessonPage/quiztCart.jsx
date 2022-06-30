@@ -16,7 +16,7 @@ export default function QuiztCart({
   theme,
 }) {
   if (questions) {
-    const estandarTime = 120; //en segundos
+    const estandarTime = 160; //en segundos
     var style = darkTheme;
     const navigate = useNavigate();
     const dispatch = useDispatch();
