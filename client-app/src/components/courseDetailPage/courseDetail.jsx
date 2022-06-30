@@ -28,8 +28,9 @@ export default function CourseDetail(props) {
   const isLogged = useSelector((state) => state.reducerCompleto.isLogged);
 
   const [idClase, setIdClase] = useState("");
-  
+
   let style = darkTheme;
+
 
   useEffect(() => {
     async function axionReq() {
@@ -70,7 +71,6 @@ export default function CourseDetail(props) {
     }
   };
 
-  console.log("COURSE ", course)
 
   return (
     <ThemeProvider

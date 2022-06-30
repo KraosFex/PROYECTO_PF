@@ -22,7 +22,7 @@ const getCursoById = async (req, res, next) => {
   try {
     const course = await Course.findById(req.params.id).populate({ path: 'lessons.lesson', ref: 'Lesson' })
     res.send(course)
-    return
+    
   } catch (err) {
     next(new ErrorResponse('Error al crear el curso', 500, false))
     console.error(err)

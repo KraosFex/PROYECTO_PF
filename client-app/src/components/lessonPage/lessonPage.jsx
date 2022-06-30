@@ -71,7 +71,7 @@ export default function LessonPage(props) {
 
     try {
       const metaData = await axios.put("/api/cursosprivate/iscompleted", body, config);
-      console.log(metaData.data)
+      console.log("soy la data pa", metaData.data)
       dispatch(updateUser(metaData.data.updateUser));
       //navigate(`/course/${idCourse}/${metaData.data.nextLessonId}`)
     } catch (err) {

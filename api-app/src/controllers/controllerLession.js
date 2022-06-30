@@ -45,42 +45,45 @@ const getLesson = async (req, res, next) => {
 }
 
 const isCompleted = async (req, res) => {
-
-
   const id = req.user._id
   const { idLesson, idCourse } = req.body
 
-
-
   try {
-
     const user = await User.findById(id)
-
     const currentCourse = user.courses.filter(c => c.course == idCourse)
-    console.log("currentCourse", currentCourse)
     const currentLesson = currentCourse[0].lessons.filter(l => l.lesson == idLesson)
-      console.log("currentLesson", currentLesson)
     currentLesson[0].isCompleted = true
-    await user.save()
 
-    console.log("PASE CHECKPOINT")
+    const currentIndex = currentCourse[0].lessons.findIndex(l => l.lesson._id == idLesson)
+    const nextIndex = currentIndex + 1
+
+    if (currentCourse[0].lessons[nextIndex]) {
+      currentCourse[0].lessons[nextIndex].isLocked = false
+      user.markModified('courses')
+      user.markModified('lessons')
+      await user.save()
+    }
 
     const lessonInFalse = currentCourse[0].lessons.filter(l => l.isCompleted === false)
-    console.log("lessonInFalse", lessonInFalse)
 
     if (lessonInFalse.length) {
-      console.log("ADENTRO PA", currentCourse[0])
-      currentCourse[0].completed = false;
+      currentCourse[0].completed = false
+      user.markModified('courses')
+      user.markModified('lessons')
       await user.save()
     }
 
     if (!lessonInFalse.length) {
-      urrentCourse[0].completed = true;
+      currentCourse[0].completed = true
+      user.markModified('courses')
+      user.markModified('lessons')
       await user.save()
     }
 
+    user.markModified('courses')
+    user.markModified('lessons')
     await user.save()
-    console.log("AFUERA PA", user.courses[0].lessons)
+
     res.send({ info: 'lesson completada', success: true, updateUser: user, nextLessonId: null })
   } catch (err) {
     res
