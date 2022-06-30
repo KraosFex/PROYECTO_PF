@@ -153,6 +153,8 @@
     bottom: .3em;
     border: none;
     border-radius: 0 0 1px 0;
+    background-color: #474747;
+    color: #fff;
   }
   @media (max-width: 768px) {
     .containerPerfil{

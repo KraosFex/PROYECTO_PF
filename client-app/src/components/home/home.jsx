@@ -44,7 +44,7 @@ function Home(props) {
                 </div>
               </div>
             </div>
-            <div>
+            <div className={style.flexContainer4}>
               {favoritos.length ? (
                 <h1 className={style.tit}>Favoritos</h1>
               ) : null}
@@ -65,15 +65,6 @@ function Home(props) {
                           </div>
                           <div className={style.courseStats}>
                             <AiFillHeart className={darkTheme.corazon} />
-                            <span>
-                              Rating:{" "}
-                              {course.votes.length > 0
-                                ? (
-                                    course.votes.reduce((a, b) => a + b, 0) /
-                                    course.userVotes.length
-                                  ).toFixed(1)
-                                : 0}
-                            </span>
                             <div className={style.descripcion}>
                               <span>
                                 Descripcion: {course.descripcion.slice(0, 150)}
@@ -105,21 +96,12 @@ function Home(props) {
                             to={`/course/${course._id}`}
                             className={style.courseName}
                           >
-                            {course.titulo.toUpperCase()}
+                            {course.titulo}
                           </NavLink>
                           <div className={darkTheme.lenguaje}>
                             <JSIcon lenguajes={course.lenguaje.toLowerCase()} />
                           </div>
                           <div className={style.courseStats}>
-                            <span>
-                              Rating:{" "}
-                              {course.votes.length > 0
-                                ? (
-                                    course.votes.reduce((a, b) => a + b, 0) /
-                                    course.userVotes.length
-                                  ).toFixed(1)
-                                : 0}
-                            </span>
                             <div className={style.descripcion}>
                               <span>
                                 Descripcion: {course.descripcion.slice(0, 150)}

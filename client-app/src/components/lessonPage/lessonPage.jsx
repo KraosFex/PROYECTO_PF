@@ -96,6 +96,7 @@ export default function LessonPage(props) {
                 handleApproved={handleApproved}
                 approved={approved}
                 idCourse={idCourse}
+                theme={props.theme}
                 key={refresh}
               />
             ) : (
