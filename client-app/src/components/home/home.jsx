@@ -17,6 +17,7 @@ function Home(props) {
     ? user.courses.filter((e) => e.isFavorite).map((e) => e.course)
     : [];
   let style = props;
+
   return (
     <ThemeProvider
       theme={
@@ -48,7 +49,7 @@ function Home(props) {
               {favoritos.length ? (
                 <h1 className={style.tit}>Favoritos</h1>
               ) : null}
-              {favoritos
+              {favoritos 
                 ? favoritos
                     .map((course, i) => (
                       <div key={i} className={style.container3}>
