@@ -163,21 +163,6 @@ function Courses() {
               <label>HTML</label>
               <input type="checkbox" value="html" name="languages"></input>
             </div>
-            <p className={activeArrow ? style.pActive : style.p}>Progreso</p>
-            <div
-              className={activeArrow ? style.select2Active : style.select2}
-              onChange={() => filtered()}
-            >
-              <label>Todos</label>
-              <input
-                type="radio"
-                value="Todos"
-                name="progreso"
-                defaultChecked
-              ></input>
-              <label>En Progreso</label>
-              <input type="radio" value="En progreso" name="progreso"></input>
-            </div>
             <div className={style.pagination}>
               <Pagination
                 count={paginateObj.totalPages}
