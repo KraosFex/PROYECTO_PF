@@ -1,7 +1,7 @@
 const Course = require("../model/modelCurso");
 const User = require("../model/modelUser");
 const ErrorResponse = require("../utils/errorResponse.js");
-
+ 
 const getCursos = async (req, res, next) => {
   const options = {
     limit: parseInt(req.query.limit) || 8,
