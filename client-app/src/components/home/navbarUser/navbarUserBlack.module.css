@@ -28,21 +28,20 @@
 }
 
 
-.icon2{
+.icon2, .icon2Active{
+  display: flex;
   margin-left: 1em;
   margin-top: 1em;
   padding-left:3em;
 }
-.icon3{
-  justify-content: center;
-  align-items: center;
-  margin-left: .5em;
+.icon3, .icon3Active{
+  display: flex;
   margin-top:0.25em;
   width: 4em;
   height: 4em;
-  right: 0;
   background:none;
   border-radius:50% ;
+  margin-right: 0.5em;
 }
 .icon3 img{
   width: 4em;
@@ -51,20 +50,21 @@
     margin-right: 0.5em;
 }
 
-.icon2 svg{
+.icon2 svg, .icon2Active svg{
   position: absolute;
   width: 2em;
   height: 2em;
   color: rgb(160, 20, 13);
 }
 
-.icon21{
+.icon21,.icon21Active{
+  display: flex;
   margin-left: 1em;
   margin-top: 1em;
   padding-left:0em;
 }
 
-.icon21 svg{
+.icon21 svg, .icon21Active svg{
   position: absolute;
   width: 2em;
   height: 2em;
@@ -92,6 +92,7 @@
   padding-top: 1em;
   padding-left:3em;
 }
+
 
 .icon4 svg{
   position: absolute;
@@ -194,13 +195,15 @@
 }
 
 .icon5{
-  display: none;
+  display: flex;
   margin-top: 1em;
   margin-left: 1em;
   padding-left:3em;
 }
 .icon5 svg{
   display: none;
+  display: flex;
+  
   position: absolute;
   width: 2em;
   height: 2em;

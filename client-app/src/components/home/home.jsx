@@ -3,18 +3,31 @@ import darkTheme from "./homeDark.module.css";
 import lightTheme from "./homeLight.module.css";
 import { ThemeProvider } from "styled-components";
 import codeLearnGold from "../../icons/codelearngold.png";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Ranking from "./ranking/ranking";
 import UserRank from "./userRank/userRank";
-import { useSelector } from "react-redux";
-import JSIcon from "../../../../../PF/client/src/icons/javascript";
+import JSIcon from "../../icons/javascript";
+import { Reco } from "../../../CursosBases"
+import { AiFillHeart } from 'react-icons/ai';
+import "../../EstilosRecos.css"
+import { useSelector } from "react-redux"; 
 
+function Recomendaciones(name, hr, etiqueta, style, key) {
+  var etiquet = ""
+  if (etiqueta.toLowerCase() === "css") { etiquet = <label className="css">{etiqueta.toUpperCase()}</label> }
+  if (etiqueta.toLowerCase() === "javascript") { etiquet = <label className="js">{etiqueta.toUpperCase()}</label> }
+  if (etiqueta.toLowerCase() === "html") { etiquet = <label className="html">{etiqueta.toUpperCase()}</label> }
+  else { etiquet === null }
+  return (<div key={key} className={style.recos}><h2>{name.toUpperCase()}</h2>{etiquet}<a target="_blank" rel="noopener noreferrer" href={hr}>Go Now!</a></div>)
+}
 
 function Home(props) {
 
-  const { courses, user } = useSelector((store) => store.reducerCompleto);
+  const { courses, user } = useSelector((store) => store);
   
   let favoritos = user.courses ? user.courses.filter(e => e.isFavorite).map(e => e.course) : []
+
   let style = props;
   return (
     <ThemeProvider
@@ -28,7 +41,10 @@ function Home(props) {
           <Ranking />
         </div>
         <div className={style.flexContainer2}>
-          <div className={style.container2}></div>
+          <div className={style.container2}>
+            <h1>Recomendaciones del mes:</h1>
+            {Reco ? Reco.map((e, i) => Recomendaciones(e.name, e.hr, e.etiqueta, lightTheme, i)) : null}
+          </div>
           <div className={style.flexContainer3}>
             <div className={style.container31}>
               <img src={codeLearnGold} className={style.logoCont3} />
@@ -39,7 +55,7 @@ function Home(props) {
                   Comparativas con otros usuarios y mas.
                 </h1>
                 <div className={style.button}>
-                  <Link to="/pay">Ver mas</Link>
+                  <Link to="/Precios">Ver mas</Link>
                 </div>
               </div>
             </div>
@@ -68,8 +84,8 @@ function Home(props) {
 
                   <div></div></div>
               </div>).slice(0, 2) : null}
-              {courses.length ? <h1 className={style.tit}>Cursos Recomendados </h1> : null}
-              {courses ? courses.map((course, i) =>
+              {courses.length ? <h1 className={style.tit}>Mas Votados</h1> : null}
+              {courses ? courses.sort((a, b) => (a.votes.length > 0 ? (a.votes.reduce((a1, b1) => a1 + b1, 0) / a.userVotes.length).toFixed(1) : 0) < (b.votes.length > 0 ? (b.votes.reduce((a1, b1) => a1 + b1, 0) / b.userVotes.length).toFixed(1) : 0)? 1:-1).slice(0, 2).map((course, i) =>
                 <div key={i} className={style.container3}>
 
                   <div className={style.flexContainerCard}>
@@ -90,7 +106,7 @@ function Home(props) {
                     </div>
 
                     <div></div></div>
-                </div>).slice(0,2) : null}
+                </div>) : null}
             </div>
           </div>
         </div>

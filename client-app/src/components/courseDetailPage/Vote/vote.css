@@ -1,0 +1,54 @@
+.Conteiner_rating {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.star {
+    stroke: white;
+    stroke-width: 2;
+    min-height: 30px;
+    fill: rgba(128, 128, 128, 0.413);
+    margin: 1px;
+}
+
+.star:hover,
+.starselect {
+    fill: rgb(226, 31, 50);
+    transform: scale(1.2);
+    min-height: 30px;
+    cursor: pointer;
+}
+
+.rating {
+    visibility: hidden;
+    position: absolute;
+}
+
+.rating:checked {
+    fill: rgb(226, 31, 50);
+    transform: scale(1.2);
+    min-height: 30px;
+}
+
+.boton_send {
+    height: 25px;
+    padding: 3px 10px;
+    margin: 5px 10px;
+    border: 2px solid;
+    border-radius: 4px;
+    font-weight: bold;
+    color: black;
+    mix-blend-mode: difference;
+}
+
+.boton_send:hover {
+    transition: color 1s;
+    color: aqua;
+    cursor: pointer;
+}
+
+.disab,
+.disab:hover {
+    cursor: no-drop;
+}

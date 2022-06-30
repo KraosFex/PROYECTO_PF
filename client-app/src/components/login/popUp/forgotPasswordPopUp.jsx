@@ -1,6 +1,6 @@
 import style from "./forgotPopUp.module.css";
 import { AiFillCloseCircle } from "react-icons/ai";
-import { editPassword } from "../../../../redux/actions/index";
+import { editPassword } from "../../../../redux/actions";
 import { useDispatch } from "react-redux";
 import validator from "../../../utils/updateProfileValidator";
 import { useState } from "react";
@@ -52,8 +52,10 @@ const ForgotPopUp = ({ popUpFunction }) => {
           ...input,
           success: response.info,
         });
+        setUpdateError({})
       } else {
-        setUpdateError({ err: response.info });
+        setUpdateError({ err: response.data });
+        setInput({...input, success: null})
       }
     }
   };
@@ -87,12 +89,12 @@ const ForgotPopUp = ({ popUpFunction }) => {
               <label className={style.error}>{error.email}</label>
             )}
           </div>
-          <input type="submit" value="Listo"></input>
+          <input type="submit" value="Listo" className={style.send}></input>
           {input.success && (
-            <label className={style.success}>{input.success}</label>
+            <label className={style.label2}>{input.success}</label>
           )}
           {updateError.err && (
-            <label className={style.error}>{updateError.err}</label>
+            <label className={style.label}>{updateError.err}</label>
           )}
         </form>
       </div>

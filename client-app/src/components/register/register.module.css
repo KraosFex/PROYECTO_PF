@@ -3,69 +3,75 @@
 
 
 
-.flexContainer{
+.flexContainer {
     min-height: 100vh;
-    width: 100%;
-display: flex;
-justify-content: center;
-align-content: center;
-background: rgb(255,29,56);
-background: linear-gradient(9deg, rgba(255,29,56,1) 0%, rgba(255,102,108,1) 65%);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background: rgb(255, 29, 56);
+    background: linear-gradient(9deg, rgba(255, 29, 56, 1) 0%, rgba(255, 102, 108, 1) 65%);
 
 }
 
-.Container{
+.Container {
+    margin: 30px 0px;
     display: flex;
-    width: 25%;
+    position: relative;
     height: 50%;
     background-color: #f9f9f9;
     flex-wrap: wrap;
     align-self: center;
-    -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.54); 
-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.54);
+    width: 400px;
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.54);
+    box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.54);
 }
 
-.logo{
+.logo {
     display: flex;
     width: 100%;
     justify-content: center;
     align-content: center;
 }
-.logo img{
-    margin-top: 3em;
+
+.logo img {
+    margin-top: 5px;
     width: 8em;
     height: 8em;
 }
 
-.home{
+.home {
     display: flex;
     width: 100%;
     justify-content: center;
 }
 
-.form{
+.form {
     display: inline-flex;
     width: 100%;
-    min-height: 25em;
+    min-height: 20em;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     color: #1d1d1d;
 }
-.h1{
+
+.h1 {
     margin: 0em 0px 0px 0px;
     color: #383838;
     font-family: 'Kdam Thmor Pro', sans-serif;
     font-size: xxx-large;
 }
-.label1{
+
+.label1 {
     margin-top: 0em;
     position: relative;
     font-style: italic;
     font-size: small;
 }
-.divs,.divimg{
+
+.divs,
+.divimg {
     margin: -10px;
     margin-top: 1em;
     width: 15em;
@@ -76,30 +82,42 @@ box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.54);
     justify-content: center;
     border: black solid 1.5px;
 }
-.divimg{
+
+.divimg {
     width: 350px;
 }
-.inputs, .inputimg{
+
+.inputs,
+.inputimg {
     width: 18em;
-    display:inline-block;
+    display: inline-block;
     border: none;
     text-align: center;
     background-color: #f9f9f9;
 }
-.inputimg{
+
+.inputimg {
     width: 300px;
 }
+
 .inputimg::-webkit-file-upload-button {
     background: #f9f9f9;
     color: #1d1d1d;
     cursor: pointer;
 }
-.inputs::placeholder { color: rgb(51, 51, 51); }
-.btns{
+
+.inputs::placeholder {
+    color: rgb(51, 51, 51);
+}
+
+.btns {
     display: flex;
     align-items: center;
+    flex-direction: column;
 }
-.send, .send2{
+
+.send,
+.send2 {
     width: 100px;
     height: 30px;
     margin-top: 2em;
@@ -108,7 +126,8 @@ box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.54);
     color: #d1d1d1;
     font-weight: bold;
 }
-.send2{
+
+.send2 {
     height: 26px;
     font-size: smaller;
     display: flex;
@@ -116,35 +135,40 @@ box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.54);
     align-items: center;
     justify-content: center;
 }
-.send:hover, .send2:hover{
+
+.send:hover,
+.send2:hover {
     color: white;
     cursor: pointer;
     transition: color 0.3s;
 }
-.eye{
+
+.eye {
     height: 20px;
     width: 24px;
     padding: 0px 3px;
 }
-.beye{
-    /* position: relative;
-    left: 10px; */
-    margin-left:;
+
+.beye {
     border: none;
     border-radius: 10px;
 }
-.errors{
+
+.errors {
     width: 90%;
     margin-top: 1em;
+    margin-bottom: -1em;
     text-align: center;
+    font-size: small;
     color: rgb(193, 0, 0);
     font-style: italic;
 }
 
-.errors::before + .divs{
+.errors::before+.divs {
     margin-top: 5em;
 }
-.good{
+
+.good {
     background-color: #20cd008a;
     width: 90%;
     text-align: center;
@@ -152,61 +176,52 @@ box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.54);
     font-style: italic;
 }
 
-.policy{
+.policy {
     margin-top: 2em;
     width: 30em;
     text-align: center;
     justify-self: center;
 }
 
-.policy h1{
+.policy h1 {
     font-size: 1em;
     font-weight: 300;
 }
 
-.policy a{
+.policy a {
     text-decoration: none;
 }
 
-.signIn{
+.signIn {
     display: inline-flex;
     width: 100%;
     margin-top: 1em;
     margin-bottom: 1em;
-    justify-content: center;
 
 }
 
-.signIn h1{
+.signIn h1 {
     font-size: 1em;
     font-weight: 400;
+    margin-left: 32%;
 }
 
-.signIn a{
+.signIn a {
     margin-left: 1em;
 }
 
 
-.signInGoogle{
+.signInGoogle {
     width: 100%;
     text-align: center;
 }
 
-.signInGoogle h1{
+.signInGoogle h1 {
     font-size: 1em;
     font-weight: 400;
 }
 
-.signInGoogle svg{
+.signInGoogle svg {
     width: 2.5em;
     height: 2.5em;
 }
-
-@media (max-width: 768px) {
-
-    .Container{
-        width: 80%;
-    } 
-
-}
-

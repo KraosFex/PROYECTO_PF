@@ -1,32 +1,27 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { getUserRank } from "../../../../redux/actions/index";
+import { getUserRank } from "../../../../redux/actions";
 
 // styles
 import style from "./userRank.module.css";
-import { setRankBorder } from "../../../../redux/reducer";
 
 const UserRank = () => {
   const dispatch = useDispatch();
-  const isLogged = useSelector((state) => state.reducerCompleto.isLogged);
-  const user = useSelector((state) => state.reducerCompleto.user);
-  const { rankBorder } = useSelector((state) => state.reducerCompleto);
-  const token = useSelector((state) => state.reducerCompleto.authToken);
+  const isLogged = useSelector((store) => store.isLogged);
+  const user = useSelector((store) => store.user);
   const [userRank, setUserRank] = useState();
   const [errorRank, setErrorRank] = useState({});
-
-  if (userRank === 1) dispatch(setRankBorder("img/gold.png"));
-  else if (userRank === 2) dispatch(setRankBorder("img/silver.png"));
-  else if (userRank === 3) dispatch(setRankBorder("img/bronze.png"));
-  else if (userRank > 3 || userRank <= 0) dispatch(setRankBorder(""));
+  const [frame, setFrame] = useState();
 
   useEffect(() => {
+    if (userRank + 1 === 1) setFrame("img/gold.png");
+    if (userRank + 1 === 2) setFrame("img/silver.png");
+    if (userRank + 1 === 3) setFrame("img/bronze.png");
+
     async function axiosReq() {
-      const dis = await dispatch(getUserRank({ token, id: user._id }));
-      const data = dis.payload;
+      const data = await dispatch(getUserRank(user._id));
       if (data.success) {
-        setUserRank(data.response + 1);
-        console.log(rankBorder);
+        setUserRank(data.response);
       } else {
         setErrorRank({ err: data.info });
       }
@@ -46,16 +41,15 @@ const UserRank = () => {
             className={style.userPicture}
           />
           <img
-            src={rankBorder}
+            src={frame}
             className={style.frame}
-            onError={() => "this.style.display='none'"}
           />
         </div>
         <div className={style.userRankContainer}>
-          <label>{user.username}</label>
-          <div className={userRank <= 0 ? style.userNotRanked : style.userRank}>
+          <label>{user.username.split(" ")[0]}</label>
+          <div className={style.userRank}>
             <h3> Posicion actual</h3>
-            <h1>{userRank <= 0 ? "Not Ranked" : "#" + userRank}</h1>
+            <h1>#{userRank + 1}</h1>
           </div>
           {errorRank.err && (
             <label className={style.err}>{errorRank.err}</label>

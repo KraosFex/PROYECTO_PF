@@ -1,11 +1,10 @@
 // libraries
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // redux actions
 import { login, auhtGoogle } from "../../../redux/actions/index";
-import { setAuthToken } from "../../../redux/reducer";
 
 // childrend component
 import ForgotPopUp from "./popUp/forgotPasswordPopUp.jsx";
@@ -60,11 +59,12 @@ function Login() {
     } else {
       event.preventDefault();
 
-      const dis = await dispatch(
+      const response = await dispatch(
         login({ email: input.email, password: input.password })
       );
-      var response = dis.payload;
-      if (response.success === true) {
+
+      if (response.success) {
+        localStorage.setItem("authToken", response.token);
         setLogError({});
         navigateTo("/home");
       } else {
@@ -74,9 +74,10 @@ function Login() {
   };
 
   const handleCallBackResponse = async (response) => {
-    const dis = await dispatch(auhtGoogle(response.credential));
-    const data = dis.payload;
+    const data = await dispatch(auhtGoogle(response.credential));
+
     if (data.success) {
+      localStorage.setItem("authToken", data.token);
       setLogError({});
       navigateTo("/home");
     } else {
@@ -120,7 +121,7 @@ function Login() {
             </div>
           </div>
           <div className={style.childContainer}>
-            <h1>Entrar</h1>
+            <h1>Sign In</h1>
             {logError.err && (
               <label className={style.logError}>{logError.err}</label>
             )}
@@ -179,7 +180,7 @@ function Login() {
           </div>
         </div>
         {/*Codition open popUp or Close popUp*/}
-        {forgotPopUp ? <ForgotPopUp popUpFunction={popUpFunction} /> : null};
+        {forgotPopUp ? <ForgotPopUp popUpFunction={popUpFunction} /> : null}
       </div>
     </div>
   );

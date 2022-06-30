@@ -1,26 +1,13 @@
 // Store app
-import { configureStore } from "@reduxjs/toolkit";
-import { combineReducers, applyMiddleware } from "redux";
-import { persistReducer, persistStore } from "redux-persist";
-import reducerAll from "../reducer/index";
-import storage from "redux-persist/lib/storage";
+import { legacy_createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import rootReducer from "../reducer";
 
-const reducers = combineReducers({
-  reducerCompleto: reducerAll,
-});
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const persistConfig = {
-  key: "main-root",
-  storage,
-};
+const store = legacy_createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+)
 
-const persistedReducer = persistReducer(persistConfig, reducers);
-
-const store = configureStore({
-  reducer: persistedReducer,
-  applyMiddleware,
-});
-const Persistor = persistStore(store);
-
-export { Persistor };
-export default store;
+export default store

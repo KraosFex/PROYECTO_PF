@@ -1,51 +1,190 @@
+.tarjeta {
+    padding: 15px 10px;
+    background: #d0d1d5;
+    border-radius: 8px;
+}
 
-.flexContainer{
+/* If you like this, please check my blog at codedgar.com.ve */
+@import url('https://fonts.googleapis.com/css?family=Work+Sans');
+@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@300&display=swap');
+
+.body {
+    font-family: 'Work Sans', sans-serif;
+    background: #00d2ff;
+    background: -webkit-linear-gradient(to right, #3a7bd5, #00d2ff);
+    background: linear-gradient(to right, #3a7bd5, #00d2ff);
+    /* Thanks to uigradients :) */
+    padding: 20px 0;
+    min-height: 100vh;
+}
+
+.card {
+    background: linear-gradient(109deg, #000204, #022093);
+    border-radius: 14px;
+    max-width: 400px;
+    display: block;
+    margin: auto;
+    padding: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-shadow: 2px 10px 40px black;
+    z-index: 1000000;
+    position: relative;
+}
+.card div{
     display: flex;
+    padding: 5px 0;
+    align-items: center;
+    flex-direction: row;
+}
+.card div label{
+    font-size: 14px;
+    margin-right: 15px;
+}
+.logo_card {
+    max-width: 50px;
+    margin-bottom: 15px;
+    margin-top: -19px;
+}
+
+.container label {
+    display: flex;
+    font-size: 12px;
+    color: white;
+    opacity: .4;
+    font-family: monospace;
+}
+
+.container input {
+    font-family: 'Work Sans', sans-serif;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid transparent;
+    color: #dbdce0;
+    padding: 4px;
+    bottom: -10px;
+    position: relative;
+    padding: 10px 0;
+    background: #0000000d;
+    border-radius: 5px;
+}
+
+.abajo{
     width: 100%;
-    height: 100vh;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    background: rgb(255,29,56);
-    background: linear-gradient(9deg, rgba(255,29,56,1) 0%, rgba(255,102,108,1) 65%);
+    padding-top: 300px;
 }
-.checkout{
-    display: flex;
-    flex-direction: column;
-    width: 30%;
-    height: 70%;
-    border-radius: 0.7em ;
-    align-self: center;
-    justify-self: center;
-    background-color: rgb(250, 250, 250);
-    -webkit-box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11); 
-    box-shadow: -4px 5px 15px 5px rgba(0,0,0,0.11);
-    align-items: center;
-    
+.abajo P{
+    font-family: 'Anek Latin', sans-serif;
 }
 
-.checkout h1{
-    margin-top: 1em;
-    font-size: 2.3em;
-    color: rgb(36, 36, 36);
-    font-weight: 400;
+.input_cardnumber {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 8px;
 }
 
-.checkoutTitle{
-    margin-top: 2em;
-    font-size: 1.3em;
-}
-.checkoutDescription{
-    margin-top: 1em;
+
+.toleft {
+    float: left;
 }
 
-.checkoutButton{
-    margin-top: 3em;
-    width: 7em;
+input .toleftccv {
+    width: 50px;
+    margin-top: -5px;
+    font-size: 15px;
+}
+.col p{
+    font-size: large;
+    font-family: 'Anek Latin', sans-serif;
+    margin-top: 20px;
+    font-weight: bold;
 }
 
-.checkoutButton svg{
-    width: 2em;
+.receipt {
+    background: #dbdce0;
+    border-radius: 4px;
+    padding: 5%;
+    padding-top: 200px;
+    max-width: 600px;
+    display: block;
+    margin: auto;
+    margin-top: -180px;
+    position: relative;
+    min-height: 500px;
+}
 
+.col {
+    width: 50%;
+    float: left;
+}
 
+.bought-item {
+    background: #f5f5f5;
+    padding: 2px;
+}
+
+.bought-items {
+    margin-top: -3px;
+}
+.container input:focus{border-bottom:1px solid #1abc9c; outline:none;}
+.seller {
+    color: #01186f;
+    font-family: 'Open_sans';
+    padding: 5px
+}
+
+.description {
+    font-size: 13px;
+}
+
+.price {
+    font-size: 12px;
+}
+
+.comprobe {
+    text-align: center;
+}
+
+.proceed {
+    position: absolute;
+    top: 35%;
+    transform: translate(350px, 10px);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #1abc9c;
+    border: none;
+    color: white;
+    transition: box-shadow .2s, transform .4s;
+    cursor: pointer;
+}
+
+.proceed:active {
+    outline: none;
+}
+
+.proceed:focus {
+    outline: none;
+    box-shadow: inset 0px 0px 5px white;
+}
+
+.sendicon {
+    filter: invert(100%);
+    padding-top: 2px;
+}
+.datos{
+    width: 100%;
+    color:  black;
+}
+@media (max-width: 600px) {
+    .proceed {
+        transform: translate(250px, 10px);
+    }
+
+    .col {
+        display: block;
+        margin: auto;
+        width: 100%;
+        text-align: center;
+    }
 }

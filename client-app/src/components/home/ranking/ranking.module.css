@@ -16,9 +16,12 @@
 }
 
 .All h2 {
-    font-size: 2.3em;
-    font-weight: 400;
-    color: rgb(111, 111, 111);
+    mix-blend-mode: exclusion;
+    color: white;
+    margin-top: 15px;
+    font-size: 35px;
+    align-self: center;
+    font-family: 'Roboto Slab', serif;
 }
 
 .Contenedor2,
@@ -27,10 +30,9 @@
     padding: 25px;
     width: 100%;
     height: 100%;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
-
 }
 
 .Contenedor3 {
@@ -39,15 +41,6 @@
     justify-content: center;
     position: relative;
     
-}
-
-.h1 {
-    mix-blend-mode: exclusion;
-    color: white;
-    margin: 15px;
-    font-size: 35px;
-    align-self: center;
-    font-family: 'Roboto Slab', serif;
 }
 .puesto{
     position: relative;
@@ -74,22 +67,12 @@
     top:-8px;
     z-index: 10;
 }
-.medalla2{
-    right: 0px;
-}
-.medalla3{
-    right: 0px;
-}
-.medalla4{
-    right: 0px;
-}.medalla5{
+.medalla5{
     height: 37px;
-    right: 0px;
 }
 .medalla6{
     top:-6px;
     height: 35px;
-    right: 0px;
 }
 .cargando{
     height: 100px;
@@ -105,17 +88,6 @@
         margin: 5px;
     }
     .medalla,.medalla2,.medalla3,.medalla4,.medalla5,.medalla6{
-        right: 0;
         height: 30px;
-    }
-
-    .contenedor{
-        padding:1px;
-        margin-bottom: 0em;
-    }
-
-    .All{
-        margin-top: 1em;
-        height: 80%;
     }
 }

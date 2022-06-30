@@ -1,10 +1,8 @@
-import { useState, useEffect } from "react";
-import { register } from "../../../redux/actions/index";
-import { setAuthToken } from "../../../redux/reducer/index";
+import { useState } from "react";
+import { register } from "../../../redux/actions";
 import style from "./register.module.css";
 import validator from "../../utils/validator.js";
 import { useNavigate, Link, NavLink } from "react-router-dom";
-import Google from "../../icons/google";
 import { useDispatch } from "react-redux";
 
 function Register() {
@@ -49,7 +47,7 @@ function Register() {
     } else {
       event.preventDefault();
 
-      const dis = await dispatch(
+      const response = await dispatch(
         register({
           name: input.name,
           username: input.username,
@@ -57,11 +55,10 @@ function Register() {
           password: input.password,
         })
       );
-      var response = dis.payload;
 
       if (response.success) {
         setRegisterError({});
-        dispatch(setAuthToken(response.token));
+        localStorage.setItem("authToken", response.token);
         navigateTo("/home");
       } else {
         setRegisterError({ err: response.info });

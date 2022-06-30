@@ -2,9 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 function Arrows() {
-  const direction = useSelector(
-    (state) => state.reducerCompleto.arrowDirection
-  );
+  const direction = useSelector((store) => store.arrowDirection);
 
   if (direction === "left") {
     return (

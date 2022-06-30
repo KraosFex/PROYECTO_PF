@@ -1,32 +1,19 @@
 import style from "./usersPage.module.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers } from "../../../../redux/actions/index";
+import { getAllUsers } from "../../../../redux/actions";
 import UserCard from "./userCard/userCard.jsx";
 import SearchProfiles from "./searchProfiles/searchProfiles";
-import Pagination from "@mui/material/Pagination";
 
 function UserPage() {
   const dispatch = useDispatch();
 
-  const showedUsers = useSelector((state) => state.reducerCompleto.showedUsers);
-  const actualUser = useSelector((state) => state.reducerCompleto.user);
-  const token = useSelector((state) => state.reducerCompleto.authToken);
-  const paginateObj = useSelector(
-    (state) => state.reducerCompleto.paginateUsers
-  );
-  const [page, setPage] = useState(1);
-  const [refresh, setRefresh] = useState(false);
+  const showedUsers = useSelector((store) => store.showedUsers);
+  const actualUser = useSelector((store) => store.user);
 
   useEffect(() => {
-    dispatch(getAllUsers({ token, page }));
+    dispatch(getAllUsers());
   }, [dispatch]);
-
-  const handleChange = async (e, value) => {
-    await setPage(value);
-    await dispatch(getAllUsers({ token, page: value }));
-    refresh ? setRefresh(false) : setRefresh(true);
-  };
 
   return (
     <div className={style.flexContainer}>
@@ -36,6 +23,7 @@ function UserPage() {
           if (actualUser._id !== user._id) {
             return (
               <UserCard
+                estado={user.estado}
                 key={user._id}
                 id={user._id}
                 name={user.name}
@@ -48,15 +36,6 @@ function UserPage() {
             );
           }
         })}
-        <div>
-          <Pagination
-            count={paginateObj.totalPages}
-            page={page}
-            onChange={handleChange}
-            variant="outlined"
-            color="secondary"
-          />
-        </div>
       </div>
     </div>
   );

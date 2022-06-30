@@ -1,7 +1,16 @@
 export default function validator(specification, input) {
   const error = {};
 
-  if (specification === "login") {
+  if (specification === "contraseña") {
+    if (!input.password) {
+      error.password = "Contraseña requerida";
+    } else if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(input.password)
+    ) {
+      error.password =
+        "Mínimo 8 caracteres, al menos una mayúscula, una minúscula y un número";
+    }
+  } else if (specification === "login") {
     if (!input.email) {
       error.email = "Email requerido";
     } else if (

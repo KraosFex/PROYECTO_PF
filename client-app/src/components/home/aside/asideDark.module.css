@@ -4,6 +4,7 @@
   position: fixed;
   height: 100%;
   width: 7em;
+  z-index: 10;
   margin-left: 0;
   -webkit-transition: width 1.6s;
   -o-transition: width 1.6s;
@@ -11,9 +12,15 @@
   box-shadow: 10px 0px 18px -9px rgba(0,0,0,0.75);
 -webkit-box-shadow: 10px 0px 18px -9px rgba(0,0,0,0.75);
 -moz-box-shadow: 10px 0px 18px -9px rgba(0,0,0,0.75);
+padding-top: 30px;
 }
 .navbar:hover{
-  width:14em;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  justify-content: flex-start;
+  padding-top: 30px;
+  width: 14em;
 }
 
 .logo{
@@ -34,8 +41,6 @@
   display: flex;
   margin-left: 2.4em;
   padding-top: 5em;
-  width: 12em;
-  overflow: visible;
 }
 
 
@@ -69,9 +74,9 @@
   margin-left: 3.5em;
   opacity: 100%;
   color: white;
-  -webkit-transition: margin-left 1.5s, opacity 2.7s;
-  -o-transition: margin-left 1.5s, opacity 2.7s;
-  transition: margin-left 1.5s, opacity 2.7s;
+  -webkit-transition: margin-left 1.5s, opacity 2.5s;
+  -o-transition: margin-left 1.5s, opacity 2.5s;
+  transition: margin-left 1.5s, opacity 2.5s;
 }
 
 .navbar:hover  .logo{

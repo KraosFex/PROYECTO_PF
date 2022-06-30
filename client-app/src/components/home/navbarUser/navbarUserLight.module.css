@@ -1,5 +1,3 @@
-
-
 .flex{
   width: 100%;
 }
@@ -33,19 +31,13 @@
 }
 
 
-.icon2{
-  margin-top: 1em;
+.icon2, .icon2Active{
+  display: flex;
   margin-left: 1em;
+  margin-top: 1em;
   padding-left:3em;
 }
-.icon2 svg{
-  position: absolute;
-  width: 2em;
-  height: 2em;
-  color: rgb(226, 31, 50);
-}
-
-.icon3{
+.icon3, .icon3Active{
   display: flex;
   margin-top:0.25em;
   width: 4em;
@@ -55,24 +47,31 @@
   margin-right: 0.5em;
 }
 .icon3 img{
-  display: flex;
   width: 4em;
   height: 4em;
   border-radius: 50%;
+    margin-right: 0.5em;
 }
 
-
-.icon21{
-  margin-left: 1em;
-  padding-left:0em;
-  margin-top: 1em;
-}
-
-.icon21 svg{
+.icon2 svg, .icon2Active svg{
   position: absolute;
   width: 2em;
   height: 2em;
-  color: rgb(226, 31, 73);
+  color: rgb(226 31 50)
+}
+
+.icon21,.icon21Active{
+  display: flex;
+  margin-left: 1em;
+  margin-top: 1em;
+  padding-left:0em;
+}
+
+.icon21 svg, .icon21Active svg{
+  position: absolute;
+  width: 2em;
+  height: 2em;
+  color: rgb(226 31 50)
 }
 
 .icon2 svg:hover{
@@ -219,11 +218,18 @@
   height: 2em;
   color: rgb(226, 31, 50);
 }
+.salir{
+  background-color: transparent;
+  width: 100%;
+  border: none;
+  height: 100%;
+  font-size: 1.2rem;
+    text-decoration: none;
+    color: rgb(221, 221, 221);
+    cursor: pointer;
+}
 
 @media (max-width: 768px) {
-
-  .container{
-  }
 
   .arrows{
     display: block;

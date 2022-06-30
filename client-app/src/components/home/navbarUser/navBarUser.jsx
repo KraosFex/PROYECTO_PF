@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { themeSwitcher } from "../../../../redux/reducer/index.js";
+import { logout, themeSwitcher } from "../../../../redux/actions/index.js";
 
 //  styles
 import { ThemeProvider } from "styled-components";
@@ -10,26 +10,22 @@ import darkTheme from "./navbarUserBlack.module.css";
 import lightTheme from "./navbarUserLight.module.css";
 
 //  icones
-import FavoriteIcon from "../../../icons/Favorite";
+// import FavoriteIcon from "../../../icons/Favorite";
 import Moon from "../../../icons/moon";
-import CodeIcon from "../../../icons/code.jsx";
 import Discord from "../../../icons/Discord.jsx";
 import CursoIcon from "../../../icons/libro.jsx";
 import Notification from "../../../icons/notification";
 import Sun from "../../../icons/sun";
 import Arrows from "../../../icons/arrows.jsx";
-import { setArrowDirection } from "../../../../redux/reducer/index.js";
-import LogOut from "../../logout/logout.jsx";
+import { setArrowDirection } from "../../../../redux/actions/index.js";
 
 function NavBarUser() {
   const dispatch = useDispatch();
 
-  const isLogged = useSelector((state) => state.reducerCompleto.isLogged);
-  const user = useSelector((state) => state.reducerCompleto.user);
-  const theme = useSelector((state) => state.reducerCompleto.theme);
-  const direction = useSelector(
-    (state) => state.reducerCompleto.arrowDirection
-  );
+  const isLogged = useSelector((store) => store.isLogged);
+  const user = useSelector((store) => store.user);
+  const theme = useSelector((store) => store.theme);
+  const direction = useSelector((store) => store.arrowDirection);
 
   let body;
   let style;
@@ -66,7 +62,6 @@ function NavBarUser() {
       const isDropdownButton = e.target.matches("[data-dropdown-button]");
       if (!isDropdownButton && e.target.closest("[data-dropdown]") != null)
         return;
-      let currentDropdown;
       if (isDropdownButton) {
         setActive(!active);
       }
@@ -74,7 +69,7 @@ function NavBarUser() {
         setActive(false);
       }
     });
-  }, []);
+  });
   return (
     <ThemeProvider
       theme={theme === "light" ? (style = lightTheme) : (style = darkTheme)}
@@ -95,7 +90,7 @@ function NavBarUser() {
         </div>
 
         <div className={activeArrow ? style.icon2Active : style.icon2}>
-          <NavLink to="#">
+          <NavLink to="/perfil">
             <Notification />
           </NavLink>
         </div>
@@ -105,12 +100,12 @@ function NavBarUser() {
           </NavLink>
         </div>
         <div className={activeArrow ? style.icon4Active : style.icon4}>
-          <NavLink to="#">
+          <a href="https://discord.gg/kwXhPtED" target="_blank" rel="noopener noreferrer">
             <Discord />
-          </NavLink>
+          </a>
         </div>
         <div className={style.username}>
-          <h2 className={style.username}>{user.username}</h2>
+          <h2 className={style.username}>{user.username || "Invitado"}</h2>
         </div>
         <div data-dropdown className={style.dropdown}>
           <input
@@ -126,14 +121,18 @@ function NavBarUser() {
           <div
             className={active ? style.dropdownmenuActive : style.dropdownmenu}
           >
-            <NavLink to="/perfil" data-dropdown-button>
-              Perfil
-            </NavLink>
+
             <NavLink to="/home" data-dropdown-button>
               Inicio
             </NavLink>
-            {isLogged ? (
-              <LogOut />
+            {isLogged ? (<>
+              <NavLink to="/perfil" data-dropdown-button>
+                Perfil
+              </NavLink>
+              <NavLink to="#" data-dropdown-button>
+                <button onClick={() => logout()} className={lightTheme.salir}>Log Out</button>
+              </NavLink>
+            </>
             ) : (
               <>
                 <NavLink to="/login" data-dropdown-button>

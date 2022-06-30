@@ -6,10 +6,13 @@ import { ThemeProvider } from "styled-components";
 import codeLearnGold from "../../../icons/codelearngold.png";
 import { Link } from "react-router-dom";
 
+
 function Article(props) {
+
   let style = darkTheme;
 
   return (
+
     <ThemeProvider
       theme={
         props.theme === "light" ? (style = lightTheme) : (style = darkTheme)

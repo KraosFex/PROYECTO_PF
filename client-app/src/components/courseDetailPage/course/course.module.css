@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+
+.Container {
+    margin: 7%;
+    padding: 0px 60px;
+    background: url(https://static.vecteezy.com/system/resources/previews/001/192/082/non_2x/circle-dot-tunnel-png.png);
+    background-position-y: center;
+    background-blend-mode: soft-light;
+    background-size: cover;
+    background-color: #750e09;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-width: 65%;
+    min-height: 80%;
+    border-radius: 25px;
+    color: #f0f0f0;
+    border: 2px solid black;
+}
+
+.sup {
+    margin-top: 30px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.data {
+    display: flex;
+    flex-direction: column;
+}
+
+.Detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.titulo,
+.h4 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 60px;
+    margin: 0;
+}
+
+.h4 {
+    font-size: 30px;
+}
+
+.label {
+    font-weight: bold;
+    color: #9b9b9b;
+}
+
+.imagen {
+    max-width: 40%;
+    max-height: 150px;
+    border-radius: 5px;
+}
+
+.clases {
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative
+}
+
+.arrowd {
+    position: absolute;
+    right: -50px;
+    background-color: transparent;
+    border: none;
+    transform: rotate(90deg);
+    cursor: pointer;
+}
+
+.arrowi {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    transform: rotate(-90deg);
+    left: -50px;
+    cursor: pointer;
+}
+
+.ai {
+    max-width: 50px;
+}
+
+input[type="radio"] {
+    /* Add if not using autoprefixer */
+    -webkit-appearance: none;
+    /* Remove most all native input styles */
+    appearance: none;
+    /* For iOS < 15 */
+    background-color: var(--form-background);
+    /* Not removed via appearance */
+    margin: 0;
+
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid currentColor;
+    border-radius: 50%;
+    transform: translateY(-0.075em);
+
+    display: grid;
+    place-content: center;
+}
+
+input[type="radio"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--form-control-color);
+    /* Windows High Contrast Mode */
+    background-color: #a2a2ff;
+}
+
+input[type="radio"]:checked::before {
+    transform: scale(1);
+}
+
+input[type="radio"]:focus {
+    outline: max(2px, 0.15em) solid currentColor;
+    outline-offset: max(2px, 0.15em);
+}
+.progreso{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    justify-content: center;
+}
+.ClasP{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px;
+}
+
+.bar{
+    display: flex;
+    margin: 10px;
+    width: 100%;
+}
+input[type=range] {
+    -webkit-appearance: none;
+    background-color: transparent;
+    width: 100%;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    height: 10px;
+    background: #009667;
+    border-radius: 3px;
+}
+input[type=range]::-webkit-slider-thumb {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 2px solid #006545;
+    background: #7ef2cd;
+    -webkit-appearance: none;
+    margin-top: -6px;
+}

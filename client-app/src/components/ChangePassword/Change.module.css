@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mandali&display=swap');
+
+
+
+.flexContainer {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background: linear-gradient(to right, #34e89e, #0f3443);
+
+}
+
+.Container {
+    margin: 30px 0px;
+    display: flex;
+    position: relative;
+    height: 50%;
+    background-color: #f9f9f9;
+    flex-wrap: wrap;
+    align-self: center;
+    width: 400px;
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.54);
+    box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.54);
+    padding-bottom: 30px;
+}
+
+.logo {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-content: center;
+}
+
+.logo img {
+    margin-top: 5px;
+    width: 4em;
+    height: 4em;
+
+}
+
+.home {
+    display: flex;
+    width: 100%;
+    padding: 5px 15px 0;
+    justify-content: flex-start;
+}
+.home a, .send{
+    text-decoration: none;
+    font-family: 'Anek Latin';
+    border-radius: 15px ;
+    background: #626262;
+    color: #d1d1d1;
+    padding: 5px 10px;
+}
+.send{
+    padding: 8px 20px;
+    border: none;
+}
+
+.form {
+    display: inline-flex;
+    width: 100%;
+    min-height: 20em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    color: #1d1d1d;
+}
+
+.h1 {
+    margin: 0em 0px 0px 0px;
+    color: #383838;
+    font-family: 'Kdam Thmor Pro', sans-serif;
+    font-size: xx-large;
+    text-align: center;
+}
+
+.label1 {
+    margin-top: 0em;
+    position: relative;
+    font-style: italic;
+    font-size: small;
+    padding: 0 10px;
+    text-align: center;
+}
+
+.divs,
+.divimg {
+    margin: -10px;
+    margin-top: 1em;
+    width: 15em;
+    height: 30px;
+    display: flex;
+    font-family: 'Mandali', sans-serif;
+    font-weight: bold;
+    justify-content: center;
+    border: black solid 1.5px;
+}
+
+.divimg {
+    width: 350px;
+}
+
+.inputs,
+.inputimg {
+    width: 18em;
+    display: inline-block;
+    border: none;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.inputimg {
+    width: 300px;
+}
+
+.inputimg::-webkit-file-upload-button {
+    background: #f9f9f9;
+    color: #1d1d1d;
+    cursor: pointer;
+}
+
+.inputs::placeholder {
+    color: rgb(51, 51, 51);
+}
+
+.btns {
+    display: flex;
+    align-items: center;
+}
+
+
+.send2 {
+    width: 100px;
+    height: 30px;
+    margin-top: 2em;
+    background: #2e2e2e;
+    border: 2px solid;
+    color: #d1d1d1;
+    font-weight: bold;
+}
+
+.send2 {
+    height: 26px;
+    font-size: smaller;
+    display: flex;
+    margin-left: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.send:hover,
+.send2:hover {
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.errors,.good, .error{
+    width: 90%;
+    text-align: center;
+    background-color: #91ffdae0;
+    font-size: smaller;
+    font-family: cursive;
+    border-radius: 100px;
+    padding: 10px;
+}
+.errors{
+    background-color: #ff9191e0;
+}
+.error{
+    padding: 2px;
+    background-color: #ff9191e0;
+    font-weight: bold;
+}

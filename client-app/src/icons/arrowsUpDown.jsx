@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 function ArrowsUpDown() {
-  const direction = useSelector((state) => state.reducerCompleto.arrowUpDown);
+  const direction = useSelector((store) => store.arrowUpDown);
 
   if (direction === "down") {
     return (
@@ -13,7 +13,11 @@ function ArrowsUpDown() {
         stroke="currentColor"
         strokeWidth="2"
       >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M19 9l-7 7-7-7"
+        />
       </svg>
     );
   } else if (direction === "up") {
@@ -25,7 +29,11 @@ function ArrowsUpDown() {
         stroke="currentColor"
         strokeWidth="2"
       >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M5 15l7-7 7 7"
+        />
       </svg>
     );
   }
