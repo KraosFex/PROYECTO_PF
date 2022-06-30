@@ -75,7 +75,6 @@
     color: white;
     font-size: 25px;
     align-self: center;
-    font-family: 'Roboto Slab', serif;
 }
 .recos{
     display: flex;
@@ -83,8 +82,7 @@
     width: 100%;
     align-items: center;
     border-radius: 10px;
-    font-family: 'Roboto Slab', serif;
-    background: #5a5a5a;
+    background: #3e3e3e;
     margin: 10px;
     padding: 5px;
 }
@@ -94,7 +92,7 @@
     color: white;
     font-size: 20px;
     align-self: center;
-    font-family: 'Roboto Slab', serif;
+    font-weight: 200;
 }
 .recos a{
     text-decoration: none;
