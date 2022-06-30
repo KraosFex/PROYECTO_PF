@@ -94,11 +94,11 @@ function NavBarUser() {
           </NavLink>
         </div>
 
-        <div className={activeArrow ? style.icon2Active : style.icon2}>
+        {/* <div className={activeArrow ? style.icon2Active : style.icon2}>
           <NavLink to="#">
             <Notification />
           </NavLink>
-        </div>
+        </div> */}
         <div className={style.icon4}>
           <NavLink to="/courses">
             <CursoIcon />
