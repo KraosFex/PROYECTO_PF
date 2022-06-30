@@ -120,7 +120,7 @@ export const editPassword = createAsyncThunk(
       return metaData.data;
     } catch (err) {
       alert("Ups! Something went wrong...EDITPASSWORD");
-      console.log("err", err)
+      console.log("err", err);
     }
   }
 );
@@ -258,6 +258,7 @@ export const auhtGoogle = createAsyncThunk(
     try {
       const metaData = await axios.post("/api/auth/googlelogin", { tokenId });
       thunkAPI.dispatch(setValidateUser(metaData.data.user));
+      thunkAPI.dispatch(setValidateUser(metaData.data.token));
       return metaData.data;
     } catch (err) {
       return err.response.data;
