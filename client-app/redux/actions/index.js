@@ -363,6 +363,7 @@ export const isPremiumConverter = createAsyncThunk(
         { hola: "" },
         config
       );
+      return metaData.data;
     } catch (err) {
       console.log(err);
       return err.response.data;
