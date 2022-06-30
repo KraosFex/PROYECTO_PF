@@ -13,13 +13,14 @@ const registerUser = async (req, res, next) => {
     await user.save()
 
     const token = user.generateToken()
-
+    console.log("pase")
     const message = `Bienvenido ${user.username}, ya formas parte de la gran familia de CodeLearn!`
     await sendMail({
       to: user.email,
       subject: 'Bienvenida a CodeLearn!',
       text: message
     })
+    console.log("pase2")
 
     res.status(201).send({ info: 'Usuario creado exitosamente', success: true, token, user })
   } catch (err) {

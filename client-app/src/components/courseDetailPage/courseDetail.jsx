@@ -21,6 +21,7 @@ export default function CourseDetail(props) {
   const [refresh, setRefresh] = useState(false);
   const [activeArrow, setActiveArrow] = useState(false);
   const [course, setCourse] = useState({});
+  const [userCourse, setUserCourse] = useState({});
 
   const direction = useSelector((state) => state.reducerCompleto.arrowCourse);
   const user = useSelector((state) => state.reducerCompleto.user);
@@ -37,6 +38,12 @@ export default function CourseDetail(props) {
       setCourse(data.payload);
     }
     axionReq();
+    if(isLogged) {
+      let index = user.courses.find((o) => o.course._id === id);
+      if(index) {
+        setUserCourse(index)
+      }
+    }
   }, [dispatch]);
 
   var isLocked = true;
@@ -44,6 +51,7 @@ export default function CourseDetail(props) {
   if (user.isPremium) {
     isLocked = false;
   }
+
 
   if (isLogged && idClase) {
     let usercourse = user.courses.find((o) => o.course._id === id);
@@ -122,35 +130,66 @@ export default function CourseDetail(props) {
                 <h3>Clases</h3>
                 <div className={style.progreso}>
                   <div className={style.input}>
-                    {course.lessons &&
-                      course.lessons.map((e) => (
-                        <div className={style.ClasP} key={e._id}>
-                          {e.lesson.isCompleted ? (
-                            <input
-                              key={e._id}
-                              defaultChecked={false}
-                              type="radio"
-                              readOnly
-                              onClick={() => setIdClase(e.lesson._id)}
-                            />
-                          ) : e.lesson.isLocked ? (
-                            <input
-                              key={e.id}
-                              type="radio"
-                              disabled={isLocked}
-                              onClick={() => setIdClase(e.lesson._id)}
-                            />
-                          ) : (
-                            <input
-                              key={e._id}
-                              type="radio"
-                              defaultChecked={false}
-                              onClick={() => setIdClase(e.lesson._id)}
-                              className={style.locked}
-                            />
-                          )}
-                        </div>
-                      ))}
+                  {(isLogged && userCourse.course) &&
+                    userCourse.lessons.map((e) => (
+                      <div className={style.ClasP} key={e.lesson.toString()}>
+                        {e.isCompleted ? (
+                          <input
+                            key={e.lesson}
+                            defaultChecked={true}
+                            type="radio"
+                            readOnly
+                            onClick={() => setIdClase(e.lesson)}
+                          />
+                        ) : e.isLocked ? (
+                          <input
+                            key={e.lesson}
+                            type="radio"
+                            disabled={isLocked}
+                            onClick={() => setIdClase(e.lesson)}
+                          />
+                        ) : (
+                          <input
+                            key={e.lesson}
+                            type="radio"
+                            defaultChecked={false}
+                            onClick={() => setIdClase(e.lesson)}
+                            className={style.locked}
+                          />
+                        )}
+                      </div>
+                    ))}
+
+                  {(!isLogged || !userCourse.course) && course.lessons &&
+                    course.lessons.map((e) => (
+                      <div className={style.ClasP} key={e._id}>
+                        {e.lesson.isCompleted ? (
+                          <input
+                            key={e._id}
+                            defaultChecked={true}
+                            type="radio"
+                            readOnly
+                            onClick={() => setIdClase(e.lesson._id)}
+                          />
+                        ) : e.lesson.isLocked ? (
+                          <input
+                            key={e.id}
+                            type="radio"
+                            disabled={isLocked}
+                            onClick={() => setIdClase(e.lesson._id)}
+                          />
+                        ) : (
+                          <input
+                            key={e._id}
+                            type="radio"
+                            defaultChecked={false}
+                            onClick={() => setIdClase(e.lesson._id)}
+                            className={style.locked}
+                          />
+                        )}
+                      </div>
+                    ))}
+
                   </div>
                 </div>
                 <div className={style.info}>
