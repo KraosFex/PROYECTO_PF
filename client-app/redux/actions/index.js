@@ -258,7 +258,7 @@ export const auhtGoogle = createAsyncThunk(
     try {
       const metaData = await axios.post("/api/auth/googlelogin", { tokenId });
       thunkAPI.dispatch(setValidateUser(metaData.data.user));
-      thunkAPI.dispatch(setValidateUser(metaData.data.token));
+      thunkAPI.dispatch(setAuthToken(metaData.data.token));
       return metaData.data;
     } catch (err) {
       return err.response.data;
