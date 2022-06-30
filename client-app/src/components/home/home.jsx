@@ -17,6 +17,7 @@ function Home(props) {
     ? user.courses.filter((e) => e.isFavorite).map((e) => e.course)
     : [];
   let style = props;
+
   return (
     <ThemeProvider
       theme={

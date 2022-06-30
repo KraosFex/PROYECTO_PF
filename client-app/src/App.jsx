@@ -41,6 +41,7 @@ function App() {
     </>
   );
 
+console.log(user)
 
   return (
     <div className={style.AppBody}>
