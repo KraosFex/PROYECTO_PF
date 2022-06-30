@@ -90,10 +90,10 @@ const forgotPassword = async (req, res, next) => {
 
 const resetPassword = async (req, res, next) => {
 
-  console.log("entre pa")
+
   const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex')
   try {
-    const user = await User.findOne({ resetPasswordToken, resetPasswordExpire: { $gt: Date.now() } })
+    const user = await User.findOne({ resetPasswordToken, resetPasswordExpire: { $gt: Date.now() } }).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
     if (!user) res.status(400).send({info: 'Token invalido', success: false})
     user.password = req.body.password
     user.resetPasswordToken = undefined
