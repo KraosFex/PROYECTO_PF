@@ -22,6 +22,7 @@ import LessonPage from "./components/lessonPage/lessonPage";
 import UsersPage from "./components/adminPages/usersPage/usersPage";
 import PaymentGateway from "./components/paymentGateway/paymentGateway.jsx";
 import Success from "../src/components/paymentGateway/success/success";
+import ForgotPassword from "./components/forgotPassword/forgotPassword";
 
 // styles
 import style from "./index.modules.css";
@@ -40,12 +41,12 @@ function App() {
     </>
   );
 
-  console.log(token);
 
   return (
     <div className={style.AppBody}>
       <Routes>
         <Route exact path="/" element={<Landing />} />
+        <Route path="/resetpassword/:token" element={<ForgotPassword />} />
         <Route path="/login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route element={<AppLayout />}>
@@ -56,10 +57,10 @@ function App() {
             <Route path="/perfil" element={<Perfil theme={theme} />} />
             <Route
               path="/course/:idCourse/:idLesson"
-              element={<LessonPage />}
+              element={<LessonPage theme={theme} />}
             />
             <Route path="/pay" element={<PaymentGateway />} />
-            <Route path="/success" element={<Success />} />
+            <Route path="/success/:id" element={<Success />} />
           </Route>
           <Route element={<PrivateAdminRoute isAdmin={user.isAdmin} />}>
             <Route path="/users" element={<UsersPage />} />

@@ -8,18 +8,22 @@ const { OAuth2 } = google.auth
 const client = new OAuth2(process.env.MAILING_SERVICE_CLIENT_ID)
 
 const registerUser = async (req, res, next) => {
-
-
   try {
     const user = await User.create(req.body)
-
     await user.save()
 
     const token = user.generateToken()
 
+    const message = `Bienvenido ${user.username}, ya formas parte de la gran familia de CodeLearn!`
+    await sendMail({
+      to: user.email,
+      subject: 'Bienvenida a CodeLearn!',
+      text: message
+    })
+
     res.status(201).send({ info: 'Usuario creado exitosamente', success: true, token, user })
   } catch (err) {
-    return res.status(500).send({ info: 'Ya existe una cuenta con ese gmail', success: false, err })
+    return res.status(500).send({ info: 'Ya existe una cuenta con ese gmail', success: false })
     // next(err);
   }
 }
@@ -56,16 +60,17 @@ const forgotPassword = async (req, res, next) => {
     const resetToken = user.generateTokenResetPassword()
     await user.save()
 
-    const resetURL = `http://localhost:${process.env.PORT}/passwordreset/${resetToken}`
+    const resetURL = `http://localhost:3000/resetpassword/${resetToken}`
 
     const message = `
-      <h1>HAz solicitado un reseteo de contraseña</h1>
-      <p>Para resetear la contraseña, haga click en el siguiente enlace:</p>
-      <a href="${resetURL}" clicktracking=off>${resetURL}</a>
+      Haz solicitado un reseteo de contraseña
+      Para resetear la contraseña, haga click en el siguiente enlace:
+      ${resetURL}
     `
+
     try {
       await sendMail({
-        email: user.email,
+        to: user.email,
         subject: 'Reseteo de contraseña',
         text: message
       })
@@ -83,14 +88,17 @@ const forgotPassword = async (req, res, next) => {
 }
 
 const resetPassword = async (req, res, next) => {
+
+  console.log("entre pa")
   const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex')
   try {
     const user = await User.findOne({ resetPasswordToken, resetPasswordExpire: { $gt: Date.now() } })
-    if (!user) return next(new ErrorResponse('Token invalido', 400, false))
+    if (!user) res.status(400).send({info: 'Token invalido', success: false})
     user.password = req.body.password
     user.resetPasswordToken = undefined
     user.resetPasswordExpire = undefined
     await user.save()
+    res.send({info: "contraseña cambiada", updateUser: user, success: true})
   } catch (err) {
     next(new ErrorResponse('Error al resetear la contraseña', 500, false))
   }

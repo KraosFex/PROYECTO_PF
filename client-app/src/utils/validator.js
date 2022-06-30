@@ -17,7 +17,8 @@ export default function validator(specification, input) {
       error.password =
         "Mínimo 8 caracteres, al menos una mayúscula, una minúscula y un número";
     }
-  } else if (specification === "register") {
+  }
+   else if (specification === "register") {
     if (!input.name) {
       error.name = "Nombre requerido";
     } else if (!/[\w ]{4,}$/.test(input.name)) {
@@ -54,6 +55,26 @@ export default function validator(specification, input) {
       error.confirmPassword = "La contraseña no coincide";
     }
   }
+
+  else if (specification === "forgot") {
+
+
+   if (!input.password) {
+     error.password = "Contraseña requerida";
+   } else if (
+     !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(input.password)
+   ) {
+     error.password =
+       "Mínimo 8 caracteres, al menos una mayúscula, una minúscula y un número";
+   }
+
+   if (!input.confirmPassword) {
+     error.confirmPassword = "Contraseña requerida";
+   } else if (input.confirmPassword !== input.password) {
+     error.confirmPassword = "La contraseña no coincide";
+   }
+ }
+
 
   return error;
 };

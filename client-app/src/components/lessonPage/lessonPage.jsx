@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Vimeo from "@u-wave/react-vimeo";
-import axios from 'axios'
+
 
 // redux actions
 import { getLesson } from "../../../redux/actions/index";
@@ -28,7 +27,7 @@ export default function LessonPage(props) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  var style = darkTheme;
+  var style = lightTheme;
   const token = useSelector((state) => state.reducerCompleto.authToken);
   const refresh = useSelector((state) => state.reducerCompleto.refresh);
   useEffect(() => {
@@ -70,8 +69,12 @@ export default function LessonPage(props) {
     const body = { idCourse, idLesson };
 
     try {
-      const metaData = await axios.put("/api/cursosprivate/iscompleted", body, config);
-      console.log("soy la data pa", metaData.data)
+      const metaData = await axios.put(
+        "/api/cursosprivate/iscompleted",
+        body,
+        config
+      );
+
       dispatch(updateUser(metaData.data.updateUser));
       //navigate(`/course/${idCourse}/${metaData.data.nextLessonId}`)
     } catch (err) {
@@ -100,6 +103,7 @@ export default function LessonPage(props) {
                 handleApproved={handleApproved}
                 approved={approved}
                 idCourse={idCourse}
+                theme={props.theme}
                 key={refresh}
               />
             ) : (

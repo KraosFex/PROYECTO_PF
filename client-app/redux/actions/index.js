@@ -48,7 +48,7 @@ export const findCourse = createAsyncThunk("/cursos/detail", async (id) => {
     const resp = await axios.get(`/api/cursos/detail/${id}`);
     return resp.data;
   } catch (err) {
-    return err.response.data
+    return err.response.data;
   }
 });
 
@@ -120,7 +120,7 @@ export const editPassword = createAsyncThunk(
       return metaData.data;
     } catch (err) {
       alert("Ups! Something went wrong...EDITPASSWORD");
-      new Error(err);
+      console.log("err", err)
     }
   }
 );
@@ -171,6 +171,7 @@ export const bookmarkCourse = createAsyncThunk(
         config
       );
       thunkAPI.dispatch(updateUser(resp.data.updateUser));
+      console.log(resp.data.updateUser);
     } catch (err) {
       alert("Ups! Something went wrong ...BOOKMARKCOURSE");
       console.log(err);

@@ -63,11 +63,13 @@ function PaymentGateway() {
 
 //despues cuando procesa llega un objeto con mucha instanceOf, alli si me lo regresas para entonces hacer lo del premium, q estoy en eso..
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import lightTheme from "./paymentGateway.module.css";
 import codeLearnGold from "../../icons/codelearngold.png";
 import CreditCard from "../../icons/creditCard";
+import { useSelector, useDispatch } from "react-redux";
+import { setAleatoryString } from "../../../redux/reducer/index";
 
 let stripePromise;
 
@@ -82,8 +84,21 @@ const getStripe = () => {
 };
 
 const PaymentGateway = () => {
+  const token = useSelector((state) => state.reducerCompleto.authToken);
+  const userId = useSelector((state) => state.reducerCompleto.user);
+  const { aleatoryString } = useSelector((state) => state.reducerCompleto);
+  var id = userId._id + aleatoryString;
   const [stripeError, setStripeError] = useState(null);
   const [isLoading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  var aleatory = Math.random()
+    .toString(36)
+    .replace(/[^a-z]+/g, "")
+    .substr(0, 5);
+
+  useEffect(() => {
+    dispatch(setAleatoryString(aleatory));
+  }, []);
 
   const item = {
     price: "price_1LEK25Kjg0F9xTQTeGbXFs86",
@@ -93,8 +108,8 @@ const PaymentGateway = () => {
   const checkoutOptions = {
     lineItems: [item],
     mode: "payment",
-    successUrl: `/success`,
-    cancelUrl: `/home`,
+    successUrl: `${window.location.origin}/success/${id}`,
+    cancelUrl: `${window.location.origin}/home`,
   };
 
   const redirectToCheckout = async () => {

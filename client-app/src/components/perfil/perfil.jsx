@@ -27,7 +27,8 @@ const Perfil = (props) => {
     else if (specification === "username") setUsernamePopUp(bool);
     else if (specification === "image") setImagePopUp(bool);
   };
-
+  var tipoUsuario = "normal";
+  if (user.isPremium) tipoUsuario = "Premium";
   const coursesAll = user.courses.map((courseObj) => {
     return (
       <ThemeProvider
@@ -40,10 +41,12 @@ const Perfil = (props) => {
           <label className={style.cursos}>
             {courseObj.favorito === true ? "FAVORITO" : "NO AGREGADO"}
           </label>
-          {/* <label className={style.cursos1}> {courseObj.lessons.length} </label> */}
+          <label className={style.cursos1}> {courseObj.lessons.length} </label>
           <label className={style.cursos1}>
-            {/* {courseObj.lessons.filter((lesson) => lesson.isCompleted === true)}
-          .length; */}
+            {
+              courseObj.lessons.filter((lesson) => lesson.isCompleted === true)
+                .length
+            }
           </label>
           <div className={style.lenguaje}>
             <JSIcon lenguajes={courseObj.course.lenguaje} />
@@ -108,6 +111,10 @@ const Perfil = (props) => {
                 <div>
                   <label> Email: </label>
                   <span> {user.email} </span>
+                </div>
+                <div>
+                  <label> Usuario: </label>
+                  <span> {tipoUsuario} </span>
                 </div>
               </div>
               <div className={style.item}>
