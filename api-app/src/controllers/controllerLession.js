@@ -60,7 +60,7 @@ const isCompleted = async (req, res) => {
 
   try {
 
-    const user = await User.findById(id)
+    const user = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
     const currentCourse = user.courses.filter(c => c.course == idCourse)
     const currentLesson = currentCourse[0].lessons.filter(l => l.lesson == idLesson)
     currentLesson[0].isCompleted = true
