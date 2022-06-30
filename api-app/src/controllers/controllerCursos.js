@@ -181,7 +181,7 @@ const addCourse = async (req, res) => {
         $push: {
           courses: {
             course: idCurso,
-            isFavorite: true,
+            isFavorite: false,
             lessons: currentLessons,
           },
         },
