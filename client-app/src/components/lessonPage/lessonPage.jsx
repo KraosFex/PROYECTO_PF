@@ -37,7 +37,7 @@ export default function LessonPage(props) {
       setLesson(data.payload.lesson);
     }
     axiosReq();
-  }, [dispatch]);
+  }, [dispatch, idLesson]);
 
   const handleStart = () => {
     setIsReady(true);
@@ -50,7 +50,7 @@ export default function LessonPage(props) {
     });
   };
 
-  console.log(refresh);
+
   const startClick = (e) => {
     handleStart();
     setTimeout(() => goBottom(), 50);
@@ -70,6 +70,7 @@ export default function LessonPage(props) {
     const body = { idCourse, idLesson };
 
     try {
+      console.log("entre")
       const metaData = await axios.put(
         "/api/cursosprivate/iscompleted",
         body,
@@ -77,7 +78,7 @@ export default function LessonPage(props) {
       );
 
       dispatch(updateUser(metaData.data.updateUser));
-      //navigate(`/course/${idCourse}/${metaData.data.nextLessonId}`)
+      navigate(`/course/${idCourse}/${metaData.data.nextLessonId}`)
     } catch (err) {
       console.log(err)
       alert("lesson no se pudo completar correctamente. lessonPage.jsx");

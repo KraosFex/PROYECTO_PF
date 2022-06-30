@@ -55,14 +55,16 @@ const getLesson = async (req, res, next) => {
 };
 
 const isCompleted = async (req, res) => {
-  const id = req.user._id;
-  const { idLesson, idCourse } = req.body;
+  const id = req.user._id
+  const { idLesson, idCourse } = req.body
 
   try {
+    const user = await User.findById(id)
 
-    const user = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
-    const currentCourse = user.courses.filter(c => c.course == idCourse)
+    const currentCourse = user.courses.filter(c => c.course._id == idCourse)
+    console.log(currentCourse[0].lessons)
     const currentLesson = currentCourse[0].lessons.filter(l => l.lesson == idLesson)
+
     currentLesson[0].isCompleted = true
 
     const currentIndex = currentCourse[0].lessons.findIndex(l => l.lesson._id == idLesson)
@@ -82,7 +84,6 @@ const isCompleted = async (req, res) => {
       user.markModified('courses')
       user.markModified('lessons')
       await user.save()
-
     }
 
     if (!lessonInFalse.length) {
@@ -96,14 +97,15 @@ const isCompleted = async (req, res) => {
     user.markModified('lessons')
     await user.save()
 
-    res.send({ info: 'lesson completada', success: true, updateUser: user, nextLessonId: null })
+    const updateUser = await User.findById(id).populate({ path: 'courses.course', ref: 'Course', populate: { path: 'lessons.lesson', ref: 'Lesson' } })
 
+    res.send({ info: 'lesson completada', success: true, updateUser, nextLessonId: currentCourse[0].lessons[nextIndex].lesson.toString() })
   } catch (err) {
     res
       .status(500)
-      .send({ info: "Error al obtener la consulta", err, success: false });
+      .send({ info: 'Error al obtener la consulta', err, success: false })
   }
-};
+}
 
 module.exports = {
   createLesson,
