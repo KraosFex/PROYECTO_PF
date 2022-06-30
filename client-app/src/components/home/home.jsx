@@ -12,7 +12,8 @@ import "./EstilosReco.css";
 import JSIcon from "../../icons/javascript";
 import { AiFillHeart } from "react-icons/ai";
 
-function Recomendaciones(name, hr, etiqueta, style, key) {
+function Recomendaciones(name, hr, etiqueta, key, props) {
+  var style = darkTheme;
   var etiquet = "";
   if (etiqueta.toLowerCase() === "css") {
     etiquet = <label className="css">{etiqueta.toUpperCase()}</label>;
@@ -26,13 +27,17 @@ function Recomendaciones(name, hr, etiqueta, style, key) {
     etiquet === null;
   }
   return (
-    <div key={key} className={style.recos}>
-      <h2>{name.toUpperCase()}</h2>
-      {etiquet}
-      <a target="_blank" rel="noopener noreferrer" href={hr}>
-        Go Now!
-      </a>
-    </div>
+    <ThemeProvider
+      theme={props === "light" ? (style = lightTheme) : (style = darkTheme)}
+    >
+      <div key={key} className={style.recos}>
+        <h2>{name.toUpperCase()}</h2>
+        {etiquet}
+        <a target="_blank" rel="noopener noreferrer" href={hr}>
+          Ver ahora!
+        </a>
+      </div>
+    </ThemeProvider>
   );
 }
 
@@ -60,7 +65,7 @@ function Home(props) {
             <h1>Recomendaciones del mes:</h1>
             {Reco
               ? Reco.map((e, i) =>
-                  Recomendaciones(e.name, e.hr, e.etiqueta, lightTheme, i)
+                  Recomendaciones(e.name, e.hr, e.etiqueta, i, props.theme)
                 )
               : null}
           </div>
