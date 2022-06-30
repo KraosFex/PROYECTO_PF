@@ -16,7 +16,7 @@ export default function QuiztCart({
   theme,
 }) {
   if (questions) {
-    const estandarTime = 10; //en segundos
+    const estandarTime = 120; //en segundos
     var style = darkTheme;
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -39,7 +39,6 @@ export default function QuiztCart({
       setTimeout(() => {
         if (preguntaActual === questions.length - 1) {
           setIsFinished(true);
-
           if ((100 * puntuacion) / (questions.length * 0.5) >= 80) {
             handleApproved(true);
           }
