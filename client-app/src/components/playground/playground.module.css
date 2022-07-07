@@ -43,3 +43,23 @@
     border: 3px solid rgb(118, 44, 44);
     padding: none;
 }
+
+
+@media (max-width: 900px) {
+    .topContainer {
+        margin: 0;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .codeEditorsContainer {
+        width: 100%;
+        margin-top: 4em;
+        
+    }
+
+    .iframeContainer {
+        width: 100%;
+    }
+
+}
