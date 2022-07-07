@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import darkTheme from "./asideDark.module.css";
 import lightTheme from "./asideLight.module.css";
-import CodeIcon from "../../../icons/code.jsx";
 import Discord from "../../../icons/Discord.jsx";
 import CursoIcon from "../../../icons/libro.jsx";
+import { RiGameLine } from "react-icons/ri";
 import { ThemeProvider } from "styled-components";
 import { NavLink } from "react-router-dom";
 
@@ -52,6 +52,12 @@ function NavBar(props) {
         <div className={style.icon}>
           <Discord />
           <a href="https://discord.gg/eVpqWgmD" className={style.hide}>Unete a Discord!</a>
+        </div>
+        <div className={style.icon}>
+            <RiGameLine />
+            <NavLink to="/playground" className={style.hide}>
+              Playground
+            </NavLink>
         </div>
       </div>
     </ThemeProvider>

@@ -1,10 +1,7 @@
 // Libraries
-import { useEffect } from "react";
-import { Outlet, Route, Routes } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 
-//actions redux
-import { getCourses, getRanking } from "../redux/actions/index";
+import { Outlet, Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // compoents
 import Home from "./components/home/home";
@@ -23,6 +20,7 @@ import UsersPage from "./components/adminPages/usersPage/usersPage";
 import PaymentGateway from "./components/paymentGateway/paymentGateway.jsx";
 import Success from "../src/components/paymentGateway/success/success";
 import ForgotPassword from "./components/forgotPassword/forgotPassword";
+import Playground from "./components/playground/playground";
 
 // styles
 import style from "./index.modules.css";
@@ -56,6 +54,7 @@ console.log(user)
           <Route path="/course/:id" element={<CourseDetail theme={theme} />} />
           <Route element={<PrivateRoute isLogged={isLogged} />}>
             <Route path="/perfil" element={<Perfil theme={theme} />} />
+            <Route path="/playground" element={<Playground />} />
             <Route
               path="/course/:idCourse/:idLesson"
               element={<LessonPage theme={theme} />}

@@ -4,7 +4,6 @@ import { setAuthToken } from "../../../redux/reducer/index";
 import style from "./register.module.css";
 import validator from "../../utils/validator.js";
 import { useNavigate, Link, NavLink } from "react-router-dom";
-import Google from "../../icons/google";
 import { useDispatch } from "react-redux";
 
 function Register() {
@@ -58,7 +57,7 @@ function Register() {
         })
       );
       var response = dis.payload;
-      
+    
 
       if (response.success) {
         setRegisterError({});
